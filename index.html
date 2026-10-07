@@ -3,305 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paul Signe - Portfolio de Compétences | ENSAM Bordeaux</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>Paul Signe - Portfolio UX/Tech</title>
     <style>
+        /* --- STYLES GLOBAUX (Inspiration Tabfolio) --- */
         :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --primary: #0284c7;
-            --accent: #38bdf8;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
+            --bg-body: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #0f172a;
+            --bg-pill: #f1f5f9;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background: var(--bg-body);
             color: var(--text-main);
-            line-height: 1.6;
-            padding-bottom: 60px;
-        }
-
-        header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            border-bottom: 2px solid var(--primary);
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .header-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: var(--text-main);
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .contact-tags {
+            min-height: 100vh;
+            padding: 50px 20px;
             display: flex;
             justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
+            align-items: flex-start;
+        }
+
+        /* Conteneur principal façon "App" */
+        .app-container {
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 1100px;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            padding: 50px;
+            position: relative;
+        }
+
+        /* --- EN-TÊTE PROFIL --- */
+        .profile-header {
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        }
+
+        .profile-header h1 {
+            font-size: 2.8rem;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            color: #000000;
+        }
+
+        .profile-header p {
+            font-size: 1.15rem;
             color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
 
-        .contact-tags span {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px 12px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
+        .action-buttons {
+            display: flex;
+            gap: 12px;
         }
 
-        main {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
+        .btn {
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            cursor: pointer;
         }
 
-        .section-title {
-            font-size: 1.5rem;
-            border-left: 4px solid var(--primary);
-            padding-left: 12px;
-            margin: 40px 0 20px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { background: transparent; color: var(--text-main); }
+        .btn-secondary:hover { background: var(--bg-pill); }
+
+        /* --- NAVIGATION (Onglets) --- */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
         }
 
-        /* PITCH BOX */
-        .pitch-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        .pill-nav {
+            background: var(--bg-pill);
+            padding: 6px;
+            border-radius: 40px;
+            display: inline-flex;
+            gap: 5px;
         }
 
-        .pitch-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
+        .pill-nav button {
+            background: transparent;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .pitch-card h3 {
-            color: var(--accent);
-            margin-bottom: 10px;
+        .pill-nav button.active {
+            background: #ffffff;
+            color: var(--text-main);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-weight: 600;
         }
 
-        /* PROJECT CARDS */
+        /* --- ONGLETS CONTENU --- */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- GRILLES DE PROJETS --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 30px;
         }
 
         .project-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: #f8fafc;
+            border-radius: 28px;
+            padding: 24px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .project-card:hover {
             transform: translateY(-4px);
-            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
-        .badge {
-            align-self: flex-start;
-            background-color: rgba(2, 132, 199, 0.2);
-            color: var(--accent);
-            border: 1px solid var(--primary);
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .project-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            background-color: #e2e8f0;
         }
 
-        .project-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
+        .project-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
         }
 
-        .project-card ul {
-            list-style: none;
-            font-size: 0.9rem;
+        .project-info p {
             color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .project-tags span {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-right: 6px;
+        }
+
+        /* --- GRILLE COMPÉTENCES --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 30px;
+        }
+
+        .skill-card h3 {
+            font-size: 1.1rem;
             margin-bottom: 15px;
+            color: var(--primary);
         }
 
-        .project-card ul li {
-            margin-bottom: 6px;
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            padding-left: 20px;
             position: relative;
-            padding-left: 15px;
         }
 
-        .project-card ul li::before {
+        .skill-list li::before {
             content: "•";
-            color: var(--accent);
+            color: #38bdf8;
             position: absolute;
             left: 0;
+            font-size: 1.2rem;
+            top: -2px;
         }
 
-        .outcome {
-            background-color: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #34d399;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+            .app-container { padding: 30px; border-radius: 30px; }
+            .profile-header h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <h1>Paul SIGNE</h1>
-            <div class="subtitle">Élève Bachelor de Technologie – ENSAM Bordeaux-Talence</div>
-            <div class="contact-tags">
-                <span><i class="fa-solid fa-graduation-cap"></i> Promotion 2025-2028</span>
-                <span><i class="fa-solid fa-location-dot"></i> Bordeaux, France</span>
-                <span><i class="fa-solid fa-envelope"></i> paul.signe@ensam.eu</span>
-                <span><i class="fa-solid fa-phone"></i> 06 51 72 41 07</span>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <div class="section-title">Présentation & Objectif</div>
-        <div class="pitch-grid">
-            <div class="pitch-card">
-                <h3><i class="fa-solid fa-bullseye"></i> Objectif de Stage</h3>
-                <p>Recherche d'un stage technicien de 12 semaines (12/04/2026 au 02/07/2026) avec opportunité de poursuite en alternance d'assistant ingénieur.</p>
-            </div>
-            <div class="pitch-card">
-                <h3><i class="fa-solid fa-drafting-compass"></i> Conception & CAO</h3>
-                <p>Modélisation 3D et assemblages complexes sous CATIA V5 et Onshape, vérification des contraintes cinématiques et degrés de liberté.</p>
-            </div>
-            <div class="pitch-card">
-                <h3><i class="fa-solid fa-gears"></i> Prototypage & Procédés</h3>
-                <p>Usinage sur tour conventionnel (EPI, métrologie), impression 3D FDM, câblage/soudure et programmation C++ (Arduino) & Python.</p>
-            </div>
-        </div>
-
-        <div class="section-title">Projets Techniques & Fiches Missions</div>
-        <div class="projects-grid">
+    <div class="app-container">
+        
+        <!-- EN-TÊTE PROFIL -->
+        <header class="profile-header">
+            <!-- Remplacer le src par ton image de profil -->
+            <img src="images/photo-profil.png" alt="Paul Signe" class="profile-pic" onerror="this.src='https://via.placeholder.com/80'">
             
-            <div class="project-card">
-                <div>
-                    <span class="badge">RÉALISER | USINAGE</span>
-                    <h3>Usinage de Précision sur Tour Conventionnel</h3>
-                    <ul>
-                        <li>Chariotage étagé, alésage intérieur et réalisation de congés.</li>
-                        <li>Contrôle métrologique continu au pied à coulisse au 1/50ème.</li>
-                        <li>Respect des consignes de sécurité et port des EPI.</li>
-                    </ul>
+            <h1>Paul Signe</h1>
+            <p>Élève Bachelor de Technologie aux Arts et Métiers (ENSAM Bordeaux). Profil polyvalent axé sur la conception, le prototypage, et les systèmes embarqués.</p>
+            
+            <div class="action-buttons">
+                <a href="mailto:paul.signe@ensam.eu" class="btn btn-primary">Me contacter</a>
+                <a href="CV_Paul_Signe.pdf" target="_blank" class="btn btn-secondary">Télécharger mon CV</a>
+            </div>
+        </header>
+
+        <!-- NAVIGATION (Onglets) -->
+        <nav class="nav-container">
+            <div class="pill-nav">
+                <button class="tab-btn active" onclick="openTab('projects', event)">Projets</button>
+                <button class="tab-btn" onclick="openTab('skills', event)">Compétences</button>
+            </div>
+        </nav>
+
+        <main>
+            <!-- ONGLET 1 : PROJETS -->
+            <div id="projects" class="tab-content active">
+                <div class="projects-grid">
+                    
+                    <!-- PROJET 1 -->
+                    <!-- Remplace le href par le lien de ta page dédiée -->
+                    <a href="projet-usinage.html" class="project-card">
+                        <img src="images/projet-usinage.jpg" alt="Usinage" class="project-img" onerror="this.src='https://via.placeholder.com/450x280?text=Photo+Usinage'">
+                        <div class="project-info">
+                            <h3>Usinage de Précision sur Tour</h3>
+                            <p>Usinage d'une pièce étagée sur tour conventionnel (alésage, congé) et contrôle métrologique au pied à coulisse au 1/50ème.</p>
+                            <div class="project-tags">
+                                <span>RÉALISER</span>
+                                <span>MÉTROLOGIE</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- PROJET 2 -->
+                    <a href="projet-arduino.html" class="project-card">
+                        <img src="images/projet-arduino.jpg" alt="Arduino" class="project-img" onerror="this.src='https://via.placeholder.com/450x280?text=Photo+Arduino'">
+                        <div class="project-info">
+                            <h3>Système Embarqué Arduino (C++)</h3>
+                            <p>Câblage, soudure et programmation d'un circuit de commande moteur réagissant en temps réel à un capteur ultrason (HC-SR04).</p>
+                            <div class="project-tags">
+                                <span>ÉLECTRONIQUE</span>
+                                <span>C++</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- PROJET 3 -->
+                    <a href="projet-catia.html" class="project-card">
+                        <img src="images/projet-catia.jpg" alt="CATIA V5" class="project-img" onerror="this.src='https://via.placeholder.com/450x280?text=Photo+CATIA'">
+                        <div class="project-info">
+                            <h3>Modélisation & Assemblage CATIA V5</h3>
+                            <p>Conception 3D d'un assemblage mécatronique : application des contraintes et analyse des degrés de liberté du mécanisme.</p>
+                            <div class="project-tags">
+                                <span>CONCEVOIR</span>
+                                <span>CAO 3D</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- PROJET 4 -->
+                    <a href="projet-python.html" class="project-card">
+                        <img src="images/projet-python.jpg" alt="Python" class="project-img" onerror="this.src='https://via.placeholder.com/450x280?text=Photo+Python'">
+                        <div class="project-info">
+                            <h3>Développement Logiciel Python (Pygame)</h3>
+                            <p>Programmation intégrale d'un jeu, gestion des événements de collision, rédaction de l'algorigramme et du dossier technique.</p>
+                            <div class="project-tags">
+                                <span>CODE</span>
+                                <span>ALGORITHMIQUE</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- PROJET 5 -->
+                    <a href="projet-impression3d.html" class="project-card">
+                        <img src="images/projet-3d.jpg" alt="Impression 3D" class="project-img" onerror="this.src='https://via.placeholder.com/450x280?text=Photo+Impression+3D'">
+                        <div class="project-info">
+                            <h3>Prototypage & Impression 3D</h3>
+                            <p>Fabrication FDM de pièces structurales, retrait des supports, ajustement et intégration d'un servomoteur rotatif.</p>
+                            <div class="project-tags">
+                                <span>PROTOTYPAGE</span>
+                                <span>ASSEMBLAGE</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- PROJET 6 -->
+                    <a href="projet-edo.html" class="project-card">
+                        <img src="images/projet-edo.jpg" alt="EDO" class="project-img" onerror="this.src='https://via.placeholder.com/450x280?text=Photo+Maths'">
+                        <div class="project-info">
+                            <h3>Modélisation Mathématique (EDO)</h3>
+                            <p>Analyse et résolution analytique d'équations différentielles d'ordre élevé pour modéliser le comportement dynamique de systèmes physiques.</p>
+                            <div class="project-tags">
+                                <span>ANALYSE</span>
+                                <span>SCIENCES</span>
+                            </div>
+                        </div>
+                    </a>
+
                 </div>
-                <div class="outcome">Pièce usinée conforme à 100% aux spécifications plans.</div>
             </div>
 
-            <div class="project-card">
-                <div>
-                    <span class="badge">RÉALISER | IMPRESSION 3D</span>
-                    <h3>Prototypage & Assemblage Mécanique</h3>
-                    <ul>
-                        <li>Fabrication de pièces structurales par impression 3D PLA.</li>
-                        <li>Retrait des supports, ébavurage et ajustement mécanique.</li>
-                        <li>Intégration d'un servomoteur rotatif et de capteurs.</li>
-                    </ul>
+            <!-- ONGLET 2 : COMPÉTENCES -->
+            <div id="skills" class="tab-content">
+                <div class="skills-grid">
+                    
+                    <div class="skill-card">
+                        <h3>CAO & Conception</h3>
+                        <ul class="skill-list">
+                            <li>CATIA V5 (Part & Assembly Design)</li>
+                            <li>Onshape (Modélisation cloud)</li>
+                            <li>Gestion d'arborescence Product</li>
+                            <li>Vérification des mobilités</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>Code & Embarqué</h3>
+                        <ul class="skill-list">
+                            <li>C++ (Arduino IDE)</li>
+                            <li>Python (Bibliothèque Pygame)</li>
+                            <li>Algorithmique & Algorigrammes</li>
+                            <li>Pilotage de servomoteurs / capteurs</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>Atelier & Prototypage</h3>
+                        <ul class="skill-list">
+                            <li>Usinage sur tour conventionnel</li>
+                            <li>Impression 3D (Technologie FDM)</li>
+                            <li>Câblage & Soudure électronique</li>
+                            <li>Métrologie (Pied à coulisse 1/50e)</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>Sciences & Langues</h3>
+                        <ul class="skill-list">
+                            <li>Résolution analytique d'EDO</li>
+                            <li>Anglais : Niveau B2</li>
+                            <li>Allemand : Niveau A1</li>
+                        </ul>
+                    </div>
+
                 </div>
-                <div class="outcome">Assemblage ajusté avec guidage fluide sans point dur.</div>
             </div>
 
-            <div class="project-card">
-                <div>
-                    <span class="badge">RÉALISER | PILOTER</span>
-                    <h3>Câblage & Code C++ (Arduino)</h3>
-                    <ul>
-                        <li>Montage de circuit sur Sensor Shield et soudures à l'étain.</li>
-                        <li>Capteur ultrason HC-SR04 et temporisations microsecondes.</li>
-                        <li>Asservissement et pilotage de moteur CC en temps réel.</li>
-                    </ul>
-                </div>
-                <div class="outcome">Système embarqué autonome opérationnel.</div>
-            </div>
+        </main>
+    </div>
 
-            <div class="project-card">
-                <div>
-                    <span class="badge">RÉALISER | DÉVELOPPER</span>
-                    <h3>Application Informatique Python (Pygame)</h3>
-                    <ul>
-                        <li>Programmation intégrale d'un jeu interactif sous Pygame.</li>
-                        <li>Gestion de la cadence d'affichage et des collisions.</li>
-                        <li>Modélisation par algorigramme et rapport technique.</li>
-                    </ul>
-                </div>
-                <div class="outcome">Application complète livrée dans les délais impartis.</div>
-            </div>
-
-            <div class="project-card">
-                <div>
-                    <span class="badge">CONCEVOIR | CAO 3D</span>
-                    <h3>Modélisation & Assemblage CATIA V5</h3>
-                    <ul>
-                        <li>Modélisation volumique sous Part Design.</li>
-                        <li>Assemblage sous Assembly Design (coaxialité, coïncidence).</li>
-                        <li>Validation de l'arborescence et des mobilités mécaniques.</li>
-                    </ul>
-                </div>
-                <div class="outcome">Maquette numérique 3D validée sans sur-contrainte.</div>
-            </div>
-
-            <div class="project-card">
-                <div>
-                    <span class="badge">CONCEVOIR | ANALYSER</span>
-                    <h3>Résolution d'Équations Différentielles (EDO)</h3>
-                    <ul>
-                        <li>Résolution de l'équation homogène à racines complexes.</li>
-                        <li>Variation de la constante pour les solutions particulières.</li>
-                        <li>Modélisation du comportement dynamique des systèmes.</li>
-                    </ul>
-                </div>
-                <div class="outcome">Modèle analytique exact validé en contrôle.</div>
-            </div>
-
-        </div>
-    </main>
-
-    <footer>
-        <p>© 2026 Paul Signe – Bachelor de Technologie Arts et Métiers ENSAM Bordeaux</p>
-    </footer>
-
+    <!-- SCRIPT GESTION DES ONGLETS -->
+    <script>
+        function openTab(tabName, event) {
+            var contents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+            
+            var btns = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>

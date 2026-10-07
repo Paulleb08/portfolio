@@ -53,11 +53,7 @@
             font-weight: 600;
         }
 
-        .lang-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            transition: color 0.3s;
-        }
+        .lang-label { font-size: 14px; color: var(--text-muted); transition: color 0.3s; }
         .lang-label.active { color: var(--primary); font-weight: 700; }
 
         .switch { position: relative; display: inline-block; width: 54px; height: 28px; }
@@ -68,10 +64,11 @@
         input:checked + .slider:before { transform: translateX(26px); }
 
         /* --- EN-TÊTE PROFIL --- */
-        .profile-header { max-width: 800px; margin-bottom: 40px; text-align: center; margin-left: auto; margin-right: auto; margin-top: 20px; }
+        .profile-header { max-width: 850px; margin-bottom: 40px; text-align: center; margin-left: auto; margin-right: auto; margin-top: 20px; }
         .profile-pic { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.1); border: 2px solid #e2e8f0;}
         .profile-header h1 { font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 12px; }
         .profile-header p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
+        .alternance-badge { display: inline-block; background: #e0f2fe; color: #0284c7; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; margin-bottom: 25px;}
         
         .action-buttons { display: flex; justify-content: center; gap: 12px; }
         .btn { text-decoration: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; transition: all 0.2s ease; cursor: pointer; display: inline-block; }
@@ -79,6 +76,8 @@
         .btn-primary { background: var(--primary); color: white; border: none;}
         .btn-secondary { background: transparent; color: var(--text-main); border: 1px solid #e2e8f0; }
         .btn-secondary:hover { background: var(--bg-pill); }
+        .btn-outline-blue { border: 2px solid var(--accent); color: var(--accent); background: white; }
+        .btn-outline-blue:hover { background: var(--accent); color: white; }
 
         /* --- NAVIGATION --- */
         .nav-container { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; }
@@ -102,7 +101,7 @@
 
         /* --- TABLEAU DE VALORISATION --- */
         .table-wrapper { width: 100%; overflow-x: auto; background: #f8fafc; border-radius: 24px; padding: 20px; border: 1px solid #e2e8f0; }
-        table { width: 100%; border-collapse: collapse; min-width: 900px; text-align: left; }
+        table { width: 100%; border-collapse: collapse; min-width: 950px; text-align: left; }
         th { background: var(--primary); color: white; padding: 16px 14px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
         th:first-child { border-top-left-radius: 12px; } th:last-child { border-top-right-radius: 12px; }
         td { padding: 16px 14px; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; color: var(--text-muted); vertical-align: top; line-height: 1.5; }
@@ -136,7 +135,7 @@
         .modal-title { font-size: 2.2rem; margin-bottom: 10px; color: var(--text-main); letter-spacing: -0.5px;}
         .modal-meta { color: var(--accent); font-weight: 600; margin-bottom: 30px; font-size: 1rem; }
         .modal-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; }
-        .modal-subtitle { font-size: 1.4rem; color: var(--primary); margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;}
+        .modal-subtitle { font-size: 1.3rem; color: var(--primary); margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;}
         
         .competence-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 16px; margin-bottom: 15px; }
         .competence-box h4 { color: var(--accent); margin-bottom: 8px; font-size: 1.1rem;}
@@ -145,7 +144,7 @@
             .app-container { padding: 40px 15px; border-radius: 20px; margin-top: 40px; }
             .profile-header h1 { font-size: 2.2rem; }
             .action-buttons { flex-direction: column; }
-            .lang-switch-container { top: 15px; right: 50%; transform: translateX(50%); } /* Centré sur mobile */
+            .lang-switch-container { top: 15px; right: 50%; transform: translateX(50%); } 
             .modal-content { padding: 30px 20px; }
             .modal-hero-img { height: 200px; }
         }
@@ -172,6 +171,11 @@
             
             <p lang="fr">Objectif : Stage Technicien (12 semaines) — ENSAM Bordeaux Promo 2025-2028</p>
             <p lang="en">Objective: 12-week Technical Internship — ENSAM Bordeaux Class of 2025-2028</p>
+
+            <div class="alternance-badge">
+                <span lang="fr">🎓 Ouvert à une poursuite en Contrat de Professionnalisation / Alternance</span>
+                <span lang="en">🎓 Open to a follow-up Work-Study / Apprenticeship contract</span>
+            </div>
             
             <div class="action-buttons">
                 <a href="mailto:paul.signe@ensam.eu" class="btn btn-primary">
@@ -187,26 +191,25 @@
         <nav class="nav-container">
             <div class="pill-nav">
                 <button class="tab-btn active" onclick="openTab('projets', event)">
-                    <span lang="fr">Dossiers Missions (Projets)</span><span lang="en">Project Portfolios</span>
+                    <span lang="fr">Fiches Missions (Projets)</span><span lang="en">Mission Briefs (Projects)</span>
                 </button>
                 <button class="tab-btn" onclick="openTab('bilan', event)">
                     <span lang="fr">Pitch & Expériences</span><span lang="en">Pitch & Experience</span>
                 </button>
                 <button class="tab-btn" onclick="openTab('competences', event)">
-                    <span lang="fr">Compétences Techniques</span><span lang="en">Technical Skills</span>
+                    <span lang="fr">Détail Compétences</span><span lang="en">Detailed Skills</span>
                 </button>
                 <button class="tab-btn" onclick="openTab('annexes', event)">
-                    <span lang="fr">Annexes</span><span lang="en">Appendices</span>
+                    <span lang="fr">Annexes & École</span><span lang="en">Appendices & School</span>
                 </button>
             </div>
         </nav>
 
         <main>
-            <!-- 1. ONGLET PROJETS -->
+            <!-- 1. ONGLET PROJETS (Fiches missions) -->
             <div id="projets" class="tab-content active">
                 <div class="projects-grid">
                     
-                    <!-- Carte Robot Bipède -->
                     <div class="project-card" onclick="openModal('modal-robot')">
                         <img src="images/projet-arduino.jpg" alt="Arduino" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Robot+Arduino'">
                         <div class="project-info">
@@ -215,31 +218,28 @@
                             <p lang="en">Complete project: mechanical design, electronic wiring, and coding an autonomous system.</p>
                             <div class="project-tags">
                                 <span><span lang="fr">MÉCATRONIQUE</span><span lang="en">MECHATRONICS</span></span>
-                                <span><span lang="fr">MULTIDISCIPLINAIRE</span><span lang="en">MULTIDISCIPLINARY</span></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Carte Usinage -->
                     <div class="project-card" onclick="openModal('modal-usinage')">
                         <img src="images/projet-usinage.jpg" alt="Usinage" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Usinage'">
                         <div class="project-info">
                             <h3><span lang="fr">Usinage Conventionnel</span><span lang="en">Conventional Machining</span></h3>
-                            <p lang="fr">Fabrication d'une pièce étagée en aluminium. Chariotage, alésage, et contrôle métrologique strict au 1/50e.</p>
-                            <p lang="en">Manufacturing an aluminum stepped part. Turning, boring, and strict metrological control (1/50th).</p>
+                            <p lang="fr">Fabrication d'une pièce étagée en aluminium. Chariotage, alésage, et contrôle métrologique strict.</p>
+                            <p lang="en">Manufacturing an aluminum stepped part. Turning, boring, and strict metrological control.</p>
                             <div class="project-tags">
                                 <span><span lang="fr">ATELIER</span><span lang="en">WORKSHOP</span></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Carte CATIA -->
                     <div class="project-card" onclick="openModal('modal-catia')">
                         <img src="images/projet-catia.jpg" alt="CATIA V5" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=CATIA'">
                         <div class="project-info">
                             <h3><span lang="fr">Conception Assemblage (CATIA)</span><span lang="en">Assembly Design (CATIA)</span></h3>
-                            <p lang="fr">Modélisation 3D de systèmes, gestion des contraintes géométriques, cinématiques et arborescence.</p>
-                            <p lang="en">3D system modeling, geometric and kinematic constraints management, product tree structuring.</p>
+                            <p lang="fr">Modélisation 3D, gestion des contraintes géométriques, cinématiques et arborescence.</p>
+                            <p lang="en">3D modeling, geometric/kinematic constraints management, product tree structuring.</p>
                             <div class="project-tags">
                                 <span>CAO 3D</span>
                             </div>
@@ -254,83 +254,110 @@
                 <div class="pitch-box">
                     <h2><span lang="fr">Pitch de présentation</span><span lang="en">Elevator Pitch</span></h2>
                     <div lang="fr">
-                        <p><strong>Situation actuelle :</strong> Élève en 2ème année de Bachelor de Technologie aux Arts et Métiers (ENSAM Bordeaux), je suis à la recherche d'un stage technicien de 12 semaines (avec un fort attrait pour l'international et les pays nordiques notamment).</p>
-                        <p><strong>1. Double vision Conception & Terrain :</strong> Capable de modéliser des assemblages complexes (CATIA V5), je m'appuie sur mes expériences d'atelier (usinage) et logistiques (La Poste PIC) pour concevoir des systèmes réalisables.</p>
-                        <p><strong>2. Esprit Mécatronique & Code :</strong> Je sais lier le matériel et le logiciel. Que ce soit par le prototypage Arduino ou le développement logiciel structuré (Python, algorigrammes), je sais automatiser et tester mes systèmes.</p>
-                        <p><strong>3. Management & Encadrement :</strong> Mon expérience d'animateur m'a forgé un solide esprit d'organisation et de réactivité. Savoir gérer des responsabilités et planifier des projets de groupe est essentiel pour moi.</p>
+                        <p><strong>Situation actuelle :</strong> Élève en 2ème année de Bachelor de Technologie aux Arts et Métiers (ENSAM Bordeaux), je recherche un stage technicien de 12 semaines, avec un fort attrait pour l'international. Je suis également <strong>ouvert à une poursuite en contrat de professionnalisation (alternance)</strong> pour finaliser ma formation.</p>
+                        <p><strong>1. Double vision Conception & Terrain :</strong> Capable de modéliser des assemblages complexes (CATIA V5), je m'appuie sur mes expériences d'atelier (usinage) et logistiques (La Poste PIC) pour concevoir des systèmes réalisables, intégrant les contraintes de production.</p>
+                        <p><strong>2. Esprit Mécatronique & Code :</strong> Je sais lier matériel et logiciel (Arduino, PWM, C++, Python) pour automatiser et tester les systèmes.</p>
+                        <p><strong>3. Management & Encadrement :</strong> Mon expérience d'animateur a forgé ma réactivité et mon leadership. Gérer des responsabilités et des projets d'équipe est une force de mon profil.</p>
                     </div>
                     <div lang="en">
-                        <p><strong>Current Situation:</strong> 2nd-year Bachelor of Technology student at Arts et Métiers (ENSAM Bordeaux), actively seeking a 12-week technical internship abroad (Scandinavia/Nordic countries being of strong interest).</p>
+                        <p><strong>Current Situation:</strong> 2nd-year Bachelor of Technology student at Arts et Métiers (ENSAM Bordeaux), seeking a 12-week technical internship abroad. I am also <strong>open to continuing with a work-study (apprenticeship) contract</strong>.</p>
                         <p><strong>1. Dual Vision - Design & Field:</strong> Capable of modeling complex assemblies (CATIA V5), I leverage my hands-on workshop (machining) and logistics (La Poste) experiences to design manufacturable systems.</p>
-                        <p><strong>2. Mechatronics & Coding Mindset:</strong> I bridge hardware and software. Through Arduino prototyping or structured software development (Python), I know how to automate and test systems.</p>
-                        <p><strong>3. Management & Leadership:</strong> My experience as a youth counselor forged strong organizational and adaptability skills. Managing responsibilities and planning group projects is an essential component of my profile.</p>
+                        <p><strong>2. Mechatronics & Coding:</strong> I bridge hardware and software (Arduino, PWM, C++, Python) to automate and test physical systems.</p>
+                        <p><strong>3. Management & Leadership:</strong> My youth counselor experience forged strong organizational skills. Managing responsibilities and planning group projects is a key strength.</p>
                     </div>
                 </div>
 
                 <h3 style="margin-bottom: 15px; color: var(--primary);">
-                    <span lang="fr">Tableau de Valorisation d'Expériences Complètes</span><span lang="en">Experience Valuation Matrix</span>
+                    <span lang="fr">Tableau de Valorisation d'Expériences (Obligatoire)</span><span lang="en">Experience Valuation Matrix</span>
                 </h3>
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th style="min-width: 180px;"><span lang="fr">Expériences & Projets</span><span lang="en">Experiences & Projects</span></th>
-                                <th style="min-width: 180px;"><span lang="fr">Savoirs (Théorie)</span><span lang="en">Knowledge (Theory)</span></th>
-                                <th style="min-width: 180px;"><span lang="fr">Savoir-Faire (Technique)</span><span lang="en">Hard Skills</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Activités / Projets</span><span lang="en">Activities & Projects</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Savoirs (Connaissances)</span><span lang="en">Knowledge (Theory)</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Savoir-Faire (Techniques)</span><span lang="en">Hard Skills</span></th>
                                 <th style="min-width: 160px;"><span lang="fr">Savoir-Être (Attitudes)</span><span lang="en">Soft Skills</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Exemple de Situations</span><span lang="en">Situational Example</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Lien avec le Stage</span><span lang="en">Value for Internship</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><span class="td-bold"><span lang="fr">Logistique Industrielle</span><span lang="en">Industrial Logistics</span></span><br><span style="font-size: 0.8rem;">La Poste PIC Cestas</span></td>
+                                <td><span class="tag-domaine"><span lang="fr">Stage Industriel</span><span lang="en">Industrial Intern</span></span><br><span class="td-bold"><span lang="fr">Agent Logistique</span><span lang="en">Logistics Agent</span></span><br><span style="font-size: 0.8rem;">La Poste PIC Cestas</span></td>
                                 <td><span lang="fr">Process de tri, normes HSE.</span><span lang="en">Sorting processes, HSE standards.</span></td>
-                                <td><span lang="fr">Opérer sur chaîne de production, rapports techniques.</span><span lang="en">Operating on production line, writing reports.</span></td>
-                                <td><span lang="fr">Adaptabilité, ponctualité, respect process.</span><span lang="en">Adaptability, punctuality, safety compliance.</span></td>
+                                <td><span lang="fr">Opérer sur chaîne de production, cadences, rédaction de rapport.</span><span lang="en">Operating on production line, quotas, report writing.</span></td>
+                                <td><span lang="fr">Adaptabilité, ponctualité, respect strict des process EPI.</span><span lang="en">Adaptability, punctuality, safety compliance.</span></td>
+                                <td><span lang="fr">Intégration directe sur ligne de tri automatisée grande capacité.</span><span lang="en">Direct integration on a high-capacity automated sorting line.</span></td>
+                                <td><span lang="fr">Connaissance du "terrain", parfait pour l'industrialisation.</span><span lang="en">Knowledge of the "field", perfect for manufacturing/methods.</span></td>
                             </tr>
                             <tr>
-                                <td><span class="td-bold"><span lang="fr">Animation & Encadrement</span><span lang="en">Youth Leadership</span></span><br><span style="font-size: 0.8rem;">Les Mille Potes</span></td>
-                                <td><span lang="fr">Pédagogie, réglementation ALSH.</span><span lang="en">Pedagogy, safety regulations.</span></td>
-                                <td><span lang="fr">Piloter un groupe, planifier un rétroplanning.</span><span lang="en">Leading groups, creating schedules.</span></td>
-                                <td><span lang="fr">Leadership, gestion de crise, écoute active.</span><span lang="en">Leadership, crisis management, active listening.</span></td>
+                                <td><span class="tag-domaine"><span lang="fr">Job Étudiant</span><span lang="en">Student Job</span></span><br><span class="td-bold"><span lang="fr">Animateur BAFA</span><span lang="en">Camp Counselor</span></span><br><span style="font-size: 0.8rem;">Les Mille Potes</span></td>
+                                <td><span lang="fr">Pédagogie, réglementation ALSH.</span><span lang="en">Pedagogy, youth regulations.</span></td>
+                                <td><span lang="fr">Piloter un groupe (12 pers), élaborer un rétroplanning.</span><span lang="en">Leading groups, creating weekly schedules.</span></td>
+                                <td><span lang="fr">Leadership, gestion de conflit, écoute active.</span><span lang="en">Leadership, conflict resolution, active listening.</span></td>
+                                <td><span lang="fr">Conception et animation de semaines thématiques.</span><span lang="en">Design and execution of themed activity weeks.</span></td>
+                                <td><span lang="fr">Compétences de management et coordination d'équipe.</span><span lang="en">Management and team coordination skills.</span></td>
                             </tr>
                             <tr>
-                                <td><span class="td-bold"><span lang="fr">Conception CAO (CATIA)</span><span lang="en">CAD Design (CATIA)</span></span></td>
-                                <td><span lang="fr">Mécanismes, cotation fonctionnelle.</span><span lang="en">Mechanisms, functional tolerancing.</span></td>
-                                <td><span lang="fr">Modélisation 3D, assemblage contraint.</span><span lang="en">3D modeling, constrained assembly.</span></td>
-                                <td><span lang="fr">Précision spatiale, rigueur d'arborescence.</span><span lang="en">Spatial accuracy, file structuring rigor.</span></td>
+                                <td><span class="tag-domaine"><span lang="fr">Projet Ingénierie</span><span lang="en">Engineering Project</span></span><br><span class="td-bold"><span lang="fr">CAO & Assemblage</span><span lang="en">CAD & Assembly</span></span><br><span style="font-size: 0.8rem;">CATIA V5</span></td>
+                                <td><span lang="fr">Théorie des mécanismes, degrés de liberté.</span><span lang="en">Mechanism theory, degrees of freedom.</span></td>
+                                <td><span lang="fr">Modélisation 3D, contraintes géométriques, arborescence.</span><span lang="en">3D modeling, geometric constraints, product trees.</span></td>
+                                <td><span lang="fr">Précision spatiale, rigueur analytique.</span><span lang="en">Spatial precision, analytical rigor.</span></td>
+                                <td><span lang="fr">Résolution de sur-contraintes dans une maquette numérique.</span><span lang="en">Solving over-constraints in a digital mockup.</span></td>
+                                <td><span lang="fr">Appui opérationnel direct en Bureau d'Études (BE).</span><span lang="en">Direct operational support in R&D or Design Office.</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- 3. ONGLET COMPÉTENCES -->
+            <!-- 3. ONGLET COMPÉTENCES DÉTAILLÉES -->
             <div id="competences" class="tab-content">
                 <div class="skills-grid">
                     <div class="skill-card">
-                        <h3><span lang="fr">CAO & Conception</span><span lang="en">CAD & Design</span></h3>
+                        <h3><span lang="fr">CAO & Conception Mécanique</span><span lang="en">CAD & Mechanical Design</span></h3>
                         <ul class="skill-list" lang="fr">
-                            <li>CATIA V5 & Onshape</li>
-                            <li>Assemblages multi-pièces complexes</li>
-                            <li>Gestion d'arborescence Product</li>
+                            <li><strong>Logiciels :</strong> CATIA V5 (Part & Assembly Design), Onshape.</li>
+                            <li><strong>Expertise :</strong> Modélisation paramétrique, surfacique basique, et assemblages complexes.</li>
+                            <li><strong>Études :</strong> Théorie des mécanismes, analyse cinématique, hyperstatisme.</li>
+                            <li><strong>Plans :</strong> Tolérancement géométrique (GPS), cotation fonctionnelle.</li>
                         </ul>
                         <ul class="skill-list" lang="en">
-                            <li>CATIA V5 & Onshape</li>
-                            <li>Multi-part complex assemblies</li>
-                            <li>Product tree management</li>
+                            <li><strong>Software:</strong> CATIA V5 (Part & Assembly Design), Onshape.</li>
+                            <li><strong>Expertise:</strong> Parametric modeling, complex assemblies.</li>
+                            <li><strong>Studies:</strong> Mechanism theory, kinematics analysis.</li>
+                            <li><strong>Drafting:</strong> Geometric Dimensioning and Tolerancing (GD&T).</li>
                         </ul>
                     </div>
                     <div class="skill-card">
-                        <h3><span lang="fr">Code & Électronique</span><span lang="en">Coding & Electronics</span></h3>
+                        <h3><span lang="fr">Électronique & Embarqué</span><span lang="en">Electronics & Embedded</span></h3>
                         <ul class="skill-list" lang="fr">
-                            <li>C++ (Arduino IDE) / Python</li>
-                            <li>Câblage de circuits de puissance</li>
-                            <li>Soudure de composants</li>
+                            <li><strong>Programmation :</strong> C, C++ (Arduino IDE), Python (Pygame).</li>
+                            <li><strong>Contrôle :</strong> Asservissement PID, génération de signaux PWM pour moteurs CC.</li>
+                            <li><strong>Matériel :</strong> Câblage de puissance (MOSFET), routage basique.</li>
+                            <li><strong>Fabrication :</strong> Soudure de composants sur cartes perforées, intégration capteurs.</li>
                         </ul>
                         <ul class="skill-list" lang="en">
-                            <li>C++ (Arduino IDE) / Python</li>
-                            <li>Power circuit wiring</li>
-                            <li>Component soldering</li>
+                            <li><strong>Programming:</strong> C, C++ (Arduino IDE), Python.</li>
+                            <li><strong>Control:</strong> PID loops, PWM signal generation for DC motors.</li>
+                            <li><strong>Hardware:</strong> Power wiring (MOSFET).</li>
+                            <li><strong>Fabrication:</strong> Component soldering, sensor integration.</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3><span lang="fr">Fabrication & Atelier</span><span lang="en">Manufacturing</span></h3>
+                        <ul class="skill-list" lang="fr">
+                            <li><strong>Usinage :</strong> Tournage conventionnel (chariotage, alésage, gorges). Bases en G-code.</li>
+                            <li><strong>Métrologie :</strong> Contrôle dimensionnel strict (pied à coulisse, jauge de profondeur).</li>
+                            <li><strong>Prototypage :</strong> Impression 3D (technologie FDM PLA/ABS), paramétrage trancheur.</li>
+                            <li><strong>Assemblage :</strong> Ajustement mécanique manuel, perçage, taraudage.</li>
+                        </ul>
+                        <ul class="skill-list" lang="en">
+                            <li><strong>Machining:</strong> Conventional turning (facing, boring). Basic G-code.</li>
+                            <li><strong>Metrology:</strong> Strict dimensional control (caliper).</li>
+                            <li><strong>Prototyping:</strong> 3D printing (FDM PLA/ABS), slicer config.</li>
+                            <li><strong>Assembly:</strong> Manual fitting, drilling, tapping.</li>
                         </ul>
                     </div>
                 </div>
@@ -339,56 +366,70 @@
             <!-- 4. ONGLET ANNEXES -->
             <div id="annexes" class="tab-content">
                 <div class="skills-grid">
-                    <a href="plaquette-ensam.pdf" target="_blank" class="project-card" style="text-align: center;">
-                        <h3 style="color: var(--primary); margin-bottom: 10px;"><span lang="fr">Plaquette ENSAM</span><span lang="en">ENSAM Brochure</span></h3>
-                    </a>
+                    
+                    <!-- BOX ENSAM -->
+                    <div class="skill-card" style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <h3 style="margin-bottom: 15px;"><span lang="fr">En savoir plus sur ma formation (ENSAM)</span><span lang="en">Learn more about my education (ENSAM)</span></h3>
+                        <p style="color: var(--text-muted); margin-bottom: 25px;"><span lang="fr">Découvrez le programme officiel du Bachelor de Technologie (Spécialité mécanique-production).</span><span lang="en">Discover the official Technology Bachelor program.</span></p>
+                        
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                            <a href="https://artsetmetiers.fr/fr/formation/bachelor-en-sciences-et-ingenierie" target="_blank" class="btn btn-primary">
+                                <span lang="fr">🌐 Visiter le Site Web</span><span lang="en">🌐 Visit Website</span>
+                            </a>
+                            <a href="https://s3-site.artsetmetiers.fr/public/2025-11/Bachelor%20en%20Sciences%20et%20Ingénierie_Spécialité%20mécanique-production_2025_11_19.pdf" target="_blank" class="btn btn-outline-blue">
+                                <span lang="fr">📄 Télécharger la Plaquette (PDF)</span><span lang="en">📄 Download Brochure (PDF)</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- BOX VISION BOARD -->
+                    <div class="skill-card" style="text-align: center;">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">Vision Board</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;"><span lang="fr">Mon projet professionnel illustré (Bonus).</span><span lang="en">My illustrated career project (Bonus).</span></p>
+                        <a href="vision-board.pdf" target="_blank" class="btn btn-secondary" style="font-size: 0.8rem; padding: 8px 16px;">
+                            <span lang="fr">Consulter l'Annexe</span><span lang="en">View Appendix</span>
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
-
         </main>
     </div>
 
     <!-- ============================================== -->
-    <!-- ZONE DES MODALES (POP-UPS DES DOSSIERS PROJETS) -->
+    <!-- ZONE DES MODALES (FICHES MISSIONS CONFORMES)   -->
     <!-- ============================================== -->
 
-    <!-- MODALE 1 : ROBOT BIPÈDE (Dossier multi-compétences) -->
+    <!-- MODALE 1 : ROBOT BIPÈDE -->
     <div id="modal-robot" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-robot')">&times;</button>
-            <img src="images/projet-arduino-detail.jpg" alt="Robot Bipède" class="modal-hero-img" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Robot'">
+            <img src="images/projet-arduino-detail.jpg" alt="Robot Bipède" class="modal-hero-img" onerror="this.src='https://via.placeholder.com/800x400?text=Robot+Arduino'">
             
-            <h2 class="modal-title"><span lang="fr">Conception d'un Robot Bipède & Banc Moteur</span><span lang="en">Bipedal Robot & Motor Test Bench</span></h2>
-            <div class="modal-meta">Projet Mécatronique ENSAM | 2026</div>
-            
-            <p class="modal-text" lang="fr">Ce projet ambitieux visait à réunir toutes les compétences techniques d'ingénierie autour d'un système autonome. Le but était de concevoir l'ossature, d'intégrer l'électronique de puissance, et de programmer les capteurs pour rendre le robot réactif à son environnement (détection d'obstacles par ultrason).</p>
-            <p class="modal-text" lang="en">This ambitious project aimed to combine all technical engineering skills around an autonomous system. The goal was to design the chassis, integrate power electronics, and program the sensors to make the robot reactive to its environment (obstacle detection via ultrasound).</p>
+            <h2 class="modal-title">FICHE MISSION : <span lang="fr">Robot Bipède & Banc Moteur</span><span lang="en">Bipedal Robot</span></h2>
+            <div class="modal-meta">Année : 2026 | Durée : 3 mois | ENSAM Bordeaux</div>
 
-            <h3 class="modal-subtitle"><span lang="fr">Dossier de Compétences Mobilisées</span><span lang="en">Mobilized Skills Portfolio</span></h3>
+            <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
+            <p class="modal-text" lang="fr"><strong>Activités permanentes :</strong> Conception mécanique (CAO), développement de boucles d'asservissement en C++, intégration matériel/logiciel.<br><strong>Activités ponctuelles :</strong> Câblage de puissance, soudure des composants de commande.</p>
+            <p class="modal-text" lang="en"><strong>Activities:</strong> Mechanical design (CAD), developing closed-loop control in C++, hardware/software integration, power wiring, and soldering.</p>
+
+            <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
+            <p class="modal-text" lang="fr"><strong>Moyens matériels :</strong> Arduino IDE, capteur HC-SR04, moteur CC, driver MOSFET, imprimante 3D (PLA).<br><strong>Contraintes :</strong> Structurelles (tolérance de jeu d'impression pour les articulations) et organisationnelles (coordination d'équipe).</p>
             
+            <h3 class="modal-subtitle"><span lang="fr">Faits Marquants & Compétences</span><span lang="en">Highlights & Skills</span></h3>
             <div class="competence-box">
-                <h4>1. <span lang="fr">Conception Mécanique (CAO & Impression 3D)</span><span lang="en">Mechanical Design (CAD & 3D Printing)</span></h4>
-                <p class="modal-text" lang="fr"><strong>Savoir-Faire :</strong> Modélisation des pièces sous CATIA V5, prise en compte des tolérances de jeu pour les articulations, et fabrication en prototypage rapide (FDM PLA). Retrait des supports et ajustement manuel.</p>
-                <p class="modal-text" lang="en"><strong>Hard Skills:</strong> Part modeling in CATIA V5, accounting for clearance tolerances for joints, and manufacturing via rapid prototyping (PLA FDM). Support removal and manual fitting.</p>
+                <h4><span lang="fr">Savoirs, Savoir-Faire et Savoir-Être</span><span lang="en">Skills</span></h4>
+                <ul class="skill-list" lang="fr">
+                    <li><strong>Savoirs :</strong> Théorie des signaux PWM, principes d'asservissement.</li>
+                    <li><strong>Savoir-Faire :</strong> Codage C++ sur IDE, soudure à l'étain, câblage électronique.</li>
+                    <li><strong>Savoir-Être :</strong> Débogage analytique (persévérance face aux pannes) et communication d'équipe.</li>
+                </ul>
             </div>
 
-            <div class="competence-box">
-                <h4>2. <span lang="fr">Électrotechnique (Soudure & Câblage)</span><span lang="en">Electrotechnics (Wiring & Soldering)</span></h4>
-                <p class="modal-text" lang="fr"><strong>Savoir-Faire :</strong> Intégration d'un microcontrôleur Arduino, soudure à l'étain sur carte perforée, câblage de puissance pour un moteur CC et raccordement d'un capteur HC-SR04.</p>
-                <p class="modal-text" lang="en"><strong>Hard Skills:</strong> Arduino microcontroller integration, tin soldering on a perfboard, power wiring for a DC motor, and connecting an HC-SR04 sensor.</p>
-            </div>
-
-            <div class="competence-box">
-                <h4>3. <span lang="fr">Programmation Embarquée (C++)</span><span lang="en">Embedded Programming (C++)</span></h4>
-                <p class="modal-text" lang="fr"><strong>Savoir-Faire :</strong> Développement sous Arduino IDE. Création d'une boucle d'asservissement traitant les signaux du capteur ultrason pour ajuster la vitesse du moteur en temps réel (signal PWM).</p>
-                <p class="modal-text" lang="en"><strong>Hard Skills:</strong> Development in Arduino IDE. Creating a closed-loop control system processing ultrasonic sensor signals to adjust motor speed in real-time (PWM signal).</p>
-            </div>
-            
-            <div class="competence-box">
-                <h4>4. <span lang="fr">Savoir-Être (Transversal)</span><span lang="en">Soft Skills</span></h4>
-                <p class="modal-text" lang="fr">Débogage analytique, persévérance face aux pannes matérielles, et communication technique lors de la phase de test en atelier.</p>
-                <p class="modal-text" lang="en">Analytical debugging, perseverance through hardware failures, and technical communication during the workshop testing phase.</p>
-            </div>
+            <h3 class="modal-subtitle"><span lang="fr">Bilan & Résultats Personnels</span><span lang="en">Results & Personal Review</span></h3>
+            <p class="modal-text" lang="fr"><strong>Ce que j'ai apporté :</strong> La fiabilisation du câblage de puissance et la création de la boucle logique du capteur.<br>
+            <strong>Ce que j'ai le plus aimé :</strong> La satisfaction de voir un système matériel réagir de manière autonome à un code que j'ai rédigé.<br>
+            <strong>Ce que j'ai le moins aimé :</strong> La gestion délicate des faux-contacts électroniques en début d'assemblage.</p>
         </div>
     </div>
 
@@ -397,10 +438,30 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-usinage')">&times;</button>
             <img src="images/projet-usinage-detail.jpg" alt="Usinage" class="modal-hero-img" onerror="this.src='https://via.placeholder.com/800x400?text=Atelier+Usinage'">
-            <h2 class="modal-title"><span lang="fr">Usinage de Précision d'une Pièce Étagée</span><span lang="en">Precision Machining of a Stepped Part</span></h2>
-            <div class="modal-meta">Atelier Mécanique ENSAM | 2025</div>
-            <p class="modal-text" lang="fr">L'objectif de ce projet était de produire une pièce mécanique étagée en aluminium en respectant des spécifications dimensionnelles strictes sur un tour conventionnel. Validation par contrôle métrologique (pied à coulisse 1/50e). Ce projet m'a permis d'acquérir une véritable conscience des contraintes de fabrication, essentielle pour un futur concepteur en Bureau d'Études.</p>
-            <p class="modal-text" lang="en">The goal of this project was to produce a stepped mechanical aluminum part, adhering to strict dimensional specifications on a conventional lathe. Validated through metrological control (1/50th caliper). This project gave me a true awareness of manufacturing constraints, which is essential for a future CAD designer.</p>
+            
+            <h2 class="modal-title">FICHE MISSION : <span lang="fr">Usinage Conventionnel d'une Pièce Étagée</span><span lang="en">Conventional Machining</span></h2>
+            <div class="modal-meta">Année : 2025 | Durée : 2 mois | Atelier Mécanique ENSAM</div>
+
+            <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
+            <p class="modal-text" lang="fr"><strong>Activités :</strong> Préparation du poste de travail, usinage d'une pièce en aluminium (chariotage, alésage, réalisation de congés), contrôle qualité métrologique en cours de production.</p>
+
+            <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
+            <p class="modal-text" lang="fr"><strong>Moyens :</strong> Tour conventionnel, outils de coupe carbure, pied à coulisse au 1/50ème, plans de fabrication.<br><strong>Contraintes :</strong> Respect absolu des EPI et des consignes de sécurité environnementales ; tolérances dimensionnelles strictes.</p>
+
+            <h3 class="modal-subtitle"><span lang="fr">Faits Marquants & Compétences</span><span lang="en">Highlights & Skills</span></h3>
+            <div class="competence-box">
+                <h4><span lang="fr">Savoirs, Savoir-Faire et Savoir-Être</span><span lang="en">Skills</span></h4>
+                <ul class="skill-list" lang="fr">
+                    <li><strong>Savoirs :</strong> Paramètres de coupe (vitesse, avance), lecture de plans et tolérancement géométrique.</li>
+                    <li><strong>Savoir-Faire :</strong> Maniement des chariots d'usinage, utilisation précise de la métrologie.</li>
+                    <li><strong>Savoir-Être :</strong> Extrême vigilance sécuritaire, concentration et minutie.</li>
+                </ul>
+            </div>
+
+            <h3 class="modal-subtitle"><span lang="fr">Bilan & Résultats Personnels</span><span lang="en">Results & Personal Review</span></h3>
+            <p class="modal-text" lang="fr"><strong>Ce que j'ai apporté :</strong> Production d'une pièce 100% conforme au plan sans aucun rebut.<br>
+            <strong>Ce que j'ai le plus aimé :</strong> La matérialisation d'un plan papier en une pièce physique tangible et parfaite au toucher.<br>
+            <strong>Ce que j'ai le moins aimé :</strong> L'aspect répétitif des passes d'ébauche avant la finition.</p>
         </div>
     </div>
 
@@ -409,16 +470,35 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-catia')">&times;</button>
             <img src="images/projet-catia-detail.jpg" alt="CATIA" class="modal-hero-img" onerror="this.src='https://via.placeholder.com/800x400?text=Maquette+Numérique'">
-            <h2 class="modal-title"><span lang="fr">Modélisation & Maquette Numérique 3D</span><span lang="en">3D Modeling & Digital Mockup</span></h2>
-            <div class="modal-meta">Bureau d'Études (BE) | CATIA V5</div>
-            <p class="modal-text" lang="fr">Utilisation intensive de CATIA V5 (Part Design, Assembly Design) pour concevoir virtuellement des mécanismes articulés. Gestion stricte de l'arborescence produit, application des contraintes de coïncidence/coaxialité, et résolution analytique des degrés de liberté pour éviter toute sur-contrainte du système.</p>
-            <p class="modal-text" lang="en">Intensive use of CATIA V5 (Part Design, Assembly Design) to virtually design articulated mechanisms. Strict management of the product tree, application of coincidence/coaxiality constraints, and analytical resolution of degrees of freedom to prevent system over-constraint.</p>
+            
+            <h2 class="modal-title">FICHE MISSION : <span lang="fr">Conception Mécanique CAO</span><span lang="en">CAD Mechanical Design</span></h2>
+            <div class="modal-meta">Année : 2026 | Durée : 4 mois | BE ENSAM</div>
+
+            <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
+            <p class="modal-text" lang="fr"><strong>Activités :</strong> Modélisation paramétrique 3D de pièces complexes, assemblage numérique sous contraintes (Assembly Design), analyse des degrés de liberté, cotation fonctionnelle.</p>
+
+            <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
+            <p class="modal-text" lang="fr"><strong>Moyens matériels :</strong> Station de travail BE, licence CATIA V5, cahier des charges technique.<br><strong>Contraintes :</strong> Éviter toute sur-contrainte dans l'arbre d'assemblage (hyperstatisme).</p>
+
+            <h3 class="modal-subtitle"><span lang="fr">Faits Marquants & Compétences</span><span lang="en">Highlights & Skills</span></h3>
+            <div class="competence-box">
+                <h4><span lang="fr">Savoirs, Savoir-Faire et Savoir-Être</span><span lang="en">Skills</span></h4>
+                <ul class="skill-list" lang="fr">
+                    <li><strong>Savoirs :</strong> Théorie des mécanismes (torseurs cinématiques, liaisons mécaniques).</li>
+                    <li><strong>Savoir-Faire :</strong> Manipulation experte de CATIA V5, structuration logique d'une arborescence.</li>
+                    <li><strong>Savoir-Être :</strong> Rigueur spatiale, vision globale du système.</li>
+                </ul>
+            </div>
+
+            <h3 class="modal-subtitle"><span lang="fr">Bilan & Résultats Personnels</span><span lang="en">Results & Personal Review</span></h3>
+            <p class="modal-text" lang="fr"><strong>Ce que j'ai apporté :</strong> La livraison d'une maquette numérique entièrement fonctionnelle, sans erreur d'interférence.<br>
+            <strong>Ce que j'ai le plus aimé :</strong> La phase de résolution de problèmes lorsqu'un assemblage refusait de se valider.<br>
+            <strong>Ce que j'ai le moins aimé :</strong> La lourdeur logicielle lors de la modification de pièces profondément enfouies dans l'arbre parent-enfant.</p>
         </div>
     </div>
 
     <!-- SCRIPT GESTION DES ONGLETS, MODALES ET LANGUE -->
     <script>
-        // Gestion des onglets principaux
         function openTab(tabName, event) {
             var contents = document.getElementsByClassName("tab-content");
             for (var i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
@@ -428,7 +508,6 @@
             event.currentTarget.classList.add("active");
         }
 
-        // Gestion du Switcher de Langue (Le Slider/Spider)
         function toggleLanguage() {
             const body = document.body;
             const checkbox = document.getElementById("langToggleBtn");
@@ -436,32 +515,24 @@
             const enLabel = document.querySelector(".en-label");
             
             if (checkbox.checked) {
-                // Passage en Anglais
-                body.classList.remove("fr");
-                body.classList.add("en");
-                frLabel.classList.remove("active");
-                enLabel.classList.add("active");
+                body.classList.remove("fr"); body.classList.add("en");
+                frLabel.classList.remove("active"); enLabel.classList.add("active");
             } else {
-                // Passage en Français
-                body.classList.remove("en");
-                body.classList.add("fr");
-                enLabel.classList.remove("active");
-                frLabel.classList.add("active");
+                body.classList.remove("en"); body.classList.add("fr");
+                enLabel.classList.remove("active"); frLabel.classList.add("active");
             }
         }
 
-        // Gestion des Pop-ups (Modales)
         function openModal(modalId) {
             document.getElementById(modalId).classList.add("active");
-            document.body.style.overflow = "hidden"; // Empêche de scroller la page derrière
+            document.body.style.overflow = "hidden";
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove("active");
-            document.body.style.overflow = "auto"; // Réactive le scroll
+            document.body.style.overflow = "auto";
         }
 
-        // Fermer la modale si on clique en dehors du cadre blanc
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-overlay')) {
                 event.target.classList.remove('active');

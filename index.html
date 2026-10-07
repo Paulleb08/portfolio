@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paul Signe - Portfolio de Recrutement</title>
     <style>
-        /* --- STYLES GLOBAUX (Tabfolio) --- */
+        /* --- STYLES GLOBAUX --- */
         :root {
             --bg-body: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
             --bg-card: #ffffff;
@@ -28,6 +28,10 @@
             align-items: flex-start;
         }
 
+        /* GESTION DES LANGUES : Cache la langue qui n'est pas active */
+        body.fr [lang="en"] { display: none !important; }
+        body.en [lang="fr"] { display: none !important; }
+
         .app-container {
             background: var(--bg-card);
             width: 100%;
@@ -35,7 +39,24 @@
             border-radius: 40px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
             padding: 50px;
+            position: relative;
         }
+
+        /* --- BOUTON LANGUE --- */
+        .lang-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--bg-pill);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-main);
+        }
+        .lang-btn:hover { background: #e2e8f0; transform: scale(1.05); }
 
         /* --- EN-TÊTE PROFIL --- */
         .profile-header { max-width: 800px; margin-bottom: 40px; text-align: center; margin-left: auto; margin-right: auto; }
@@ -44,13 +65,13 @@
         .profile-header p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
         
         .action-buttons { display: flex; justify-content: center; gap: 12px; }
-        .btn { text-decoration: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; transition: all 0.2s ease; cursor: pointer; }
+        .btn { text-decoration: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; transition: all 0.2s ease; cursor: pointer; display: inline-block; }
         .btn:hover { transform: translateY(-2px); }
         .btn-primary { background: var(--primary); color: white; }
         .btn-secondary { background: transparent; color: var(--text-main); border: 1px solid #e2e8f0; }
         .btn-secondary:hover { background: var(--bg-pill); }
 
-        /* --- NAVIGATION (Pilules) --- */
+        /* --- NAVIGATION --- */
         .nav-container { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; }
         .pill-nav { background: var(--bg-pill); padding: 6px; border-radius: 40px; display: inline-flex; gap: 5px; flex-wrap: wrap; justify-content: center;}
         .pill-nav button { background: transparent; border: none; padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; }
@@ -61,7 +82,7 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- GRILLES PROJETS (FICHES MISSIONS) --- */
+        /* --- GRILLES PROJETS --- */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
         .project-card { display: block; text-decoration: none; color: inherit; background: #f8fafc; border-radius: 28px; padding: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid transparent;}
         .project-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;}
@@ -72,13 +93,14 @@
 
         /* --- TABLEAU DE VALORISATION --- */
         .table-wrapper { width: 100%; overflow-x: auto; background: #f8fafc; border-radius: 24px; padding: 20px; border: 1px solid #e2e8f0; }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; text-align: left; }
-        th { background: var(--primary); color: white; padding: 14px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; text-align: left; }
+        th { background: var(--primary); color: white; padding: 16px 14px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
         th:first-child { border-top-left-radius: 12px; } th:last-child { border-top-right-radius: 12px; }
-        td { padding: 14px; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; color: var(--text-muted); vertical-align: top; line-height: 1.5; }
+        td { padding: 16px 14px; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; color: var(--text-muted); vertical-align: top; line-height: 1.5; }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: #ffffff; color: var(--text-main); }
-        .td-bold { font-weight: 600; color: var(--text-main); }
+        .td-bold { font-weight: 700; color: var(--primary); font-size: 0.95rem; }
+        .tag-domaine { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 6px; }
 
         /* --- PITCH SECTION --- */
         .pitch-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 20px; padding: 30px; margin-bottom: 30px; }
@@ -94,140 +116,204 @@
         .skill-list li::before { content: "→"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
 
         @media (max-width: 768px) {
-            .app-container { padding: 30px 20px; border-radius: 30px; }
+            .app-container { padding: 40px 15px; border-radius: 20px; }
             .profile-header h1 { font-size: 2.2rem; }
+            .action-buttons { flex-direction: column; }
+            .lang-btn { top: 10px; right: 10px; font-size: 0.8rem; }
         }
     </style>
 </head>
-<body>
+<body class="fr">
 
     <div class="app-container">
         
+        <!-- BOUTON TRADUCTION -->
+        <button id="lang-toggle" class="lang-btn" onclick="toggleLanguage()">🇬🇧 English</button>
+
         <!-- EN-TÊTE -->
         <header class="profile-header">
             <img src="images/photo-profil.png" alt="Paul Signe" class="profile-pic" onerror="this.src='https://via.placeholder.com/90'">
             <h1>Paul Signe</h1>
-            <p>Objectif : Stage Technicien (12 semaines) — ENSAM Bordeaux Promo 2025-2028</p>
+            
+            <p lang="fr">Objectif : Stage Technicien (12 semaines) — ENSAM Bordeaux Promo 2025-2028</p>
+            <p lang="en">Objective: 12-week Technical Internship — ENSAM Bordeaux Class of 2025-2028</p>
+            
             <div class="action-buttons">
-                <a href="mailto:paul.signe@ensam.eu" class="btn btn-primary">Me contacter</a>
-                <a href="CV_Paul_Signe.pdf" target="_blank" class="btn btn-secondary">Voir mon CV</a>
+                <a href="mailto:paul.signe@ensam.eu" class="btn btn-primary">
+                    <span lang="fr">Me contacter</span><span lang="en">Contact Me</span>
+                </a>
+                <a href="CV_Paul_Signe.pdf" target="_blank" class="btn btn-secondary">
+                    <span lang="fr">Voir mon CV</span><span lang="en">View my Resume</span>
+                </a>
             </div>
         </header>
 
         <!-- NAVIGATION -->
         <nav class="nav-container">
             <div class="pill-nav">
-                <button class="tab-btn active" onclick="openTab('projets', event)">Fiches Missions (Projets)</button>
-                <button class="tab-btn" onclick="openTab('bilan', event)">Pitch & Valorisation Expérience</button>
-                <button class="tab-btn" onclick="openTab('competences', event)">Compétences</button>
-                <button class="tab-btn" onclick="openTab('annexes', event)">Annexes</button>
+                <button class="tab-btn active" onclick="openTab('projets', event)">
+                    <span lang="fr">Fiches Missions (Projets)</span><span lang="en">Mission Briefs (Projects)</span>
+                </button>
+                <button class="tab-btn" onclick="openTab('bilan', event)">
+                    <span lang="fr">Pitch & Expériences</span><span lang="en">Pitch & Experience</span>
+                </button>
+                <button class="tab-btn" onclick="openTab('competences', event)">
+                    <span lang="fr">Compétences Techniques</span><span lang="en">Technical Skills</span>
+                </button>
+                <button class="tab-btn" onclick="openTab('annexes', event)">
+                    <span lang="fr">Annexes</span><span lang="en">Appendices</span>
+                </button>
             </div>
         </nav>
 
         <main>
-            <!-- 1. ONGLET PROJETS (Que les projets / Fiches Missions) -->
+            <!-- 1. ONGLET PROJETS -->
             <div id="projets" class="tab-content active">
                 <div class="projects-grid">
-                    <!-- PROJET 1 -->
                     <a href="projet-usinage.html" class="project-card">
-                        <img src="images/projet-usinage.jpg" alt="Usinage" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Image+Usinage'">
+                        <img src="images/projet-usinage.jpg" alt="Usinage" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Usinage'">
                         <div class="project-info">
-                            <h3>Usinage Conventionnel (Tournage)</h3>
-                            <p>Fabrication d'une pièce étagée en aluminium. Chariotage, alésage, et contrôle métrologique strict.</p>
-                            <div class="project-tags"><span>RÉALISER</span><span>ATELIER</span></div>
+                            <h3><span lang="fr">Usinage Conventionnel</span><span lang="en">Conventional Machining</span></h3>
+                            <p lang="fr">Fabrication d'une pièce étagée en aluminium. Chariotage, alésage, et contrôle métrologique strict.</p>
+                            <p lang="en">Manufacturing of an aluminum stepped part. Turning, boring, and strict metrological control.</p>
+                            <div class="project-tags">
+                                <span><span lang="fr">RÉALISER</span><span lang="en">BUILD</span></span>
+                                <span><span lang="fr">ATELIER</span><span lang="en">WORKSHOP</span></span>
+                            </div>
                         </div>
                     </a>
 
-                    <!-- PROJET 2 -->
                     <a href="projet-arduino.html" class="project-card">
-                        <img src="images/projet-arduino.jpg" alt="Arduino" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Image+Arduino'">
+                        <img src="images/projet-arduino.jpg" alt="Arduino" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Arduino'">
                         <div class="project-info">
-                            <h3>Câblage & Programmation (C++)</h3>
-                            <p>Asservissement d'un moteur CC à un capteur ultrason. Soudure sur shield et logique algorithmique.</p>
-                            <div class="project-tags"><span>RÉALISER</span><span>ÉLECTRONIQUE</span></div>
+                            <h3><span lang="fr">Robotique & Embarqué (C++)</span><span lang="en">Embedded Robotics (C++)</span></h3>
+                            <p lang="fr">Conception de robot bipède et banc de test moteur asservi par capteur ultrason. Soudure et codage.</p>
+                            <p lang="en">Design of a bipedal robot and motor test bench controlled by an ultrasonic sensor. Wiring and coding.</p>
+                            <div class="project-tags">
+                                <span><span lang="fr">RÉALISER</span><span lang="en">BUILD</span></span>
+                                <span><span lang="fr">MÉCATRONIQUE</span><span lang="en">MECHATRONICS</span></span>
+                            </div>
                         </div>
                     </a>
 
-                    <!-- PROJET 3 -->
                     <a href="projet-catia.html" class="project-card">
-                        <img src="images/projet-catia.jpg" alt="CATIA V5" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Image+CATIA'">
+                        <img src="images/projet-catia.jpg" alt="CATIA V5" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=CATIA'">
                         <div class="project-info">
-                            <h3>Conception Assemblage (CATIA V5)</h3>
-                            <p>Modélisation 3D d'un système mécatronique, gestion des contraintes géométriques et cinématiques.</p>
-                            <div class="project-tags"><span>CONCEVOIR</span><span>CAO 3D</span></div>
+                            <h3><span lang="fr">Conception Assemblage (CATIA)</span><span lang="en">Assembly Design (CATIA)</span></h3>
+                            <p lang="fr">Modélisation 3D de systèmes, gestion des contraintes géométriques, cinématiques et arborescence.</p>
+                            <p lang="en">3D system modeling, geometric and kinematic constraints management, product tree structuring.</p>
+                            <div class="project-tags">
+                                <span><span lang="fr">CONCEVOIR</span><span lang="en">DESIGN</span></span>
+                                <span>CAO 3D</span>
+                            </div>
                         </div>
                     </a>
 
-                    <!-- PROJET 4 -->
                     <a href="projet-python.html" class="project-card">
-                        <img src="images/projet-python.jpg" alt="Python" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Image+Python'">
+                        <img src="images/projet-python.jpg" alt="Python" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Python'">
                         <div class="project-info">
-                            <h3>Développement Python (Pygame)</h3>
-                            <p>Programmation d'une interface interactive avec gestion des collisions et livrable documentaire.</p>
-                            <div class="project-tags"><span>RÉALISER</span><span>CODE</span></div>
+                            <h3><span lang="fr">Développement Python</span><span lang="en">Python Development</span></h3>
+                            <p lang="fr">Programmation d'une interface interactive avec gestion des collisions et livrable documentaire.</p>
+                            <p lang="en">Programming an interactive interface with collision management and technical documentation.</p>
+                            <div class="project-tags">
+                                <span><span lang="fr">RÉALISER</span><span lang="en">BUILD</span></span>
+                                <span>CODE</span>
+                            </div>
                         </div>
                     </a>
                 </div>
             </div>
 
-            <!-- 2. ONGLET PITCH & TABLEAU (Conforme aux consignes) -->
+            <!-- 2. ONGLET PITCH & TABLEAU -->
             <div id="bilan" class="tab-content">
                 
-                <!-- Le Pitch par points forts (Fiche 3) -->
                 <div class="pitch-box">
-                    <h2>Pitch de présentation</h2>
-                    <p><strong>Situation actuelle :</strong> Élève en 2ème année de Bachelor de Technologie aux Arts et Métiers (ENSAM Bordeaux), je suis à la recherche d'un stage technicien de 12 semaines.</p>
-                    <p><strong>1. Conception & CAO :</strong> Je maîtrise les outils de modélisation (CATIA V5, Onshape) pour concevoir des assemblages mécaniques complexes en respectant les degrés de liberté.</p>
-                    <p><strong>2. Prototypage & Atelier :</strong> Fort d'une expérience pratique, je suis capable d'usiner sur tour conventionnel et d'intégrer des systèmes électroniques (câblage, soudure, code Arduino).</p>
-                    <p><strong>3. Rigueur algorithmique :</strong> Ma capacité à structurer un projet se reflète dans mes développements Python, de l'algorigramme jusqu'au dossier de documentation final.</p>
+                    <h2><span lang="fr">Pitch de présentation</span><span lang="en">Elevator Pitch</span></h2>
+                    
+                    <div lang="fr">
+                        <p><strong>Situation actuelle :</strong> Élève en 2ème année de Bachelor de Technologie aux Arts et Métiers (ENSAM Bordeaux), je suis à la recherche d'un stage technicien de 12 semaines (avec un fort attrait pour l'international et les pays nordiques notamment).</p>
+                        <p><strong>1. Double vision Conception & Terrain :</strong> Capable de modéliser des assemblages complexes (CATIA V5), je m'appuie sur mes expériences d'atelier (usinage) et logistiques (La Poste PIC) pour concevoir des systèmes réalisables, intégrant les réalités de la production industrielle.</p>
+                        <p><strong>2. Esprit Mécatronique & Code :</strong> Je sais lier le matériel et le logiciel. Que ce soit par le prototypage Arduino (câblage, PWM, C++) ou le développement logiciel structuré (Python, algorigrammes), je sais automatiser et tester mes systèmes.</p>
+                        <p><strong>3. Management & Encadrement :</strong> Mon expérience d'animateur m'a forgé un solide esprit d'organisation et de réactivité. Savoir gérer des responsabilités et planifier des projets de groupe est pour moi une composante essentielle du travail d'ingénieur.</p>
+                    </div>
+
+                    <div lang="en">
+                        <p><strong>Current Situation:</strong> 2nd-year Bachelor of Technology student at Arts et Métiers (ENSAM Bordeaux), actively seeking a 12-week technical internship abroad (Scandinavia/Norway being of strong interest).</p>
+                        <p><strong>1. Dual Vision - Design & Field:</strong> Capable of modeling complex assemblies (CATIA V5), I leverage my hands-on workshop (machining) and logistics (La Poste) experiences to design manufacturable systems that account for industrial realities.</p>
+                        <p><strong>2. Mechatronics & Coding Mindset:</strong> I bridge hardware and software. Through Arduino prototyping (wiring, PWM, C++) or structured software development (Python, flowcharts), I know how to automate and test systems.</p>
+                        <p><strong>3. Management & Leadership:</strong> My experience as a youth counselor forged strong organizational and adaptability skills. Managing responsibilities and planning group projects is, to me, an essential component of an engineer's role.</p>
+                    </div>
                 </div>
 
-                <!-- Le Tableau de valorisation des expériences -->
-                <h3 style="margin-bottom: 15px; color: var(--primary);">Tableau de Valorisation d'Expériences</h3>
+                <h3 style="margin-bottom: 15px; color: var(--primary);">
+                    <span lang="fr">Tableau de Valorisation d'Expériences Complètes</span>
+                    <span lang="en">Experience Valuation Matrix</span>
+                </h3>
+                
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th>Activités / Projets</th>
-                                <th>Savoirs (Connaissances)</th>
-                                <th>Savoir-Faire (Techniques)</th>
-                                <th>Savoir-Être (Attitudes)</th>
-                                <th>Exemple de Situations</th>
-                                <th>Lien avec le Stage</th>
+                                <th style="min-width: 180px;"><span lang="fr">Expériences & Projets</span><span lang="en">Experiences & Projects</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Savoirs (Théorie)</span><span lang="en">Knowledge (Theory)</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Savoir-Faire (Technique)</span><span lang="en">Hard Skills</span></th>
+                                <th style="min-width: 160px;"><span lang="fr">Savoir-Être (Attitudes)</span><span lang="en">Soft Skills</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Exemple de Situations</span><span lang="en">Situational Example</span></th>
+                                <th style="min-width: 180px;"><span lang="fr">Lien avec le Stage</span><span lang="en">Value for Internship</span></th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- EXPERIENCE LOGISTIQUE -->
                             <tr>
-                                <td class="td-bold">Usinage Atelier</td>
-                                <td>Métrologie, règles de sécurité EPI.</td>
-                                <td>Tournage conventionnel, alésage.</td>
-                                <td>Rigueur, minutie, vigilance.</td>
-                                <td>Production d'une pièce étagée conforme.</td>
-                                <td>Autonomie sur équipements d'atelier.</td>
+                                <td>
+                                    <span class="tag-domaine"><span lang="fr">Expérience Pro</span><span lang="en">Work Experience</span></span><br>
+                                    <span class="td-bold"><span lang="fr">Logistique Industrielle</span><span lang="en">Industrial Logistics</span></span><br>
+                                    <span style="font-size: 0.8rem;">La Poste PIC Cestas (2026)</span>
+                                </td>
+                                <td><span lang="fr">Flux industriels, process de tri automatisé, normes HSE en entrepôt.</span><span lang="en">Industrial flows, automated sorting processes, HSE standards in warehousing.</span></td>
+                                <td><span lang="fr">Opérer sur chaîne de production, respecter des cadences, rédiger un rapport.</span><span lang="en">Operating on a production line, meeting pace quotas, writing technical reports.</span></td>
+                                <td><span lang="fr">Adaptabilité, ponctualité, respect strict des process de sécurité (EPI).</span><span lang="en">Adaptability, punctuality, strict adherence to safety protocols (PPE).</span></td>
+                                <td><span lang="fr">Intégration au sein d'une équipe postée sur la ligne de tri grande capacité.</span><span lang="en">Integration within a shift team on a high-capacity automated sorting line.</span></td>
+                                <td><span lang="fr">Compréhension de la réalité du "terrain", cruciale pour l'industrialisation.</span><span lang="en">Deep understanding of "field" realities, crucial for methods engineering.</span></td>
                             </tr>
+                            <!-- ANIMATION -->
                             <tr>
-                                <td class="td-bold">Systèmes & Arduino</td>
-                                <td>Traitement du signal, C++.</td>
-                                <td>Soudure étain, câblage capteurs.</td>
-                                <td>Logique de test, persévérance.</td>
-                                <td>Asservissement moteur via ultrason.</td>
-                                <td>Intégration mécatronique et tests.</td>
+                                <td>
+                                    <span class="tag-domaine"><span lang="fr">Expérience Pro</span><span lang="en">Work Experience</span></span><br>
+                                    <span class="td-bold"><span lang="fr">Animation & Encadrement</span><span lang="en">Youth Leadership</span></span><br>
+                                    <span style="font-size: 0.8rem;">Les Mille Potes (2 x 1 mois)</span>
+                                </td>
+                                <td><span lang="fr">Pédagogie, réglementation sécuritaire (ALSH), gestion de groupe.</span><span lang="en">Pedagogy, safety regulations, group dynamics management.</span></td>
+                                <td><span lang="fr">Piloter un groupe (12 pers), planifier un rétroplanning hebdomadaire.</span><span lang="en">Leading a group (12 kids), creating and tracking weekly schedules.</span></td>
+                                <td><span lang="fr">Leadership, gestion de l'imprévu, écoute active, sang-froid.</span><span lang="en">Leadership, crisis management, active listening, composure.</span></td>
+                                <td><span lang="fr">Conception autonome de semaines thématiques (Vikings, Mythologie).</span><span lang="en">Autonomous design of themed activity weeks (Vikings, Mythology).</span></td>
+                                <td><span lang="fr">Compétences fondamentales en management fonctionnel.</span><span lang="en">Foundational skills in functional management and team leadership.</span></td>
                             </tr>
+                            <!-- CAO -->
                             <tr>
-                                <td class="td-bold">Conception CATIA</td>
-                                <td>Théorie des mécanismes.</td>
-                                <td>Modélisation 3D, contraintes.</td>
-                                <td>Clarté de communication technique.</td>
-                                <td>Assemblage validé numériquement.</td>
-                                <td>Appui direct en Bureau d'Études (BE).</td>
+                                <td>
+                                    <span class="tag-domaine"><span lang="fr">Projet Ingénierie</span><span lang="en">Engineering Project</span></span><br>
+                                    <span class="td-bold"><span lang="fr">Conception Mécanique CAO</span><span lang="en">Mechanical CAD Design</span></span><br>
+                                    <span style="font-size: 0.8rem;">CATIA V5 / Onshape</span>
+                                </td>
+                                <td><span lang="fr">Théorie des mécanismes, degrés de liberté, cotation fonctionnelle.</span><span lang="en">Mechanism theory, degrees of freedom, functional tolerancing.</span></td>
+                                <td><span lang="fr">Modélisation 3D, assemblage sous contraintes géométriques.</span><span lang="en">Parametric 3D modeling, geometric constraint assembly.</span></td>
+                                <td><span lang="fr">Précision spatiale, rigueur dans la structuration des fichiers.</span><span lang="en">Spatial accuracy, rigor in file structuring and versioning.</span></td>
+                                <td><span lang="fr">Résolution de sur-contraintes dans la maquette numérique d'un système.</span><span lang="en">Solving over-constraints in a digital mockup of a mechanical system.</span></td>
+                                <td><span lang="fr">Opérationnel pour assister un Bureau d'Études (BE) en conception.</span><span lang="en">Immediately operational to assist an R&D or Design Office team.</span></td>
                             </tr>
+                            <!-- EMBARQUE -->
                             <tr>
-                                <td class="td-bold">Développement Python</td>
-                                <td>Algorithmique, POO.</td>
-                                <td>Code structuré, rédaction rapport.</td>
-                                <td>Organisation, respect des délais.</td>
-                                <td>Application de jeu livrée finalisée.</td>
-                                <td>Automatisation et traitement data.</td>
+                                <td>
+                                    <span class="tag-domaine"><span lang="fr">Projet Ingénierie</span><span lang="en">Engineering Project</span></span><br>
+                                    <span class="td-bold"><span lang="fr">Systèmes Embarqués (C++)</span><span lang="en">Embedded Systems (C++)</span></span><br>
+                                    <span style="font-size: 0.8rem;">Arduino / Robot Bipède</span>
+                                </td>
+                                <td><span lang="fr">Traitement du signal, électrotechnique (puissance, PWM).</span><span lang="en">Signal processing, electrotechnics (power electronics, PWM).</span></td>
+                                <td><span lang="fr">Câblage de shield, soudure étain, codage de boucle d'asservissement.</span><span lang="en">Shield wiring, soldering, coding closed-loop control systems.</span></td>
+                                <td><span lang="fr">Méthode analytique de débogage, travail collaboratif.</span><span lang="en">Analytical debugging mindset, collaborative technical work.</span></td>
+                                <td><span lang="fr">Programmation d'un moteur asservi par radar ultrason.</span><span lang="en">Programming a DC motor controlled by an ultrasonic radar.</span></td>
+                                <td><span lang="fr">Capacité à prototyper, intégrer de la mécatronique et des bancs de test.</span><span lang="en">Ability to rapidly prototype, integrate mechatronics, and build test benches.</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -238,50 +324,78 @@
             <div id="competences" class="tab-content">
                 <div class="skills-grid">
                     <div class="skill-card">
-                        <h3>CAO & Conception</h3>
-                        <ul class="skill-list">
-                            <li>CATIA V5 / Onshape</li>
+                        <h3><span lang="fr">CAO & Conception</span><span lang="en">CAD & Design</span></h3>
+                        <ul class="skill-list" lang="fr">
+                            <li>CATIA V5 (Part & Assembly Design)</li>
+                            <li>Onshape (Modélisation cloud)</li>
                             <li>Assemblages multi-pièces</li>
-                            <li>Arborescence Product</li>
+                            <li>Gestion d'arborescence Product</li>
+                        </ul>
+                        <ul class="skill-list" lang="en">
+                            <li>CATIA V5 (Part & Assembly Design)</li>
+                            <li>Onshape (Cloud CAD)</li>
+                            <li>Multi-part complex assemblies</li>
+                            <li>Product tree management</li>
                         </ul>
                     </div>
                     <div class="skill-card">
-                        <h3>Code & Électronique</h3>
-                        <ul class="skill-list">
+                        <h3><span lang="fr">Code & Électronique</span><span lang="en">Coding & Electronics</span></h3>
+                        <ul class="skill-list" lang="fr">
                             <li>C++ (Arduino IDE)</li>
-                            <li>Python (Pygame)</li>
-                            <li>Câblage & Soudure</li>
+                            <li>Python (Pygame, algorigrammes)</li>
+                            <li>Câblage de circuits de puissance</li>
+                            <li>Soudure de composants</li>
+                        </ul>
+                        <ul class="skill-list" lang="en">
+                            <li>C++ (Arduino IDE)</li>
+                            <li>Python (Pygame, flowcharts)</li>
+                            <li>Power circuit wiring (MOSFET)</li>
+                            <li>Component soldering</li>
                         </ul>
                     </div>
                     <div class="skill-card">
-                        <h3>Fabrication</h3>
-                        <ul class="skill-list">
+                        <h3><span lang="fr">Fabrication & Atelier</span><span lang="en">Manufacturing</span></h3>
+                        <ul class="skill-list" lang="fr">
                             <li>Tournage conventionnel</li>
                             <li>Impression 3D FDM</li>
-                            <li>Métrologie d'atelier</li>
+                            <li>Ajustement mécanique manuel</li>
+                            <li>Métrologie dimensionnelle</li>
+                        </ul>
+                        <ul class="skill-list" lang="en">
+                            <li>Conventional turning (Lathe)</li>
+                            <li>FDM 3D Printing</li>
+                            <li>Manual mechanical adjustment</li>
+                            <li>Dimensional metrology (Caliper)</li>
                         </ul>
                     </div>
                     <div class="skill-card">
-                        <h3>Transversales</h3>
-                        <ul class="skill-list">
-                            <li>Résolution d'EDO (Maths)</li>
+                        <h3><span lang="fr">Transversales</span><span lang="en">Transversal Skills</span></h3>
+                        <ul class="skill-list" lang="fr">
+                            <li>Résolution analytique d'EDO</li>
+                            <li>Méthodologie de rapport technique</li>
                             <li>Anglais (B2) / Allemand (A1)</li>
                             <li>Animation de groupe (BAFA)</li>
+                        </ul>
+                        <ul class="skill-list" lang="en">
+                            <li>Analytical resolution of ODEs</li>
+                            <li>Technical report methodology</li>
+                            <li>English (B2) / German (A1)</li>
+                            <li>Group facilitation & leadership</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- 4. ONGLET ANNEXES (Conforme aux consignes) -->
+            <!-- 4. ONGLET ANNEXES -->
             <div id="annexes" class="tab-content">
                 <div class="skills-grid">
                     <a href="plaquette-ensam.pdf" target="_blank" class="project-card" style="text-align: center;">
-                        <h3 style="color: var(--primary); margin-bottom: 10px;">Plaquette ENSAM</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Programme du Bachelor de Technologie</p>
+                        <h3 style="color: var(--primary); margin-bottom: 10px;"><span lang="fr">Plaquette ENSAM</span><span lang="en">ENSAM Brochure</span></h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;"><span lang="fr">Programme du Bachelor de Technologie</span><span lang="en">Bachelor of Technology Curriculum</span></p>
                     </a>
                     <a href="vision-board.pdf" target="_blank" class="project-card" style="text-align: center;">
                         <h3 style="color: var(--primary); margin-bottom: 10px;">Vision Board</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Mon projet professionnel illustré</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;"><span lang="fr">Mon projet professionnel illustré</span><span lang="en">My illustrated career project</span></p>
                     </a>
                 </div>
             </div>
@@ -289,21 +403,36 @@
         </main>
     </div>
 
-    <!-- SCRIPT GESTION DES ONGLETS -->
+    <!-- SCRIPT GESTION DES ONGLETS ET DE LA LANGUE -->
     <script>
+        // Gestion des onglets
         function openTab(tabName, event) {
             var contents = document.getElementsByClassName("tab-content");
             for (var i = 0; i < contents.length; i++) {
                 contents[i].classList.remove("active");
             }
-            
             var btns = document.getElementsByClassName("tab-btn");
             for (var i = 0; i < btns.length; i++) {
                 btns[i].classList.remove("active");
             }
-            
             document.getElementById(tabName).classList.add("active");
             event.currentTarget.classList.add("active");
+        }
+
+        // Gestion de la traduction FR/EN
+        function toggleLanguage() {
+            const body = document.body;
+            const btn = document.getElementById("lang-toggle");
+            
+            if (body.classList.contains("fr")) {
+                body.classList.remove("fr");
+                body.classList.add("en");
+                btn.innerHTML = "🇫🇷 Français";
+            } else {
+                body.classList.remove("en");
+                body.classList.add("fr");
+                btn.innerHTML = "🇬🇧 English";
+            }
         }
     </script>
 </body>

@@ -1,1 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Signe - Portfolio de Compétences | ENSAM Bordeaux</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --primary: #0284c7;
+            --accent: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 2px solid var(--primary);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .contact-tags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .contact-tags span {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+            margin: 40px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* PITCH BOX */
+        .pitch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .pitch-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .pitch-card h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        /* PROJECT CARDS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .badge {
+            align-self: flex-start;
+            background-color: rgba(2, 132, 199, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--primary);
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .project-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+
+        .project-card ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .project-card ul li {
+            margin-bottom: 6px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .project-card ul li::before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+
+        .outcome {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>Paul SIGNE</h1>
+            <div class="subtitle">Élève Bachelor de Technologie – ENSAM Bordeaux-Talence</div>
+            <div class="contact-tags">
+                <span><i class="fa-solid fa-graduation-cap"></i> Promotion 2025-2028</span>
+                <span><i class="fa-solid fa-location-dot"></i> Bordeaux, France</span>
+                <span><i class="fa-solid fa-envelope"></i> paul.signe@ensam.eu</span>
+                <span><i class="fa-solid fa-phone"></i> 06 51 72 41 07</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="section-title">Présentation & Objectif</div>
+        <div class="pitch-grid">
+            <div class="pitch-card">
+                <h3><i class="fa-solid fa-bullseye"></i> Objectif de Stage</h3>
+                <p>Recherche d'un stage technicien de 12 semaines (12/04/2026 au 02/07/2026) avec opportunité de poursuite en alternance d'assistant ingénieur.</p>
+            </div>
+            <div class="pitch-card">
+                <h3><i class="fa-solid fa-drafting-compass"></i> Conception & CAO</h3>
+                <p>Modélisation 3D et assemblages complexes sous CATIA V5 et Onshape, vérification des contraintes cinématiques et degrés de liberté.</p>
+            </div>
+            <div class="pitch-card">
+                <h3><i class="fa-solid fa-gears"></i> Prototypage & Procédés</h3>
+                <p>Usinage sur tour conventionnel (EPI, métrologie), impression 3D FDM, câblage/soudure et programmation C++ (Arduino) & Python.</p>
+            </div>
+        </div>
+
+        <div class="section-title">Projets Techniques & Fiches Missions</div>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <div>
+                    <span class="badge">RÉALISER | USINAGE</span>
+                    <h3>Usinage de Précision sur Tour Conventionnel</h3>
+                    <ul>
+                        <li>Chariotage étagé, alésage intérieur et réalisation de congés.</li>
+                        <li>Contrôle métrologique continu au pied à coulisse au 1/50ème.</li>
+                        <li>Respect des consignes de sécurité et port des EPI.</li>
+                    </ul>
+                </div>
+                <div class="outcome">Pièce usinée conforme à 100% aux spécifications plans.</div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <span class="badge">RÉALISER | IMPRESSION 3D</span>
+                    <h3>Prototypage & Assemblage Mécanique</h3>
+                    <ul>
+                        <li>Fabrication de pièces structurales par impression 3D PLA.</li>
+                        <li>Retrait des supports, ébavurage et ajustement mécanique.</li>
+                        <li>Intégration d'un servomoteur rotatif et de capteurs.</li>
+                    </ul>
+                </div>
+                <div class="outcome">Assemblage ajusté avec guidage fluide sans point dur.</div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <span class="badge">RÉALISER | PILOTER</span>
+                    <h3>Câblage & Code C++ (Arduino)</h3>
+                    <ul>
+                        <li>Montage de circuit sur Sensor Shield et soudures à l'étain.</li>
+                        <li>Capteur ultrason HC-SR04 et temporisations microsecondes.</li>
+                        <li>Asservissement et pilotage de moteur CC en temps réel.</li>
+                    </ul>
+                </div>
+                <div class="outcome">Système embarqué autonome opérationnel.</div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <span class="badge">RÉALISER | DÉVELOPPER</span>
+                    <h3>Application Informatique Python (Pygame)</h3>
+                    <ul>
+                        <li>Programmation intégrale d'un jeu interactif sous Pygame.</li>
+                        <li>Gestion de la cadence d'affichage et des collisions.</li>
+                        <li>Modélisation par algorigramme et rapport technique.</li>
+                    </ul>
+                </div>
+                <div class="outcome">Application complète livrée dans les délais impartis.</div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <span class="badge">CONCEVOIR | CAO 3D</span>
+                    <h3>Modélisation & Assemblage CATIA V5</h3>
+                    <ul>
+                        <li>Modélisation volumique sous Part Design.</li>
+                        <li>Assemblage sous Assembly Design (coaxialité, coïncidence).</li>
+                        <li>Validation de l'arborescence et des mobilités mécaniques.</li>
+                    </ul>
+                </div>
+                <div class="outcome">Maquette numérique 3D validée sans sur-contrainte.</div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <span class="badge">CONCEVOIR | ANALYSER</span>
+                    <h3>Résolution d'Équations Différentielles (EDO)</h3>
+                    <ul>
+                        <li>Résolution de l'équation homogène à racines complexes.</li>
+                        <li>Variation de la constante pour les solutions particulières.</li>
+                        <li>Modélisation du comportement dynamique des systèmes.</li>
+                    </ul>
+                </div>
+                <div class="outcome">Modèle analytique exact validé en contrôle.</div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Paul Signe – Bachelor de Technologie Arts et Métiers ENSAM Bordeaux</p>
+    </footer>
+
+</body>
+</html>

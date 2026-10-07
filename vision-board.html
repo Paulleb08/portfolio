@@ -24,35 +24,49 @@
             justify-content: center;
             position: relative;
             overflow-x: hidden;
+            perspective: 1000px;
         }
 
-        /* Dégradés flous de fond (Mesh Gradient Style) */
+        /* --- DÉGRADÉS FLOUS DE FOND (MESH GRADIENT) --- */
         .mesh-blob-1 {
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 87, 34, 0.3) 0%, rgba(255, 152, 0, 0.05) 70%);
-            filter: blur(90px);
+            top: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 87, 34, 0.35) 0%, rgba(255, 152, 0, 0.05) 70%);
+            filter: blur(100px);
             border-radius: 50%;
             z-index: -1;
+            animation: floatBlob 10s ease-in-out infinite alternate;
         }
         .mesh-blob-2 {
             position: absolute;
-            bottom: -50px;
-            left: -50px;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(255, 193, 7, 0.25) 0%, rgba(255, 87, 34, 0.05) 70%);
-            filter: blur(80px);
+            bottom: -100px;
+            left: -100px;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, rgba(255, 87, 34, 0.05) 70%);
+            filter: blur(90px);
             border-radius: 50%;
             z-index: -1;
+            animation: floatBlob 12s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            100% { transform: translate(40px, 30px) scale(1.1); }
         }
 
         .vision-container {
             width: 100%;
             max-width: 1000px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .back-btn {
@@ -63,16 +77,16 @@
             color: var(--text-muted);
             font-weight: 700;
             margin-bottom: 30px;
-            transition: color 0.2s;
+            transition: color 0.2s, transform 0.2s;
         }
-        .back-btn:hover { color: var(--accent); }
+        .back-btn:hover { color: var(--accent); transform: translateX(-5px); }
 
         .vision-header {
             text-align: center;
             margin-bottom: 50px;
         }
         .vision-header h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             letter-spacing: -1.5px;
             margin-bottom: 15px;
             font-weight: 800;
@@ -80,13 +94,14 @@
         .divider-line { width: 120px; height: 4px; background: linear-gradient(90deg, #ff5722, #ff9800); margin: 0 auto 20px auto; border-radius: 2px; }
         
         .vision-header p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
             max-width: 650px;
             margin: 0 auto;
             line-height: 1.6;
         }
 
+        /* --- GRILLE INTERACTIVE 3D --- */
         .board-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -94,19 +109,41 @@
             margin-bottom: 40px;
         }
 
+        /* Cartes avec effet Tilt 3D géré en JS */
         .board-card {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 28px;
             padding: 35px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
             box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
 
+        /* Effet de lueur dynamique suivant la souris sur la carte */
+        .board-card::before {
+            content: '';
+            position: absolute;
+            top: var(--y, 0);
+            left: var(--x, 0);
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 87, 34, 0.15), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .board-card:hover::before { opacity: 1; }
+
         .board-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 25px 50px rgba(255, 87, 34, 0.12);
+            box-shadow: 0 25px 50px rgba(255, 87, 34, 0.15);
+            border-color: rgba(255, 87, 34, 0.4);
         }
 
         .board-card h3 {
@@ -114,6 +151,7 @@
             margin-bottom: 12px;
             color: var(--text-main);
             font-weight: 700;
+            transform: translateZ(20px);
         }
 
         .board-card p {
@@ -121,12 +159,14 @@
             font-size: 0.95rem;
             line-height: 1.7;
             margin-bottom: 20px;
+            transform: translateZ(10px);
         }
 
         .card-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            transform: translateZ(15px);
         }
 
         .card-tags span {
@@ -138,16 +178,22 @@
             font-weight: 700;
         }
 
+        /* Carte de citation centrale */
         .quote-card {
             grid-column: 1 / -1;
             background: linear-gradient(135deg, rgba(255, 87, 34, 0.08) 0%, rgba(255, 152, 0, 0.08) 100%);
-            border: 1px solid rgba(255, 87, 34, 0.2);
+            border: 1px solid rgba(255, 87, 34, 0.25);
             border-radius: 28px;
-            padding: 40px;
+            padding: 45px;
             text-align: center;
+            box-shadow: 0 15px 35px rgba(255, 87, 34, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .quote-card:hover {
+            transform: scale(1.01);
         }
         .quote-card h2 {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             margin-bottom: 12px;
             color: #d84315;
             font-weight: 800;
@@ -155,7 +201,7 @@
         .quote-card p {
             color: #1e293b;
             font-style: italic;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             max-width: 750px;
             margin: 0 auto;
             line-height: 1.6;
@@ -176,7 +222,7 @@
         <a href="index.html" class="back-btn">← Retour au portfolio principal</a>
 
         <div class="vision-header">
-            <h1>Vision Board Professionnel</h1>
+            <h1>Vision Board Interactif</h1>
             <div class="divider-line"></div>
             <p>Mon cap d'ingénieur : relier l'excellence des sciences mécaniques et électroniques aux exigences de la conception de systèmes audio et hi-fi haut de gamme.</p>
         </div>
@@ -188,7 +234,7 @@
                 <p>"Concevoir un système audio d'exception, c'est marier la rigueur de l'ingénierie mécanique et la précision de l'électronique pour donner vie à l'émotion musicale."</p>
             </div>
 
-            <div class="board-card">
+            <div class="board-card" data-tilt>
                 <h3>🎛️ Acoustique & Transducteurs</h3>
                 <p>Développer une expertise pointue dans l'étude des vibrations, le design de caissons de haut-parleurs (charges acoustiques) et la modélisation sous CATIA V5 de structures destinées à limiter les résonances parasites.</p>
                 <div class="card-tags">
@@ -198,7 +244,7 @@
                 </div>
             </div>
 
-            <div class="board-card">
+            <div class="board-card" data-tilt>
                 <h3>⚡ Électronique & Traitement</h3>
                 <p>Maîtriser les circuits de traitement du signal, l'amplification et l'embarqué (C++, microcontrôleurs) pour concevoir des interfaces de contrôle intelligentes et des bancs de tests pour équipements hi-fi.</p>
                 <div class="card-tags">
@@ -208,7 +254,7 @@
                 </div>
             </div>
 
-            <div class="board-card">
+            <div class="board-card" data-tilt>
                 <h3>🎧 Culture Audiophile & Modding</h3>
                 <p>Une passion de longue date pour le matériel hi-fi, les casques de studio et le modding hardware (optimisation de baladeurs, intégration USB-C et DACs), nourrie par une veille constante sur le marché vintage et moderne.</p>
                 <div class="card-tags">
@@ -218,7 +264,7 @@
                 </div>
             </div>
 
-            <div class="board-card">
+            <div class="board-card" data-tilt>
                 <h3>🌍 Horizon International & Nordique</h3>
                 <p>Saisir l'opportunité de réaliser des projets et des expériences professionnelles à l'étranger (notamment en Europe du Nord / Scandinavie), réputée pour son excellence et son innovation dans l'industrie électroacoustique.</p>
                 <div class="card-tags">
@@ -231,5 +277,35 @@
         </div>
     </div>
 
+    <!-- SCRIPT POUR LES INTERACTIONS SOURIS & EFFET TILT 3D -->
+    <script>
+        const cards = document.querySelectorAll('.board-card');
+
+        cards.forEach(card => {
+            // Suivi de la position de la souris pour l'effet de lueur (glow)
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+
+                // Effet d'inclinaison 3D (Tilt)
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = -((y - centerY) / centerY) * 10; // Max 10 deg
+                const rotateY = ((x - centerX) / centerX) * 10;  // Max 10 deg
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+            });
+
+            // Remise à plat de la carte quand la souris sort
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        });
+    </script>
 </body>
 </html>

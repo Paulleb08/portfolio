@@ -1,561 +1,636 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paul Signe - Portfolio & Recrutement</title>
+    <title>Paul Signe — Portfolio & Ingénierie</title>
     <style>
         :root {
-            --bg-body: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --text-main: #0f172a;
+            --bg: #ffffff;
+            --text: #0f172a;
             --text-muted: #64748b;
-            --primary: #0f172a;
-            --accent: #ff5722;
-            --accent-glow: rgba(255, 87, 34, 0.25);
+            --card-bg: #f8fafc;
+            --border: #e2e8f0;
+            --accent: #0f172a;
+            --accent-hover: #334155;
+            --pill-bg: #f1f5f9;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        [data-theme="dark"] {
+            --bg: #0b0f19;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --accent: #f8fafc;
+            --accent-hover: #cbd5e1;
+            --pill-bg: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; transition: background 0.3s ease, color 0.3s ease; }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* --- FOND AVEC DÉGRADÉS FLOUS (Mesh Gradient Style Canva) --- */
-        .mesh-blob-1 {
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(255, 87, 34, 0.35) 0%, rgba(255, 152, 0, 0.1) 70%);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -1;
-        }
-
-        .mesh-blob-2 {
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 193, 7, 0.25) 0%, rgba(255, 87, 34, 0.1) 70%);
-            filter: blur(90px);
-            border-radius: 50%;
-            z-index: -1;
+            padding: 30px 40px;
         }
 
         body.fr [lang="en"] { display: none !important; }
         body.en [lang="fr"] { display: none !important; }
 
-        .app-container {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            width: 100%;
-            max-width: 1200px;
-            border-radius: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
-            padding: 50px;
-            position: relative;
+        /* --- NAVIGATION FRAMER STYLE --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto 60px auto;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        /* --- SLIDER LANGUE --- */
-        .lang-switch-container {
-            position: absolute;
-            top: 40px;
-            right: 40px;
+        .logo-box {
+            background: var(--text);
+            color: var(--bg);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); font-weight: 700; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Bouton CTA style Framer */
+        .btn-cta {
+            background: var(--text);
+            color: var(--bg);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn-cta:hover { transform: scale(1.03); opacity: 0.9; }
+
+        /* Switchers (Thème & Langue) */
+        .switch-group {
             display: flex;
             align-items: center;
             gap: 10px;
+            background: var(--pill-bg);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
             font-weight: 600;
         }
-        .lang-label { font-size: 13px; color: var(--text-muted); }
-        .lang-label.active { color: var(--primary); font-weight: 700; }
-        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: #ff5722; }
-        input:checked + .slider:before { transform: translateX(24px); }
+        .icon-btn { background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--text); }
 
-        /* --- EN-TÊTE PROFIL --- */
-        .profile-header { max-width: 850px; margin-bottom: 40px; text-align: center; margin-left: auto; margin-right: auto; margin-top: 10px; }
-        .profile-pic { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(255, 87, 34, 0.2); border: 2px solid #ffffff;}
-        .profile-header h1 { font-size: 3rem; letter-spacing: -1.5px; margin-bottom: 10px; font-weight: 800; }
-        .profile-header p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
-        
-        .divider-line { width: 120px; height: 4px; background: linear-gradient(90deg, #ff5722, #ff9800); margin: 0 auto 20px auto; border-radius: 2px; }
+        /* --- HERO & TITRE PRINCIPAL --- */
+        .container { max-width: 1300px; margin: 0 auto; }
 
-        .alternance-badge { display: inline-block; background: rgba(255, 87, 34, 0.1); color: #d84315; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; margin-bottom: 25px;}
-        
-        .action-buttons { display: flex; justify-content: center; gap: 12px; }
-        .btn { text-decoration: none; padding: 12px 28px; border-radius: 30px; font-weight: 700; font-size: 14px; transition: all 0.3s ease; cursor: pointer; display: inline-block; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-        .btn-primary { background: var(--primary); color: white; border: none;}
-        .btn-secondary { background: transparent; color: var(--text-main); border: 2px solid #e2e8f0; }
-        .btn-secondary:hover { background: #ffffff; border-color: var(--primary); }
-        .btn-gradient { background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%); color: white; border: none; }
-
-        /* --- NAVIGATION --- */
-        .nav-container { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 20px; }
-        .pill-nav { background: #f1f5f9; padding: 6px; border-radius: 40px; display: inline-flex; gap: 5px; flex-wrap: wrap; justify-content: center;}
-        .pill-nav button { background: transparent; border: none; padding: 10px 22px; border-radius: 30px; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; }
-        .pill-nav button.active { background: #ffffff; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-
-        .tab-content { display: none; animation: fadeIn 0.4s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- GRILLES PROJETS --- */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
-        .project-card { display: block; text-decoration: none; color: inherit; background: #ffffff; border-radius: 28px; padding: 20px; transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.04); cursor: pointer;}
-        .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(255, 87, 34, 0.12); border-color: rgba(255, 87, 34, 0.3); }
-        .project-img { width: 100%; height: 220px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; background-color: #e2e8f0; }
-        .project-info h3 { font-size: 1.25rem; margin-bottom: 8px; font-weight: 700; }
-        .project-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; line-height: 1.5; }
-        .project-tags span { background: #fff3e0; color: #e65100; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; margin-right: 6px; text-transform: uppercase; }
-
-        /* --- TABLEAU --- */
-        .table-wrapper { width: 100%; overflow-x: auto; background: #ffffff; border-radius: 24px; padding: 20px; border: 1px solid #e2e8f0; }
-        table { width: 100%; border-collapse: collapse; min-width: 950px; text-align: left; }
-        th { background: var(--primary); color: white; padding: 16px 14px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        th:first-child { border-top-left-radius: 12px; } th:last-child { border-top-right-radius: 12px; }
-        td { padding: 16px 14px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; color: var(--text-muted); vertical-align: top; line-height: 1.5; }
-        tr:last-child td { border-bottom: none; }
-        .td-bold { font-weight: 700; color: var(--primary); font-size: 0.95rem; }
-        .tag-domaine { display: inline-block; background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; }
-
-        /* --- PITCH --- */
-        .pitch-box { background: linear-gradient(135deg, rgba(255, 87, 34, 0.05) 0%, rgba(255, 152, 0, 0.05) 100%); border: 1px solid rgba(255, 87, 34, 0.2); border-radius: 24px; padding: 35px; margin-bottom: 30px; }
-        .pitch-box h2 { color: #d84315; margin-bottom: 20px; font-size: 1.5rem; font-weight: 800;}
-        .pitch-box p { color: #1e293b; line-height: 1.8; font-size: 1.05rem; margin-bottom: 15px; }
-
-        /* --- COMPÉTENCES --- */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .skill-card { background: #ffffff; border-radius: 24px; padding: 30px; border: 1px solid #e2e8f0; }
-        .skill-card h3 { font-size: 1.2rem; margin-bottom: 18px; color: #d84315; font-weight: 700; }
-        .skill-list { list-style: none; }
-        .skill-list li { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px; padding-left: 20px; position: relative; }
-        .skill-list li::before { content: "•"; color: #ff5722; position: absolute; left: 0; font-weight: bold; font-size: 1.2rem; top: -2px; }
-
-        /* --- MODALES --- */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
-        .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-content { background: #ffffff; width: 100%; max-width: 900px; max-height: 90vh; border-radius: 36px; overflow-y: auto; position: relative; padding: 50px; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 30px 60px rgba(0,0,0,0.2);}
-        .modal-overlay.active .modal-content { transform: translateY(0); }
-        .close-btn { position: absolute; top: 30px; right: 35px; font-size: 32px; color: #94a3b8; cursor: pointer; border: none; background: none; transition: color 0.2s; line-height: 1;}
-        .close-btn:hover { color: #0f172a; }
-        .modal-hero-img { width: 100%; height: 350px; object-fit: cover; border-radius: 24px; margin-bottom: 30px; background-color: #e2e8f0; }
-        .modal-title { font-size: 2.3rem; margin-bottom: 10px; color: var(--text-main); font-weight: 800; letter-spacing: -1px;}
-        .modal-meta { color: #d84315; font-weight: 700; margin-bottom: 30px; font-size: 1rem; }
-        .modal-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; }
-        .modal-subtitle { font-size: 1.35rem; color: var(--primary); margin-top: 35px; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; font-weight: 700;}
-        .competence-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 22px; border-radius: 20px; margin-bottom: 15px; }
-        .competence-box h4 { color: #d84315; margin-bottom: 8px; font-size: 1.1rem; font-weight: 700;}
-
-        @media (max-width: 768px) {
-            .app-container { padding: 30px 15px; border-radius: 24px; }
-            .profile-header h1 { font-size: 2.3rem; }
-            .action-buttons { flex-direction: column; }
-            .lang-switch-container { top: 20px; right: 50%; transform: translateX(50%); } 
-            .modal-content { padding: 30px 20px; }
-            .modal-hero-img { height: 200px; }
+        .section-header {
+            margin-bottom: 50px;
         }
+        .page-title {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .page-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            line-height: 1.6;
+        }
+        .alternance-tag {
+            display: inline-block;
+            margin-top: 15px;
+            background: rgba(15, 23, 42, 0.06);
+            [data-theme="dark"] & { background: rgba(255,255,255,0.08); }
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* --- GRILLE DE PROJETS (STYLE FRAMER TEMPLATE) --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        @media(max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
+
+        .framer-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 480px;
+        }
+        .framer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .framer-card:hover .card-img {
+            transform: scale(1.04);
+        }
+
+        /* Overlay sombre pour faire ressortir le texte sur l'image */
+        .card-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 35px;
+        }
+
+        .card-info h3 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        .card-info p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+        }
+
+        .card-arrow {
+            background: #ffffff;
+            color: #0f172a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease, background 0.2s;
+            flex-shrink: 0;
+        }
+        .framer-card:hover .card-arrow {
+            transform: scale(1.1) rotate(45deg);
+            background: #f8fafc;
+        }
+
+        /* --- SECTION ABOUT & CONTENU SECONDAIRE --- */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 80px;
+        }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        @media(max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+
+        .about-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
+        }
+        .about-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .about-box p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        /* Tableau de valorisation & Grilles compétences */
+        .table-wrapper { width: 100%; overflow-x: auto; margin-top: 30px; border-radius: 24px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; text-align: left; }
+        th { background: var(--text); color: var(--bg); padding: 16px; font-size: 0.8rem; text-transform: uppercase; }
+        td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); vertical-align: top; }
+        tr:hover td { background: var(--pill-bg); color: var(--text); }
+
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px; }
+        .skill-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 30px; }
+        .skill-card h3 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; }
+        .skill-card ul { list-style: none; }
+        .skill-card li { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px; padding-left: 18px; position: relative; }
+        .skill-card li::before { content: "→"; position: absolute; left: 0; color: var(--text); }
+
+        /* --- MODALES PROJETS --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background: var(--bg); color: var(--text); width: 100%; max-width: 900px; max-height: 90vh; border-radius: 36px; overflow-y: auto; padding: 50px; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.3); border: 1px solid var(--border); transform: translateY(20px); transition: transform 0.3s ease; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-btn { position: absolute; top: 30px; right: 35px; font-size: 28px; background: none; border: none; cursor: pointer; color: var(--text); }
+        
+        .modal-hero { width: 100%; height: 320px; object-fit: cover; border-radius: 24px; margin-bottom: 30px; }
+        .modal-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+        .modal-meta { color: var(--text-muted); font-weight: 600; margin-bottom: 30px; font-size: 0.95rem; }
+        .modal-sub { font-size: 1.3rem; font-weight: 700; margin-top: 35px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .modal-desc { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; margin-bottom: 20px; }
+
+        /* Footer minimaliste */
+        footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 100px; }
     </style>
 </head>
 <body class="fr">
 
-    <!-- Éléments de dégradés flous de fond (Style Canva Mesh Gradient) -->
-    <div class="mesh-blob-1"></div>
-    <div class="mesh-blob-2"></div>
+    <!-- NAVIGATION STYLE FRAMER -->
+    <nav>
+        <a href="#" class="logo-box">PS</a>
+        <ul class="nav-links">
+            <li><a class="nav-item active" onclick="switchTab('projects', event)">Projects</a></li>
+            <li><a class="nav-item" onclick="switchTab('about', event)">About & Pitch</a></li>
+            <li><a class="nav-item" onclick="switchTab('skills', event)">Skills</a></li>
+            <li><a class="nav-item" onclick="switchTab('school', event)">ENSAM & Vision</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="switch-group">
+                <span class="lang-label fr-label">FR</span>
+                <button class="icon-btn" onclick="toggleLanguage()">🌐</button>
+                <span class="lang-label en-label">EN</span>
+            </div>
+            <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Changer de thème">🌙</button>
+            <a href="mailto:paul.signe@ensam.eu" class="btn-cta">
+                <span lang="fr">LET'S WORK TOGETHER ↗</span>
+                <span lang="en">LET'S WORK TOGETHER ↗</span>
+            </a>
+        </div>
+    </nav>
 
-    <div class="app-container">
-        
-        <!-- SLIDER LANGUE -->
-        <div class="lang-switch-container">
-            <span class="lang-label fr-label active">🇫🇷 FR</span>
-            <label class="switch">
-                <input type="checkbox" id="langToggleBtn" onchange="toggleLanguage()">
-                <span class="slider"></span>
-            </label>
-            <span class="lang-label en-label">🇬🇧 EN</span>
+    <div class="container">
+
+        <!-- 1. SECTION PROJECTS (Accueil principal style Framer) -->
+        <div id="projects" class="content-section active">
+            <div class="section-header">
+                <h1 class="page-title">Projects</h1>
+                <p class="page-subtitle">
+                    <span lang="fr">Élève en 2ème année de Bachelor de Technologie aux Arts et Métiers (ENSAM Bordeaux). Découvrez mes projets d'ingénierie mécanique, mécatronique et mes fiches missions.</span>
+                    <span lang="en">2nd-year Bachelor of Technology student at Arts et Métiers (ENSAM Bordeaux). Explore my mechanical, mechatronic engineering projects and mission briefs.</span>
+                </p>
+                <div class="alternance-tag">
+                    <span lang="fr">🎓 Recherche Stage Technicien (12 sem.) & Ouvert en Contrat Pro / Alternance</span>
+                    <span lang="en">🎓 Seeking 12-week Technical Internship & Open to Work-Study / Apprenticeship</span>
+                </div>
+            </div>
+
+            <div class="projects-grid">
+                
+                <!-- Projet 1 : Robot Bipède -->
+                <div class="framer-card" onclick="openModal('modal-robot')">
+                    <div class="card-img-container">
+                        <img src="images/projet-arduino.jpg" alt="Robot Bipède" class="card-img" onerror="this.src='https://via.placeholder.com/600x480?text=Robot+Bipède'">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <h3><span lang="fr">Robot Bipède & Arduino</span><span lang="en">Bipedal Robot & Arduino</span></h3>
+                                <p>Mechatronics • C++ • Hardware</p>
+                            </div>
+                            <div class="card-arrow">↗</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 2 : Usinage -->
+                <div class="framer-card" onclick="openModal('modal-usinage')">
+                    <div class="card-img-container">
+                        <img src="images/projet-usinage.jpg" alt="Usinage" class="card-img" onerror="this.src='https://via.placeholder.com/600x480?text=Usinage+Conventionnel'">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <h3><span lang="fr">Usinage Conventionnel</span><span lang="en">Conventional Machining</span></h3>
+                                <p>Workshop • Metrology • Aluminum</p>
+                            </div>
+                            <div class="card-arrow">↗</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 3 : CATIA V5 -->
+                <div class="framer-card" onclick="openModal('modal-catia')">
+                    <div class="card-img-container">
+                        <img src="images/projet-catia.jpg" alt="CATIA V5" class="card-img" onerror="this.src='https://via.placeholder.com/600x480?text=CATIA+V5+Design'">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <h3><span lang="fr">Conception Assemblage CAO</span><span lang="en">CAD Assembly Design</span></h3>
+                                <p>CATIA V5 • Mechanisms • 3D Modeling</p>
+                            </div>
+                            <div class="card-arrow">↗</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-        <!-- EN-TÊTE -->
-        <header class="profile-header">
-            <img src="images/photo-profil.png" alt="Paul Signe" class="profile-pic" onerror="this.src='https://via.placeholder.com/90'">
-            <h1>Paul Signe</h1>
-            
-            <div class="divider-line"></div>
-
-            <p lang="fr">Objectif : Stage Technicien (12 semaines) — ENSAM Bordeaux Promo 2025-2028 | Future spécialisation : Ingénierie Audio & Systèmes Sonores</p>
-            <p lang="en">Objective: 12-week Technical Internship — ENSAM Bordeaux Class of 2025-2028 | Future goal: Audio & Sound Systems Engineering</p>
-
-            <div class="alternance-badge">
-                <span lang="fr">🎓 Ouvert à une poursuite en Contrat de Professionnalisation / Alternance</span>
-                <span lang="en">🎓 Open to a follow-up Work-Study / Apprenticeship contract</span>
-            </div>
-            
-            <div class="action-buttons">
-                <a href="mailto:paul.signe@ensam.eu" class="btn btn-primary">
-                    <span lang="fr">Me contacter</span><span lang="en">Contact Me</span>
-                </a>
-                <a href="CV_Paul_Signe_Alternance.pdf" target="_blank" class="btn btn-secondary">
-                    <span lang="fr">Voir mon CV</span><span lang="en">View my Resume</span>
-                </a>
-            </div>
-        </header>
-
-        <!-- NAVIGATION -->
-        <nav class="nav-container">
-            <div class="pill-nav">
-                <button class="tab-btn active" onclick="openTab('projets', event)">
-                    <span lang="fr">Fiches Missions (Projets)</span><span lang="en">Mission Briefs (Projects)</span>
-                </button>
-                <button class="tab-btn" onclick="openTab('bilan', event)">
-                    <span lang="fr">Pitch & Expériences</span><span lang="en">Pitch & Experience</span>
-                </button>
-                <button class="tab-btn" onclick="openTab('competences', event)">
-                    <span lang="fr">Détail Compétences</span><span lang="en">Detailed Skills</span>
-                </button>
-                <button class="tab-btn" onclick="openTab('annexes', event)">
-                    <span lang="fr">Annexes & École</span><span lang="en">Appendices & School</span>
-                </button>
-            </div>
-        </nav>
-
-        <main>
-            <!-- 1. ONGLET PROJETS -->
-            <div id="projets" class="tab-content active">
-                <div class="projects-grid">
-                    
-                    <div class="project-card" onclick="openModal('modal-robot')">
-                        <img src="images/projet-arduino.jpg" alt="Arduino" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Robot+Arduino'">
-                        <div class="project-info">
-                            <h3><span lang="fr">Robot Bipède & Arduino (C++)</span><span lang="en">Bipedal Robot & Arduino (C++)</span></h3>
-                            <p lang="fr">Projet complet : conception mécanique, assemblage électronique et programmation d'un système autonome.</p>
-                            <p lang="en">Complete project: mechanical design, electronic wiring, and coding an autonomous system.</p>
-                            <div class="project-tags">
-                                <span><span lang="fr">MÉCATRONIQUE</span><span lang="en">MECHATRONICS</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card" onclick="openModal('modal-usinage')">
-                        <img src="images/projet-usinage.jpg" alt="Usinage" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=Usinage'">
-                        <div class="project-info">
-                            <h3><span lang="fr">Usinage Conventionnel</span><span lang="en">Conventional Machining</span></h3>
-                            <p lang="fr">Fabrication d'une pièce étagée en aluminium. Chariotage, alésage, et contrôle métrologique strict.</p>
-                            <p lang="en">Manufacturing an aluminum stepped part. Turning, boring, and strict metrological control.</p>
-                            <div class="project-tags">
-                                <span><span lang="fr">ATELIER</span><span lang="en">WORKSHOP</span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card" onclick="openModal('modal-catia')">
-                        <img src="images/projet-catia.jpg" alt="CATIA V5" class="project-img" onerror="this.src='https://via.placeholder.com/400x220?text=CATIA'">
-                        <div class="project-info">
-                            <h3><span lang="fr">Conception Assemblage (CATIA)</span><span lang="en">Assembly Design (CATIA)</span></h3>
-                            <p lang="fr">Modélisation 3D, gestion des contraintes géométriques, cinématiques et arborescence.</p>
-                            <p lang="en">3D modeling, geometric/kinematic constraints management, product tree structuring.</p>
-                            <div class="project-tags">
-                                <span>CAO 3D</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <!-- 2. SECTION ABOUT & PITCH -->
+        <div id="about" class="content-section">
+            <div class="section-header">
+                <h1 class="page-title">About & Pitch</h1>
+                <p class="page-subtitle"><span lang="fr">Mon parcours, mon pitch par points forts et mon tableau d'expériences.</span><span lang="en">My background, elevator pitch, and experience matrix.</span></p>
             </div>
 
-            <!-- 2. ONGLET PITCH & TABLEAU -->
-            <div id="bilan" class="tab-content">
-                <div class="pitch-box">
-                    <h2><span lang="fr">Pitch de présentation (Par points forts)</span><span lang="en">Elevator Pitch (Key Strengths)</span></h2>
-                    
+            <div class="about-grid">
+                <div class="about-box">
+                    <h2><span lang="fr">Pitch Professionnel (Fiche 3)</span><span lang="en">Elevator Pitch</span></h2>
                     <div lang="fr">
-                        <p><strong>Situation actuelle :</strong> Élève en 2ème année de Bachelor de Technologie aux Arts et Métiers (ENSAM Bordeaux), je recherche un stage technicien de 12 semaines (ouvert à l'international et aux pays nordiques), avec une volonté de poursuivre en alternance. À terme, je souhaite orienter ma carrière vers l'ingénierie audio et la conception de systèmes acoustiques et hi-fi.</p>
-                        <p><strong>• Point fort 1 : Maîtrise de la Conception Mécanique (CAO)</strong><br>Capable de concevoir et valider des assemblages complexes sous CATIA V5, en veillant aux mobilités et aux contraintes industrielles de fabrication.</p>
-                        <p><strong>• Point fort 2 : Compétence transversale Mécatronique & Code</strong><br>Capacité à lier le matériel et le logiciel (C++, Arduino, Python) pour concevoir des systèmes intelligents, prototyper des circuits de commande et traiter des signaux.</p>
-                        <p><strong>• Point fort 3 : Expérience de terrain et Management</strong><br>Une solide capacité d'adaptation forgée sur les lignes logistiques industrielles (La Poste) et par l'encadrement de groupes (BAFA), garantissant rigueur, sécurité et leadership fonctionnel.</p>
+                        <p><strong>Situation actuelle :</strong> Étudiant aux Arts et Métiers (ENSAM Bordeaux), je recherche un stage technicien de 12 semaines et souhaite poursuivre en alternance. À terme, je vise l'ingénierie audio et la conception de systèmes acoustiques et hi-fi.</p>
+                        <p><strong>• Point fort 1 : Maîtrise de la Conception Mécanique (CAO)</strong><br>Capacité à concevoir des assemblages complexes sous CATIA V5 en respectant les mobilités et contraintes de fabrication.</p>
+                        <p><strong>• Point fort 2 : Compétence transversale Mécatronique & Code</strong><br>Liaison matériel/logiciel (C++, Arduino, Python) pour l'asservissement et le traitement de signaux.</p>
+                        <p><strong>• Point fort 3 : Expérience de terrain et Management</strong><br>Rigueur et leadership développés en logistique industrielle (La Poste) et par l'encadrement (BAFA).</p>
+                    </div>
+                    <div lang="en">
+                        <p><strong>Current Situation:</strong> Student at Arts et Métiers (ENSAM Bordeaux), seeking a 12-week technical internship and open to an apprenticeship. Long-term goal: Audio engineering and hi-fi systems design.</p>
+                        <p><strong>• Strength 1: Mechanical Design & CAD</strong><br>Expertise in complex assemblies using CATIA V5.</p>
+                        <p><strong>• Strength 2: Mechatronics & Code</strong><br>Bridging hardware and software (C++, Arduino, Python).</p>
+                        <p><strong>• Strength 3: Field Experience & Leadership</strong><br>Adaptability forged through industrial logistics (La Poste) and youth leadership (BAFA).</p>
                     </div>
 
-                    <div lang="en">
-                        <p><strong>Current Situation:</strong> 2nd-year Bachelor of Technology student at Arts et Métiers (ENSAM Bordeaux), seeking a 12-week technical internship abroad (Nordic countries welcome), open to a work-study contract. My long-term goal is to work in audio engineering and sound systems design.</p>
-                        <p><strong>• Strength 1: Mechanical Design & CAD Expertise</strong><br>Able to design and validate complex assemblies using CATIA V5, accounting for kinematic constraints and manufacturing realities.</p>
-                        <p><strong>• Strength 2: Mechatronics & Coding Versatility</strong><br>Bridging hardware and software (C++, Arduino, Python) to build smart systems, prototype control boards, and process signals.</p>
-                        <p><strong>• Strength 3: Field Experience & Leadership</strong><br>Strong adaptability forged through industrial logistics (La Poste) and youth leadership (BAFA), ensuring safety rigor and teamwork.</p>
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <a href="CV_Paul_Signe_Alternance.pdf" target="_blank" class="btn-cta">📄 Voir mon CV PDF</a>
                     </div>
                 </div>
 
-                <h3 style="margin-bottom: 15px; color: var(--primary);">
-                    <span lang="fr">Tableau de Valorisation d'Expériences (Obligatoire)[span_0](start_span)[span_0](end_span)</span><span lang="en">Experience Valuation Matrix</span>
-                </h3>
+                <div class="about-box">
+                    <h2>Objectifs</h2>
+                    <p><span lang="fr">Passionné par le matériel audiophile et la mécanique de précision, je combine l'atelier et le bureau d'études pour donner vie à des systèmes innovants.</span><span lang="en">Passionate about audiophile gear and precision mechanics, bridging the gap between workshop manufacturing and R&D design office.</span></p>
+                </div>
+            </div>
+
+            <!-- Tableau de Valorisation -->
+            <div style="margin-top: 50px;">
+                <h2 style="font-size: 1.5rem; margin-bottom: 20px;"><span lang="fr">Tableau de Valorisation d'Expériences</span><span lang="en">Experience Matrix</span></h2>
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th style="min-width: 180px;"><span lang="fr">Activités / Projets</span><span lang="en">Activities & Projects</span></th>
-                                <th style="min-width: 180px;"><span lang="fr">Savoirs (Connaissances)</span><span lang="en">Knowledge (Theory)</span></th>
-                                <th style="min-width: 180px;"><span lang="fr">Savoir-Faire (Techniques)</span><span lang="en">Hard Skills</span></th>
-                                <th style="min-width: 160px;"><span lang="fr">Savoir-Être (Attitudes)</span><span lang="en">Soft Skills</span></th>
-                                <th style="min-width: 180px;"><span lang="fr">Exemple de Situations</span><span lang="en">Situational Example</span></th>
-                                <th style="min-width: 180px;"><span lang="fr">Lien avec le Stage / Projet Audio</span><span lang="en">Value for Internship</span></th>
+                                <th>Expérience / Projet</th>
+                                <th>Savoirs (Théorie)</th>
+                                <th>Savoir-Faire (Technique)</th>
+                                <th>Savoir-Être (Soft Skills)</th>
+                                <th>Lien avec le Stage</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><span class="tag-domaine"><span lang="fr">Stage Industriel</span><span lang="en">Industrial Intern</span></span><br><span class="td-bold"><span lang="fr">Agent Logistique</span><span lang="en">Logistics Agent</span></span><br><span style="font-size: 0.8rem;">La Poste PIC Cestas</span></td>
-                                <td><span lang="fr">Process de tri, normes HSE.</span><span lang="en">Sorting processes, HSE standards.</span></td>
-                                <td><span lang="fr">Opérer sur chaîne de production, cadences, rapport technique.</span><span lang="en">Operating on production line, quotas, report writing.</span></td>
-                                <td><span lang="fr">Adaptabilité, ponctualité, respect strict des process EPI.</span><span lang="en">Adaptability, punctuality, safety compliance.</span></td>
-                                <td><span lang="fr">Intégration directe sur ligne de tri automatisée grande capacité.</span><span lang="en">Direct integration on an automated sorting line.</span></td>
-                                <td><span lang="fr">Connaissance du "terrain", indispensable en méthodes/production.</span><span lang="en">Knowledge of the "field", crucial for manufacturing.</span></td>
+                                <td><strong>La Poste PIC Cestas</strong><br>Agent Logistique</td>
+                                <td>Process de tri, normes HSE.</td>
+                                <td>Opérer sur chaîne de production, rapports.</td>
+                                <td>Adaptabilité, ponctualité, respect process.</td>
+                                <td>Connaissance du terrain industriel.</td>
                             </tr>
                             <tr>
-                                <td><span class="tag-domaine"><span lang="fr">Job Étudiant</span><span lang="en">Student Job</span></span><br><span class="td-bold"><span lang="fr">Animateur BAFA</span><span lang="en">Camp Counselor</span></span><br><span style="font-size: 0.8rem;">Les Mille Potes</span></td>
-                                <td><span lang="fr">Pédagogie, réglementation ALSH.</span><span lang="en">Pedagogy, youth regulations.</span></td>
-                                <td><span lang="fr">Piloter un groupe (12 pers), élaborer un rétroplanning.</span><span lang="en">Leading groups, creating weekly schedules.</span></td>
-                                <td><span lang="fr">Leadership, gestion de conflit, écoute active.</span><span lang="en">Leadership, conflict resolution, active listening.</span></td>
-                                <td><span lang="fr">Conception et animation de semaines thématiques.</span><span lang="en">Design and execution of themed activity weeks.</span></td>
-                                <td><span lang="fr">Compétences de management et coordination d'équipe.</span><span lang="en">Management and team coordination skills.</span></td>
+                                <td><strong>Centre Les Mille Potes</strong><br>Animateur BAFA</td>
+                                <td>Pédagogie, réglementation.</td>
+                                <td>Piloter un groupe, planifier.</td>
+                                <td>Leadership, écoute active.</td>
+                                <td>Coordination et management d'équipe.</td>
                             </tr>
                             <tr>
-                                <td><span class="tag-domaine"><span lang="fr">Projet Ingénierie</span><span lang="en">Engineering Project</span></span><br><span class="td-bold"><span lang="fr">CAO & Assemblage</span><span lang="en">CAD & Assembly</span></span><br><span style="font-size: 0.8rem;">CATIA V5</span></td>
-                                <td><span lang="fr">Théorie des mécanismes, degrés de liberté.</span><span lang="en">Mechanism theory, degrees of freedom.</span></td>
-                                <td><span lang="fr">Modélisation 3D, contraintes géométriques, arborescence.</span><span lang="en">3D modeling, geometric constraints, product trees.</span></td>
-                                <td><span lang="fr">Précision spatiale, rigueur analytique.</span><span lang="en">Spatial precision, analytical rigor.</span></td>
-                                <td><span lang="fr">Résolution de sur-contraintes dans une maquette numérique.</span><span lang="en">Solving over-constraints in a digital mockup.</span></td>
-                                <td><span lang="fr">Conception mécanique précise (boîtiers audio, châssis).</span><span lang="en">Precise mechanical design (audio housings, chassis).</span></td>
+                                <td><strong>Projet ENSAM</strong><br>CAO CATIA V5</td>
+                                <td>Théorie des mécanismes.</td>
+                                <td>Modélisation 3D, arborescence.</td>
+                                <td>Précision spatiale, rigueur.</td>
+                                <td>Appui direct en Bureau d'Études.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
 
-            <!-- 3. ONGLET COMPÉTENCES -->
-            <div id="competences" class="tab-content">
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <h3><span lang="fr">CAO & Conception Mécanique</span><span lang="en">CAD & Mechanical Design</span></h3>
-                        <ul class="skill-list" lang="fr">
-                            <li>CATIA V5 (Part & Assembly Design), Onshape.</li>
-                            <li>Modélisation paramétrique et assemblages complexes.</li>
-                            <li>Étude des mécanismes et analyse cinématique.</li>
-                            <li>Tolérancement géométrique (GPS) et cotation.</li>
-                        </ul>
-                        <ul class="skill-list" lang="en">
-                            <li>CATIA V5 (Part & Assembly Design), Onshape.</li>
-                            <li>Parametric modeling & complex assemblies.</li>
-                            <li>Kinematics analysis & mechanism theory.</li>
-                            <li>Geometric Dimensioning & Tolerancing (GD&T).</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3><span lang="fr">Électronique & Embarqué</span><span lang="en">Electronics & Embedded</span></h3>
-                        <ul class="skill-list" lang="fr">
-                            <li>C, C++ (Arduino IDE), Python (Pygame).</li>
-                            <li>Traitement du signal, boucles d'asservissement.</li>
-                            <li>Câblage de puissance (MOSFET) et PWM.</li>
-                            <li>Soudure de composants et intégration capteurs.</li>
-                        </ul>
-                        <ul class="skill-list" lang="en">
-                            <li>C, C++ (Arduino IDE), Python.</li>
-                            <li>Signal processing, control loops.</li>
-                            <li>Power wiring (MOSFET) and PWM signals.</li>
-                            <li>Component soldering & sensor integration.</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3><span lang="fr">Fabrication & Atelier</span><span lang="en">Manufacturing</span></h3>
-                        <ul class="skill-list" lang="fr">
-                            <li>Tournage conventionnel (chariotage, alésage).</li>
-                            <li>Métrologie stricte (pied à coulisse 1/50e).</li>
-                            <li>Prototypage rapide : Impression 3D FDM.</li>
-                            <li>Ajustement mécanique manuel et perçage.</li>
-                        </ul>
-                        <ul class="skill-list" lang="en">
-                            <li>Conventional turning (facing, boring).</li>
-                            <li>Strict metrology (1/50th caliper).</li>
-                            <li>Rapid prototyping: FDM 3D printing.</li>
-                            <li>Manual mechanical fitting & drilling.</li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- 3. SECTION SKILLS -->
+        <div id="skills" class="content-section">
+            <div class="section-header">
+                <h1 class="page-title">Skills</h1>
+                <p class="page-subtitle"><span lang="fr">Mes compétences techniques détaillées en ingénierie.</span><span lang="en">Detailed technical skills in engineering.</span></p>
             </div>
 
-            <!-- 4. ONGLET ANNEXES -->
-            <div id="annexes" class="tab-content">
-                <div class="skills-grid" style="grid-template-columns: 1fr;">
-                    
-                    <div class="skill-card" style="text-align: center; padding: 40px;">
-                        <h3 style="margin-bottom: 15px; font-size: 1.3rem;"><span lang="fr">En savoir plus sur ma formation (ENSAM)</span><span lang="en">Learn more about my education (ENSAM)</span></h3>
-                        <p style="color: var(--text-muted); margin-bottom: 25px;"><span lang="fr">Découvrez le programme officiel du Bachelor de Technologie (Spécialité mécanique-production).</span><span lang="en">Discover the official Technology Bachelor program.</span></p>
-                        
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
-                            <a href="https://artsetmetiers.fr/fr/formation/bachelor-en-sciences-et-ingenierie" target="_blank" class="btn btn-primary">
-                                <span lang="fr">🌐 Visiter le Site Web Officiel</span><span lang="en">🌐 Visit Official Website</span>
-                            </a>
-                            <a href="https://s3-site.artsetmetiers.fr/public/2025-11/Bachelor%20en%20Sciences%20et%20Ingénierie_Spécialité%20mécanique-production_2025_11_19.pdf" target="_blank" class="btn btn-secondary">
-                                <span lang="fr">📄 Télécharger la Plaquette (PDF)</span><span lang="en">📄 Download Brochure (PDF)</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="skill-card" style="background: linear-gradient(135deg, rgba(255, 87, 34, 0.05) 0%, rgba(255, 152, 0, 0.05) 100%); border: 1px solid rgba(255, 87, 34, 0.2); text-align: center; padding: 40px;">
-                        <h3 style="color: #d84315; margin-bottom: 10px; font-size: 1.3rem;"><span lang="fr">Vision Board : Ingénierie Audio & Hi-Fi</span><span lang="en">Vision Board: Audio & Hi-Fi Engineering</span></h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;"><span lang="fr">Découvrez ma page interactive dédiée à mon projet professionnel de conception de systèmes sonores.</span><span lang="en">Explore my interactive page dedicated to my career project in sound systems engineering.</span></p>
-                        
-                        <a href="vision-board.html" target="_blank" class="btn btn-gradient" style="font-size: 1rem; padding: 14px 28px;">
-                            <span lang="fr">✨ Ouvrir le Vision Board interactif</span><span lang="en">✨ Open interactive Vision Board</span>
-                        </a>
-                    </div>
-                    
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>CAO & Conception</h3>
+                    <ul>
+                        <li>CATIA V5 (Part & Assembly Design)</li>
+                        <li>Onshape & Modélisation 3D</li>
+                        <li>Analyse cinématique & liaisons</li>
+                        <li>Tolérancement géométrique (GPS)</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Code & Embarqué</h3>
+                    <ul>
+                        <li>C, C++ (Arduino IDE) & Python</li>
+                        <li>Signaux PWM & asservissement PID</li>
+                        <li>Câblage de puissance (MOSFET)</li>
+                        <li>Soudure de composants & capteurs</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Fabrication & Atelier</h3>
+                    <ul>
+                        <li>Tournage conventionnel (alésage)</li>
+                        <li>Métrologie stricte (1/50e)</li>
+                        <li>Impression 3D FDM (PLA/ABS)</li>
+                        <li>Ajustement mécanique manuel</li>
+                    </ul>
                 </div>
             </div>
-        </main>
+        </div>
+
+        <!-- 4. SECTION ENSAM & VISION BOARD -->
+        <div id="school" class="content-section">
+            <div class="section-header">
+                <h1 class="page-title">ENSAM & Vision</h1>
+                <p class="page-subtitle"><span lang="fr">Ma formation aux Arts et Métiers et mon projet professionnel dans l'audio.</span><span lang="en">My education at Arts et Métiers and my career vision in audio engineering.</span></p>
+            </div>
+
+            <div class="skills-container" style="grid-template-columns: 1fr 1fr; margin-bottom: 40px;">
+                <div class="skill-card" style="text-align: center; padding: 40px;">
+                    <h3>Bachelor Arts et Métiers (ENSAM)</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 25px;"><span lang="fr">Campus de Bordeaux-Talence. Spécialité mécanique-production.</span><span lang="en">Bordeaux-Talence Campus. Mechanical-production specialty.</span></p>
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <a href="https://artsetmetiers.fr/fr/formation/bachelor-en-sciences-et-ingenierie" target="_blank" class="btn-cta">🌐 Site Officiel</a>
+                        <a href="https://s3-site.artsetmetiers.fr/public/2025-11/Bachelor%20en%20Sciences%20et%20Ingénierie_Spécialité%20mécanique-production_2025_11_19.pdf" target="_blank" class="btn-cta" style="background: transparent; color: var(--text); border: 1px solid var(--border);">📄 Plaquette PDF</a>
+                    </div>
+                </div>
+
+                <div class="skill-card" style="text-align: center; padding: 40px; background: linear-gradient(135deg, rgba(15,23,42,0.03), rgba(15,23,42,0.08));">
+                    <h3>Vision Board Audio & Hi-Fi</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 25px;"><span lang="fr">Découvrez ma page interactive dédiée à la conception de systèmes sonores.</span><span lang="en">Explore my interactive sound systems engineering page.</span></p>
+                    <a href="vision-board.html" target="_blank" class="btn-cta">✨ Ouvrir le Vision Board 3D</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- MODALES PROJETS -->
+    <footer>
+        <p>© 2026 Paul Signe — ENSAM Bordeaux. All rights reserved.</p>
+    </footer>
+
+    <!-- ================= MODALES PROJETS ================= -->
     <div id="modal-robot" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-robot')">&times;</button>
-            <img src="images/projet-arduino-detail.jpg" alt="Robot Bipède" class="modal-hero-img" onerror="this.src='https://via.placeholder.com/800x400?text=Robot+Arduino'">
+            <img src="images/projet-arduino-detail.jpg" alt="Robot" class="modal-hero" onerror="this.src='https://via.placeholder.com/800x400?text=Robot+Arduino'">
+            <h2 class="modal-title"><span lang="fr">Robot Bipède & Banc Moteur</span><span lang="en">Bipedal Robot</span></h2>
+            <div class="modal-meta">ENSAM Bordeaux | 2026 | 3 mois</div>
             
-            <h2 class="modal-title">FICHE MISSION : <span lang="fr">Robot Bipède & Banc Moteur</span><span lang="en">Bipedal Robot</span></h2>
-            <div class="modal-meta">Année : 2026 | Durée : 3 mois | ENSAM Bordeaux</div>
-
-            <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
-            <p class="modal-text" lang="fr"><strong>Activités permanentes :</strong> Conception mécanique (CAO), développement de boucles d'asservissement en C++, intégration matériel/logiciel.</p>
-            <p class="modal-text" lang="en"><strong>Activities:</strong> Mechanical design (CAD), developing closed-loop control in C++, hardware/software integration.</p>
-
-            <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
-            <p class="modal-text" lang="fr"><strong>Moyens matériels :</strong> Arduino IDE, capteur HC-SR04, moteur CC, driver MOSFET, imprimante 3D (PLA).</p>
-            <p class="modal-text" lang="en"><strong>Resources:</strong> Arduino IDE, HC-SR04 sensor, DC motor, MOSFET driver, 3D printer.</p>
+            <h3 class="modal-sub">Contexte & Activités</h3>
+            <p class="modal-desc"><span lang="fr">Conception mécanique (CAO), développement de boucles d'asservissement en C++, intégration matériel/logiciel et câblage de puissance.</span><span lang="en">Mechanical design (CAD), closed-loop control in C++, hardware/software integration and power wiring.</span></p>
             
-            <h3 class="modal-subtitle"><span lang="fr">Faits Marquants & Compétences</span><span lang="en">Highlights & Skills</span></h3>
-            <div class="competence-box">
-                <h4><span lang="fr">Savoirs, Savoir-Faire et Savoir-Être</span><span lang="en">Skills</span></h4>
-                <ul class="skill-list" lang="fr">
-                    <li><strong>Savoirs :</strong> Théorie des signaux PWM, principes d'asservissement.</li>
-                    <li><strong>Savoir-Faire :</strong> Codage C++ sur IDE, soudure à l'étain, câblage électronique.</li>
-                    <li><strong>Savoir-Être :</strong> Débogage analytique et communication d'équipe.</li>
-                </ul>
-            </div>
+            <h3 class="modal-sub">Moyens & Contraintes</h3>
+            <p class="modal-desc"><span lang="fr">Arduino IDE, capteur HC-SR04, moteur CC, driver MOSFET, imprimante 3D (PLA). Contraintes de tolérance d'assemblage.</span><span lang="en">Arduino IDE, HC-SR04 sensor, DC motor, MOSFET driver, 3D printing. Assembly tolerance constraints.</span></p>
 
-            <h3 class="modal-subtitle"><span lang="fr">Bilan & Résultats Personnels</span><span lang="en">Results & Personal Review</span></h3>
-            <p class="modal-text" lang="fr"><strong>Ce que j'ai apporté :</strong> La fiabilisation du câblage de puissance et la création de la boucle logique du capteur.<br>
-            <strong>Ce que j'ai le plus aimé :</strong> La satisfaction de voir un système matériel réagir de manière autonome à un code rédigé par mes soins.</p>
+            <h3 class="modal-sub">Compétences Mobilisées</h3>
+            <p class="modal-desc"><strong>Savoirs :</strong> PWM, asservissement.<br><strong>Savoir-Faire :</strong> Codage C++, soudure à l'étain.<br><strong>Savoir-Être :</strong> Débogage analytique, esprit d'équipe.</p>
         </div>
     </div>
 
     <div id="modal-usinage" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-usinage')">&times;</button>
-            <img src="images/projet-usinage-detail.jpg" alt="Usinage" class="modal-hero-img" onerror="this.src='https://via.placeholder.com/800x400?text=Atelier+Usinage'">
+            <img src="images/projet-usinage-detail.jpg" alt="Usinage" class="modal-hero" onerror="this.src='https://via.placeholder.com/800x400?text=Atelier+Usinage'">
+            <h2 class="modal-title"><span lang="fr">Usinage Conventionnel d'une Pièce Étagée</span><span lang="en">Conventional Machining</span></h2>
+            <div class="modal-meta">Atelier ENSAM | 2025 | 2 mois</div>
             
-            <h2 class="modal-title">FICHE MISSION : <span lang="fr">Usinage Conventionnel d'une Pièce Étagée</span><span lang="en">Conventional Machining</span></h2>
-            <div class="modal-meta">Année : 2025 | Durée : 2 mois | Atelier Mécanique ENSAM</div>
+            <h3 class="modal-sub">Contexte & Activités</h3>
+            <p class="modal-desc"><span lang="fr">Fabrication d'une pièce étagée en aluminium sur tour conventionnel. Chariotage, alésage et contrôle métrologique strict.</span><span lang="en">Manufacturing an aluminum stepped part on a conventional lathe. Turning, boring, and strict metrology.</span></p>
+            
+            <h3 class="modal-sub">Moyens & Contraintes</h3>
+            <p class="modal-desc"><span lang="fr">Tour conventionnel, outils carbure, pied à coulisse au 1/50ème. Respect strict des consignes de sécurité EPI.</span><span lang="en">Conventional lathe, carbide tools, 1/50th caliper, strict PPE safety compliance.</span></p>
 
-            <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
-            <p class="modal-text" lang="fr">Préparation du poste de travail, usinage d'une pièce en aluminium (chariotage, alésage, réalisation de congés), contrôle qualité métrologique.</p>
-
-            <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
-            <p class="modal-text" lang="fr">Tour conventionnel, outils carbure, pied à coulisse au 1/50ème, respect absolu des consignes EPI.</p>
-
-            <h3 class="modal-subtitle"><span lang="fr">Faits Marquants & Compétences</span><span lang="en">Highlights & Skills</span></h3>
-            <div class="competence-box">
-                <h4><span lang="fr">Savoirs, Savoir-Faire et Savoir-Être</span><span lang="en">Skills</span></h4>
-                <ul class="skill-list" lang="fr">
-                    <li><strong>Savoirs :</strong> Paramètres de coupe, lecture de plans et tolérancement.</li>
-                    <li><strong>Savoir-Faire :</strong> Maniement des chariots, métrologie de précision.</li>
-                    <li><strong>Savoir-Être :</strong> Extrême vigilance sécuritaire, concentration.</li>
-                </ul>
-            </div>
-
-            <h3 class="modal-subtitle"><span lang="fr">Bilan & Résultats Personnels</span><span lang="en">Results & Personal Review</span></h3>
-            <p class="modal-text" lang="fr">Production d'une pièce 100% conforme sans rebut. J'ai particulièrement apprécié matérialiser un plan en une pièce physique parfaite.</p>
+            <h3 class="modal-sub">Compétences Mobilisées</h3>
+            <p class="modal-desc"><strong>Savoirs :</strong> Paramètres de coupe, lecture de plans.<br><strong>Savoir-Faire :</strong> Maniement des chariots, métrologie.<br><strong>Savoir-Être :</strong> Vigilance sécuritaire, minutie.</p>
         </div>
     </div>
 
     <div id="modal-catia" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-catia')">&times;</button>
-            <img src="images/projet-catia-detail.jpg" alt="CATIA" class="modal-hero-img" onerror="this.src='https://via.placeholder.com/800x400?text=Maquette+Numérique'">
+            <img src="images/projet-catia-detail.jpg" alt="CATIA" class="modal-hero" onerror="this.src='https://via.placeholder.com/800x400?text=Maquette+Numérique'">
+            <h2 class="modal-title"><span lang="fr">Conception Mécanique CAO (CATIA V5)</span><span lang="en">CAD Mechanical Design</span></h2>
+            <div class="modal-meta">Bureau d'Études ENSAM | 2026 | 4 mois</div>
             
-            <h2 class="modal-title">FICHE MISSION : <span lang="fr">Conception Mécanique CAO</span><span lang="en">CAD Mechanical Design</span></h2>
-            <div class="modal-meta">Année : 2026 | Durée : 4 mois | BE ENSAM</div>
+            <h3 class="modal-sub">Contexte & Activités</h3>
+            <p class="modal-desc"><span lang="fr">Modélisation paramétrique 3D de pièces complexes, assemblage numérique sous contraintes et analyse des mobilités.</span><span lang="en">3D parametric modeling of complex parts, constrained digital assembly and mobility analysis.</span></p>
+            
+            <h3 class="modal-sub">Moyens & Contraintes</h3>
+            <p class="modal-desc"><span lang="fr">Station de travail BE, licence CATIA V5, cahier des charges. Éviter l'hyperstatisme (sur-contraintes).</span><span lang="en">Workstation, CATIA V5 license, technical specifications. Avoiding over-constraints.</span></p>
 
-            <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
-            <p class="modal-text" lang="fr">Modélisation paramétrique 3D de pièces complexes, assemblage numérique sous contraintes (Assembly Design), analyse des mobilités.</p>
-
-            <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
-            <p class="modal-text" lang="fr">Station de travail BE, licence CATIA V5, cahier des charges. Éviter l'hyperstatisme (sur-contraintes).</p>
-
-            <h3 class="modal-subtitle"><span lang="fr">Faits Marquants & Compétences</span><span lang="en">Highlights & Skills</span></h3>
-            <div class="competence-box">
-                <h4><span lang="fr">Savoirs, Savoir-Faire et Savoir-Être</span><span lang="en">Skills</span></h4>
-                <ul class="skill-list" lang="fr">
-                    <li><strong>Savoirs :</strong> Théorie des mécanismes et liaisons mécaniques.</li>
-                    <li><strong>Savoir-Faire :</strong> Utilisation avancée de CATIA V5 et structuration d'arborescence.</li>
-                    <li><strong>Savoir-Être :</strong> Rigueur spatiale et vision globale.</li>
-                </ul>
-            </div>
-
-            <h3 class="modal-subtitle"><span lang="fr">Bilan & Résultats Personnels</span><span lang="en">Results & Personal Review</span></h3>
-            <p class="modal-text" lang="fr">Livraison d'une maquette numérique fonctionnelle sans interférence. J'ai aimé la phase de résolution de problèmes cinématiques.</p>
+            <h3 class="modal-sub">Compétences Mobilisées</h3>
+            <p class="modal-desc"><strong>Savoirs :</strong> Théorie des mécanismes.<br><strong>Savoir-Faire :</strong> Utilisation de CATIA V5, arborescence.<br><strong>Savoir-Être :</strong> Rigueur spatiale et vision globale.</p>
         </div>
     </div>
 
+    <!-- SCRIPTS -->
     <script>
-        function openTab(tabName, event) {
-            var contents = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
-            var btns = document.getElementsByClassName("tab-btn");
-            for (var i = 0; i < btns.length; i++) { btns[i].classList.remove("active"); }
-            document.getElementById(tabName).classList.add("active");
-            event.currentTarget.classList.add("active");
+        function switchTab(tabId, event) {
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if(event) event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeToggleBtn');
+            if(html.getAttribute('data-theme') === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+            } else {
+                html.setAttribute('data-theme', 'light');
+                btn.textContent = '🌙';
+            }
         }
 
         function toggleLanguage() {
             const body = document.body;
-            const checkbox = document.getElementById("langToggleBtn");
-            const frLabel = document.querySelector(".fr-label");
-            const enLabel = document.querySelector(".en-label");
-            
-            if (checkbox.checked) {
-                body.classList.remove("fr"); body.classList.add("en");
-                frLabel.classList.remove("active"); enLabel.classList.add("active");
+            if(body.classList.contains('fr')) {
+                body.classList.remove('fr');
+                body.classList.add('en');
             } else {
-                body.classList.remove("en"); body.classList.add("fr");
-                enLabel.classList.remove("active"); frLabel.classList.add("active");
+                body.classList.remove('en');
+                body.classList.add('fr');
             }
         }
 
         function openModal(modalId) {
-            document.getElementById(modalId).classList.add("active");
-            document.body.style.overflow = "hidden";
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove("active");
-            document.body.style.overflow = "auto";
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-overlay')) {
                 event.target.classList.remove('active');
-                document.body.style.overflow = "auto";
+                document.body.style.overflow = 'auto';
             }
         }
     </script>

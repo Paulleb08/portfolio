@@ -1,164 +1,132 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vision Board - Paul Signe | Ingénierie Audio & Hi-Fi</title>
+    <title>Vision Board — Paul Signe | Ingénierie Audio & Hi-Fi</title>
     <style>
         :root {
-            --bg-body: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --text-main: #0f172a;
+            --bg: #ffffff;
+            --text: #0f172a;
             --text-muted: #64748b;
-            --accent: #ff5722;
+            --card-bg: #f8fafc;
+            --border: #e2e8f0;
+            --pill-bg: #f1f5f9;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        [data-theme="dark"] {
+            --bg: #0b0f19;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --pill-bg: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; transition: background 0.3s ease, color 0.3s ease; }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            overflow-x: hidden;
+            padding: 30px 40px;
             perspective: 1000px;
         }
 
-        /* --- DÉGRADÉS FLOUS DE FOND (MESH GRADIENT) --- */
-        .mesh-blob-1 {
-            position: absolute;
-            top: -100px;
-            right: -100px;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 87, 34, 0.35) 0%, rgba(255, 152, 0, 0.05) 70%);
-            filter: blur(100px);
-            border-radius: 50%;
-            z-index: -1;
-            animation: floatBlob 10s ease-in-out infinite alternate;
-        }
-        .mesh-blob-2 {
-            position: absolute;
-            bottom: -100px;
-            left: -100px;
-            width: 550px;
-            height: 550px;
-            background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, rgba(255, 87, 34, 0.05) 70%);
-            filter: blur(90px);
-            border-radius: 50%;
-            z-index: -1;
-            animation: floatBlob 12s ease-in-out infinite alternate-reverse;
+        /* --- NAVIGATION STYLE FRAMER --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        @keyframes floatBlob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            100% { transform: translate(40px, 30px) scale(1.1); }
-        }
-
-        .vision-container {
-            width: 100%;
-            max-width: 1000px;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .back-btn {
+        .back-link {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 700;
-            margin-bottom: 30px;
-            transition: color 0.2s, transform 0.2s;
+            transition: transform 0.2s;
         }
-        .back-btn:hover { color: var(--accent); transform: translateX(-5px); }
+        .back-link:hover { transform: translateX(-4px); }
 
-        .vision-header {
-            text-align: center;
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-btn { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--text); padding: 8px; border-radius: 50%; background: var(--pill-bg); border: 1px solid var(--border); }
+
+        /* --- CONTENU PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
             margin-bottom: 50px;
+            text-align: center;
         }
-        .vision-header h1 {
-            font-size: 3.2rem;
-            letter-spacing: -1.5px;
-            margin-bottom: 15px;
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
-        .divider-line { width: 120px; height: 4px; background: linear-gradient(90deg, #ff5722, #ff9800); margin: 0 auto 20px auto; border-radius: 2px; }
-        
-        .vision-header p {
-            font-size: 1.15rem;
+        .page-subtitle {
+            font-size: 1.1rem;
             color: var(--text-muted);
             max-width: 650px;
             margin: 0 auto;
             line-height: 1.6;
         }
 
-        /* --- GRILLE INTERACTIVE 3D --- */
+        /* --- GRILLE INTERACTIVE 3D TILT --- */
         .board-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
         }
 
-        /* Cartes avec effet Tilt 3D géré en JS */
         .board-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 28px;
-            padding: 35px;
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
             transform-style: preserve-3d;
             transform: perspective(1000px);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
-
-        /* Effet de lueur dynamique suivant la souris sur la carte */
-        .board-card::before {
-            content: '';
-            position: absolute;
-            top: var(--y, 0);
-            left: var(--x, 0);
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 87, 34, 0.15), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        .board-card:hover::before { opacity: 1; }
 
         .board-card:hover {
-            box-shadow: 0 25px 50px rgba(255, 87, 34, 0.15);
-            border-color: rgba(255, 87, 34, 0.4);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border-color: var(--text);
         }
 
         .board-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            color: var(--text-main);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
             font-weight: 700;
             transform: translateZ(20px);
         }
 
         .board-card p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.7;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             transform: translateZ(10px);
         }
 
@@ -170,106 +138,110 @@
         }
 
         .card-tags span {
-            background: #fff3e0;
-            color: #e65100;
-            padding: 5px 12px;
+            background: var(--pill-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 700;
         }
 
-        /* Carte de citation centrale */
+        /* Citation centrale */
         .quote-card {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, rgba(255, 87, 34, 0.08) 0%, rgba(255, 152, 0, 0.08) 100%);
-            border: 1px solid rgba(255, 87, 34, 0.25);
-            border-radius: 28px;
-            padding: 45px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 50px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(255, 87, 34, 0.05);
-            transition: transform 0.3s ease;
-        }
-        .quote-card:hover {
-            transform: scale(1.01);
         }
         .quote-card h2 {
-            font-size: 1.7rem;
-            margin-bottom: 12px;
-            color: #d84315;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             font-weight: 800;
         }
         .quote-card p {
-            color: #1e293b;
+            color: var(--text-muted);
             font-style: italic;
             font-size: 1.2rem;
             max-width: 750px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        @media (max-width: 768px) {
-            .vision-header h1 { font-size: 2.3rem; }
-            .board-card { padding: 25px; }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 60px;
         }
     </style>
 </head>
 <body>
 
-    <div class="mesh-blob-1"></div>
-    <div class="mesh-blob-2"></div>
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="index.html" class="back-link">← <span lang="fr">Retour au portfolio</span><span lang="en">Back to portfolio</span></a>
+        <div class="nav-right">
+            <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Changer de thème">🌙</button>
+        </div>
+    </nav>
 
-    <div class="vision-container">
-        <a href="index.html" class="back-btn">← Retour au portfolio principal</a>
-
-        <div class="vision-header">
-            <h1>Vision Board Interactif</h1>
-            <div class="divider-line"></div>
-            <p>Mon cap d'ingénieur : relier l'excellence des sciences mécaniques et électroniques aux exigences de la conception de systèmes audio et hi-fi haut de gamme.</p>
+    <div class="container">
+        <div class="section-header">
+            <h1 class="page-title">Vision Board</h1>
+            <p class="page-subtitle">
+                <span lang="fr">Mon cap d'ingénieur : relier l'excellence des sciences mécaniques et électroniques aux exigences de la conception de systèmes audio et hi-fi haut de gamme.</span>
+                <span lang="en">My engineering vision: bridging mechanical and electronic sciences with high-end audio systems design.</span>
+            </p>
         </div>
 
         <div class="board-grid">
             
             <div class="quote-card">
-                <h2>L'union de la matière et du son</h2>
-                <p>"Concevoir un système audio d'exception, c'est marier la rigueur de l'ingénierie mécanique et la précision de l'électronique pour donner vie à l'émotion musicale."</p>
+                <h2><span lang="fr">L'union de la matière et du son</span><span lang="en">The union of matter and sound</span></h2>
+                <p>"<span lang="fr">Concevoir un système audio d'exception, c'est marier la rigueur de l'ingénierie mécanique et la précision de l'électronique pour donner vie à l'émotion musicale.</span><span lang="en">Designing an exceptional audio system means marrying mechanical engineering rigor with electronic precision to bring musical emotion to life.</span>"</p>
             </div>
 
             <div class="board-card" data-tilt>
                 <h3>🎛️ Acoustique & Transducteurs</h3>
-                <p>Développer une expertise pointue dans l'étude des vibrations, le design de caissons de haut-parleurs (charges acoustiques) et la modélisation sous CATIA V5 de structures destinées à limiter les résonances parasites.</p>
+                <p><span lang="fr">Développer une expertise pointue dans l'étude des vibrations, le design de caissons de haut-parleurs et la modélisation sous CATIA V5 de structures anti-résonantes.</span><span lang="en">Developing sharp expertise in vibration analysis, speaker enclosure design and CATIA V5 anti-resonant structures.</span></p>
                 <div class="card-tags">
-                    <span>Mécanique 3D</span>
+                    <span>CAD 3D</span>
                     <span>Vibrations</span>
-                    <span>Transducteurs</span>
+                    <span>Transducers</span>
                 </div>
             </div>
 
             <div class="board-card" data-tilt>
                 <h3>⚡ Électronique & Traitement</h3>
-                <p>Maîtriser les circuits de traitement du signal, l'amplification et l'embarqué (C++, microcontrôleurs) pour concevoir des interfaces de contrôle intelligentes et des bancs de tests pour équipements hi-fi.</p>
+                <p><span lang="fr">Maîtriser les circuits de traitement du signal, l'amplification et l'embarqué (C++, microcontrôleurs) pour concevoir des interfaces de contrôle intelligentes.</span><span lang="en">Mastering signal processing circuits, amplification, and embedded tech (C++) to build smart control interfaces.</span></p>
                 <div class="card-tags">
-                    <span>Circuits & PWM</span>
-                    <span>C++ Embarqué</span>
+                    <span>PWM & Circuits</span>
+                    <span>C++ Embedded</span>
                     <span>Amplification</span>
                 </div>
             </div>
 
             <div class="board-card" data-tilt>
                 <h3>🎧 Culture Audiophile & Modding</h3>
-                <p>Une passion de longue date pour le matériel hi-fi, les casques de studio et le modding hardware (optimisation de baladeurs, intégration USB-C et DACs), nourrie par une veille constante sur le marché vintage et moderne.</p>
+                <p><span lang="fr">Une passion de longue date pour le matériel hi-fi, les casques de studio et le modding hardware (optimisation, DACs, intégration USB-C).</span><span lang="en">A long-standing passion for hi-fi gear, studio headphones, and hardware modding (optimization, DACs, USB-C).</span></p>
                 <div class="card-tags">
                     <span>Hi-Fi Gear</span>
-                    <span>Prototypage</span>
-                    <span>Rénovation</span>
+                    <span>Prototyping</span>
+                    <span>Renovation</span>
                 </div>
             </div>
 
             <div class="board-card" data-tilt>
                 <h3>🌍 Horizon International & Nordique</h3>
-                <p>Saisir l'opportunité de réaliser des projets et des expériences professionnelles à l'étranger (notamment en Europe du Nord / Scandinavie), réputée pour son excellence et son innovation dans l'industrie électroacoustique.</p>
+                <p><span lang="fr">Saisir l'opportunité de réaliser des projets à l'étranger (Europe du Nord / Scandinavie), reconnue pour son excellence dans l'électroacoustique.</span><span lang="en">Seizing opportunities abroad (Northern Europe / Scandinavia), renowned for excellence in electroacoustics.</span></p>
                 <div class="card-tags">
-                    <span>Mobilité Internationale</span>
-                    <span>Anglais B2</span>
+                    <span>Mobility</span>
+                    <span>English B2</span>
                     <span>Innovation</span>
                 </div>
             </div>
@@ -277,31 +249,39 @@
         </div>
     </div>
 
-    <!-- SCRIPT POUR LES INTERACTIONS SOURIS & EFFET TILT 3D -->
-    <script>
-        const cards = document.querySelectorAll('.board-card');
+    <footer>
+        <p>© 2026 Paul Signe — Vision Board & Career Goals.</p>
+    </footer>
 
+    <!-- SCRIPT TILT 3D & THEME -->
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeToggleBtn');
+            if(html.getAttribute('data-theme') === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+            } else {
+                html.setAttribute('data-theme', 'light');
+                btn.textContent = '🌙';
+            }
+        }
+
+        const cards = document.querySelectorAll('.board-card');
         cards.forEach(card => {
-            // Suivi de la position de la souris pour l'effet de lueur (glow)
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-
-                // Effet d'inclinaison 3D (Tilt)
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = -((y - centerY) / centerY) * 10; // Max 10 deg
-                const rotateY = ((x - centerX) / centerX) * 10;  // Max 10 deg
+                const rotateX = -((y - centerY) / centerY) * 8;
+                const rotateY = ((x - centerX) / centerX) * 8;
 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
             });
 
-            // Remise à plat de la carte quand la souris sort
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
             });

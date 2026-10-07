@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Board - Paul Signe | Ingénierie Audio & Hi-Fi</title>
+    <style>
+        :root {
+            --bg-body: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --border-card: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .vision-container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: var(--accent); }
+
+        .vision-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .vision-header h1 {
+            font-size: 2.8rem;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .vision-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Grille du Vision Board */
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .board-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .board-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--primary-glow);
+            border-color: var(--accent);
+        }
+
+        .board-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .board-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .card-tags span {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Grande carte centrale / citation */
+        .quote-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(15, 23, 42, 0.4) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 28px;
+            padding: 40px;
+            text-align: center;
+        }
+        .quote-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .quote-card p {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .vision-header h1 { font-size: 2.2rem; }
+            .board-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vision-container">
+        <!-- Bouton de retour -->
+        <a href="index.html" class="back-btn">← Retour au portfolio principal</a>
+
+        <div class="vision-header">
+            <h1>Vision Board Professionnel</h1>
+            <p>Mon cap d'ingénieur : relier l'excellence des sciences mécaniques et électroniques aux exigences de la conception de systèmes audio et hi-fi haut de gamme.</p>
+        </div>
+
+        <div class="board-grid">
+            
+            <!-- Citation inspirante / Cap -->
+            <div class="quote-card">
+                <h2>L'union de la matière et du son</h2>
+                <p>"Concevoir un système audio d'exception, c'est marier la rigueur de l'ingénierie mécanique et la précision de l'électronique pour donner vie à l'émotion musicale."</p>
+            </div>
+
+            <!-- Pilier 1 : Conception & Transducteurs -->
+            <div class="board-card">
+                <h3>🎛️ Acoustique & Transducteurs</h3>
+                <p>Développer une expertise pointue dans l'étude des vibrations, le design de caissons de haut-parleurs (charges acoustiques) et la modélisation sous CATIA V5 de structures destinées à limiter les résonances parasites.</p>
+                <div class="card-tags">
+                    <span>Mécanique 3D</span>
+                    <span>Vibrations</span>
+                    <span>Transducteurs</span>
+                </div>
+            </div>
+
+            <!-- Pilier 2 : Électronique & Signal -->
+            <div class="board-card">
+                <h3>⚡ Électronique & Traitement</h3>
+                <p>Maîtriser les circuits de traitement du signal, l'amplification et l'embarqué (C++, microcontrôleurs) pour concevoir des interfaces de contrôle intelligentes et des bancs de tests pour équipements hi-fi.</p>
+                <div class="card-tags">
+                    <span>Circuits & PWM</span>
+                    <span>C++ Embarqué</span>
+                    <span>Amplification</span>
+                </div>
+            </div>
+
+            <!-- Pilier 3 : Passion Matériel & Modding -->
+            <div class="board-card">
+                <h3>🎧 Culture Audiophile & Modding</h3>
+                <p>Une passion de longue date pour le matériel hi-fi, les casques de studio et le modding hardware (optimisation de baladeurs, intégration USB-C et DACs), nourrie par une veille constante sur le marché vintage et moderne.</p>
+                <div class="card-tags">
+                    <span>Hi-Fi Gear</span>
+                    <span>Prototypage</span>
+                    <span>Rénovation</span>
+                </div>
+            </div>
+
+            <!-- Pilier 4 : Horizon International -->
+            <div class="board-card">
+                <h3>🌍 Horizon International & Nordique</h3>
+                <p>Saisir l'opportunité de réaliser des projets et des expériences professionnelles à l'étranger (notamment en Europe du Nord / Scandinavie), réputée pour son excellence et son innovation dans l'industrie électroacoustique.</p>
+                <div class="card-tags">
+                    <span>Mobilité Internationale</span>
+                    <span>Anglais B2</span>
+                    <span>Innovation</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -3,147 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paul Signe - Portfolio de Recrutement</title>
+    <title>Paul Signe - Portfolio & Recrutement</title>
     <style>
-        /* --- STYLES GLOBAUX --- */
         :root {
-            --bg-body: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-            --bg-card: #ffffff;
+            --bg-body: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.85);
             --text-main: #0f172a;
             --text-muted: #64748b;
             --primary: #0f172a;
-            --accent: #0284c7;
-            --bg-pill: #f1f5f9;
+            --accent: #ff5722;
+            --accent-glow: rgba(255, 87, 34, 0.25);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
         body {
-            background: var(--bg-body);
+            background-color: var(--bg-body);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 50px 20px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* GESTION DES LANGUES : Cache strictement la langue inactive */
+        /* --- FOND AVEC DÉGRADÉS FLOUS (Mesh Gradient Style Canva) --- */
+        .mesh-blob-1 {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(255, 87, 34, 0.35) 0%, rgba(255, 152, 0, 0.1) 70%);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .mesh-blob-2 {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 193, 7, 0.25) 0%, rgba(255, 87, 34, 0.1) 70%);
+            filter: blur(90px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
         body.fr [lang="en"] { display: none !important; }
         body.en [lang="fr"] { display: none !important; }
 
         .app-container {
-            background: var(--bg-card);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             width: 100%;
             max-width: 1200px;
             border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
             padding: 50px;
             position: relative;
         }
 
-        /* --- SLIDER LANGUE (SWITCH SPIDER) --- */
+        /* --- SLIDER LANGUE --- */
         .lang-switch-container {
             position: absolute;
             top: 40px;
             right: 40px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 600;
         }
-
-        .lang-label { font-size: 14px; color: var(--text-muted); transition: color 0.3s; }
+        .lang-label { font-size: 13px; color: var(--text-muted); }
         .lang-label.active { color: var(--primary); font-weight: 700; }
-
-        .switch { position: relative; display: inline-block; width: 54px; height: 28px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px; }
-        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        input:checked + .slider { background-color: #0284c7; }
-        input:checked + .slider:before { transform: translateX(26px); }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #ff5722; }
+        input:checked + .slider:before { transform: translateX(24px); }
 
         /* --- EN-TÊTE PROFIL --- */
-        .profile-header { max-width: 850px; margin-bottom: 40px; text-align: center; margin-left: auto; margin-right: auto; margin-top: 20px; }
-        .profile-pic { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.1); border: 2px solid #e2e8f0;}
-        .profile-header h1 { font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 12px; }
-        .profile-header p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
-        .alternance-badge { display: inline-block; background: #e0f2fe; color: #0284c7; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; margin-bottom: 25px;}
+        .profile-header { max-width: 850px; margin-bottom: 40px; text-align: center; margin-left: auto; margin-right: auto; margin-top: 10px; }
+        .profile-pic { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(255, 87, 34, 0.2); border: 2px solid #ffffff;}
+        .profile-header h1 { font-size: 3rem; letter-spacing: -1.5px; margin-bottom: 10px; font-weight: 800; }
+        .profile-header p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+        
+        .divider-line { width: 120px; height: 4px; background: linear-gradient(90deg, #ff5722, #ff9800); margin: 0 auto 20px auto; border-radius: 2px; }
+
+        .alternance-badge { display: inline-block; background: rgba(255, 87, 34, 0.1); color: #d84315; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; margin-bottom: 25px;}
         
         .action-buttons { display: flex; justify-content: center; gap: 12px; }
-        .btn { text-decoration: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; transition: all 0.2s ease; cursor: pointer; display: inline-block; }
-        .btn:hover { transform: translateY(-2px); }
+        .btn { text-decoration: none; padding: 12px 28px; border-radius: 30px; font-weight: 700; font-size: 14px; transition: all 0.3s ease; cursor: pointer; display: inline-block; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
         .btn-primary { background: var(--primary); color: white; border: none;}
-        .btn-secondary { background: transparent; color: var(--text-main); border: 1px solid #e2e8f0; }
-        .btn-secondary:hover { background: var(--bg-pill); }
-        .btn-outline-blue { border: 2px solid var(--accent); color: var(--accent); background: white; }
-        .btn-outline-blue:hover { background: var(--accent); color: white; }
+        .btn-secondary { background: transparent; color: var(--text-main); border: 2px solid #e2e8f0; }
+        .btn-secondary:hover { background: #ffffff; border-color: var(--primary); }
+        .btn-gradient { background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%); color: white; border: none; }
 
         /* --- NAVIGATION --- */
-        .nav-container { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; }
-        .pill-nav { background: var(--bg-pill); padding: 6px; border-radius: 40px; display: inline-flex; gap: 5px; flex-wrap: wrap; justify-content: center;}
-        .pill-nav button { background: transparent; border: none; padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; }
-        .pill-nav button.active { background: #ffffff; color: var(--text-main); box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-weight: 600; }
+        .nav-container { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 20px; }
+        .pill-nav { background: #f1f5f9; padding: 6px; border-radius: 40px; display: inline-flex; gap: 5px; flex-wrap: wrap; justify-content: center;}
+        .pill-nav button { background: transparent; border: none; padding: 10px 22px; border-radius: 30px; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; }
+        .pill-nav button.active { background: #ffffff; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
-        /* --- ONGLETS CONTENU --- */
         .tab-content { display: none; animation: fadeIn 0.4s ease; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- GRILLES PROJETS --- */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
-        .project-card { display: block; text-decoration: none; color: inherit; background: #f8fafc; border-radius: 28px; padding: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid transparent; cursor: pointer;}
-        .project-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;}
-        .project-img { width: 100%; height: 220px; object-fit: cover; border-radius: 16px; margin-bottom: 20px; background-color: #e2e8f0; }
-        .project-info h3 { font-size: 1.25rem; margin-bottom: 8px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
+        .project-card { display: block; text-decoration: none; color: inherit; background: #ffffff; border-radius: 28px; padding: 20px; transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.04); cursor: pointer;}
+        .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(255, 87, 34, 0.12); border-color: rgba(255, 87, 34, 0.3); }
+        .project-img { width: 100%; height: 220px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; background-color: #e2e8f0; }
+        .project-info h3 { font-size: 1.25rem; margin-bottom: 8px; font-weight: 700; }
         .project-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; line-height: 1.5; }
-        .project-tags span { background: #ffffff; border: 1px solid #e2e8f0; padding: 5px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: var(--accent); margin-right: 6px; text-transform: uppercase; }
+        .project-tags span { background: #fff3e0; color: #e65100; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; margin-right: 6px; text-transform: uppercase; }
 
-        /* --- TABLEAU DE VALORISATION --- */
-        .table-wrapper { width: 100%; overflow-x: auto; background: #f8fafc; border-radius: 24px; padding: 20px; border: 1px solid #e2e8f0; }
+        /* --- TABLEAU --- */
+        .table-wrapper { width: 100%; overflow-x: auto; background: #ffffff; border-radius: 24px; padding: 20px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; min-width: 950px; text-align: left; }
         th { background: var(--primary); color: white; padding: 16px 14px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
         th:first-child { border-top-left-radius: 12px; } th:last-child { border-top-right-radius: 12px; }
-        td { padding: 16px 14px; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; color: var(--text-muted); vertical-align: top; line-height: 1.5; }
+        td { padding: 16px 14px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; color: var(--text-muted); vertical-align: top; line-height: 1.5; }
         tr:last-child td { border-bottom: none; }
-        tr:hover td { background: #ffffff; color: var(--text-main); }
         .td-bold { font-weight: 700; color: var(--primary); font-size: 0.95rem; }
-        .tag-domaine { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 6px; }
+        .tag-domaine { display: inline-block; background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; }
 
-        /* --- PITCH SECTION --- */
-        .pitch-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 20px; padding: 30px; margin-bottom: 30px; }
-        .pitch-box h2 { color: var(--accent); margin-bottom: 15px; font-size: 1.4rem;}
-        .pitch-box p { color: #0f172a; line-height: 1.7; font-size: 1rem; margin-bottom: 15px; }
+        /* --- PITCH --- */
+        .pitch-box { background: linear-gradient(135deg, rgba(255, 87, 34, 0.05) 0%, rgba(255, 152, 0, 0.05) 100%); border: 1px solid rgba(255, 87, 34, 0.2); border-radius: 24px; padding: 35px; margin-bottom: 30px; }
+        .pitch-box h2 { color: #d84315; margin-bottom: 20px; font-size: 1.5rem; font-weight: 800;}
+        .pitch-box p { color: #1e293b; line-height: 1.8; font-size: 1.05rem; margin-bottom: 15px; }
 
         /* --- COMPÉTENCES --- */
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .skill-card { background: #f8fafc; border-radius: 20px; padding: 25px; border: 1px solid #e2e8f0; }
-        .skill-card h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--accent); }
+        .skill-card { background: #ffffff; border-radius: 24px; padding: 30px; border: 1px solid #e2e8f0; }
+        .skill-card h3 { font-size: 1.2rem; margin-bottom: 18px; color: #d84315; font-weight: 700; }
         .skill-list { list-style: none; }
-        .skill-list li { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px; padding-left: 20px; position: relative; }
-        .skill-list li::before { content: "→"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+        .skill-list li { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .skill-list li::before { content: "•"; color: #ff5722; position: absolute; left: 0; font-weight: bold; font-size: 1.2rem; top: -2px; }
 
-        /* --- MODALES (POP-UPS PROJETS) --- */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+        /* --- MODALES --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
         .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-content { background: #ffffff; width: 100%; max-width: 900px; max-height: 90vh; border-radius: 32px; overflow-y: auto; position: relative; padding: 50px; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.2);}
+        .modal-content { background: #ffffff; width: 100%; max-width: 900px; max-height: 90vh; border-radius: 36px; overflow-y: auto; position: relative; padding: 50px; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 30px 60px rgba(0,0,0,0.2);}
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .close-btn { position: absolute; top: 25px; right: 30px; font-size: 32px; color: #94a3b8; cursor: pointer; border: none; background: none; transition: color 0.2s; line-height: 1;}
+        .close-btn { position: absolute; top: 30px; right: 35px; font-size: 32px; color: #94a3b8; cursor: pointer; border: none; background: none; transition: color 0.2s; line-height: 1;}
         .close-btn:hover { color: #0f172a; }
-        
-        .modal-hero-img { width: 100%; height: 350px; object-fit: cover; border-radius: 20px; margin-bottom: 30px; background-color: #e2e8f0; }
-        .modal-title { font-size: 2.2rem; margin-bottom: 10px; color: var(--text-main); letter-spacing: -0.5px;}
-        .modal-meta { color: var(--accent); font-weight: 600; margin-bottom: 30px; font-size: 1rem; }
+        .modal-hero-img { width: 100%; height: 350px; object-fit: cover; border-radius: 24px; margin-bottom: 30px; background-color: #e2e8f0; }
+        .modal-title { font-size: 2.3rem; margin-bottom: 10px; color: var(--text-main); font-weight: 800; letter-spacing: -1px;}
+        .modal-meta { color: #d84315; font-weight: 700; margin-bottom: 30px; font-size: 1rem; }
         .modal-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; }
-        .modal-subtitle { font-size: 1.3rem; color: var(--primary); margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;}
-        .competence-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 16px; margin-bottom: 15px; }
-        .competence-box h4 { color: var(--accent); margin-bottom: 8px; font-size: 1.1rem;}
+        .modal-subtitle { font-size: 1.35rem; color: var(--primary); margin-top: 35px; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; font-weight: 700;}
+        .competence-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 22px; border-radius: 20px; margin-bottom: 15px; }
+        .competence-box h4 { color: #d84315; margin-bottom: 8px; font-size: 1.1rem; font-weight: 700;}
 
         @media (max-width: 768px) {
-            .app-container { padding: 40px 15px; border-radius: 20px; margin-top: 40px; }
-            .profile-header h1 { font-size: 2.2rem; }
+            .app-container { padding: 30px 15px; border-radius: 24px; }
+            .profile-header h1 { font-size: 2.3rem; }
             .action-buttons { flex-direction: column; }
-            .lang-switch-container { top: 15px; right: 50%; transform: translateX(50%); } 
+            .lang-switch-container { top: 20px; right: 50%; transform: translateX(50%); } 
             .modal-content { padding: 30px 20px; }
             .modal-hero-img { height: 200px; }
         }
@@ -151,9 +175,13 @@
 </head>
 <body class="fr">
 
+    <!-- Éléments de dégradés flous de fond (Style Canva Mesh Gradient) -->
+    <div class="mesh-blob-1"></div>
+    <div class="mesh-blob-2"></div>
+
     <div class="app-container">
         
-        <!-- SLIDER LANGUE (SWITCH) -->
+        <!-- SLIDER LANGUE -->
         <div class="lang-switch-container">
             <span class="lang-label fr-label active">🇫🇷 FR</span>
             <label class="switch">
@@ -168,6 +196,8 @@
             <img src="images/photo-profil.png" alt="Paul Signe" class="profile-pic" onerror="this.src='https://via.placeholder.com/90'">
             <h1>Paul Signe</h1>
             
+            <div class="divider-line"></div>
+
             <p lang="fr">Objectif : Stage Technicien (12 semaines) — ENSAM Bordeaux Promo 2025-2028 | Future spécialisation : Ingénierie Audio & Systèmes Sonores</p>
             <p lang="en">Objective: 12-week Technical Internship — ENSAM Bordeaux Class of 2025-2028 | Future goal: Audio & Sound Systems Engineering</p>
 
@@ -205,7 +235,7 @@
         </nav>
 
         <main>
-            <!-- 1. ONGLET PROJETS (Fiches missions) -->
+            <!-- 1. ONGLET PROJETS -->
             <div id="projets" class="tab-content active">
                 <div class="projects-grid">
                     
@@ -269,7 +299,7 @@
                 </div>
 
                 <h3 style="margin-bottom: 15px; color: var(--primary);">
-                    <span lang="fr">Tableau de Valorisation d'Expériences (Obligatoire)</span><span lang="en">Experience Valuation Matrix</span>
+                    <span lang="fr">Tableau de Valorisation d'Expériences (Obligatoire)[span_0](start_span)[span_0](end_span)</span><span lang="en">Experience Valuation Matrix</span>
                 </h3>
                 <div class="table-wrapper">
                     <table>
@@ -313,7 +343,7 @@
                 </div>
             </div>
 
-            <!-- 3. ONGLET COMPÉTENCES DÉTAILLÉES -->
+            <!-- 3. ONGLET COMPÉTENCES -->
             <div id="competences" class="tab-content">
                 <div class="skills-grid">
                     <div class="skill-card">
@@ -364,11 +394,10 @@
                 </div>
             </div>
 
-            <!-- 4. ONGLET ANNEXES & ÉCOLE -->
+            <!-- 4. ONGLET ANNEXES -->
             <div id="annexes" class="tab-content">
                 <div class="skills-grid" style="grid-template-columns: 1fr;">
                     
-                    <!-- BOX ENSAM -->
                     <div class="skill-card" style="text-align: center; padding: 40px;">
                         <h3 style="margin-bottom: 15px; font-size: 1.3rem;"><span lang="fr">En savoir plus sur ma formation (ENSAM)</span><span lang="en">Learn more about my education (ENSAM)</span></h3>
                         <p style="color: var(--text-muted); margin-bottom: 25px;"><span lang="fr">Découvrez le programme officiel du Bachelor de Technologie (Spécialité mécanique-production).</span><span lang="en">Discover the official Technology Bachelor program.</span></p>
@@ -377,18 +406,17 @@
                             <a href="https://artsetmetiers.fr/fr/formation/bachelor-en-sciences-et-ingenierie" target="_blank" class="btn btn-primary">
                                 <span lang="fr">🌐 Visiter le Site Web Officiel</span><span lang="en">🌐 Visit Official Website</span>
                             </a>
-                            <a href="https://s3-site.artsetmetiers.fr/public/2025-11/Bachelor%20en%20Sciences%20et%20Ingénierie_Spécialité%20mécanique-production_2025_11_19.pdf" target="_blank" class="btn btn-outline-blue">
+                            <a href="https://s3-site.artsetmetiers.fr/public/2025-11/Bachelor%20en%20Sciences%20et%20Ingénierie_Spécialité%20mécanique-production_2025_11_19.pdf" target="_blank" class="btn btn-secondary">
                                 <span lang="fr">📄 Télécharger la Plaquette (PDF)</span><span lang="en">📄 Download Brochure (PDF)</span>
                             </a>
                         </div>
                     </div>
 
-                    <!-- BOX ACCÈS AU VISION BOARD -->
-                    <div class="skill-card" style="background: #f0f9ff; border: 1px solid #bae6fd; text-align: center; padding: 40px;">
-                        <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.3rem;"><span lang="fr">Vision Board : Ingénierie Audio & Hi-Fi</span><span lang="en">Vision Board: Audio & Hi-Fi Engineering</span></h3>
+                    <div class="skill-card" style="background: linear-gradient(135deg, rgba(255, 87, 34, 0.05) 0%, rgba(255, 152, 0, 0.05) 100%); border: 1px solid rgba(255, 87, 34, 0.2); text-align: center; padding: 40px;">
+                        <h3 style="color: #d84315; margin-bottom: 10px; font-size: 1.3rem;"><span lang="fr">Vision Board : Ingénierie Audio & Hi-Fi</span><span lang="en">Vision Board: Audio & Hi-Fi Engineering</span></h3>
                         <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;"><span lang="fr">Découvrez ma page interactive dédiée à mon projet professionnel de conception de systèmes sonores.</span><span lang="en">Explore my interactive page dedicated to my career project in sound systems engineering.</span></p>
                         
-                        <a href="vision-board.html" target="_blank" class="btn btn-primary" style="font-size: 1rem; padding: 14px 28px;">
+                        <a href="vision-board.html" target="_blank" class="btn btn-gradient" style="font-size: 1rem; padding: 14px 28px;">
                             <span lang="fr">✨ Ouvrir le Vision Board interactif</span><span lang="en">✨ Open interactive Vision Board</span>
                         </a>
                     </div>
@@ -398,10 +426,7 @@
         </main>
     </div>
 
-    <!-- ============================================== -->
-    <!-- MODALES PROJETS (FICHES MISSIONS CONFORMES)    -->
-    <!-- ============================================== -->
-
+    <!-- MODALES PROJETS -->
     <div id="modal-robot" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-robot')">&times;</button>
@@ -426,18 +451,11 @@
                     <li><strong>Savoir-Faire :</strong> Codage C++ sur IDE, soudure à l'étain, câblage électronique.</li>
                     <li><strong>Savoir-Être :</strong> Débogage analytique et communication d'équipe.</li>
                 </ul>
-                <ul class="skill-list" lang="en">
-                    <li><strong>Knowledge:</strong> PWM signal theory, control principles.</li>
-                    <li><strong>Hard Skills:</strong> C++ coding, tin soldering, wiring.</li>
-                    <li><strong>Soft Skills:</strong> Analytical debugging and teamwork.</li>
-                </ul>
             </div>
 
             <h3 class="modal-subtitle"><span lang="fr">Bilan & Résultats Personnels</span><span lang="en">Results & Personal Review</span></h3>
             <p class="modal-text" lang="fr"><strong>Ce que j'ai apporté :</strong> La fiabilisation du câblage de puissance et la création de la boucle logique du capteur.<br>
             <strong>Ce que j'ai le plus aimé :</strong> La satisfaction de voir un système matériel réagir de manière autonome à un code rédigé par mes soins.</p>
-            <p class="modal-text" lang="en"><strong>My contribution:</strong> Securing power wiring and building the sensor logic loop.<br>
-            <strong>What I enjoyed most:</strong> Seeing physical hardware autonomously react to my written code.</p>
         </div>
     </div>
 
@@ -451,11 +469,9 @@
 
             <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
             <p class="modal-text" lang="fr">Préparation du poste de travail, usinage d'une pièce en aluminium (chariotage, alésage, réalisation de congés), contrôle qualité métrologique.</p>
-            <p class="modal-text" lang="en">Workstation setup, machining an aluminum part (turning, boring, filleting), metrological quality control.</p>
 
             <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
             <p class="modal-text" lang="fr">Tour conventionnel, outils carbure, pied à coulisse au 1/50ème, respect absolu des consignes EPI.</p>
-            <p class="modal-text" lang="en">Conventional lathe, carbide tools, 1/50th caliper, strict adherence to safety PPE.</p>
 
             <h3 class="modal-subtitle"><span lang="fr">Faits Marquants & Compétences</span><span lang="en">Highlights & Skills</span></h3>
             <div class="competence-box">
@@ -482,7 +498,6 @@
 
             <h3 class="modal-subtitle"><span lang="fr">Contexte & Activités</span><span lang="en">Context & Activities</span></h3>
             <p class="modal-text" lang="fr">Modélisation paramétrique 3D de pièces complexes, assemblage numérique sous contraintes (Assembly Design), analyse des mobilités.</p>
-            <p class="modal-text" lang="en">3D parametric modeling of complex parts, constrained digital assembly, mobility analysis.</p>
 
             <h3 class="modal-subtitle"><span lang="fr">Moyens & Contraintes</span><span lang="en">Resources & Constraints</span></h3>
             <p class="modal-text" lang="fr">Station de travail BE, licence CATIA V5, cahier des charges. Éviter l'hyperstatisme (sur-contraintes).</p>
@@ -502,7 +517,6 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
     <script>
         function openTab(tabName, event) {
             var contents = document.getElementsByClassName("tab-content");

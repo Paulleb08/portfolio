@@ -5,213 +5,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vision Board - Paul Signe</title>
     <style>
+        /* --- STYLE NOTION / PINTEREST MINIMALISTE --- */
         :root {
-            --bg: #fafafa;
-            --text: #2f3437;
-            --muted: #787774;
-            --accent: #eb5757;
-            --card: #ffffff;
-            --border: #e9e9e7;
+            --bg-page: #ffffff;
+            --text-main: #37352f;
+            --text-muted: #787774;
+            --bg-card: #f7f6f3;
+            --border-color: #e9e9e7;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 100px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
         
+        body { background-color: var(--bg-page); color: var(--text-main); padding-bottom: 100px; }
+        
+        /* Gestion des langues */
         body.fr [lang="en"] { display: none !important; }
         body.en [lang="fr"] { display: none !important; }
 
-        /* Bannière supérieure façon Notion */
-        .banner {
+        /* --- BANNIÈRE (COVER NOTION) --- */
+        .cover-banner {
             width: 100%;
             height: 35vh;
-            background-image: url('vision-banner.jpg');
-            background-color: #d3d3d3; /* Fallback */
+            background-image: url('cover_vision_board.jpg'); /* Mets ta bannière ici */
+            background-color: #e2e8f0;
             background-size: cover;
             background-position: center;
             position: relative;
         }
 
-        /* Lang switch minimaliste */
-        .lang-toggle {
+        .lang-btn {
             position: absolute;
-            top: 20px; right: 30px;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(5px);
-            padding: 5px 10px;
-            border-radius: 8px;
+            top: 20px; right: 20px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: 600;
-            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; top: -50px; }
+        /* --- CONTENU PRINCIPAL --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+        }
 
-        /* Icône de page (Emoji) */
         .page-icon {
-            font-size: 5rem;
-            line-height: 1;
+            font-size: 5.5rem;
+            margin-top: -60px;
             margin-bottom: 20px;
-            background: var(--bg);
-            border-radius: 10px;
             display: inline-block;
+            background: var(--bg-page);
+            border-radius: 12px;
+            padding: 0 5px;
         }
 
-        .header h1 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; }
-        .header p { font-size: 1.1rem; color: var(--muted); border-left: 3px solid var(--text); padding-left: 15px; }
+        .page-title { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+        .page-desc { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; }
 
-        /* Structure Masonry / Pinterest */
+        /* --- GRILLE MASONRY (Style Pinterest) --- */
         .masonry-grid {
             column-count: 3;
-            column-gap: 25px;
-            margin-top: 50px;
+            column-gap: 20px;
         }
         @media (max-width: 900px) { .masonry-grid { column-count: 2; } }
         @media (max-width: 600px) { .masonry-grid { column-count: 1; } }
 
-        .pin-card {
-            background: var(--card);
-            border: 1px solid var(--border);
+        /* Cartes (Pins) */
+        .vision-card {
+            background: var(--bg-card);
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             break-inside: avoid;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            transition: transform 0.2s ease;
+            overflow: hidden;
+            transition: transform 0.2s;
         }
-        .pin-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+        .vision-card:hover { transform: translateY(-3px); }
+        .vision-card.no-bg { background: transparent; }
 
-        .pin-img {
+        .vision-img {
             width: 100%;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            object-fit: cover;
             display: block;
-            background-color: #f1f1f1;
+            border-radius: 12px;
+            object-fit: cover;
+            background-color: #eaeaea;
         }
 
-        .pin-quote {
+        .card-content { padding: 15px; }
+        .card-title { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
+        .card-tags { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+
+        /* Citation */
+        .quote-block {
             font-family: Georgia, serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-style: italic;
-            line-height: 1.5;
-            color: var(--text);
-            padding: 20px 10px;
+            padding: 25px;
             text-align: center;
+            line-height: 1.5;
+            background: var(--bg-page);
+            border-left: 3px solid var(--text-main);
         }
 
-        .pin-title { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
-        .pin-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.4; }
-
-        /* Format "To do" / Affirmations */
-        .todo-list { list-style: none; padding-top: 10px; }
-        .todo-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.95rem; }
-        .todo-list input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--text); cursor: pointer; }
-
-        /* Tags d'entreprises */
-        .brand-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .brand-tags span { background: #f1f1f1; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 15px; color: var(--text); }
+        /* Checklists Notion-style */
+        .todo-list { list-style: none; margin-top: 10px; }
+        .todo-list li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; font-size: 0.95rem; }
+        .todo-list input[type="checkbox"] { margin-top: 4px; accent-color: var(--text-main); cursor: pointer; }
     </style>
 </head>
 <body class="fr">
 
-    <div class="banner">
-        <button class="lang-toggle" onclick="toggleLanguage()">🌐 FR / EN</button>
+    <div class="cover-banner">
+        <button class="lang-btn" onclick="toggleLanguage()">🌐 FR / EN</button>
     </div>
 
     <div class="container">
-        
+        <!-- Icône et Titre -->
         <div class="page-icon">🎧</div>
-        
-        <div class="header">
-            <h1>Vision Board 2026+</h1>
-            <p>
-                <span lang="fr">Transformer ma passion pour l'acoustique en expertise ingénieur.</span>
-                <span lang="en">Turning my passion for acoustics into engineering expertise.</span>
-            </p>
-        </div>
+        <h1 class="page-title">Vision Board 2026+</h1>
+        <p class="page-desc">
+            <span lang="fr">Ingénierie, Audiovisuel & Conception Hi-Fi.</span>
+            <span lang="en">Engineering, Audiovisual & Hi-Fi Design.</span>
+        </p>
 
         <div class="masonry-grid">
 
-            <!-- Carte Citation Inspiration -->
-            <div class="pin-card" style="background: #2f3437; color: white;">
-                <div class="pin-quote" style="color: white; border: none;">
-                    <span lang="fr">"La perfection acoustique n'est pas un hasard, c'est de l'ingénierie mécanique de précision."</span>
-                    <span lang="en">"Acoustic perfection is no accident, it is precision mechanical engineering."</span>
+            <!-- Citation / Mantra -->
+            <div class="vision-card no-bg">
+                <div class="quote-block">
+                    <span lang="fr">"Turn ideas into reality. L'ingénierie mécanique au service du son."</span>
+                    <span lang="en">"Turn ideas into reality. Mechanical engineering serving sound."</span>
                 </div>
             </div>
 
-            <!-- Carte Entreprises Nordiques -->
-            <div class="pin-card">
-                <img src="image-nordic-audio.jpg" alt="Scandinavian Audio" class="pin-img" onerror="this.src='https://via.placeholder.com/400x300?text=Design+Nordique'">
-                <div class="pin-title"><span lang="fr">L'Excellence Nordique</span><span lang="en">Nordic Excellence</span></div>
-                <div class="pin-desc"><span lang="fr">Travailler dans les pays scandinaves, berceau du design et de l'innovation sonore.</span><span lang="en">Working in Scandinavia, the birthplace of design and sound innovation.</span></div>
-                <div class="brand-tags">
-                    <span>Bang & Olufsen</span>
-                    <span>KEF</span>
-                    <span>Dali</span>
-                    <span>Genelec</span>
+            <!-- Focus : Europe du Nord -->
+            <div class="vision-card">
+                <!-- Remplace par une belle photo de design nordique ou d'enceintes B&O -->
+                <img src="image_nordic_audio.jpg" alt="Europe du Nord" class="vision-img" onerror="this.src='https://via.placeholder.com/400x450?text=Image+Europe+du+Nord'">
+                <div class="card-content">
+                    <div class="card-title"><span lang="fr">L'Excellence Nordique</span><span lang="en">Nordic Excellence</span></div>
+                    <div class="card-tags">Bang & Olufsen — KEF — Dali</div>
                 </div>
             </div>
 
-            <!-- Carte Affirmations / Objectifs -->
-            <div class="pin-card">
-                <div class="pin-title" style="font-size: 1.1rem; margin-bottom: 15px;">🎯 <span lang="fr">Objectifs Professionnels</span><span lang="en">Career Goals</span></div>
+            <!-- Check-list Objectifs 2026 -->
+            <div class="vision-card" style="padding: 20px;">
+                <div class="card-title" style="font-size: 1.1rem; margin-bottom: 15px;">🎯 <span lang="fr">Objectifs 2026</span><span lang="en">2026 Goals</span></div>
                 <ul class="todo-list">
-                    <li><input type="checkbox" checked disabled> <span lang="fr">Maîtriser la CAO (CATIA)</span><span lang="en">Master CAD (CATIA)</span></li>
-                    <li><input type="checkbox"> <span lang="fr">Stage Technicien 12 semaines</span><span lang="en">12-week Technical Internship</span></li>
-                    <li><input type="checkbox"> <span lang="fr">Contrat Pro / Alternance en BE</span><span lang="en">Work-Study contract in R&D</span></li>
-                    <li><input type="checkbox"> <span lang="fr">Concevoir mon premier châssis d'enceinte</span><span lang="en">Design my first speaker chassis</span></li>
-                    <li><input type="checkbox"> <span lang="fr">Expatriation en Europe du Nord ou Asie</span><span lang="en">Relocate to Northern Europe or Asia</span></li>
+                    <li><input type="checkbox" checked disabled> <span lang="fr">Bachelor ENSAM en cours</span><span lang="en">Ongoing ENSAM Bachelor</span></li>
+                    <li><input type="checkbox"> <span lang="fr">Stage Technicien validé (12 sem.)</span><span lang="en">Validate Technical Internship</span></li>
+                    <li><input type="checkbox"> <span lang="fr">Trouver un Contrat Pro / Alternance</span><span lang="en">Find a Work-Study Contract</span></li>
+                    <li><input type="checkbox"> <span lang="fr">Concevoir un système audio</span><span lang="en">Design an audio system</span></li>
                 </ul>
             </div>
 
-            <!-- Carte Focal (France) -->
-            <div class="pin-card">
-                <img src="image-focal.jpg" alt="Casque Focal" class="pin-img" onerror="this.src='https://via.placeholder.com/400x450?text=Savoir-faire+Focal'">
-                <div class="pin-title"><span lang="fr">Savoir-faire Français</span><span lang="en">French Craftsmanship</span></div>
-                <div class="pin-desc"><span lang="fr">L'alliance de l'artisanat et de la très haute technologie.</span><span lang="en">The alliance of craftsmanship and ultra-high technology.</span></div>
-                <div class="brand-tags">
-                    <span>Focal</span>
-                    <span>Devialet</span>
+            <!-- Focus : Asie -->
+            <div class="vision-card">
+                <!-- Remplace par une photo d'ampli / matos tech japonais -->
+                <img src="image_asia_tech.jpg" alt="Tech Asie" class="vision-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Tech+Asie'">
+                <div class="card-content">
+                    <div class="card-title"><span lang="fr">Rigueur Asiatique</span><span lang="en">Asian Precision</span></div>
+                    <div class="card-tags">Yamaha — Hitachi</div>
                 </div>
             </div>
 
-            <!-- Carte Modding / Tech -->
-            <div class="pin-card">
-                <img src="image-modding.jpg" alt="Électronique" class="pin-img" onerror="this.src='https://via.placeholder.com/400x250?text=Circuits+%26+Électronique'">
-                <div class="pin-title"><span lang="fr">Les entrailles du son</span><span lang="en">The guts of sound</span></div>
-                <div class="pin-desc"><span lang="fr">Comprendre et modifier le matériel (amplis, DACs, modding).</span><span lang="en">Understanding and modifying gear (amps, DACs, modding).</span></div>
-            </div>
-
-            <!-- Carte Asie (Yamaha / Hitachi) -->
-            <div class="pin-card">
-                <img src="image-yamaha.jpg" alt="Matériel Yamaha" class="pin-img" onerror="this.src='https://via.placeholder.com/400x350?text=Rigueur+Asiatique'">
-                <div class="pin-title"><span lang="fr">L'Ingénierie Asiatique</span><span lang="en">Asian Engineering</span></div>
-                <div class="pin-desc"><span lang="fr">La rigueur absolue dans le traitement du signal et les systèmes embarqués.</span><span lang="en">Absolute rigor in signal processing and embedded systems.</span></div>
-                <div class="brand-tags">
-                    <span>Yamaha</span>
-                    <span>Hitachi</span>
-                    <span>Sony</span>
+            <!-- Focus : France (Focal) -->
+            <div class="vision-card">
+                <!-- Remplace par une photo d'un casque ou enceinte Focal -->
+                <img src="image_focal_france.jpg" alt="Focal France" class="vision-img" onerror="this.src='https://via.placeholder.com/400x500?text=Image+Focal'">
+                <div class="card-content">
+                    <div class="card-title"><span lang="fr">Savoir-Faire Français</span><span lang="en">French Craftsmanship</span></div>
+                    <div class="card-tags">Focal</div>
                 </div>
             </div>
 
-            <!-- Petite citation image -->
-            <div class="pin-card">
-                <div class="pin-quote">
-                    <span lang="fr">"Turn ideas into reality."</span>
-                    <span lang="en">"Turn ideas into reality."</span>
-                </div>
+            <!-- Check-list Affinités -->
+            <div class="vision-card" style="padding: 20px;">
+                <div class="card-title" style="font-size: 1.1rem; margin-bottom: 15px;">🛠️ <span lang="fr">Affinités Techniques</span><span lang="en">Technical Interests</span></div>
+                <ul class="todo-list">
+                    <li><input type="checkbox" checked disabled> CAO (CATIA V5)</li>
+                    <li><input type="checkbox" checked disabled> <span lang="fr">Traitement du signal / Électronique</span><span lang="en">Signal processing / Electronics</span></li>
+                    <li><input type="checkbox" checked disabled> <span lang="fr">Matériaux & Acoustique</span><span lang="en">Materials & Acoustics</span></li>
+                </ul>
+            </div>
+
+            <!-- Image lifestyle/inspiration -->
+            <div class="vision-card no-bg">
+                <img src="image_moodboard_desk.jpg" alt="Moodboard" class="vision-img" onerror="this.src='https://via.placeholder.com/400x250?text=Image+Bureau+%2F+Setup'">
             </div>
 
         </div>
     </div>
 
     <script>
+        // Switch de langue
         function toggleLanguage() {
             const body = document.body;
-            if(body.classList.contains('fr')) { body.classList.remove('fr'); body.classList.add('en'); } 
-            else { body.classList.remove('en'); body.classList.add('fr'); }
+            if(body.classList.contains('fr')) {
+                body.classList.remove('fr');
+                body.classList.add('en');
+            } else {
+                body.classList.remove('en');
+                body.classList.add('fr');
+            }
         }
     </script>
 </body>

@@ -43,7 +43,7 @@ export default function App() {
           <p className="metal font-display text-6xl uppercase leading-none sm:text-8xl">Paul Signe</p>
           <div className="font-mono text-xs uppercase tracking-widest text-mute">
             <p>{t.footer.made} · paul-signe.fr · © {new Date().getFullYear()}</p>
-            <a className="mt-2 inline-block underline underline-offset-4 hover:text-amber" href="/recrutement/">{t.footer.school}</a>
+            <a className="mt-2 inline-block underline underline-offset-4 hover:text-amber" href="recrutement/">{t.footer.school}</a>
           </div>
         </div>
       </footer>

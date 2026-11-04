@@ -7,7 +7,7 @@ export const profile = {
   email: 'paul.signe@ensam.eu',
   github: 'https://github.com/paulleb08',
   linkedin: '', // à renseigner : URL de ton profil LinkedIn (le bouton s'affiche dès qu'elle est remplie)
-  cv: '/CV_Paul_Signe.pdf',
+  cv: 'CV_Paul_Signe.pdf',
 };
 
 export const content = {

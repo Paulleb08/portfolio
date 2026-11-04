@@ -25,8 +25,8 @@ if (typeof document !== 'undefined') {
     '.lang .goog-te-gadget{font-size:0;color:transparent}' +
     '.lang .goog-te-gadget>span{display:none}' +
     /* !important : la feuille de style de Google est chargée après la nôtre */
-    '.lang select.goog-te-combo{margin:0!important;font:600 .9rem/1.2 inherit!important;color:#fff!important;background:transparent!important;border:1.5px solid rgba(255,255,255,.55)!important;border-radius:999px!important;padding:7px 12px!important;cursor:pointer;max-width:190px}' +
-    '.lang select.goog-te-combo:hover{border-color:#fff!important}' +
+    '.lang select.goog-te-combo{margin:0!important;font:600 .9rem/1.2 inherit!important;color:var(--text,#fff)!important;background:transparent!important;border:1.5px solid var(--line,currentColor)!important;border-radius:999px!important;padding:7px 12px!important;cursor:pointer;max-width:170px;opacity:.85}' +
+    '.lang select.goog-te-combo:hover{opacity:1}' +
     '.lang select.goog-te-combo option{color:#111;background:#fff}' +
     /* bandeau, infobulle et surlignage injectés par Google */
     'body{top:0!important}' +

@@ -11,6 +11,9 @@
   var t; try { t = localStorage.getItem('theme'); } catch (e) {}
   if (t !== 'light' && t !== 'dark') { var h = new Date().getHours(); t = h >= 7 && h < 20 ? 'light' : 'dark'; }
   document.documentElement.setAttribute('data-theme', t);
+  // Animation de construction (assets/build.js), sauf animations réduites ou « Passer » déjà cliqué pendant la visite
+  var skip; try { skip = sessionStorage.getItem('bl-skip'); } catch (e) {}
+  if (!skip && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('bl-init');
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -289,6 +292,38 @@ footer{padding:clamp(70px,10vw,130px) clamp(16px,4vw,56px) 40px;text-align:cente
 footer .disp{font-size:clamp(1.9rem,6vw,4.4rem);color:var(--accent)}
 footer .small{margin-top:80px;font-size:.88rem;color:var(--muted)}
 
+/* ANIMATION DE CONSTRUCTION (assets/build.js) */
+html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s 2.5s forwards}
+@keyframes bl-failsafe{to{visibility:visible}}
+.bl-pending{opacity:0!important}
+.bl-in{animation:bl-pop .45s cubic-bezier(.16,1,.3,1) both}
+.bl-typing{animation:bl-type .65s steps(26,end) both!important}
+@keyframes bl-pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+@keyframes bl-type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes bl-fade{from{opacity:0}}
+@keyframes bl-blink{50%{opacity:0}}
+.bl-stage{position:absolute;left:0;top:0;width:100%;height:0;z-index:70;pointer-events:none}
+.bl-ghost{position:absolute;background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:8px;animation:bl-fade .25s both}
+.bl-sel{position:absolute;border:1.5px solid var(--c);animation:bl-fade .15s both}
+.bl-sel i{position:absolute;width:7px;height:7px;background:#fff;border:1.5px solid var(--c)}
+.bl-sel i:nth-child(1){left:-4px;top:-4px}.bl-sel i:nth-child(2){right:-4px;top:-4px}.bl-sel i:nth-child(3){left:-4px;bottom:-4px}.bl-sel i:nth-child(4){right:-4px;bottom:-4px}
+.bl-sel em{position:absolute;left:50%;top:100%;transform:translate(-50%,7px);background:var(--c);color:#fff;font:600 11px/1 system-ui,sans-serif;font-style:normal;padding:4px 6px;border-radius:4px;white-space:nowrap}
+.bl-caret::after{content:"";position:absolute;right:-5px;top:12%;height:76%;width:2px;background:var(--c);animation:bl-blink .5s steps(1) infinite}
+.bl-mark{position:absolute;animation:bl-fade .9s reverse both}
+.bl-mark::before,.bl-mark::after{content:"";position:absolute;background:currentColor;left:6px;top:0;width:2px;height:14px}
+.bl-mark::after{left:0;top:6px;width:14px;height:2px}
+.bl-cursor{position:absolute;left:0;top:0;display:flex;align-items:flex-start;gap:2px;transition:transform .42s cubic-bezier(.5,0,.2,1);filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
+.bl-cursor span{font:700 10px/1 system-ui,sans-serif;color:#fff;padding:3px 7px;border-radius:999px;margin-top:15px;white-space:nowrap}
+.bl-hud{position:fixed;left:50%;bottom:16px;transform:translate(-50%,160%);z-index:80;display:flex;align-items:center;gap:8px;background:#111327;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:8px 8px 8px 12px;font:500 13px/1 system-ui,sans-serif;white-space:nowrap;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.bl-hud.bl-active{transform:translate(-50%,0)}
+.bl-dots{display:flex;margin-right:4px}
+.bl-dots i{width:18px;height:18px;border-radius:50%;border:2px solid #111327;margin-left:-5px;display:grid;place-items:center;font:700 9px/1 system-ui,sans-serif;font-style:normal;color:#fff}
+.bl-sep{width:1px;height:16px;background:rgba(255,255,255,.2);margin:0 4px}
+.bl-bar{width:90px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);overflow:hidden;margin:0 4px}
+.bl-bar span{display:block;height:100%;width:0;background:#38bdf8;transition:width .3s}
+.bl-hud button{font:600 12px/1 system-ui,sans-serif;color:#fff;background:#0d1be6;border:0;border-radius:8px;padding:7px 10px;cursor:pointer}
+@media (max-width:520px){.bl-hud{font-size:11px;gap:6px}.bl-bar,.bl-sep{display:none}}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 
 /* IMPRESSION : thème clair forcé, couverture bleue, une fiche par page A4, tous les projets et expériences affichés */
@@ -317,6 +352,7 @@ footer .small{margin-top:80px;font-size:.88rem;color:var(--muted)}
   .board{columns:3}.vcard.cream{transform:none}
   .contact-box{grid-template-columns:1fr}
   footer{display:none}
+  .bl-stage,.bl-hud{display:none!important}.bl-pending{opacity:1!important}
   body.print-cv main>*:not(#cv),body.print-cv .home{display:none!important}
   body.print-cv #cv{break-before:auto}
   body.print-cv #cv .head{display:none}
@@ -976,5 +1012,6 @@ function printCV() { document.body.classList.add('print-cv'); window.print(); }
 window.addEventListener('beforeprint', function () { document.querySelectorAll('details').forEach(function (d) { d.open = true; }); });
 window.addEventListener('afterprint', function () { document.body.classList.remove('print-cv'); });
 </script>
+<script src="assets/build.js"></script>
 </body>
 </html>

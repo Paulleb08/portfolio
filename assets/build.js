@@ -82,8 +82,11 @@
       if (agent.busy || !queue.length || finished) return;
       agent.busy = true;
       (async function loop() {
+        agent.el.style.opacity = 1;
         while (queue.length && !finished) await build(agent, queue.shift());
         agent.busy = false;
+        // Plus rien à construire à l'écran : le curseur disparaît pour ne pas gêner la lecture
+        agent.el.style.opacity = 0;
       })();
     });
     hud.classList.toggle('bl-active', !finished);

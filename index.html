@@ -312,7 +312,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
 .bl-mark{position:absolute;animation:bl-fade .9s reverse both}
 .bl-mark::before,.bl-mark::after{content:"";position:absolute;background:currentColor;left:6px;top:0;width:2px;height:14px}
 .bl-mark::after{left:0;top:6px;width:14px;height:2px}
-.bl-cursor{position:absolute;left:0;top:0;display:flex;align-items:flex-start;gap:2px;transition:transform .42s cubic-bezier(.5,0,.2,1);filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
+.bl-cursor{position:absolute;left:0;top:0;display:flex;align-items:flex-start;gap:2px;transition:transform .42s cubic-bezier(.5,0,.2,1),opacity .4s;filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
 .bl-cursor span{font:700 10px/1 system-ui,sans-serif;color:#fff;padding:3px 7px;border-radius:999px;margin-top:15px;white-space:nowrap}
 .bl-hud{position:fixed;left:50%;bottom:16px;transform:translate(-50%,160%);z-index:80;display:flex;align-items:center;gap:8px;background:#111327;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:8px 8px 8px 12px;font:500 13px/1 system-ui,sans-serif;white-space:nowrap;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .45s cubic-bezier(.16,1,.3,1)}
 .bl-hud.bl-active{transform:translate(-50%,0)}

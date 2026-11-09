@@ -244,12 +244,13 @@ section.alt{background:var(--bg-2)}
 @media (max-width:1100px){.scroll-hint{display:block}}
 
 /* ANNEXES + VISION BOARD */
-.annexes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,44px);text-align:center}
+.annexes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,4vw,44px);text-align:center}
 .annexes article{border-top:2px solid var(--accent);padding-top:22px}
 .annexes .label{color:var(--accent)}
 .annexes h3{font-size:1.2rem;margin:8px 0 10px}
 .annexes p{color:var(--muted);font-size:1rem}
 .annexes .btn{margin-top:16px}
+.annex-cv{margin-top:clamp(70px,10vw,120px)}
 @media (max-width:820px){.annexes{grid-template-columns:1fr}}
 .board{columns:3 300px;column-gap:22px;margin-top:40px}
 .vcard{break-inside:avoid;margin-bottom:22px;border-radius:10px;padding:24px 22px}
@@ -338,7 +339,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
   .panel[hidden]{display:block!important}
   .panel{animation:none}
   .panel~.panel{break-before:page}
-  #projets .head,#experiences .head,#cv .head,.cv .photo{display:none}
+  #missions .head,#cv .head,.cv .photo{display:none}
   .fiche{break-inside:avoid;padding:0;border:0}
   .fiche .grid{grid-template-columns:5fr 7fr;gap:14px}
   .fields{grid-template-columns:1fr 1fr}.skills{grid-template-columns:repeat(3,1fr)}.likes{grid-template-columns:1fr 1fr}
@@ -353,8 +354,9 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
   .contact-box{grid-template-columns:1fr}
   footer{display:none}
   .bl-stage,.bl-hud{display:none!important}.bl-pending{opacity:1!important}
-  body.print-cv main>*:not(#cv),body.print-cv .home{display:none!important}
-  body.print-cv #cv{break-before:auto}
+  #cv{break-before:page}
+  body.print-cv main>*:not(#annexes),body.print-cv #annexes .wrap>*:not(#cv),body.print-cv .home{display:none!important}
+  body.print-cv #cv{break-before:auto;margin-top:0}
   body.print-cv #cv .head{display:none}
 }
 </style>
@@ -370,8 +372,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
   <ul>
     <li><a href="#a-propos">À propos</a></li>
     <li><a href="#cv"><span class="notranslate">CV</span></a></li>
-    <li><a href="#projets">Projets</a></li>
-    <li><a href="#experiences">Expériences</a></li>
+    <li><a href="#missions">Fiches missions</a></li>
     <li><a href="#competences">Compétences</a></li>
     <li><a href="#annexes">Annexes</a></li>
   </ul>
@@ -486,80 +487,26 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
   <small>avec poursuite possible en alternance (assistant ingénieur)</small>
 </div>
 
-<!-- ============ CV ============ -->
-<section id="cv" data-toc="Curriculum vitæ">
+<!-- ============ FICHES MISSIONS ============ -->
+<section id="missions" data-toc="Fiches missions">
   <div class="wrap">
-    <div class="head">
-      <h2 class="disp">Mon CV</h2>
-      <div class="btns"><a class="btn solid" href="assets/CV_Paul_Signe.pdf" download>Télécharger le CV (PDF)</a><button class="btn" type="button" onclick="printCV()">Imprimer cette page</button></div>
-    </div>
-
-    <article class="sheet cv">
-      <aside>
-        <img class="photo" src="assets/img/portrait.jpg" alt="Portrait de Paul Signe" width="384" height="512">
-        <div><h3 class="disp notranslate">Paul<br>Signe</h3><p style="margin-top:8px">Étudiant en Bachelor de Technologie<br>Arts et Métiers (ENSAM)</p></div>
-        <div><span class="label">Contact</span><ul>
-          <li><a href="tel:+33651724107">06 51 72 41 07</a></li>
-          <li><a href="mailto:paul.signe@ensam.eu">paul.signe@ensam.eu</a></li>
-          <li>Bordeaux (33800)</li></ul></div>
-        <div><span class="label">Compétences techniques</span><ul>
-          <li>CAO : CATIA V5, Onshape</li>
-          <li>Fabrication : tournage conventionnel, impression 3D</li>
-          <li>Contrôle : pied à coulisse, lecture de plan</li>
-          <li>Électronique : Arduino, capteurs</li>
-          <li>Production : flux, sécurité, ergonomie</li></ul></div>
-        <div><span class="label">Savoir-être</span><ul><li>Organisation</li><li>Patience, écoute</li><li>Adaptabilité</li><li>Communication</li></ul></div>
-        <div><span class="label">Langues</span><ul><li>Anglais : B2</li><li>Allemand : A1</li></ul></div>
-        <div><span class="label">Centres d'intérêt</span><ul><li>Football (pratique et spectateur)</li><li>Production de musique assistée par ordinateur</li><li>Bandes dessinées franco-belges, comics, mangas</li></ul></div>
-        <div><span class="label">Portfolio en ligne</span><img class="qr" src="assets/img/qr-portfolio.svg" alt="QR code vers le portfolio" width="110" height="110"></div>
-      </aside>
-      <main>
-        <p><b>Objectif :</b> stage technicien de 12 semaines, du 12 avril au 2 juillet 2027, en conception, méthodes ou production mécanique, avec poursuite possible en alternance (assistant ingénieur).</p>
-        <h4>Formation</h4>
-        <div class="row"><div class="when">2025 – 2028<em>en cours, 2<sup>e</sup> année</em></div>
-          <div><b>Bachelor de Technologie, spécialité mécanique-production</b> — Arts et Métiers (ENSAM), campus de Bordeaux-Talence
-            <ul><li>Formation en trois ans alliant sciences, technologies et ingénierie</li><li>Conception mécanique, fabrication, méthodes de production</li></ul></div></div>
-        <div class="row"><div class="when">2022 – 2025</div>
-          <div><b>Baccalauréat STI2D, spécialité architecture et construction</b> — Lycée Livet, Nantes</div></div>
-        <div class="row"><div class="when">BAFA</div>
-          <div><b>Brevet d'aptitude aux fonctions d'animateur</b></div></div>
-        <h4>Expériences</h4>
-        <div class="row"><div class="when">2026<em>4 semaines, temps plein</em></div>
-          <div><b>Opérateur de production (stage ouvrier)</b> — La Poste, Plateforme Industrielle Courrier, Bordeaux-Cestas (33)
-            <ul><li>Rotation sur 5 postes : machines de tri, dépalétiseur, tri manuel, tri expédition</li><li>Cadence de 40 000 plis par heure, règles de sécurité, travail en équipe</li></ul></div></div>
-        <div class="row"><div class="when">2024 – 2026<em>2 saisons de 4 semaines</em></div>
-          <div><b>Animateur en accueil de loisirs (ALSH), enfants de 7 à 11 ans</b> — Les Mille Potes, Arcachon (33)
-            <ul><li>Responsable d'un groupe de 12 enfants : organisation des journées, activités, sécurité</li></ul></div></div>
-        <div class="row"><div class="when">2025<em><span class="todo">x h / semaine pendant x semaines</span></em></div>
-          <div><b>Garde d'enfant avec troubles du spectre autistique</b> — particulier employeur
-            <ul><li>Accompagnement d'un enfant non verbal : routines, communication par pictogrammes</li></ul></div></div>
-        <h4>Projets techniques</h4>
-        <div class="row"><div class="when">2026<em><span class="todo">durée en heures</span></em></div>
-          <div><b>Prototype mécatronique</b> — boîtier modélisé sous CATIA V5, imprimé en 3D, câblé sur Arduino (capteur à ultrasons, afficheur, motoréducteur)</div></div>
-        <div class="row"><div class="when">2026<em><span class="todo">durée en heures</span></em></div>
-          <div><b>Usinage conventionnel</b> — pièce étagée en aluminium réalisée au tour, contrôle des cotes</div></div>
-      </main>
-    </article>
-  </div>
-</section>
-
-<!-- ============ PROJETS ============ -->
-<section id="projets" class="alt" data-toc="Mes projets">
-  <div class="wrap">
-    <div class="head"><h2 class="disp">Mes projets</h2></div>
+    <div class="head"><h2 class="disp">Fiches missions</h2></div>
     <div class="hero-band">
       <p>Concevoir.<br>Fabriquer.<br>Tester.</p>
       <img src="assets/img/meca-cablage.jpg" alt="Carte Arduino câblée à un capteur à ultrasons et à un afficheur">
     </div>
 
-    <div class="picker" role="group" aria-label="Choisir un projet">
+    <div class="picker" role="group" aria-label="Choisir une fiche mission">
       <button class="pick" type="button" data-show="fiche-1" aria-pressed="true"><span class="card"><img src="assets/img/meca-prototype.jpg" alt=""><span class="t">Prototype mécatronique</span></span><span class="d">2026 · Arts et Métiers</span></button>
       <button class="pick" type="button" data-show="fiche-2" aria-pressed="false"><span class="card"><img src="assets/img/usinage-profil.jpg" alt=""><span class="t">Usinage conventionnel</span></span><span class="d">2026 · Atelier Arts et Métiers</span></button>
+      <button class="pick" type="button" data-show="xp-1" aria-pressed="true"><span class="card"><img src="assets/img/poste-pic.jpg" alt=""><span class="t">Opérateur de production</span></span><span class="d">19 janvier – 18 février 2026</span></button>
+      <button class="pick" type="button" data-show="xp-2" aria-pressed="false"><span class="card"><img src="assets/img/bafa-parachute.jpg" alt=""><span class="t">Animateur BAFA</span></span><span class="d">2024 – 2026 · 2 saisons</span></button>
+      <button class="pick" type="button" data-show="xp-3" aria-pressed="false"><span class="card"><img src="assets/img/tsa-pictogrammes.jpg" alt=""><span class="t">Garde d'enfant avec TSA</span></span><span class="d">2025</span></button>
     </div>
-    <p class="hint">Sélectionnez un projet en cliquant sur sa carte.</p>
+    <p class="hint">Sélectionnez une fiche mission en cliquant sur sa carte.</p>
 
     <!-- FICHE 01 -->
-    <article class="sheet fiche panel" id="fiche-1" data-group="projets" data-toc-sub="01 — Prototype mécatronique">
+    <article class="sheet fiche panel" id="fiche-1" data-group="missions" data-toc-sub="Fiche 01 — Prototype mécatronique">
       <div class="fhead">
         <div class="no"><small>FICHE</small>01</div>
         <div><h3>Prototype mécatronique</h3><span class="sub">Projet Arts et Métiers — campus de Bordeaux-Talence</span></div>
@@ -604,7 +551,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
     </article>
 
     <!-- FICHE 02 -->
-    <article class="sheet fiche panel" id="fiche-2" data-group="projets" data-toc-sub="02 — Usinage conventionnel" hidden>
+    <article class="sheet fiche panel" id="fiche-2" data-group="missions" data-toc-sub="Fiche 02 — Usinage conventionnel" hidden>
       <div class="fhead">
         <div class="no"><small>FICHE</small>02</div>
         <div><h3>Usinage conventionnel</h3><span class="sub">Atelier Arts et Métiers — campus de Bordeaux-Talence</span></div>
@@ -646,23 +593,9 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
         </div>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- ============ EXPÉRIENCES ============ -->
-<section id="experiences" data-toc="Expérience professionnelle">
-  <div class="wrap">
-    <div class="head"><h2 class="disp">Expérience professionnelle</h2></div>
-
-    <div class="picker" role="group" aria-label="Choisir une expérience">
-      <button class="pick" type="button" data-show="xp-1" aria-pressed="true"><span class="card"><img src="assets/img/poste-pic.jpg" alt=""><span class="t">Opérateur de production</span></span><span class="d">19 janvier – 18 février 2026</span></button>
-      <button class="pick" type="button" data-show="xp-2" aria-pressed="false"><span class="card"><img src="assets/img/bafa-parachute.jpg" alt=""><span class="t">Animateur BAFA</span></span><span class="d">2024 – 2026 · 2 saisons</span></button>
-      <button class="pick" type="button" data-show="xp-3" aria-pressed="false"><span class="card"><img src="assets/img/tsa-pictogrammes.jpg" alt=""><span class="t">Garde d'enfant avec TSA</span></span><span class="d">2025</span></button>
-    </div>
-    <p class="hint">Sélectionnez une expérience en cliquant sur sa carte.</p>
 
     <!-- XP 1 : La Poste -->
-    <div class="panel" id="xp-1" data-group="experiences" data-toc-sub="03 — Opérateur de production, La Poste">
+    <div class="panel" id="xp-1" data-group="missions" data-toc-sub="Fiche 03 — Opérateur de production, La Poste">
       <div class="xp-head"><h3 class="disp">Stage ouvrier à La Poste</h3><p>19 janvier – 18 février 2026 · 4 semaines</p></div>
       <div class="xp-band"><span>Plateforme Industrielle Courrier · Bordeaux-Cestas</span></div>
       <article class="sheet fiche">
@@ -719,7 +652,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
     </div>
 
     <!-- XP 2 : Animateur -->
-    <div class="panel" id="xp-2" data-group="experiences" data-toc-sub="04 — Animateur BAFA, Arcachon" hidden>
+    <div class="panel" id="xp-2" data-group="missions" data-toc-sub="Fiche 04 — Animateur BAFA, Arcachon" hidden>
       <div class="xp-head"><h3 class="disp">Animateur en accueil de loisirs</h3><p>2024 – 2026 · 2 saisons de 4 semaines</p></div>
       <div class="xp-band"><img src="assets/img/logo-arcachon.png" alt="Arcachon" width="874" height="412"><span>Les Mille Potes</span></div>
       <article class="sheet fiche">
@@ -768,7 +701,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
     </div>
 
     <!-- XP 3 : Garde TSA -->
-    <div class="panel" id="xp-3" data-group="experiences" data-toc-sub="05 — Garde d'enfant avec TSA" hidden>
+    <div class="panel" id="xp-3" data-group="missions" data-toc-sub="Fiche 05 — Garde d'enfant avec TSA" hidden>
       <div class="xp-head"><h3 class="disp">Accompagnement spécialisé</h3><p>2025 · <span class="todo">x h / semaine pendant x semaines</span></p></div>
       <div class="xp-band"><span>Garde d'enfant · enfant autiste et non verbal</span></div>
       <article class="sheet fiche">
@@ -882,6 +815,9 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
       <article><span class="label">Annexe C</span><h3 class="disp">Vision board</h3>
         <p>Ce qui me fait avancer, en images, juste en dessous.</p>
         <a class="btn" href="#vision-board">Voir le vision board ↓</a></article>
+      <article><span class="label">Annexe D</span><h3 class="disp">Curriculum vitæ</h3>
+        <p>Mon CV complet, à lire ici ou à télécharger en PDF.</p>
+        <a class="btn" href="#cv">Voir le CV ↓</a></article>
     </div>
 
     <div id="vision-board" class="board" aria-label="Vision board">
@@ -911,6 +847,61 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
       <li><b>Ensuite</b><span>Alternance comme assistant ingénieur</span></li>
       <li><b>À terme</b><span>Ingénieur en conception mécanique</span></li>
     </ol>
+
+    <!-- Annexe D : CV -->
+    <div id="cv" class="annex-cv" data-toc-sub="Annexe D — Curriculum vitæ">
+    <div class="head">
+      <span class="label" style="color:var(--accent)">Annexe D</span><h2 class="disp">Mon CV</h2>
+      <div class="btns"><a class="btn solid" href="assets/CV_Paul_Signe.pdf" download>Télécharger le CV (PDF)</a><button class="btn" type="button" onclick="printCV()">Imprimer cette page</button></div>
+    </div>
+
+    <article class="sheet cv">
+      <aside>
+        <img class="photo" src="assets/img/portrait.jpg" alt="Portrait de Paul Signe" width="384" height="512">
+        <div><h3 class="disp notranslate">Paul<br>Signe</h3><p style="margin-top:8px">Étudiant en Bachelor de Technologie<br>Arts et Métiers (ENSAM)</p></div>
+        <div><span class="label">Contact</span><ul>
+          <li><a href="tel:+33651724107">06 51 72 41 07</a></li>
+          <li><a href="mailto:paul.signe@ensam.eu">paul.signe@ensam.eu</a></li>
+          <li>Bordeaux (33800)</li></ul></div>
+        <div><span class="label">Compétences techniques</span><ul>
+          <li>CAO : CATIA V5, Onshape</li>
+          <li>Fabrication : tournage conventionnel, impression 3D</li>
+          <li>Contrôle : pied à coulisse, lecture de plan</li>
+          <li>Électronique : Arduino, capteurs</li>
+          <li>Production : flux, sécurité, ergonomie</li></ul></div>
+        <div><span class="label">Savoir-être</span><ul><li>Organisation</li><li>Patience, écoute</li><li>Adaptabilité</li><li>Communication</li></ul></div>
+        <div><span class="label">Langues</span><ul><li>Anglais : B2</li><li>Allemand : A1</li></ul></div>
+        <div><span class="label">Centres d'intérêt</span><ul><li>Football (pratique et spectateur)</li><li>Production de musique assistée par ordinateur</li><li>Bandes dessinées franco-belges, comics, mangas</li></ul></div>
+        <div><span class="label">Portfolio en ligne</span><img class="qr" src="assets/img/qr-portfolio.svg" alt="QR code vers le portfolio" width="110" height="110"></div>
+      </aside>
+      <main>
+        <p><b>Objectif :</b> stage technicien de 12 semaines, du 12 avril au 2 juillet 2027, en conception, méthodes ou production mécanique, avec poursuite possible en alternance (assistant ingénieur).</p>
+        <h4>Formation</h4>
+        <div class="row"><div class="when">2025 – 2028<em>en cours, 2<sup>e</sup> année</em></div>
+          <div><b>Bachelor de Technologie, spécialité mécanique-production</b> — Arts et Métiers (ENSAM), campus de Bordeaux-Talence
+            <ul><li>Formation en trois ans alliant sciences, technologies et ingénierie</li><li>Conception mécanique, fabrication, méthodes de production</li></ul></div></div>
+        <div class="row"><div class="when">2022 – 2025</div>
+          <div><b>Baccalauréat STI2D, spécialité architecture et construction</b> — Lycée Livet, Nantes</div></div>
+        <div class="row"><div class="when">BAFA</div>
+          <div><b>Brevet d'aptitude aux fonctions d'animateur</b></div></div>
+        <h4>Expériences</h4>
+        <div class="row"><div class="when">2026<em>4 semaines, temps plein</em></div>
+          <div><b>Opérateur de production (stage ouvrier)</b> — La Poste, Plateforme Industrielle Courrier, Bordeaux-Cestas (33)
+            <ul><li>Rotation sur 5 postes : machines de tri, dépalétiseur, tri manuel, tri expédition</li><li>Cadence de 40 000 plis par heure, règles de sécurité, travail en équipe</li></ul></div></div>
+        <div class="row"><div class="when">2024 – 2026<em>2 saisons de 4 semaines</em></div>
+          <div><b>Animateur en accueil de loisirs (ALSH), enfants de 7 à 11 ans</b> — Les Mille Potes, Arcachon (33)
+            <ul><li>Responsable d'un groupe de 12 enfants : organisation des journées, activités, sécurité</li></ul></div></div>
+        <div class="row"><div class="when">2025<em><span class="todo">x h / semaine pendant x semaines</span></em></div>
+          <div><b>Garde d'enfant avec troubles du spectre autistique</b> — particulier employeur
+            <ul><li>Accompagnement d'un enfant non verbal : routines, communication par pictogrammes</li></ul></div></div>
+        <h4>Projets techniques</h4>
+        <div class="row"><div class="when">2026<em><span class="todo">durée en heures</span></em></div>
+          <div><b>Prototype mécatronique</b> — boîtier modélisé sous CATIA V5, imprimé en 3D, câblé sur Arduino (capteur à ultrasons, afficheur, motoréducteur)</div></div>
+        <div class="row"><div class="when">2026<em><span class="todo">durée en heures</span></em></div>
+          <div><b>Usinage conventionnel</b> — pièce étagée en aluminium réalisée au tour, contrôle des cotes</div></div>
+      </main>
+    </article>
+    </div>
   </div>
 </section>
 
@@ -955,7 +946,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
       var ol = document.createElement('ol');
       subs.forEach(function (f) {
         var a = document.createElement('a');
-        a.href = '#' + f.id; a.textContent = 'Fiche ' + f.dataset.tocSub;
+        a.href = '#' + f.id; a.textContent = f.dataset.tocSub;
         ol.appendChild(document.createElement('li')).appendChild(a);
       });
       li.appendChild(ol);

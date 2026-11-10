@@ -26,6 +26,13 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 - Formation d'abord ; dates à gauche « année (durée) », jamais les mois ; heures/semaine pour tout ce qui n'est pas temps plein ; pas de qualités dans Compétences ; pas de phrases rédigées.
 - Modifier le .docx **en place** avec python-docx (ne pas le regénérer : Paul peut l'avoir retouché), puis `soffice --headless --convert-to pdf --outdir assets cv/CV-Paul-Signe.docx`. Vérifier : 1 page (`pdfinfo`), texte extrait dans l'ordre (`pdftotext`), QR décodable.
 
+## Lettres de motivation (fiche 2 ENSAM)
+- Cibles prioritaires : KEF (Royaume-Uni), Bang & Olufsen (Struer), DALI (Nørager). Lettres **en anglais**, stage sur leurs sites à l'étranger, une phrase sur l'alternance.
+- Lien personnel réel : Paul possède une chaîne CD **B&O BeoSound Century**. Aucun lien direct avec KEF ni DALI : ne pas en inventer. Il fait de la MAO.
+- Ne jamais committer les lettres dans le dépôt (public, elles contiennent son adresse) : les produire hors dépôt et les lui envoyer. Noms : `LM-Paul-Signe-<Entreprise>`.
+- Vérifier chaque fait cité sur une source (site officiel, Wikipédia) avant de l'écrire ; adresse officielle de KEF : GP Acoustics (UK) Ltd, Ipswich (mentions légales).
+- Avant d'envoyer, se poser ses deux questions : « pourrait-elle partir à n'importe quelle entreprise ? » et « aurait-elle pu être écrite par n'importe qui ? ». Le paragraphe « pourquoi moi » doit relier chaque fait au besoin de l'entreprise.
+
 ## Erreurs déjà commises — ne pas recommencer
 - **Refonte React + build** : a cassé le site (page blanche) car Pages est en mode branche. Paul a répondu « oui » à « source = GitHub Actions » alors que c'était faux : vérifier par les faits (le run `pages build and deployment` apparaît = mode branche) au lieu de se fier à la réponse. Rester en HTML statique sans étape de build.
 - `loading="lazy"` sur les images : vides à l'impression et sur les captures pleine page. Ne pas l'utiliser.

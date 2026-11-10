@@ -31,6 +31,8 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 - Lien personnel réel : Paul possède une chaîne CD **B&O BeoSound Century**. Aucun lien direct avec KEF ni DALI : ne pas en inventer. Il fait de la MAO.
 - Ne jamais committer les lettres dans le dépôt (public, elles contiennent son adresse) : les produire hors dépôt et les lui envoyer. Noms : `LM-Paul-Signe-<Entreprise>`.
 - Vérifier chaque fait cité sur une source (site officiel, Wikipédia) avant de l'écrire ; adresse officielle de KEF : GP Acoustics (UK) Ltd, Ipswich (mentions légales).
+- Recherche de stage : Paul vise **l'électronique, et si possible le son** (préférence de novembre 2026).
+- Apple (stages UK/DK/FR/DE, nov. 2026) : 36 offres, aucune en audio, presque toutes niveau master / 6 mois / génie électrique. La moins éloignée : PMU Silicon Validation Intern, Nabern (200687726-5556, bachelor accepté). Ne pas revendiquer oscilloscope, Python ni « anglais courant » : absents de son CV (anglais B2).
 - Avant d'envoyer, se poser ses deux questions : « pourrait-elle partir à n'importe quelle entreprise ? » et « aurait-elle pu être écrite par n'importe qui ? ». Le paragraphe « pourquoi moi » doit relier chaque fait au besoin de l'entreprise.
 
 ## Erreurs déjà commises — ne pas recommencer
@@ -42,6 +44,7 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 - Impression : CV sur 2 pages, titres seuls sur une page, marge ajoutée qui crée une page blanche. **Toujours regénérer le PDF d'impression et compter les pages** après un changement de mise en page.
 - Animation : un défilement rapide « saute » des blocs (IntersectionObserver ne les voit jamais) → afficher les blocs dépassés ; curseurs restés à l'écran → les masquer quand ils n'ont plus rien à faire.
 - `<object>`/`<iframe>` PDF : vide sur Android → afficher le PDF avec PDF.js.
+- Lettre Apple : en retirant une formule creuse, j'ai écrit à la place un fait inventé (« les écouteurs que j'utilise pour ma MAO »). En corrigeant une phrase, ne remplacer que par un fait connu ou une formulation neutre.
 
 ## Méthode de vérification (Playwright déjà installé)
 - Servir le dossier : `python3 -m http.server 8766`, tester `locale: 'fr-FR'` (sinon la traduction auto passe la page en anglais), ordinateur 1440×900 **et** mobile (iPhone 13, Pixel 7), thème clair **et** sombre, aucune `pageerror`, aucune réponse ≥ 400, pas de débordement horizontal.

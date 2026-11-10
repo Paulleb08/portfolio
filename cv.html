@@ -33,55 +33,14 @@
     <div id="cv">
     <div class="head">
       <span class="label" style="color:var(--accent)">Annexe D</span><h2 class="disp">Mon CV</h2>
-      <div class="btns"><a class="btn solid" href="assets/CV-Paul-Signe.pdf" download>Télécharger le CV (PDF)</a><button class="btn" type="button" onclick="window.print()">Imprimer le CV</button></div>
+      <div class="btns"><a class="btn solid" href="assets/CV-Paul-Signe.pdf" download>Télécharger le CV (PDF)</a><a class="btn" href="assets/CV-Paul-Signe.pdf" target="_blank" rel="noopener">Ouvrir en plein écran ↗</a></div>
     </div>
 
-    <article class="sheet cv">
-      <aside>
-        <img class="photo" src="assets/img/portrait.jpg" alt="Portrait de Paul Signe" width="384" height="512">
-        <div><h3 class="disp notranslate">Paul<br>Signe</h3><p style="margin-top:8px">Étudiant en Bachelor de Technologie<br>Arts et Métiers (ENSAM)</p></div>
-        <div><span class="label">Contact</span><ul>
-          <li><a href="tel:+33651724107">06 51 72 41 07</a></li>
-          <li><a href="mailto:paul.signe@ensam.eu">paul.signe@ensam.eu</a></li>
-          <li>Bordeaux (33800)</li></ul></div>
-        <div><span class="label">Compétences techniques</span><ul>
-          <li>CAO : CATIA V5, Onshape</li>
-          <li>Fabrication : tournage conventionnel, impression 3D</li>
-          <li>Contrôle : pied à coulisse, lecture de plan</li>
-          <li>Électronique : Arduino, capteurs</li>
-          <li>Production : flux, sécurité, ergonomie</li></ul></div>
-        <div><span class="label">Savoir-être</span><ul><li>Organisation</li><li>Patience, écoute</li><li>Adaptabilité</li><li>Communication</li></ul></div>
-        <div><span class="label">Langues</span><ul><li>Anglais : B2</li><li>Allemand : A1</li></ul></div>
-        <div><span class="label">Centres d'intérêt</span><ul><li>Football (pratique et spectateur)</li><li>Production de musique assistée par ordinateur</li><li>Bandes dessinées franco-belges, comics, mangas</li></ul></div>
-        <div><span class="label">Portfolio en ligne</span><img class="qr" src="assets/img/qr-portfolio.svg" alt="QR code vers le portfolio" width="110" height="110"></div>
-      </aside>
-      <main>
-        <p><b>Objectif :</b> stage technicien de 12 semaines, du 12 avril au 2 juillet 2027, en conception, méthodes ou production mécanique, avec poursuite possible en alternance (assistant ingénieur).</p>
-        <h4>Formation</h4>
-        <div class="row"><div class="when">2025 – 2028<em>en cours, 2<sup>e</sup> année</em></div>
-          <div><b>Bachelor de Technologie, spécialité mécanique-production</b> — Arts et Métiers (ENSAM), campus de Bordeaux-Talence
-            <ul><li>Formation en trois ans alliant sciences, technologies et ingénierie</li><li>Conception mécanique, fabrication, méthodes de production</li></ul></div></div>
-        <div class="row"><div class="when">2022 – 2025</div>
-          <div><b>Baccalauréat STI2D, spécialité architecture et construction</b> — Lycée Livet, Nantes</div></div>
-        <div class="row"><div class="when">BAFA</div>
-          <div><b>Brevet d'aptitude aux fonctions d'animateur</b></div></div>
-        <h4>Expériences</h4>
-        <div class="row"><div class="when">2026<em>4 semaines, temps plein</em></div>
-          <div><b>Opérateur de production (stage ouvrier)</b> — La Poste, Plateforme Industrielle Courrier, Bordeaux-Cestas (33)
-            <ul><li>Rotation sur 5 postes : machines de tri, dépalétiseur, tri manuel, tri expédition</li><li>Cadence de 40 000 plis par heure, règles de sécurité, travail en équipe</li></ul></div></div>
-        <div class="row"><div class="when">2024 – 2026<em>2 saisons de 4 semaines</em></div>
-          <div><b>Animateur en accueil de loisirs (ALSH), enfants de 7 à 11 ans</b> — Les Mille Potes, Arcachon (33)
-            <ul><li>Responsable d'un groupe de 12 enfants : organisation des journées, activités, sécurité</li></ul></div></div>
-        <div class="row"><div class="when">2025<em><span class="todo">x h / semaine pendant x semaines</span></em></div>
-          <div><b>Garde d'enfant avec troubles du spectre autistique</b> — particulier employeur
-            <ul><li>Accompagnement d'un enfant non verbal : routines, communication par pictogrammes</li></ul></div></div>
-        <h4>Projets techniques</h4>
-        <div class="row"><div class="when">2026<em><span class="todo">durée en heures</span></em></div>
-          <div><b>Prototype mécatronique</b> — boîtier modélisé sous CATIA V5, imprimé en 3D, câblé sur Arduino (capteur à ultrasons, afficheur, motoréducteur)</div></div>
-        <div class="row"><div class="when">2026<em><span class="todo">durée en heures</span></em></div>
-          <div><b>Usinage conventionnel</b> — pièce étagée en aluminium réalisée au tour, contrôle des cotes</div></div>
-      </main>
-    </article>
+    <!-- Le PDF est dessiné tel quel par PDF.js : le réexporter depuis cv/CV-Paul-Signe.docx suffit à mettre la page à jour -->
+    <a class="cv-pdf" href="assets/CV-Paul-Signe.pdf" target="_blank" rel="noopener" aria-label="CV de Paul Signe (ouvrir le PDF)">
+      <canvas id="cvCanvas"></canvas>
+      <span class="cv-fallback" id="cvFallback" hidden>Aperçu indisponible.<br><span class="btn solid">Ouvrir le CV ↗</span></span>
+    </a>
     </div>
   </div>
 </section>
@@ -97,6 +56,25 @@
     paint();
   });
   paint();
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+// Aperçu du CV : la page 1 du PDF dessinée à la largeur du cadre (net sur écran haute densité)
+(function () {
+  var canvas = document.getElementById('cvCanvas'), fallback = document.getElementById('cvFallback');
+  function fail() { canvas.remove(); fallback.hidden = false; }
+  if (!window.pdfjsLib) return fail();
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  pdfjsLib.getDocument('assets/CV-Paul-Signe.pdf').promise
+    .then(function (pdf) { return pdf.getPage(1); })
+    .then(function (page) {
+      var base = page.getViewport({ scale: 1 });
+      var vp = page.getViewport({ scale: canvas.parentElement.clientWidth / base.width * Math.max(2, devicePixelRatio || 1) });
+      canvas.width = vp.width; canvas.height = vp.height;
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+    })
+    .catch(fail);
 })();
 </script>
 </body>

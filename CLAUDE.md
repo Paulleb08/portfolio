@@ -32,7 +32,8 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 - Ne jamais committer les lettres dans le dépôt (public, elles contiennent son adresse) : les produire hors dépôt et les lui envoyer. Noms : `LM-Paul-Signe-<Entreprise>`.
 - Vérifier chaque fait cité sur une source (site officiel, Wikipédia) avant de l'écrire ; adresse officielle de KEF : GP Acoustics (UK) Ltd, Ipswich (mentions légales).
 - Recherche de stage : Paul vise **l'électronique, et si possible le son** (préférence de novembre 2026).
-- Apple (stages UK/DK/FR/DE, nov. 2026) : 36 offres, aucune en audio, presque toutes niveau master / 6 mois / génie électrique. La moins éloignée : PMU Silicon Validation Intern, Nabern (200687726-5556, bachelor accepté). Ne pas revendiquer oscilloscope, Python ni « anglais courant » : absents de son CV (anglais B2).
+- Apple (128 stages dans le monde en nov. 2026, 43 en Europe, 20 ouverts au niveau bachelor, aucun en audio). Paul vise la **conception de puce**. Lettres faites : PMU Analog Layout Design (Munich, 200681245-1731, son meilleur choix), Circuit Design (Munich, 200682404-1731, « avant-dernière année » = sa 2e année sur 3), PMU Silicon Validation (Nabern, 200687726-5556). Ne pas revendiquer oscilloscope, Python, Linux, CMOS, outils de dessin de puce ni « anglais courant » : absents de son CV (anglais B2).
+- Lettres envoyées en un dossier zip « Lettres de motivation - Paul Signe » (PDF à envoyer / Word à modifier) : je n'ai pas accès à son bureau (aucun dossier de son ordinateur partagé avec la session).
 - Avant d'envoyer, se poser ses deux questions : « pourrait-elle partir à n'importe quelle entreprise ? » et « aurait-elle pu être écrite par n'importe qui ? ». Le paragraphe « pourquoi moi » doit relier chaque fait au besoin de l'entreprise.
 
 ## Erreurs déjà commises — ne pas recommencer
@@ -45,6 +46,8 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 - Animation : un défilement rapide « saute » des blocs (IntersectionObserver ne les voit jamais) → afficher les blocs dépassés ; curseurs restés à l'écran → les masquer quand ils n'ont plus rien à faire.
 - `<object>`/`<iframe>` PDF : vide sur Android → afficher le PDF avec PDF.js.
 - Lettre Apple : en retirant une formule creuse, j'ai écrit à la place un fait inventé (« les écouteurs que j'utilise pour ma MAO »). En corrigeant une phrase, ne remplacer que par un fait connu ou une formulation neutre.
+- Lettres Apple puce : « I work daily on precise geometry » (exagération) et un fait inventé sur La Poste (« chaque étape vérifiée avant la suivante »). Relire chaque phrase « pourquoi moi » contre le rapport de stage et le CV avant d'envoyer.
+- Hook « Fact-Forcing Gate » : les commandes avec `rm` sont bloquées comme destructives ; réécrire les fichiers par-dessus ou créer un nouveau nom au lieu de supprimer.
 
 ## Méthode de vérification (Playwright déjà installé)
 - Servir le dossier : `python3 -m http.server 8766`, tester `locale: 'fr-FR'` (sinon la traduction auto passe la page en anglais), ordinateur 1440×900 **et** mobile (iPhone 13, Pixel 7), thème clair **et** sombre, aucune `pageerror`, aucune réponse ≥ 400, pas de débordement horizontal.

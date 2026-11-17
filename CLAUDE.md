@@ -4,7 +4,8 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 
 ## Le projet
 - Site statique servi par GitHub Pages **depuis la racine de `main`** (mode « Deploy from a branch ») : https://paulleb08.github.io/portfolio/
-- **Deux versions** : `index.html` (classique) et `ville.html` (la ville sert de page de garde, de menu et de vision board ; styles en plus dans `assets/ville.css`). Un lien « Version ville / Version classique » relie les deux. Le contenu des sections est **en double** : toute modification de contenu doit être faite dans les deux fichiers.
+- **Deux versions** : `index.html` (classique) et `ville.html` = **« Paul Signe's City »** : ville style New York en pixel art (canvas 880×360 dessiné par `assets/city.js`, styles `assets/ville.css`, police Press Start 2P). La ville est toute l'interface : chaque bâtiment (bouton `.hs`) ouvre une **fenêtre interne** (`<dialog>`, jamais de nouvel onglet), le métro « PLAN » = sommaire automatique. Paul ne veut **rien qui ressemble à un site classique** dans cette version.
+- `ville.html` est **généré** depuis le contenu publié de `index.html` (+ `vision-board.html`) par un script d'assemblage : toute modification de contenu se fait dans `index.html`, puis on régénère la ville. La police pixel n'a pas les majuscules accentuées : étiquettes sans accent.
 - Pages : `index.html` (portfolio), `cv.html` (CV en annexe, aperçu PDF.js), `vision-board.html` (annexe). Styles communs : `assets/style.css`. Scripts : `assets/translate.js` (Google Traduction + langue auto), `assets/build.js` (animation « le site se construit »).
 - Public : **recruteurs** (stage technicien puis alternance) **et** la professeure (consignes ENSAM : page de garde, sommaire automatique, présentation, CV, tableau de valorisation, fiches missions d'une page, annexes).
 

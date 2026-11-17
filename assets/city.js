@@ -123,14 +123,14 @@
   // Images des pochettes (vision board) reprises en pixel art sur les panneaux de la ville
   // Albums préférés de Paul (pochettes dans assets/vb/albums) : panneaux, fresques, affiches qui défilent
   var ALB = ["college-dropout", "ram", "thriller", "purple-rain", "seychelles", "astroworld", "morning-glory", "808s", "discovery", "legend", "odyssee", "saw-85-92", "1986", "54-1", "audio-video-disco", "bad", "bar-mediterraneo", "blur", "cassius-1999", "catch-a-fire", "civilisation", "comment-c-est-loin", "devil-wears-prada", "eminem-show", "euphories", "exodus", "first-light", "francafrique", "good-bad-ugly", "heroes-capes", "heroes-villains", "homework", "human-after-all", "jesus-is-king", "kaya", "le-monde-chico", "lucky-boy", "matahari", "modjo", "my-type", "natty-dread", "off-the-wall", "paradise", "pulsar", "rammstein", "shouso-strip", "story-of-espion", "takanaka", "take-care", "tasty", "three-imaginary-boys", "utopia", "watermelon-dandies", "ye"];
-  var IMG = {}, SRC = { grad: 'assets/vb/graduation.jpg', sade: 'assets/vb/diamond-life.jpg' };
+  var IMG = {}, SRC = { grad: 'assets/vb/graduation.jpg', sade: 'assets/vb/diamond-life.jpg', 'p-lv': 'assets/vb/louis-vuitton.jpg', 'p-hermes': 'assets/vb/hermes-sellier.jpg', 'p-dior': 'assets/vb/dior.jpg', 'p-kef': 'assets/vb/kef-ls50.jpg', 'p-beo': 'assets/vb/beosound-9000.jpg', 'p-defile': 'assets/vb/defile.jpg' };
   function img(name) { // chargée à la première demande
     var im = IMG['_' + name]; if (im) return im;
     im = IMG['_' + name] = new Image(); im.onload = function () { IMG[name] = {}; im.ok = 1; fill.forEach(function (b) { if (b.board === name || b.mural === name) b.redo = dirty = true; }); }; im.src = SRC[name] || 'assets/vb/albums/' + name + '.jpg'; return im; // on ne redessine que l'immeuble qui porte cette pochette
   }
   function pix(name, w, h) { // pochette réduite (lissée) puis dessinée en gros pixels
     var im = img(name); if (!im.ok) return null; var key = w + 'x' + h;
-    if (!IMG[name][key]) { var c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d'); x.imageSmoothingQuality = 'high'; x.drawImage(im, 0, 0, w, h); IMG[name][key] = c; }
+    if (!IMG[name][key]) { var c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d'); x.imageSmoothingQuality = 'high'; var sw = im.naturalWidth, sh = im.naturalHeight, cw = Math.min(sw, sh * w / h), ch = cw * h / w; x.drawImage(im, (sw - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, w, h); IMG[name][key] = c; } // recadrée au centre
     return IMG[name][key];
   }
   function cover(name, x, y, w, h) { var c = pix(name, w, h); if (c) g.drawImage(c, Math.round(x), Math.round(y)); else R(x, y, w, h, '#555'); }
@@ -146,7 +146,7 @@
   // Enseignes et panneaux de la ville sur les thèmes du vision board (peu nombreux : ça reste un outil pro)
   var SIGNS = ['VINYL', 'HI-FI', 'ATELIER', 'RECORDS', 'COUTURE', 'STUDIO', 'JAZZ', 'BOUTIQUE', 'DISQUES', 'TAILLEUR', 'VINTAGE', 'SOUND'];
   var MURALS = { '-1,0': 'thriller', '0,-1': 'grad', '3,1': 'sade', '1,3': 'ram', '-2,1': 'seychelles', '1,-2': 'purple-rain', '4,1': 'astroworld', '1,4': 'college-dropout' };
-  var BOARDS = { '-1,1': 'grad', '3,-1': 'sade', '-2,2': 'hz', '4,0': 'vinyl', '-1,4': 'runway', '3,2': 'beo', '-3,3': 'kef', '5,-1': 'trunk', '-2,5': 'notes', '2,-2': 'fw', '4,4': 'morning-glory', '-3,0': 'discovery', '-1,3': 'legend', '3,-2': 'odyssee', '5,1': '808s', '-2,4': 'saw-85-92', '2,5': 'watermelon-dandies', '-4,2': 'off-the-wall', '4,-3': 'first-light', '0,-3': 'bad' };
+  var BOARDS = { '-1,1': 'grad', '3,-1': 'sade', '-2,2': 'hz', '4,0': 'vinyl', '-1,4': 'p-defile', '3,2': 'p-beo', '-3,3': 'p-kef', '5,-1': 'p-lv', '-2,5': 'sil-green', '2,-2': 'sil-pink', '4,4': 'morning-glory', '-3,0': 'discovery', '-1,3': 'legend', '3,-2': 'odyssee', '5,1': '808s', '-2,4': 'saw-85-92', '2,5': 'sil-orange', '-4,2': 'p-hermes', '4,-3': 'sil-blue', '0,-3': 'p-dior', '-4,4': 'runway', '6,0': 'fw' };
   var fill = [], deco = [];
   function genWorld() {
     fill = []; deco = [];
@@ -269,8 +269,10 @@
   }
   function roofBoard(b, kind) { // panneau publicitaire sur le toit, face à la rue
     var c = center(b, b.h), bw = 38, bh = 26, x = Math.round(c[0] - bw / 2), y = Math.round(c[1] - bh - 10);
+    if (kind.indexOf('sil-') === 0) { var sx = Math.round(c[0] - 15), sy = Math.round(c[1] - 50); R(sx + 6, sy + 38, 2, 12, '#3a3a3a'); R(sx + 22, sy + 38, 2, 12, '#3a3a3a'); R(sx - 1, sy - 1, 32, 40, '#111'); R(sx, sy, 30, 38, SILC[kind.slice(4)]); silhouette(function (cc, r, col) { R(sx + 5 + cc, sy + 6 + r, 1, 1, col); }, false); if (N) A(.2, function () { R(sx - 3, sy - 3, 36, 44, '#fff6c8'); }); return; }
     R(x + 6, y + bh, 2, 10, '#3a3a3a'); R(x + bw - 8, y + bh, 2, 10, '#3a3a3a'); R(x + 4, y + bh + 4, bw - 8, 1, '#3a3a3a');
     R(x - 1, y - 1, bw + 2, bh + 2, '#111'); R(x, y, bw, bh, N ? '#1a1430' : '#f7f2e6');
+    if (kind.indexOf('p-') === 0) { R(x - 1, y - 1, bw + 2, bh + 2, '#111'); cover(kind, x, y, bw, bh); if (N) A(.15, function () { R(x - 3, y - 3, bw + 6, bh + 6, '#fff6c8'); }); return; }
     if (ALB.indexOf(kind) > -1) { R(x + 3, y - 3, 32, 32, '#111'); cover(kind, x + 4, y - 2, 30, 30); R(x - 1, y - 1, 0, 0, '#111'); if (N) A(.18, function () { R(x, y - 6, 38, 38, '#fff6c8'); }); return; }
     if (kind === 'grad' || kind === 'sade') { cover(kind, x + 1, y + 1, bh - 2, bh - 2); T(kind === 'grad' ? 'NOW' : 'SADE', x + bh + 1, y + 3, N ? '#ff4fd8' : '#c0392b'); T(kind === 'grad' ? 'ON' : '84', x + bh + 1, y + 10, N ? '#3ef0ff' : '#1b2fbf'); R(x + bh + 2, y + 18, 7, 4, '#d4af37'); }
     else if (kind === 'hz') { T('20 HZ', x + 9, y + 2, N ? '#3ef0ff' : '#1b2fbf'); for (var i = 0; i < bw - 6; i++) R(x + 3 + i, y + 13 + Math.round(Math.sin(i * (0.25 + i / 60)) * 4), 1, 1, N ? '#ff4fd8' : '#c0392b'); T('20 KHZ', x + 7, y + 19, N ? '#3ef0ff' : '#1b2fbf'); }
@@ -284,6 +286,14 @@
     if (N) A(.18, function () { R(x - 4, y - 4, bw + 8, bh + 8, '#fff6c8'); });
   }
   var FOG = { d: '#c5dbf2', n: '#1a0f3a' };
+  var SILC = { pink: '#ff5fa2', green: '#7ed957', blue: '#4fc3f7', orange: '#ffa726', purple: '#b388ff' };
+  var SIL = [ // danseuse en ombre chinoise, 20 × 27 : # = corps, w = fil blanc et baladeur
+    '........####........', '.......######.......', '.......######.......', '.......#####w#......', '........####w.......', '.##.......#w........', '..##.....###w.......', '...##...####w##.....', '....##.#####w.##....',
+    '.....#######w..##...', '......######w...##..', '.......#####w....#..', '.......#####.w..ww..', '.......#####..w.ww..', '.......######..www..', '......#######.......', '......########......', '.....####..####.....',
+    '.....###....####....', '....###.......###...', '....###........###..', '...###..........##..', '...###...........##.', '..###............##.', '..##..............##', '.###................', '####................'];
+  function silhouette(px, flip) { // px(colonne, rangée, couleur) ; flip = miroir (la danseuse change de côté)
+    for (var r = 0; r < SIL.length; r++) for (var c = 0; c < 20; c++) { var ch = SIL[r][c]; if (ch !== '.') px(flip ? 19 - c : c, r, ch === '#' ? '#111' : '#f4f4f4'); }
+  }
   function sprite(b) { // immeuble lointain dessiné une fois dans sa propre image, voilé par la brume
     var c = corners(b), x0 = Math.floor(c.w[0]) - 24, x1 = Math.ceil(c.e[0]) + 24, y0 = Math.floor(c.n[1] - b.h - 50), y1 = Math.ceil(c.s[1]) + 2;
     var sc = document.createElement('canvas'); sc.width = x1 - x0; sc.height = y1 - y0; var main = g; g = sc.getContext('2d'); g.translate(-x0, -y0);
@@ -299,6 +309,9 @@
     detailed(b); prism(t2, 34, p[0], p[1], p[2], b.h); ribbons(t2, 34, b.h, 41); prism(t3, 18, p[0], p[1], p[2], b.h + 34); ribbons(t3, 18, b.h + 34, 77);
     var c = center(t3, b.h + 52); R(c[0], c[1] - 26, 1, 26, '#d0d4dc'); if (reduce || (t / 700 | 0) % 2) R(c[0] - 1, c[1] - 29, 3, 3, '#ff3b3b');
     var f = faceR(b); fr(f, 2, 18, 48, 9, '#1b2fbf'); ftext(f, 4, 20, 'COMPETENCES', '#ffffff');
+    var Lt = faceL(b), beat = reduce ? 0 : (t / 450 | 0) % 2, bgc = ['#ff5fa2', '#4fc3f7', '#7ed957', '#ffa726'][reduce ? 0 : (t / 3600 | 0) % 4];
+    fr(Lt, 2, 76, 44, 62, '#111'); fr(Lt, 3, 77, 42, 60, bgc); silhouette(function (c, r, col) { fr(Lt, 4 + c * 2, 130 - r * 2, col === '#111' ? 2 : 1, 2, col); }, beat);
+    if (N) fr(Lt, 4, 134, 40, 1, '#fff6c8');
   }
   function radio(b, t) {
     detailed(b); var c = center(b, b.h), top = c[1] - 92;

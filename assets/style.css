@@ -344,25 +344,49 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
   body.print-cv #cv .head{display:none}
 }
 
-/* Vision board façon Pinterest : son et mode réunis en épingles */
-.pins{columns:4 230px;column-gap:16px;margin-top:34px}
-.pin{display:block;position:relative;break-inside:avoid;margin:0 0 16px;border-radius:16px;overflow:hidden;background:var(--surface);border:1.5px solid var(--line);box-shadow:0 10px 26px rgba(20,22,52,.10)}
-.pin img{display:block;width:100%;height:auto;transition:transform .4s}
-.pin:hover img{transform:scale(1.03)}
-.pin figcaption{padding:10px 14px 12px;font-size:.92rem;line-height:1.4;color:var(--muted)}
-.pin figcaption b{display:block;color:var(--text);font-family:var(--display);font-stretch:110%;font-weight:800;text-transform:uppercase;font-size:.86rem;letter-spacing:.03em}
-.pin .credit{display:block;font-size:.72rem;margin-top:6px;opacity:.85}
-.pin .chip{position:absolute;top:10px;left:10px;z-index:1;font:800 .66rem/1 var(--display);text-transform:uppercase;letter-spacing:.07em;background:rgba(255,255,255,.94);color:#141634;padding:5px 9px;border-radius:99px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
-.pin.note{padding:42px 20px 20px}
-.pin.note .label{display:block;margin-bottom:6px;color:var(--accent)}
-.pin.note.blue{background:var(--brand);color:#fff;border-color:var(--brand)}
-.pin.note.blue .label{color:#fff}
-.pin.note.cream{background:var(--cream);color:#151515;border:2.5px solid #151515}
-.pin.note.cream .label{color:#151515}
-.pin.note .big{font-size:clamp(1.8rem,3.4vw,2.4rem);display:block;margin:8px 0;text-transform:none}
-.pin.note blockquote{font-size:1.45rem;line-height:1.25;font-style:italic;margin-bottom:8px}
-.pin.note p+p{margin-top:8px}
-@media print{.pins{columns:3}.pin{box-shadow:none}}
-.pin .mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#111}
-.pin .mosaic img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;transition:none}
-.pin:hover .mosaic img{transform:none}
+/* Vision board : deux tableaux de même taille (le son | la mode), puis les albums en 5 × 3 */
+.vb-motto{font-style:italic;color:var(--muted);margin-top:6px}
+.vb2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+.vb-side,.vb-albums{border-radius:20px;padding:20px}
+.vb-side.son{background:var(--accent-soft)}
+.vb-side.mode{background:#141414;color:#f5f1e8}
+.vb-albums{grid-column:1/-1;background:var(--surface);border:1.5px solid var(--line)}
+.vb-h{display:flex;align-items:baseline;gap:12px;margin:0 2px 16px;font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1}
+.vb-h span{font-size:.55em;letter-spacing:.06em;opacity:.7}
+.vb-side.son .vb-h,.vb-albums .vb-h{color:var(--accent)}
+.vb-side.mode .vb-h{color:#d4af37}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tile{display:flex;flex-direction:column;aspect-ratio:4/5;margin:0;border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:0 8px 22px rgba(20,22,52,.12)}
+.tile img{flex:1;min-height:0;width:100%;object-fit:cover;display:block}
+.tile figcaption{flex:none;padding:10px 12px 12px;font-size:.86rem;line-height:1.35;color:var(--muted)}
+.tile figcaption b{display:block;color:var(--text);font-family:var(--display);font-stretch:110%;font-weight:800;text-transform:uppercase;font-size:.84rem;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile figcaption span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vb-side.mode .tile{background:#232323;box-shadow:none}
+.vb-side.mode .tile figcaption{color:#bdb6a8}.vb-side.mode .tile figcaption b{color:#f5f1e8}
+.tile.note{justify-content:center;gap:8px;padding:20px 18px;background:var(--brand);color:#fff}
+.tile.note .label{color:inherit;opacity:.85}
+.tile.note .big{font-size:clamp(1.5rem,2.6vw,2.1rem);text-transform:none;line-height:1}
+.tile.note p{font-size:.92rem;line-height:1.4}
+.tile.note small{display:block;font-size:.78rem;opacity:.85}
+.vb-side.mode .tile.note{background:#d4af37;color:#141414}
+.albums{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.albums figure{margin:0}
+.albums img{display:block;width:100%;height:auto;aspect-ratio:1;border-radius:10px;box-shadow:0 8px 20px rgba(20,22,52,.18)}
+.albums figcaption{margin-top:8px;font-size:.8rem;line-height:1.3;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.albums figcaption b{display:block;color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.vb-credits{grid-column:1/-1;font-size:.74rem;line-height:1.5;color:var(--muted)}
+@media (max-width:900px){.vb2{grid-template-columns:1fr}}
+@media (max-width:560px){.vb-side,.vb-albums{padding:12px}.tiles{gap:10px}.tile figcaption{padding:7px 8px 8px;font-size:.72rem;line-height:1.25;height:5.6em}.tile figcaption b{font-size:.7rem;white-space:normal;line-height:1.2}.tile figcaption span{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.tile.note{padding:12px}.tile.note p{font-size:.78rem}.tile.note small{font-size:.68rem}.albums{gap:8px}.albums figcaption{display:none}}
+@media print{ /* papier : tableaux compacts et insécables, lisibles même sans les arrière-plans */
+  .vb2{display:block;margin-top:14px}
+  .vb-side,.vb-albums{break-before:auto;break-inside:avoid;margin-bottom:5mm;padding:8px;background:#fff!important;color:#141634!important;border:1.5px solid #141634}
+  .vb-side.mode .vb-h{color:#8a6d1f}.vb-h{margin-bottom:8px}
+  .tiles{grid-template-columns:repeat(5,1fr);gap:6px}
+  .tile,.vb-side.mode .tile{aspect-ratio:auto;background:#fff!important;box-shadow:none;border:1px solid #d8d2c3}
+  .tile img{flex:none;height:auto;aspect-ratio:1/1}.tile{break-inside:avoid}
+  .tile figcaption,.vb-side.mode .tile figcaption{height:auto;padding:3px 5px;font-size:.58rem;color:#4f5273}
+  .tile figcaption b,.vb-side.mode .tile figcaption b{font-size:.56rem;color:#141634}
+  .tile.note,.vb-side.mode .tile.note{background:#fff!important;color:#141634!important;padding:6px;gap:3px}
+  .tile.note .big{font-size:.95rem}.tile.note p{font-size:.58rem}.tile.note small{font-size:.5rem}
+  .albums{gap:6px}.albums img{box-shadow:none}.albums figcaption{font-size:.52rem}
+}

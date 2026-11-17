@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paul Signe — Portfolio (version ville)</title>
+<meta name="description" content="Portfolio de Paul Signe, étudiant en Bachelor de Technologie à Arts et Métiers (ENSAM) : recherche d'un stage technicien de 12 semaines à partir du 12 avril 2027, avec poursuite possible en alternance.">
+<script>
+// Thème : choix mémorisé, sinon clair le jour (7 h – 20 h) et sombre la nuit, à l'heure locale du visiteur
+(function () {
+  var t; try { t = localStorage.getItem('theme'); } catch (e) {}
+  if (t !== 'light' && t !== 'dark') { var h = new Date().getHours(); t = h >= 7 && h < 20 ? 'light' : 'dark'; }
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/ville.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wave" viewBox="0 0 1100 46" preserveAspectRatio="none"><path d="M0 23 Q 27.5 6 55 23 T 110 23 T 165 23 T 220 23 T 275 23 T 330 23 T 385 23 T 440 23 T 495 23 T 550 23 T 605 23 T 660 23 T 715 23 T 770 23 T 825 23 T 880 23 T 935 23 T 990 23 T 1045 23 T 1100 23" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+</svg>
+
+<nav class="nav" aria-label="Navigation principale">
+  <a class="brand notranslate" href="#accueil">Paul Signe</a>
+  <ul>
+    <li><a href="#a-propos">À propos</a></li>
+    <li><a href="cv.html" target="_blank" rel="noopener"><span class="notranslate">CV</span></a></li>
+    <li><a href="#missions">Fiches missions</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#annexes">Annexes</a></li>
+    <li><a href="index.html">Version classique</a></li>
+  </ul>
+  <div class="tools">
+    <div class="lang notranslate" title="Traduire la page / Translate this page"><span aria-hidden="true">🌐</span><div id="gt"></div></div>
+    <button class="icon-btn" type="button" id="themeBtn" aria-label="Changer de thème"></button>
+    <a class="cv-link" href="assets/CV-Paul-Signe.pdf" download>⤓ <span class="notranslate">CV</span></a>
+    <a class="btn solid contact" href="#contact">Me contacter</a>
+  </div>
+</nav>
+<script src="assets/translate.js"></script>
+
+<a class="sticker" href="#contact" aria-label="Me contacter pour un stage ou une alternance">
+  <div class="flag">Stage 12 sem.<br>→ alternance<small>Parlons-en ↗</small></div>
+</a>
+
+<main>
+
+<!-- ============ ACCUEIL (page de garde) : la ville sert de menu et de vision board ============ -->
+<header class="city-hero" id="accueil">
+  <div class="city-head">
+    <span class="label kicker">Portfolio · 2026 – 2027</span>
+    <h1 class="disp notranslate">Paul Signe</h1>
+    <p>Bienvenue dans ma ville. Chaque bâtiment ouvre une partie de mon portfolio : cliquez sur l'École, l'Atelier, la Poste… Les quartiers Hi-Fi et Mode &amp; Luxe sont mon vision board.</p>
+    <div class="districts" aria-label="Secteurs visés"><span>Conception mécanique</span><span>Électronique</span><span>Hi-Fi &amp; son</span><span>Mode &amp; luxe</span></div>
+  </div>
+  <div class="city-scroll" tabindex="0" role="region" aria-label="Plan de la ville (faites défiler)">
+<svg class="city" viewBox="0 170 2000 590" role="img" aria-labelledby="city-t" xmlns="http://www.w3.org/2000/svg">
+<title id="city-t">Plan de la ville de Paul Signe : chaque bâtiment ouvre une partie du portfolio</title>
+<g class="sky" aria-hidden="true"><circle class="star" cx="1211" cy="263" r="1.6" style="animation-delay:2.2s"/><circle class="star" cx="1718" cy="213" r="1.2" style="animation-delay:3.6s"/><circle class="star" cx="734" cy="297" r="2" style="animation-delay:2.3s"/><circle class="star" cx="1861" cy="312" r="1.6" style="animation-delay:3.3s"/><circle class="star" cx="1808" cy="308" r="1.2" style="animation-delay:2.1s"/><circle class="star" cx="1082" cy="310" r="1.2" style="animation-delay:3.5s"/><circle class="star" cx="1600" cy="226" r="2" style="animation-delay:0.0s"/><circle class="star" cx="1646" cy="218" r="1.2" style="animation-delay:0.6s"/><circle class="star" cx="1277" cy="365" r="1.2" style="animation-delay:2.2s"/><circle class="star" cx="677" cy="354" r="2" style="animation-delay:2.1s"/><circle class="star" cx="998" cy="380" r="1.2" style="animation-delay:3.5s"/><circle class="star" cx="126" cy="243" r="1.2" style="animation-delay:1.1s"/><circle class="star" cx="1591" cy="205" r="2" style="animation-delay:1.8s"/><circle class="star" cx="67" cy="374" r="1.2" style="animation-delay:1.8s"/><circle class="star" cx="1264" cy="309" r="2" style="animation-delay:2.0s"/><circle class="star" cx="1428" cy="250" r="1.6" style="animation-delay:2.0s"/><circle class="star" cx="1663" cy="302" r="2" style="animation-delay:3.8s"/><circle class="star" cx="1441" cy="313" r="1.6" style="animation-delay:3.7s"/><circle class="star" cx="1838" cy="231" r="1.6" style="animation-delay:0.5s"/><circle class="star" cx="259" cy="280" r="1.6" style="animation-delay:1.3s"/><circle class="star" cx="1384" cy="241" r="1.6" style="animation-delay:0.3s"/><circle class="star" cx="1381" cy="257" r="1.2" style="animation-delay:3.6s"/><circle class="star" cx="326" cy="363" r="2" style="animation-delay:2.6s"/><circle class="star" cx="302" cy="244" r="1.2" style="animation-delay:3.9s"/><circle class="star" cx="459" cy="371" r="1.2" style="animation-delay:1.6s"/><circle class="star" cx="1007" cy="221" r="2" style="animation-delay:3.3s"/><circle class="star" cx="340" cy="360" r="1.6" style="animation-delay:4.0s"/><circle class="star" cx="837" cy="266" r="1.6" style="animation-delay:0.8s"/><circle class="star" cx="662" cy="203" r="2" style="animation-delay:1.5s"/><circle class="star" cx="702" cy="321" r="1.6" style="animation-delay:1.8s"/><circle class="star" cx="47" cy="278" r="1.6" style="animation-delay:2.1s"/><circle class="star" cx="615" cy="311" r="1.2" style="animation-delay:0.5s"/><circle class="star" cx="1891" cy="238" r="1.2" style="animation-delay:0.3s"/><circle class="star" cx="566" cy="190" r="1.2" style="animation-delay:1.1s"/><circle class="star" cx="275" cy="288" r="2" style="animation-delay:3.3s"/><circle class="star" cx="539" cy="283" r="1.2" style="animation-delay:2.1s"/><circle class="star" cx="1064" cy="326" r="1.6" style="animation-delay:2.8s"/><circle class="star" cx="193" cy="251" r="1.2" style="animation-delay:3.2s"/><circle class="star" cx="385" cy="288" r="1.2" style="animation-delay:1.1s"/><circle class="star" cx="44" cy="342" r="1.2" style="animation-delay:3.2s"/><circle class="star" cx="181" cy="335" r="1.2" style="animation-delay:0.3s"/><circle class="star" cx="1776" cy="211" r="1.6" style="animation-delay:0.0s"/><circle class="star" cx="1142" cy="286" r="1.6" style="animation-delay:2.5s"/><circle class="star" cx="98" cy="314" r="2" style="animation-delay:1.0s"/><circle class="star" cx="234" cy="221" r="1.6" style="animation-delay:0.2s"/><circle class="star" cx="423" cy="259" r="2" style="animation-delay:1.2s"/><circle class="star" cx="1565" cy="232" r="1.6" style="animation-delay:1.8s"/><circle class="star" cx="1386" cy="225" r="1.6" style="animation-delay:1.4s"/><circle class="star" cx="47" cy="244" r="1.2" style="animation-delay:0.1s"/><circle class="star" cx="1511" cy="309" r="2" style="animation-delay:3.9s"/><circle class="star" cx="1063" cy="301" r="1.2" style="animation-delay:3.7s"/><circle class="star" cx="227" cy="348" r="2" style="animation-delay:1.7s"/><circle class="star" cx="1023" cy="319" r="1.6" style="animation-delay:3.9s"/><circle class="star" cx="640" cy="356" r="1.2" style="animation-delay:3.9s"/><circle class="star" cx="711" cy="230" r="2" style="animation-delay:2.9s"/><circle class="star" cx="296" cy="283" r="1.6" style="animation-delay:3.9s"/><circle class="star" cx="1724" cy="213" r="1.2" style="animation-delay:0.3s"/><circle class="star" cx="1527" cy="245" r="1.6" style="animation-delay:0.7s"/><circle class="star" cx="183" cy="350" r="1.6" style="animation-delay:3.5s"/><circle class="star" cx="1383" cy="252" r="2" style="animation-delay:1.0s"/><circle class="star" cx="610" cy="191" r="1.6" style="animation-delay:0.7s"/><circle class="star" cx="560" cy="294" r="1.2" style="animation-delay:1.1s"/><circle class="star" cx="1979" cy="264" r="2" style="animation-delay:1.3s"/><circle class="star" cx="80" cy="259" r="1.2" style="animation-delay:1.4s"/><circle class="star" cx="12" cy="265" r="1.6" style="animation-delay:0.3s"/><circle class="star" cx="581" cy="308" r="2" style="animation-delay:0.8s"/><circle class="star" cx="1043" cy="378" r="1.2" style="animation-delay:0.4s"/><circle class="star" cx="1683" cy="202" r="1.2" style="animation-delay:1.6s"/><circle class="star" cx="95" cy="280" r="1.2" style="animation-delay:1.2s"/><circle class="star" cx="1299" cy="239" r="1.2" style="animation-delay:2.3s"/><circle class="sun" cx="1820" cy="250" r="40"/><path class="moon" d="M1830 212 a42 42 0 1 0 30 68 a34 34 0 1 1 -30 -68 Z"/>
+<g class="cloud cl1"><path d="M0 260 q10 -26 36 -18 q14 -22 40 -8 q26 -6 28 18 Z"/></g><g class="cloud cl2"><path d="M0 215 q8 -20 28 -14 q12 -18 32 -6 q20 -4 22 14 Z"/></g></g>
+<path class="far" d="M0 640 V440 H70 V400 H120 V520 H170 V440 H220 V360 H290 V520 H340 V400 H400 V520 H470 V520 H530 V520 H580 V480 H630 V360 H690 V520 H760 V520 H830 V440 H890 V480 H940 V360 H1030 V360 H1100 V520 H1170 V440 H1220 V360 H1270 V360 H1320 V360 H1390 V400 H1450 V500 H1540 V400 H1600 V440 H1690 V480 H1760 V460 H1830 V520 H1920 V360 H1980 V440 H2040 V640 Z" aria-hidden="true"/><g aria-hidden="true"><rect class="fw" x="599" y="535" width="5" height="7" style="animation-delay:5.9s"/><rect class="fw" x="251" y="511" width="5" height="7" style="animation-delay:2.5s"/><rect class="fw" x="1560" y="467" width="5" height="7" style="animation-delay:0.9s"/><rect class="fw" x="1011" y="487" width="5" height="7" style="animation-delay:0.2s"/><rect class="fw" x="1378" y="399" width="5" height="7" style="animation-delay:4.6s"/><rect class="fw" x="1183" y="582" width="5" height="7" style="animation-delay:5.3s"/><rect class="fw" x="652" y="467" width="5" height="7" style="animation-delay:4.2s"/><rect class="fw" x="1227" y="507" width="5" height="7" style="animation-delay:3.5s"/><rect class="fw" x="944" y="397" width="5" height="7" style="animation-delay:5.0s"/><rect class="fw" x="1944" y="449" width="5" height="7" style="animation-delay:2.8s"/><rect class="fw" x="1370" y="396" width="5" height="7" style="animation-delay:0.4s"/><rect class="fw" x="1446" y="459" width="5" height="7" style="animation-delay:3.9s"/><rect class="fw" x="1405" y="590" width="5" height="7" style="animation-delay:2.7s"/><rect class="fw" x="1477" y="478" width="5" height="7" style="animation-delay:5.3s"/><rect class="fw" x="720" y="385" width="5" height="7" style="animation-delay:5.6s"/><rect class="fw" x="737" y="423" width="5" height="7" style="animation-delay:3.7s"/><rect class="fw" x="1021" y="395" width="5" height="7" style="animation-delay:1.3s"/><rect class="fw" x="598" y="413" width="5" height="7" style="animation-delay:4.4s"/><rect class="fw" x="824" y="480" width="5" height="7" style="animation-delay:5.5s"/><rect class="fw" x="1026" y="400" width="5" height="7" style="animation-delay:1.0s"/><rect class="fw" x="832" y="520" width="5" height="7" style="animation-delay:1.7s"/><rect class="fw" x="290" y="589" width="5" height="7" style="animation-delay:2.6s"/><rect class="fw" x="1136" y="451" width="5" height="7" style="animation-delay:4.2s"/><rect class="fw" x="744" y="554" width="5" height="7" style="animation-delay:5.3s"/><rect class="fw" x="1971" y="439" width="5" height="7" style="animation-delay:0.9s"/><rect class="fw" x="370" y="418" width="5" height="7" style="animation-delay:1.4s"/><rect class="fw" x="487" y="383" width="5" height="7" style="animation-delay:2.9s"/><rect class="fw" x="1216" y="426" width="5" height="7" style="animation-delay:1.6s"/><rect class="fw" x="18" y="417" width="5" height="7" style="animation-delay:2.5s"/><rect class="fw" x="766" y="536" width="5" height="7" style="animation-delay:3.4s"/><rect class="fw" x="1961" y="412" width="5" height="7" style="animation-delay:4.1s"/><rect class="fw" x="1065" y="538" width="5" height="7" style="animation-delay:3.9s"/><rect class="fw" x="1525" y="393" width="5" height="7" style="animation-delay:2.7s"/><rect class="fw" x="1793" y="579" width="5" height="7" style="animation-delay:5.7s"/><rect class="fw" x="1403" y="584" width="5" height="7" style="animation-delay:3.4s"/><rect class="fw" x="825" y="482" width="5" height="7" style="animation-delay:2.4s"/><rect class="fw" x="996" y="542" width="5" height="7" style="animation-delay:2.4s"/><rect class="fw" x="400" y="397" width="5" height="7" style="animation-delay:5.9s"/><rect class="fw" x="912" y="421" width="5" height="7" style="animation-delay:0.7s"/><rect class="fw" x="1240" y="393" width="5" height="7" style="animation-delay:0.6s"/><rect class="fw" x="1170" y="418" width="5" height="7" style="animation-delay:3.2s"/><rect class="fw" x="1953" y="473" width="5" height="7" style="animation-delay:3.7s"/><rect class="fw" x="154" y="433" width="5" height="7" style="animation-delay:3.7s"/><rect class="fw" x="314" y="542" width="5" height="7" style="animation-delay:1.5s"/><rect class="fw" x="721" y="534" width="5" height="7" style="animation-delay:2.2s"/><rect class="fw" x="261" y="409" width="5" height="7" style="animation-delay:5.1s"/><rect class="fw" x="964" y="502" width="5" height="7" style="animation-delay:2.9s"/><rect class="fw" x="185" y="416" width="5" height="7" style="animation-delay:0.6s"/><rect class="fw" x="711" y="569" width="5" height="7" style="animation-delay:1.6s"/><rect class="fw" x="1707" y="557" width="5" height="7" style="animation-delay:1.0s"/><rect class="fw" x="57" y="432" width="5" height="7" style="animation-delay:5.7s"/><rect class="fw" x="1091" y="472" width="5" height="7" style="animation-delay:0.9s"/><rect class="fw" x="1122" y="386" width="5" height="7" style="animation-delay:4.5s"/><rect class="fw" x="620" y="544" width="5" height="7" style="animation-delay:5.2s"/><rect class="fw" x="1435" y="596" width="5" height="7" style="animation-delay:1.6s"/><rect class="fw" x="761" y="422" width="5" height="7" style="animation-delay:2.1s"/><rect class="fw" x="466" y="516" width="5" height="7" style="animation-delay:3.2s"/><rect class="fw" x="1039" y="464" width="5" height="7" style="animation-delay:3.8s"/><rect class="fw" x="1265" y="587" width="5" height="7" style="animation-delay:4.7s"/><rect class="fw" x="1563" y="598" width="5" height="7" style="animation-delay:1.2s"/><rect class="fw" x="500" y="589" width="5" height="7" style="animation-delay:2.4s"/><rect class="fw" x="1655" y="438" width="5" height="7" style="animation-delay:1.2s"/><rect class="fw" x="1019" y="471" width="5" height="7" style="animation-delay:4.4s"/><rect class="fw" x="67" y="582" width="5" height="7" style="animation-delay:1.7s"/><rect class="fw" x="540" y="429" width="5" height="7" style="animation-delay:4.2s"/><rect class="fw" x="1968" y="468" width="5" height="7" style="animation-delay:2.7s"/><rect class="fw" x="1929" y="565" width="5" height="7" style="animation-delay:5.9s"/><rect class="fw" x="1965" y="473" width="5" height="7" style="animation-delay:0.5s"/><rect class="fw" x="219" y="438" width="5" height="7" style="animation-delay:2.8s"/><rect class="fw" x="701" y="432" width="5" height="7" style="animation-delay:2.9s"/><rect class="fw" x="1853" y="536" width="5" height="7" style="animation-delay:5.0s"/><rect class="fw" x="991" y="547" width="5" height="7" style="animation-delay:2.1s"/><rect class="fw" x="1327" y="401" width="5" height="7" style="animation-delay:5.0s"/><rect class="fw" x="255" y="479" width="5" height="7" style="animation-delay:4.7s"/><rect class="fw" x="1546" y="431" width="5" height="7" style="animation-delay:2.9s"/><rect class="fw" x="375" y="491" width="5" height="7" style="animation-delay:4.7s"/><rect class="fw" x="690" y="402" width="5" height="7" style="animation-delay:4.8s"/><rect class="fw" x="1488" y="481" width="5" height="7" style="animation-delay:2.8s"/><rect class="fw" x="1532" y="401" width="5" height="7" style="animation-delay:4.3s"/><rect class="fw" x="358" y="412" width="5" height="7" style="animation-delay:0.2s"/><rect class="fw" x="1219" y="499" width="5" height="7" style="animation-delay:4.8s"/><rect class="fw" x="309" y="536" width="5" height="7" style="animation-delay:5.0s"/><rect class="fw" x="981" y="548" width="5" height="7" style="animation-delay:5.6s"/><rect class="fw" x="329" y="520" width="5" height="7" style="animation-delay:3.3s"/><rect class="fw" x="53" y="383" width="5" height="7" style="animation-delay:4.8s"/><rect class="fw" x="1497" y="546" width="5" height="7" style="animation-delay:0.6s"/><rect class="fw" x="1544" y="415" width="5" height="7" style="animation-delay:2.6s"/><rect class="fw" x="1795" y="429" width="5" height="7" style="animation-delay:5.0s"/><rect class="fw" x="442" y="387" width="5" height="7" style="animation-delay:1.5s"/><rect class="fw" x="609" y="508" width="5" height="7" style="animation-delay:1.4s"/></g>
+<g class="crane" aria-hidden="true"><path class="ln thin" d="M790 640 V230 M806 640 V230 M790 600 L806 560 M790 520 L806 480 M790 440 L806 400 M790 360 L806 320 M790 280 L806 240 M740 230 H990 M798 230 L850 200 L990 230 M760 230 V250 H780"/><g class="hook"><path class="ln thin" d="M950 230 V300"/><rect class="ln fl" x="934" y="300" width="32" height="20"/></g></g>
+<path class="ground" d="M0 640 H2000 V760 H0 Z" aria-hidden="true"/><path class="ln thin" d="M0 640 H2000" aria-hidden="true"/>
+<path class="lane" d="M0 712 H2000" aria-hidden="true"/>
+<a class="poi" href="#contact" aria-label="La Radio — Me contacter"><title>La Radio — Me contacter</title><g class="b"><path class="ln" d="M70 250 L30 640 M70 250 L110 640 M43 520 H97 M52 430 H88 M60 340 H80 M43 520 L88 430 M97 520 L52 430 M52 430 L80 340 M88 430 L60 340 M70 250 V215"/><circle class="blink" cx="70" cy="210" r="6"/><g class="waves"><path class="ln" d="M92 190 q14 20 0 40 M106 178 q24 32 0 64 M48 190 q-14 20 0 40 M34 178 q-24 32 0 64"/></g></g><g class="plate"><rect x="12" y="652" width="116" height="24" rx="4"/><text x="70.0" y="669" text-anchor="middle">RADIO · CONTACT</text></g></a><a class="poi" href="#a-propos" aria-label="L'École — À propos"><title>L'École — À propos</title><g class="b"><rect class="fl ln" x="150" y="470" width="250" height="150"/><path class="ln" d="M170 476 V618 M180 476 V618"/><path class="ln" d="M214 476 V618 M224 476 V618"/><path class="ln" d="M258 476 V618 M268 476 V618"/><path class="ln" d="M302 476 V618 M312 476 V618"/><path class="ln" d="M346 476 V618 M356 476 V618"/><path class="ln" d="M390 476 V618 M400 476 V618"/><rect class="fl ln" x="140" y="440" width="270" height="32"/><text class="sv" x="275" y="462" text-anchor="middle">ARTS ET MÉTIERS</text><path class="fl ln" d="M134 440 L275 382 L416 440 Z"/><circle class="ln" cx="275" cy="418" r="10"/><rect class="ln door" x="256" y="562" width="38" height="58"/><path class="ln" d="M128 620 H422 V640 H128 Z"/></g><g class="plate"><rect x="132" y="652" width="286" height="24" rx="4"/><text x="275.0" y="669" text-anchor="middle">ÉCOLE · À PROPOS</text></g></a><a class="poi" href="#missions" aria-label="L'Atelier — Fiches missions"><title>L'Atelier — Fiches missions</title><g class="b"><path class="fl ln" d="M440 640 V500 L480 458 V500 L520 458 V500 L560 458 V500 L600 458 V500 L640 458 V500 L690 500 V640 Z"/><rect class="fl ln" x="652" y="360" width="24" height="140"/><g class="smoke"><circle cx="664" cy="342" r="10"/><circle cx="676" cy="318" r="13"/><circle cx="692" cy="290" r="16"/></g><path class="ln gear" d="M530.0,572.0 L536.7,576.8 L535.7,581.6 L527.7,583.5 L526.0,587.0 L529.4,594.5 L526.2,598.2 L518.3,595.8 L515.0,598.0 L514.2,606.2 L509.6,607.7 L503.9,601.7 L500.0,602.0 L495.2,608.7 L490.4,607.7 L488.5,599.7 L485.0,598.0 L477.5,601.4 L473.8,598.2 L476.2,590.3 L474.0,587.0 L465.8,586.2 L464.3,581.6 L470.3,575.9 L470.0,572.0 L463.3,567.2 L464.3,562.4 L472.3,560.5 L474.0,557.0 L470.6,549.5 L473.8,545.8 L481.7,548.2 L485.0,546.0 L485.8,537.8 L490.4,536.3 L496.1,542.3 L500.0,542.0 L504.8,535.3 L509.6,536.3 L511.5,544.3 L515.0,546.0 L522.5,542.6 L526.2,545.8 L523.8,553.7 L526.0,557.0 L534.2,557.8 L535.7,562.4 L529.7,568.1 Z"/><circle class="ln" cx="500" cy="572" r="9"/><rect class="ln" x="598" y="556" width="72" height="84"/><path class="ln" d="M598 572 H670 M598 588 H670 M598 604 H670 M598 620 H670"/><rect class="win" x="552" y="516" width="14" height="18" style="animation-delay:4.2s"/><rect class="win" x="574" y="516" width="14" height="18" style="animation-delay:6.0s"/></g><g class="plate"><rect x="444" y="652" width="252" height="24" rx="4"/><text x="570.0" y="669" text-anchor="middle">ATELIER · FICHES MISSIONS</text></g></a><a class="poi" href="#xp-1" aria-label="La Poste — Stage ouvrier"><title>La Poste — Stage ouvrier</title><g class="b"><rect class="fl ln" x="712" y="520" width="134" height="120"/><rect class="fl ln" x="704" y="508" width="150" height="14"/><rect class="ln" x="752" y="532" width="54" height="34"/><path class="ln" d="M752 532 L779 552 L806 532"/><rect class="ln door" x="760" y="588" width="38" height="52"/><rect class="win" x="722" y="586" width="22" height="28" style="animation-delay:5.3s"/><rect class="win" x="816" y="586" width="22" height="28" style="animation-delay:5.7s"/></g><g class="plate"><rect x="708" y="652" width="142" height="24" rx="4"/><text x="779.0" y="669" text-anchor="middle">LA POSTE · STAGE</text></g></a><a class="poi" href="#competences" aria-label="Hôtel de ville — Compétences par expérience"><title>Hôtel de ville — Compétences par expérience</title><g class="b"><rect class="fl ln" x="866" y="520" width="120" height="120"/><rect class="fl ln" x="896" y="330" width="60" height="190"/><path class="fl ln" d="M890 330 L926 278 L962 330 Z"/><circle class="fl ln" cx="926" cy="382" r="22"/><path class="hand-h" d="M926 382 V368"/><path class="hand-m" d="M926 382 V364"/><rect class="win" x="876" y="540" width="16" height="22" style="animation-delay:7.0s"/><rect class="win" x="876" y="584" width="16" height="22" style="animation-delay:3.1s"/><rect class="win" x="914" y="540" width="16" height="22" style="animation-delay:2.6s"/><rect class="win" x="914" y="584" width="16" height="22" style="animation-delay:7.9s"/><rect class="win" x="952" y="540" width="16" height="22" style="animation-delay:1.2s"/><rect class="win" x="952" y="584" width="16" height="22" style="animation-delay:5.8s"/><rect class="ln door" x="910" y="596" width="32" height="44"/></g><g class="plate"><rect x="858" y="652" width="136" height="24" rx="4"/><text x="926.0" y="669" text-anchor="middle">MAIRIE · COMPÉTENCES</text></g></a><a class="poi" href="vision-board.html" aria-label="Quartier Hi-Fi — Vision board : le son" data-vb="hifi" target="_blank" rel="noopener"><title>Quartier Hi-Fi — Vision board : le son</title><g class="b"><rect class="fl ln" x="1004" y="430" width="204" height="210"/><rect class="ln" x="1034" y="402" width="144" height="28" rx="4"/><text class="sv big" x="1106" y="423" text-anchor="middle">HI-FI</text><rect class="fl ln" x="1062" y="448" width="88" height="150" rx="8"/><circle class="ln" cx="1106" cy="478" r="10"/><circle class="ln cone" cx="1106" cy="545" r="32"/><circle class="ln" cx="1106" cy="545" r="12"/><g class="sound"><path class="ln" d="M1160 520 q12 25 0 50 M1176 508 q20 37 0 74 M1052 520 q-12 25 0 50 M1036 508 q-20 37 0 74"/></g><rect class="ln" x="1014" y="606" width="184" height="30"/><text class="sv sm" x="1106" y="626" text-anchor="middle">KEF · B&amp;O · DALI · FOCAL</text></g><g class="plate"><rect x="1002" y="652" width="208" height="24" rx="4"/><text x="1106.0" y="669" text-anchor="middle">HI-FI · LE SON</text></g></a><a class="poi" href="vision-board.html" aria-label="Quartier Mode et Luxe — Vision board" data-vb="luxe" target="_blank" rel="noopener"><title>Quartier Mode et Luxe — Vision board</title><g class="b"><rect class="fl ln" x="1226" y="450" width="190" height="190"/><path class="fl ln" d="M1218 450 L1240 408 L1402 408 L1424 450 Z"/><path class="ln" d="M1272 408 V430 H1296 V408 M1346 408 V430 H1370 V408"/><path class="ln" d="M1321 408 V360"/><path class="flag" d="M1321 360 q16 -6 32 0 q-16 6 -32 12 Z"/><rect class="ln" x="1238" y="470" width="166" height="22" rx="3"/><text class="sv" x="1321" y="487" text-anchor="middle">COUTURE</text><path class="ln" d="M1242 640 V548 q0 -42 40 -42 q40 0 40 42 V640"/><circle class="ln" cx="1282" cy="540" r="8"/><path class="ln dress" d="M1276 550 h12 l-4 18 l16 52 h-36 l16 -52 Z"/><path class="ln" d="M1338 640 V548 q0 -42 36 -42 q36 0 36 42 V640"/><path class="ln" d="M1356 560 h36 v20 h-36 Z M1362 560 q12 -14 24 0"/><circle class="ln" cx="1374" cy="604" r="12"/><path class="ln" d="M1374 596 V604 L1380 608"/></g><g class="plate"><rect x="1222" y="652" width="198" height="24" rx="4"/><text x="1321.0" y="669" text-anchor="middle">MODE &amp; LUXE</text></g></a><a class="poi" href="cv.html" aria-label="Le Kiosque — Mon CV (nouvel onglet)" target="_blank" rel="noopener"><title>Le Kiosque — Mon CV (nouvel onglet)</title><g class="b"><rect class="fl ln" x="1440" y="556" width="56" height="84"/><path class="fl ln" d="M1432 556 Q1468 512 1504 556 Z"/><text class="sv big" x="1468" y="600" text-anchor="middle">CV</text></g><g class="plate"><rect x="1428" y="652" width="82" height="24" rx="4"/><text x="1469.0" y="669" text-anchor="middle">CV ↗</text></g></a><a class="poi" href="#xp-2" aria-label="Le Parc — Animateur en accueil de loisirs"><title>Le Parc — Animateur en accueil de loisirs</title><g class="b"><path class="fl ln" d="M1532 524 L1607 470 L1682 524 Z"/><path class="ln" d="M1532 524 q12 10 25 0 q12 10 25 0 q12 10 25 0 q12 10 25 0 q12 10 25 0 q12 10 25 0"/><path class="ln" d="M1607 470 V452"/><path class="flag" d="M1607 452 q10 -4 20 0 q-10 4 -20 8 Z"/><g class="horse" style="animation-delay:0.0s"><path class="ln thin" d="M1556 520 V600"/><path class="fl ln" d="M1544 588 h24 l-4 -10 h-16 Z"/></g><g class="horse" style="animation-delay:0.4s"><path class="ln thin" d="M1590 520 V600"/><path class="fl ln" d="M1578 588 h24 l-4 -10 h-16 Z"/></g><g class="horse" style="animation-delay:0.8s"><path class="ln thin" d="M1624 520 V600"/><path class="fl ln" d="M1612 588 h24 l-4 -10 h-16 Z"/></g><g class="horse" style="animation-delay:1.2000000000000002s"><path class="ln thin" d="M1658 520 V600"/><path class="fl ln" d="M1646 588 h24 l-4 -10 h-16 Z"/></g><ellipse class="fl ln" cx="1607" cy="616" rx="84" ry="12"/><circle class="fl ln" cx="1522" cy="586" r="20"/><path class="ln" d="M1522 606 V640"/><circle class="fl ln" cx="1694" cy="590" r="16"/><path class="ln" d="M1694 606 V640"/></g><g class="plate"><rect x="1514" y="652" width="186" height="24" rx="4"/><text x="1607.0" y="669" text-anchor="middle">PARC · ANIMATION</text></g></a><a class="poi" href="#xp-3" aria-label="La Maison — Garde d'enfant"><title>La Maison — Garde d'enfant</title><g class="b"><rect class="fl ln" x="1716" y="546" width="96" height="94"/><path class="fl ln" d="M1706 548 L1764 498 L1822 548 Z"/><rect class="ln door" x="1752" y="590" width="26" height="50"/><rect class="win" x="1726" y="566" width="18" height="18"/><rect class="win" x="1786" y="566" width="18" height="18"/><path class="ln" d="M1764 530 c-6 -8 -16 -2 -10 6 l10 8 l10 -8 c6 -8 -4 -14 -10 -6 Z"/></g><g class="plate"><rect x="1706" y="652" width="118" height="24" rx="4"/><text x="1765.0" y="669" text-anchor="middle">LA MAISON</text></g></a><a class="poi" href="#annexes" aria-label="Les Archives — Annexes"><title>Les Archives — Annexes</title><g class="b"><rect class="fl ln" x="1838" y="498" width="150" height="142"/><path class="fl ln" d="M1856 498 A57 57 0 0 1 1970 498 Z"/><path class="ln" d="M1913 441 V426"/><path class="ln" d="M1856 520 V620"/><path class="ln" d="M1884 520 V620"/><path class="ln" d="M1912 520 V620"/><path class="ln" d="M1940 520 V620"/><path class="ln" d="M1968 520 V620"/><rect class="fl ln" x="1832" y="620" width="162" height="20"/><text class="sv" x="1913" y="514" text-anchor="middle">ARCHIVES</text></g><g class="plate"><rect x="1830" y="652" width="166" height="24" rx="4"/><text x="1913.0" y="669" text-anchor="middle">ARCHIVES · ANNEXES</text></g></a>
+<g aria-hidden="true"><g class="car c1"><rect class="fl ln" x="0" y="684" width="78" height="22" rx="6"/><path class="fl ln" d="M14 684 l10 -14 h30 l10 14"/><circle class="ln" cx="18" cy="708" r="7"/><circle class="ln" cx="60" cy="708" r="7"/></g><g class="car c2"><rect class="fl ln" x="0" y="716" width="120" height="26" rx="5"/><path class="ln" d="M10 724 h18 M36 724 h18 M62 724 h18 M88 724 h18"/><circle class="ln" cx="24" cy="744" r="8"/><circle class="ln" cx="96" cy="744" r="8"/></g><g class="car c3"><rect class="fl ln" x="0" y="684" width="70" height="20" rx="6"/><path class="fl ln" d="M12 684 l8 -12 h26 l10 12"/><circle class="ln" cx="16" cy="706" r="6"/><circle class="ln" cx="54" cy="706" r="6"/></g></g>
+</svg>
+  </div>
+  <p class="city-hint">← Faites glisser la ville pour tout voir →</p>
+</header>
+
+<!-- ============ SOMMAIRE (construit automatiquement) ============ -->
+<section id="sommaire" aria-labelledby="sommaire-t">
+  <div class="head"><h2 class="disp" id="sommaire-t">Plan de la ville</h2><p>Le sommaire : chaque partie du portfolio et le bâtiment qui y mène.</p></div>
+  <ol class="toc" id="toc"></ol>
+</section>
+
+<!-- ============ À PROPOS ============ -->
+<section id="a-propos" class="alt" data-toc="À propos · l'École">
+  <div class="wrap">
+    <div class="about-title">
+      <h2 class="disp">Étudiant à Arts et Métiers</h2>
+      <p>École Nationale Supérieure d'Arts et Métiers — campus de Bordeaux-Talence</p>
+    </div>
+    <div class="about">
+      <div>
+        <p class="intro">Je suis en 2<sup>e</sup> année du Bachelor de Technologie d'Arts et Métiers, spécialité mécanique-production.</p>
+        <p>J'aime voir une idée passer de l'écran à l'objet : la modéliser en CAO, la fabriquer, la mesurer, la faire fonctionner. Mes projets m'ont fait toucher à la conception, à l'usinage, à l'impression 3D et à l'électronique embarquée.</p>
+        <p>Quatre semaines comme opérateur dans une usine de tri m'ont aussi appris qu'une bonne conception pense aux personnes qui l'utilisent au quotidien.</p>
+        <p>Je suis curieux de tous les secteurs de la mécanique. Le son et la hi-fi sont une passion que j'aimerais un jour relier à mon métier.</p>
+      </div>
+      <figure><img src="assets/img/portrait.jpg" alt="Portrait de Paul Signe" width="384" height="512"><figcaption class="notranslate">Paul Signe</figcaption></figure>
+    </div>
+
+    <div class="strengths">
+      <article><span class="label">Point fort 01</span><h3 class="disp">Concevoir</h3>
+        <ul><li>CAO : CATIA V5, Onshape</li><li>Impression 3D</li><li>Arduino, capteurs, câblage</li></ul>
+        <p class="proof">Un prototype mécatronique conçu, imprimé et câblé de A à Z.</p></article>
+      <article><span class="label">Point fort 02</span><h3 class="disp">Fabriquer</h3>
+        <ul><li>Tournage conventionnel</li><li>Lecture de plan</li><li>Métrologie, tolérances</li></ul>
+        <p class="proof">Une pièce étagée en aluminium usinée au tour, cotes contrôlées.</p></article>
+      <article><span class="label">Point fort 03</span><h3 class="disp">Tenir le terrain</h3>
+        <ul><li>Production en usine</li><li>Encadrement (BAFA)</li><li>Sang-froid, écoute</li></ul>
+        <p class="proof">5 postes tenus en 4 semaines sur une plateforme de tri industrielle.</p></article>
+    </div>
+
+    <div class="stats" role="list">
+      <div role="listitem"><span class="disp">4 sem.</span><span>opérateur en production</span></div>
+      <div role="listitem"><span class="disp">5</span><span>postes occupés en rotation</span></div>
+      <div role="listitem"><span class="disp">12</span><span>enfants encadrés en accueil de loisirs</span></div>
+      <div role="listitem"><span class="disp">B2</span><span>niveau d'anglais</span></div>
+    </div>
+
+    <details class="pitch">
+      <summary><span class="disp">Mon pitch</span></summary>
+      <div class="body">
+        <p>Bonjour, je m'appelle <strong class="notranslate">Paul Signe</strong>. Je suis en deuxième année de Bachelor de Technologie à Arts et Métiers, sur le campus de Bordeaux-Talence. Je recherche un <strong>stage technicien de 12 semaines à partir du 12 avril 2027</strong>, que j'aimerais prolonger en alternance comme assistant ingénieur.</p>
+        <p><strong>D'abord, je sais concevoir.</strong> Sous CATIA V5, j'ai modélisé le boîtier d'un prototype mécatronique, je l'ai imprimé en 3D puis câblé avec une carte Arduino, un capteur à ultrasons et un afficheur. J'aime voir une idée devenir un objet qui fonctionne.</p>
+        <p><strong>Ensuite, je pense fabrication.</strong> À l'atelier, j'ai réalisé au tour conventionnel une pièce étagée en aluminium, en lisant le plan et en contrôlant mes cotes. Concevoir en sachant comment une pièce sera fabriquée, c'est ce que je veux apporter à un bureau d'études ou à un service méthodes.</p>
+        <p><strong>Enfin, je connais le terrain.</strong> Pendant quatre semaines, j'ai été opérateur à la Plateforme Industrielle Courrier de La Poste à Cestas, sur cinq postes, dans un site qui trie jusqu'à deux millions de plis par jour. J'y ai compris que toute une chaîne dépend de chaque maillon. Animer un groupe de douze enfants et accompagner un enfant autiste m'ont aussi appris le sang-froid et l'écoute.</p>
+        <p><strong>Et après ?</strong> Je veux devenir ingénieur en conception. Le son et la hi-fi me passionnent, mais c'est la mécanique qui m'anime, quel que soit le secteur. Ce stage serait l'occasion de mettre ces compétences au service de votre équipe, et l'alternance la suite logique pour m'investir chez vous sur la durée.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="banner">
+  <p>Je recherche un stage technicien de 12 semaines<br>du 12 avril au 2 juillet 2027</p>
+  <small>avec poursuite possible en alternance (assistant ingénieur)</small>
+</div>
+
+<!-- ============ FICHES MISSIONS ============ -->
+<section id="missions" data-toc="Fiches missions · l'Atelier">
+  <div class="wrap">
+    <div class="head"><h2 class="disp">Fiches missions</h2></div>
+    <div class="hero-band">
+      <p>Concevoir.<br>Fabriquer.<br>Tester.</p>
+      <img src="assets/img/meca-cablage.jpg" alt="Carte Arduino câblée à un capteur à ultrasons et à un afficheur">
+    </div>
+
+    <div class="picker" role="group" aria-label="Choisir une fiche mission">
+      <button class="pick" type="button" data-show="fiche-1" aria-pressed="true"><span class="card"><img src="assets/img/meca-prototype.jpg" alt=""><span class="t">Prototype mécatronique</span></span><span class="d">2026 · Arts et Métiers</span></button>
+      <button class="pick" type="button" data-show="fiche-2" aria-pressed="false"><span class="card"><img src="assets/img/usinage-profil.jpg" alt=""><span class="t">Usinage conventionnel</span></span><span class="d">2026 · Atelier Arts et Métiers</span></button>
+      <button class="pick" type="button" data-show="xp-1" aria-pressed="true"><span class="card"><img src="assets/img/poste-pic.jpg" alt=""><span class="t">Opérateur de production</span></span><span class="d">19 janvier – 18 février 2026</span></button>
+      <button class="pick" type="button" data-show="xp-2" aria-pressed="false"><span class="card"><img src="assets/img/bafa-parachute.jpg" alt=""><span class="t">Animateur BAFA</span></span><span class="d">2024 – 2026 · 2 saisons</span></button>
+      <button class="pick" type="button" data-show="xp-3" aria-pressed="false"><span class="card"><img src="assets/img/tsa-pictogrammes.jpg" alt=""><span class="t">Garde d'enfant avec TSA</span></span><span class="d">2025</span></button>
+    </div>
+    <p class="hint">Sélectionnez une fiche mission en cliquant sur sa carte.</p>
+
+    <!-- FICHE 01 -->
+    <article class="sheet fiche panel" id="fiche-1" data-group="missions" data-toc-sub="Fiche 01 — Prototype mécatronique">
+      <div class="fhead">
+        <div class="no"><small>FICHE</small>01</div>
+        <div><h3>Prototype mécatronique</h3><span class="sub">Projet Arts et Métiers — campus de Bordeaux-Talence</span></div>
+        <div><b>Année</b><span class="v">2026</span></div>
+        <div><b>Durée</b><span class="v"><span class="todo">x h sur x semaines</span></span></div>
+      </div>
+      <div class="grid">
+        <div>
+          <p class="mission"><span class="label">Poste · Mission</span>Étudiant concepteur. Concevoir, imprimer et câbler un boîtier mécatronique équipé d'un capteur à ultrasons et d'un afficheur.</p>
+          <ol class="flow" aria-label="Étapes du projet"><li>CAO CATIA V5</li><li>Impression 3D</li><li>Câblage Arduino</li><li>Programmation</li><li>Essais</li></ol>
+          <div class="photos">
+            <figure class="wide"><img src="assets/img/meca-prototype.jpg" alt="Boîtier gris imprimé en 3D avec deux ouvertures rondes et un mécanisme à roue bleue"><figcaption>Prototype imprimé en PLA : ouvertures du capteur et mécanisme latéral</figcaption></figure>
+            <figure><img src="assets/img/meca-cao.jpg" alt="Modèle 3D du boîtier sous CATIA V5"><figcaption>Boîtier modélisé sous CATIA V5</figcaption></figure>
+            <figure><img src="assets/img/meca-moteur.jpg" alt="Motoréducteur jaune tenu en main, fil rouge soudé sur sa cosse"><figcaption>Motoréducteur à courant continu : câblage de l'alimentation</figcaption></figure>
+          </div>
+        </div>
+        <div class="fields">
+          <div class="field"><span class="label">Activités</span><ul>
+            <li><em>Permanentes :</em> modélisation des pièces et de l'assemblage</li>
+            <li><em>Permanentes :</em> programmation de la carte</li>
+            <li><em>Ponctuelles :</em> impression, câblage, soudure, essais</li></ul></div>
+          <div class="field"><span class="label">Moyens</span><ul>
+            <li><em>Matériels :</em> CATIA V5, imprimante 3D, Arduino, shield Grove, capteur HC-SR04, afficheur, motoréducteur</li>
+            <li><em>Organisation :</em> séances de projet encadrées</li></ul></div>
+          <div class="field"><span class="label">Contraintes</span><ul>
+            <li>Intégrer l'électronique dans un volume réduit</li><li>Tolérances de l'impression 3D</li><li>Délai du projet</li></ul></div>
+          <div class="field"><span class="label">Faits marquants</span><ul>
+            <li><em>Facilitateur :</em> composants Grove prêts à brancher</li>
+            <li><em>Contraignant :</em> mesures du capteur instables, corrigées par un filtrage logiciel</li></ul></div>
+          <div class="field full"><span class="label">Compétences</span><div class="skills">
+            <div><b>Savoirs</b>Temps de vol des ultrasons, bases de C/C++</div>
+            <div><b>Savoir-faire</b>CAO, préparation d'impression, câblage, soudure</div>
+            <div><b>Savoir-être</b>Persévérance, méthode de débogage</div></div></div>
+          <div class="field full"><span class="label">Résultats personnels</span><ul>
+            <li>Prototype complet : boîtier imprimé et électronique câblée</li>
+            <li>Ouvertures du boîtier dimensionnées sur le capteur réel</li></ul></div>
+          <div class="field full"><div class="likes">
+            <div class="plus"><b>+ J'ai aimé</b>Voir un modèle 3D devenir un objet réel qui réagit</div>
+            <div class="minus"><b>– J'ai moins aimé</b>Chercher les faux contacts pendant le câblage</div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- FICHE 02 -->
+    <article class="sheet fiche panel" id="fiche-2" data-group="missions" data-toc-sub="Fiche 02 — Usinage conventionnel" hidden>
+      <div class="fhead">
+        <div class="no"><small>FICHE</small>02</div>
+        <div><h3>Usinage conventionnel</h3><span class="sub">Atelier Arts et Métiers — campus de Bordeaux-Talence</span></div>
+        <div><b>Année</b><span class="v">2026</span></div>
+        <div><b>Durée</b><span class="v"><span class="todo">x séances de x h</span></span></div>
+      </div>
+      <div class="grid">
+        <div>
+          <p class="mission"><span class="label">Poste · Mission</span>Étudiant opérateur sur tour conventionnel. Réaliser une pièce de révolution étagée en aluminium, conforme au plan.</p>
+          <ol class="flow" aria-label="Gamme d'usinage"><li>Lecture du plan</li><li>Dressage</li><li>Chariotage</li><li>Gorges, chanfreins</li><li>Perçage, alésage</li><li>Contrôle</li></ol>
+          <div class="photos">
+            <figure><img src="assets/img/usinage-piece.jpg" alt="Pièce en aluminium vue de dessus, avec son alésage"><figcaption>Pièce finie : alésage et chanfrein d'entrée</figcaption></figure>
+            <figure><img src="assets/img/usinage-profil.jpg" alt="Pièce étagée en aluminium tenue en main"><figcaption>Profil étagé : épaulements et gorges</figcaption></figure>
+            <figure class="wide"><img src="assets/img/usinage-tenue.jpg" alt="Paul en bleu de travail et chaussures de sécurité au vestiaire de l'atelier" style="object-position:center 30%"><figcaption>En tenue d'atelier : bleu de travail, chaussures de sécurité</figcaption></figure>
+          </div>
+        </div>
+        <div class="fields">
+          <div class="field"><span class="label">Activités</span><ul>
+            <li><em>Permanentes :</em> réglage du tour, passes d'ébauche et de finition</li>
+            <li><em>Ponctuelles :</em> changement d'outil, contrôle des cotes</li></ul></div>
+          <div class="field"><span class="label">Moyens</span><ul>
+            <li><em>Matériels :</em> tour conventionnel, outils carbure, foret, pied à coulisse</li>
+            <li><em>Humains :</em> enseignant d'atelier</li>
+            <li><em>Organisation :</em> plan de définition, gamme</li></ul></div>
+          <div class="field"><span class="label">Contraintes</span><ul>
+            <li>Sécurité machine : EPI, consignes strictes</li><li>Tolérances du plan</li><li>Temps machine partagé</li></ul></div>
+          <div class="field"><span class="label">Faits marquants</span><ul>
+            <li><em>Facilitateur :</em> l'aluminium se coupe bien</li>
+            <li><em>Contraignant :</em> l'alésage à tenir dans la tolérance impose des passes de finition prudentes</li></ul></div>
+          <div class="field full"><span class="label">Compétences</span><div class="skills">
+            <div><b>Savoirs</b>Conditions de coupe, cotation, tolérances</div>
+            <div><b>Savoir-faire</b>Régler un tour, mesurer, lire un plan</div>
+            <div><b>Savoir-être</b>Rigueur, vigilance, minutie</div></div></div>
+          <div class="field full"><span class="label">Résultats personnels</span><ul>
+            <li>Pièce finie conforme au plan</li><li>Je conçois désormais en pensant à la fabrication</li></ul></div>
+          <div class="field full"><div class="likes">
+            <div class="plus"><b>+ J'ai aimé</b>Transformer un plan en pièce réelle, que l'on peut mesurer</div>
+            <div class="minus"><b>– J'ai moins aimé</b>Les passes d'ébauche, longues et répétitives</div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- XP 1 : La Poste -->
+    <div class="panel" id="xp-1" data-group="missions" data-toc-sub="Fiche 03 — Opérateur de production, La Poste">
+      <div class="xp-head"><h3 class="disp">Stage ouvrier à La Poste</h3><p>19 janvier – 18 février 2026 · 4 semaines</p></div>
+      <div class="xp-band"><span>Plateforme Industrielle Courrier · Bordeaux-Cestas</span></div>
+      <article class="sheet fiche">
+        <div class="fhead">
+          <div class="no"><small>FICHE</small>03</div>
+          <div><h3>Opérateur de production</h3><span class="sub">La Poste — Plateforme Industrielle Courrier, Bordeaux-Cestas (33)</span></div>
+          <div><b>Année</b><span class="v">2026</span></div>
+          <div><b>Durée</b><span class="v">4 semaines, temps plein</span></div>
+        </div>
+        <div class="grid">
+          <div>
+            <p class="mission"><span class="label">Poste · Mission</span>Stage ouvrier, équipe du matin (6 h 30 – 13 h 52). Faire tourner la chaîne de tri du courrier, des camions jusqu'aux centres de distribution.</p>
+            <ol class="flow" aria-label="Flux du courrier"><li>Quais camions</li><li>Dépalétiseur</li><li>Machines de tri</li><li>Tri manuel</li><li>Tri expédition</li><li>13 centres de distribution</li></ol>
+            <div class="photos">
+              <figure class="wide"><img src="assets/img/poste-pic.jpg" alt="Maquette de la plateforme de Cestas"><figcaption>Maquette de la plateforme : 30 000 m² de surface de travail</figcaption></figure>
+            </div>
+            <div class="chips">
+              <div><b>2 M</b>plis traités par jour</div><div><b>40 000</b>plis par heure et par machine</div>
+              <div><b>≈ 50</b>agents dans l'équipe du matin</div><div><b>9</b>départements desservis</div>
+            </div>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="label">Activités</span><ul>
+              <li><em>Permanentes :</em> alimenter les machines de tri, débaquer et étiqueter</li>
+              <li><em>Permanentes :</em> trier à la main les plis illisibles</li>
+              <li><em>Ponctuelles :</em> dégager les bourrages, scanner les conteneurs</li>
+              <li><em>Ponctuelles :</em> renfort au dépalétiseur</li></ul></div>
+            <div class="field"><span class="label">Moyens</span><ul>
+              <li><em>Matériels :</em> 10 machines de tri, convoyeurs, outil de manutention, terminal de scan</li>
+              <li><em>Humains :</em> responsables de zone, tuteur M. Menanteau</li>
+              <li><em>Organisation :</em> brief de 15 min, rotation toutes les 2 h 30 au plus</li></ul></div>
+            <div class="field"><span class="label">Contraintes</span><ul>
+              <li>Délais J+1, cadence des machines</li><li>Bruit, station debout, risque de TMS</li><li>Baisse du courrier : de 55 à 24 plateformes en 10 ans</li></ul></div>
+            <div class="field"><span class="label">Faits marquants</span><ul>
+              <li><em>Facilitateur :</em> rotation de 30 min entre pilotage et débaquage</li>
+              <li><em>Contraignant :</em> 1 h à deux au lieu de trois au dépalétiseur, avec toutes les machines en aval à alimenter</li></ul></div>
+            <div class="field full"><span class="label">Compétences</span><div class="skills">
+              <div><b>Savoirs</b>Flux industriels, sécurité, ergonomie</div>
+              <div><b>Savoir-faire</b>Tenir une cadence, étiqueter, scanner, gérer un bourrage</div>
+              <div><b>Savoir-être</b>Ponctualité, endurance, esprit d'équipe</div></div></div>
+            <div class="field full"><span class="label">Résultats personnels</span><ul>
+              <li>5 postes tenus en autonomie, de la réception à l'expédition</li><li>Rapport de stage complet sur l'entreprise</li></ul></div>
+            <div class="field full"><div class="likes">
+              <div class="plus"><b>+ J'ai aimé</b>Les machines de petit format : travail à trois, rotation des tâches, échanges avec les collègues</div>
+              <div class="minus"><b>– J'ai moins aimé</b>Le poste grand format : 2 h 30 debout, bras tendus, très éprouvant</div></div></div>
+          </div>
+        </div>
+      </article>
+      <div class="tools-strip" aria-label="Matériel utilisé">
+        <figure><img src="assets/img/poste-bac.jpg" alt="Bac gris grand format"><figcaption>Bac grand format</figcaption></figure>
+        <figure><img src="assets/img/poste-caissette.jpg" alt="Caissette orange remplie de lettres"><figcaption>Caissette petit format</figcaption></figure>
+        <figure><img src="assets/img/poste-chariot.jpg" alt="Conteneurs roulants chargés de caissettes"><figcaption>Conteneur roulant</figcaption></figure>
+      </div>
+    </div>
+
+    <!-- XP 2 : Animateur -->
+    <div class="panel" id="xp-2" data-group="missions" data-toc-sub="Fiche 04 — Animateur BAFA, Arcachon" hidden>
+      <div class="xp-head"><h3 class="disp">Animateur en accueil de loisirs</h3><p>2024 – 2026 · 2 saisons de 4 semaines</p></div>
+      <div class="xp-band"><img src="assets/img/logo-arcachon.png" alt="Arcachon" width="874" height="412"><span>Les Mille Potes</span></div>
+      <article class="sheet fiche">
+        <div class="fhead">
+          <div class="no"><small>FICHE</small>04</div>
+          <div><h3>Animateur BAFA</h3><span class="sub">Accueil de loisirs Les Mille Potes — Arcachon (33)</span></div>
+          <div><b>Années</b><span class="v">2024 – 2026</span></div>
+          <div><b>Durée</b><span class="v">2 saisons de 4 semaines</span></div>
+        </div>
+        <div class="grid">
+          <div>
+            <p class="mission"><span class="label">Poste · Mission</span>Animateur. Encadrer et animer un groupe de 12 enfants de 7 à 11 ans en assurant leur sécurité physique et morale.</p>
+            <div class="photos">
+              <figure class="wide"><img src="assets/img/bafa-parachute.jpg" alt="Enfants jouant sous un grand parachute coloré"><figcaption>Le jeu du parachute, un grand classique de l'accueil de loisirs<span class="credit">Photo d'illustration — ce ne sont pas les enfants de mon groupe</span></figcaption></figure>
+            </div>
+            <div class="chips">
+              <div><b>12</b>enfants dans mon groupe</div><div><b>7 – 11</b>ans</div>
+              <div><b>2</b>saisons d'été</div><div><b>1</b>spectacle de fin de centre</div>
+            </div>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="label">Activités</span><ul>
+              <li><em>Permanentes :</em> organisation des journées, animations, grands jeux, vie quotidienne</li>
+              <li><em>Ponctuelles :</em> réunions d'équipe, accueil des parents</li></ul></div>
+            <div class="field"><span class="label">Moyens</span><ul>
+              <li><em>Matériels :</em> matériel pédagogique, locaux adaptés</li>
+              <li><em>Humains :</em> équipe d'animateurs, direction</li>
+              <li><em>Organisation :</em> projet pédagogique</li></ul></div>
+            <div class="field"><span class="label">Contraintes</span><ul>
+              <li>Réglementation des accueils de mineurs</li><li>Sécurité permanente, météo</li></ul></div>
+            <div class="field"><span class="label">Faits marquants</span><ul>
+              <li><em>Facilitateur :</em> forte cohésion de l'équipe d'animation</li>
+              <li><em>Contraignant :</em> conflit difficile entre deux enfants, résolu par le dialogue</li></ul></div>
+            <div class="field full"><span class="label">Compétences</span><div class="skills">
+              <div><b>Savoirs</b>Réglementation, besoins des 7-11 ans</div>
+              <div><b>Savoir-faire</b>Organiser, planifier, conduire un groupe</div>
+              <div><b>Savoir-être</b>Patience, écoute, adaptabilité, communication</div></div></div>
+            <div class="field full"><span class="label">Résultats personnels</span><ul>
+              <li>Conception et réalisation du spectacle de fin de centre</li></ul></div>
+            <div class="field full"><div class="likes">
+              <div class="plus"><b>+ J'ai aimé</b>La cohésion d'équipe et la créativité demandée</div>
+              <div class="minus"><b>– J'ai moins aimé</b>La fatigue qui s'accumule au fil de la saison</div></div></div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- XP 3 : Garde TSA -->
+    <div class="panel" id="xp-3" data-group="missions" data-toc-sub="Fiche 05 — Garde d'enfant avec TSA" hidden>
+      <div class="xp-head"><h3 class="disp">Accompagnement spécialisé</h3><p>2025 · <span class="todo">x h / semaine pendant x semaines</span></p></div>
+      <div class="xp-band"><span>Garde d'enfant · enfant autiste et non verbal</span></div>
+      <article class="sheet fiche">
+        <div class="fhead">
+          <div class="no"><small>FICHE</small>05</div>
+          <div><h3>Garde d'enfant avec TSA</h3><span class="sub">Particulier employeur — enfant non verbal</span></div>
+          <div><b>Année</b><span class="v">2025</span></div>
+          <div><b>Durée</b><span class="v"><span class="todo">x h / sem. pendant x sem.</span></span></div>
+        </div>
+        <div class="grid">
+          <div>
+            <p class="mission"><span class="label">Poste · Mission</span>Garde d'enfant. Assurer la sécurité, le bien-être et le développement d'un enfant avec troubles du spectre autistique (TSA), non verbal.</p>
+            <div class="photos">
+              <figure class="wide"><img src="assets/img/tsa-pictogrammes.jpg" alt="Panneau de pictogrammes de communication : toboggan, balançoire, grimper, content"><figcaption>Pictogrammes de communication, le type d'outil utilisé avec un enfant non verbal<span class="credit">Photo d'illustration : « Picture Communication Symbols », jbcurio, <a href="https://www.flickr.com/photos/69131582@N00/3439708391" target="_blank" rel="noopener">Flickr</a>, licence <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a></span></figcaption></figure>
+            </div>
+          </div>
+          <div class="fields">
+            <div class="field"><span class="label">Activités</span><ul>
+              <li><em>Permanentes :</em> maintien des routines, aide aux repas</li>
+              <li><em>Permanentes :</em> communication par pictogrammes et signes</li>
+              <li><em>Ponctuelles :</em> accompagnement lors des sorties</li></ul></div>
+            <div class="field"><span class="label">Moyens</span><ul>
+              <li><em>Matériels :</em> pictogrammes, plannings visuels</li>
+              <li><em>Humains :</em> lien étroit avec les parents</li>
+              <li><em>Organisation :</em> consignes parentales précises</li></ul></div>
+            <div class="field"><span class="label">Contraintes</span><ul>
+              <li>Comportements imprévisibles</li><li>Vigilance de chaque instant</li></ul></div>
+            <div class="field"><span class="label">Faits marquants</span><ul>
+              <li><em>Facilitateur :</em> routines claires fixées avec la famille</li>
+              <li><em>Contraignant :</em> forte surcharge sensorielle en extérieur, désamorcée avec calme</li></ul></div>
+            <div class="field full"><span class="label">Compétences</span><div class="skills">
+              <div><b>Savoirs</b>Bases sur l'autisme, communication alternative</div>
+              <div><b>Savoir-faire</b>Observer, appliquer un protocole</div>
+              <div><b>Savoir-être</b>Empathie, sang-froid, adaptabilité</div></div></div>
+            <div class="field full"><span class="label">Résultats personnels</span><ul>
+              <li>Un vrai lien de confiance avec l'enfant et sa famille</li></ul></div>
+            <div class="field full"><div class="likes">
+              <div class="plus"><b>+ J'ai aimé</b>Célébrer chaque petite victoire de communication</div>
+              <div class="minus"><b>– J'ai moins aimé</b>Ne pas toujours pouvoir apaiser une angoisse tout de suite</div></div></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPÉTENCES PAR EXPÉRIENCE ============ -->
+<section id="competences" class="alt" data-toc="Compétences par expérience · l'Hôtel de ville">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="disp">Ce que mes expériences m'ont appris</h2>
+      <p>Pour chaque expérience : ce que je sais, ce que je sais faire, comment je travaille, une situation concrète et ce que j'apporterai en stage.</p>
+    </div>
+    <p class="scroll-hint">← Faites défiler le tableau →</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Compétences par expérience">
+      <table class="valo">
+        <thead><tr><th scope="col">Expérience</th><th scope="col">Activités</th><th scope="col">Savoirs</th><th scope="col">Savoir-faire</th><th scope="col">Savoir-être</th><th scope="col">Situation concrète</th><th scope="col">Ce que j'apporte en stage</th></tr></thead>
+        <tbody>
+          <tr><td>Prototype mécatronique<small>Projet Arts et Métiers</small></td>
+            <td>Modéliser le boîtier, l'imprimer en 3D, câbler l'Arduino, le capteur et l'afficheur, programmer</td>
+            <td>Principe du capteur à ultrasons (temps de vol), bases de C/C++, tolérances d'impression</td>
+            <td>CAO sous CATIA V5, préparation d'impression, câblage, soudure, essais</td>
+            <td>Persévérance, méthode de débogage</td>
+            <td>Mesures instables du capteur : vérification du câblage puis filtrage logiciel des valeurs</td>
+            <td>Prototypage et essais en bureau d'études</td></tr>
+          <tr><td>Usinage conventionnel<small>Atelier Arts et Métiers</small></td>
+            <td>Dresser, charioter, réaliser gorges et chanfreins, percer et aléser, contrôler</td>
+            <td>Conditions de coupe, cotation et tolérances, lecture de plan</td>
+            <td>Régler un tour, mesurer au pied à coulisse</td>
+            <td>Rigueur, vigilance, respect des consignes de sécurité</td>
+            <td>Passes de finition prudentes pour garder l'alésage dans la tolérance</td>
+            <td>Concevoir des pièces fabricables, dialoguer avec l'atelier</td></tr>
+          <tr><td>Opérateur de production<small>La Poste · 4 semaines</small></td>
+            <td>Alimenter les machines de tri, débaquer, étiqueter, trier à la main, scanner les conteneurs</td>
+            <td>Flux d'une chaîne automatisée, règles de sécurité, risques de TMS et ergonomie</td>
+            <td>Tenir une cadence, dégager un bourrage en sécurité, utiliser un terminal de scan</td>
+            <td>Ponctualité (prise de poste à 6 h 30), endurance, esprit d'équipe</td>
+            <td>Une heure à deux au lieu de trois au dépalétiseur : prioriser les conteneurs pour ne pas arrêter les machines</td>
+            <td>Concevoir ou améliorer un poste en connaissant les contraintes des opérateurs</td></tr>
+          <tr><td>Animateur BAFA<small>Les Mille Potes, Arcachon</small></td>
+            <td>Animer un groupe de 12 enfants de 7 à 11 ans, construire les plannings, gérer la vie quotidienne</td>
+            <td>Réglementation des accueils collectifs de mineurs, bases de pédagogie</td>
+            <td>Organiser, planifier une activité, conduire un groupe</td>
+            <td>Patience, écoute, adaptabilité, communication</td>
+            <td>Résolution d'un conflit entre deux enfants, puis spectacle de fin de centre réussi</td>
+            <td>Travailler en équipe, gérer les imprévus</td></tr>
+          <tr><td>Garde d'enfant avec TSA<small>Particulier employeur</small></td>
+            <td>Maintenir les routines, aider aux repas, communiquer par pictogrammes, accompagner les sorties</td>
+            <td>Bases sur l'autisme, communication alternative</td>
+            <td>Appliquer un protocole précis, observer finement</td>
+            <td>Sang-froid, empathie, vigilance continue</td>
+            <td>Surcharge sensorielle en extérieur désamorcée en restant calme et en appliquant la routine prévue</td>
+            <td>Respecter strictement une procédure, garder son calme sous pression</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANNEXES ============ -->
+<section id="annexes" data-toc="Annexes · les Archives">
+  <div class="wrap">
+    <div class="head"><h2 class="disp">Annexes</h2><p>La plaquette de ma formation, mes références et ce qui me fait avancer.</p></div>
+    <div class="annexes">
+      <article><span class="label">Annexe A</span><h3 class="disp">Plaquette de la formation</h3>
+        <p>Bachelor de Technologie, spécialité mécanique-production, Arts et Métiers.</p>
+        <a class="btn" href="https://s3-site.artsetmetiers.fr/public/2025-11/Bachelor%20en%20Sciences%20et%20Ing%C3%A9nierie_Sp%C3%A9cialit%C3%A9%20m%C3%A9canique-production_2025_11_19.pdf" target="_blank" rel="noopener">Ouvrir le PDF ↗</a></article>
+      <article><span class="label">Annexe B</span><h3 class="disp">Références</h3>
+        <p>Stage ouvrier à La Poste, plateforme de Bordeaux-Cestas : M. Franck Menanteau, Responsable d'Équipe Courrier, tuteur de stage.</p>
+        <p style="margin-top:10px"><span class="todo">Ajouter la lettre de recommandation (PDF)</span></p></article>
+      <article><span class="label">Annexe C</span><h3 class="disp">Vision board</h3>
+        <p>La ville ci-dessus est mon vision board. La version détaillée s'ouvre ici.</p>
+        <a class="btn" href="vision-board.html" target="_blank" rel="noopener">Voir le vision board ↗</a></article>
+      <article><span class="label">Annexe D</span><h3 class="disp">Curriculum vitæ</h3>
+        <p>Mon CV complet, à consulter ou à télécharger en PDF.</p>
+        <a class="btn" href="cv.html" target="_blank" rel="noopener">Voir mon CV ↗</a></article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" data-toc="Me contacter · la Radio">
+  <div class="wrap contact-box">
+    <div>
+      <h2 class="disp">Travaillons ensemble</h2>
+      <p class="lead">Vous souhaitez en savoir plus sur mon parcours ou échanger sur un stage ou une alternance au sein de votre entreprise ? Je serai ravi d'en discuter avec vous.</p>
+      <ul>
+        <li>📞 <a href="tel:+33651724107">06 51 72 41 07</a></li>
+        <li>✉️ <a href="mailto:paul.signe@ensam.eu">paul.signe@ensam.eu</a></li>
+        <li>📍 Bordeaux (33)</li>
+      </ul>
+    </div>
+    <form id="contactForm">
+      <label for="cName">Nom</label><input id="cName" name="name" autocomplete="name" placeholder="Votre nom" required>
+      <label for="cMail">Email</label><input id="cMail" name="email" type="email" autocomplete="email" placeholder="Votre email" required>
+      <label for="cMsg">Message</label><textarea id="cMsg" name="message" placeholder="Votre message" required></textarea>
+      <button class="btn light" type="submit">Envoyer</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p class="disp">Toujours curieux.<br>Toujours sur le terrain.<br>Prêt pour l'alternance.</p>
+  <p class="small">© <span id="y">2026</span> <span class="notranslate">Paul Signe</span> · Arts et Métiers, campus de Bordeaux-Talence</p>
+</footer>
+
+<script>
+// Sommaire automatique : sections [data-toc] et fiches [data-toc-sub]
+(function () {
+  var toc = document.getElementById('toc');
+  document.querySelectorAll('section[data-toc]').forEach(function (s, i) {
+    var li = document.createElement('li');
+    li.innerHTML = '<a href="#' + s.id + '"><span class="n">' + String(i + 1).padStart(2, '0') + '</span><span class="disp"></span><span aria-hidden="true">↘</span></a>';
+    li.querySelector('.disp').textContent = s.dataset.toc;
+    var subs = s.querySelectorAll('[data-toc-sub]');
+    if (subs.length) {
+      var ol = document.createElement('ol');
+      subs.forEach(function (f) {
+        var a = document.createElement('a');
+        a.href = '#' + f.id; a.textContent = f.dataset.tocSub;
+        ol.appendChild(document.createElement('li')).appendChild(a);
+      });
+      li.appendChild(ol);
+    }
+    toc.appendChild(li);
+  });
+  document.getElementById('y').textContent = new Date().getFullYear();
+})();
+
+// Cartes à sélectionner : affiche le détail choisi dans son groupe (projets ou expériences)
+function showPanel(id) {
+  var panel = document.getElementById(id);
+  if (!panel || !panel.dataset.group) return;
+  document.querySelectorAll('.panel[data-group="' + panel.dataset.group + '"]').forEach(function (p) { p.hidden = p !== panel; });
+  document.querySelectorAll('.pick[data-show]').forEach(function (b) {
+    var target = document.getElementById(b.dataset.show);
+    if (target && target.dataset.group === panel.dataset.group) b.setAttribute('aria-pressed', String(b.dataset.show === id));
+  });
+}
+document.querySelectorAll('.pick[data-show]').forEach(function (b) {
+  b.addEventListener('click', function () { showPanel(b.dataset.show); });
+});
+// Un lien du sommaire vers une fiche masquée l'affiche d'abord
+function fromHash() { if (location.hash) showPanel(location.hash.slice(1)); }
+window.addEventListener('hashchange', fromHash);
+fromHash();
+
+// Thème clair / sombre (le choix manuel est mémorisé)
+(function () {
+  var btn = document.getElementById('themeBtn');
+  function paint() {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    btn.textContent = dark ? '☀' : '☾';
+    btn.setAttribute('aria-label', dark ? 'Passer en thème clair' : 'Passer en thème sombre');
+  }
+  btn.addEventListener('click', function () {
+    var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme', t); } catch (e) {}
+    paint();
+  });
+  paint();
+})();
+
+// Formulaire de contact : site statique sans serveur, le message s'ouvre dans la messagerie du visiteur
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var f = e.target;
+  var body = f.message.value + '\n\n— ' + f.name.value + ' (' + f.email.value + ')';
+  location.href = 'mailto:paul.signe@ensam.eu?subject=' + encodeURIComponent('Contact portfolio — ' + f.name.value) + '&body=' + encodeURIComponent(body);
+});
+
+window.addEventListener('beforeprint', function () { document.querySelectorAll('details').forEach(function (d) { d.open = true; }); });
+window.addEventListener('afterprint', function () { document.body.classList.remove('print-cv'); });
+</script>
+
+<!-- Vision board des quartiers de la ville -->
+<dialog class="vb" id="vbDialog" aria-labelledby="vbTitle">
+  <div class="vb-body">
+    <button class="icon-btn close" type="button" aria-label="Fermer" onclick="document.getElementById('vbDialog').close()">✕</button>
+    <div data-vb-panel="hifi">
+      <span class="label">Vision board · Quartier Hi-Fi</span>
+      <h2 class="disp" id="vbTitle">Le son</h2>
+      <p>Ma passion : la mécanique au service du son. Chez moi, j'écoute de la musique sur une chaîne CD Bang &amp; Olufsen BeoSound Century.</p>
+      <ul>
+        <li><b>KEF · Royaume-Uni</b>Le haut-parleur coaxial Uni-Q (1988) : toutes les fréquences partent d'un même point.</li>
+        <li><b>Bang &amp; Olufsen · Danemark</b>L'aluminium usiné, poli et anodisé dans sa Factory 5.</li>
+        <li><b>DALI · Danemark</b>Un système magnétique SMC conçu et fabriqué au Danemark.</li>
+        <li><b>Focal · France</b>Saint-Étienne, célèbre pour ses tweeters à dôme inversé.</li>
+      </ul>
+      <a class="btn solid" href="vision-board.html" target="_blank" rel="noopener">Vision board complet ↗</a>
+    </div>
+    <div data-vb-panel="luxe" hidden>
+      <span class="label">Vision board · Quartier Mode &amp; Luxe</span>
+      <h2 class="disp">La mode et le luxe</h2>
+      <p>Un secteur que je vise : là où la conception et la production rencontrent l'exigence des finitions.</p>
+      <ul>
+        <li><b>Haute couture</b>Le geste artisanal et la précision de la coupe.</li>
+        <li><b>Maroquinerie</b>Découpe, assemblage et contrôle qualité de pièces d'exception.</li>
+        <li><b>Horlogerie</b>La mécanique de précision, à l'échelle du dixième de millimètre.</li>
+        <li><b>Mon lien avec ce monde</b>La tolérance d'un alésage tenue au tour, le soin d'une finition, la rigueur d'une ligne de production.</li>
+      </ul>
+    </div>
+  </div>
+</dialog>
+<script>
+// Quartiers Hi-Fi et Mode & Luxe : ouvrent le vision board dans une fenêtre (sans JavaScript, le lien ouvre vision-board.html)
+(function () {
+  var dlg = document.getElementById('vbDialog');
+  document.querySelectorAll('[data-vb]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      dlg.querySelectorAll('[data-vb-panel]').forEach(function (p) { p.hidden = p.dataset.vbPanel !== a.dataset.vb; });
+      dlg.showModal();
+    });
+  });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+})();
+</script>
+</body>
+</html>

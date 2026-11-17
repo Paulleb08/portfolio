@@ -1,0 +1,103 @@
+/* Version « ville » du portfolio (ville.html) : la ville sert de page de garde, de menu et de vision board.
+   S'ajoute à assets/style.css, qui reste partagé avec la version classique. */
+
+/* La ville */
+.city-hero{background:var(--brand);color:#fff;margin:28px clamp(10px,2vw,24px) 0;border-radius:28px;overflow:hidden}
+.city-head{text-align:center;padding:clamp(28px,4vw,48px) 16px 0}
+.city-head .kicker{color:var(--on-brand-soft)}
+.city-head h1{font-size:clamp(3rem,10vw,7.5rem);margin:10px 0 12px}
+.city-head p{max-width:760px;margin:0 auto;color:var(--on-brand-soft)}
+.city-head .districts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.city-head .districts span{border:1.5px solid rgba(255,255,255,.5);border-radius:999px;padding:5px 12px;font-family:var(--display);font-stretch:110%;font-weight:800;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
+.city-scroll{overflow-x:auto;scrollbar-width:thin;margin-top:10px}
+.city{display:block;width:100%;min-width:1100px;height:auto}
+.city-hint{display:none;text-align:center;font-size:.9rem;color:var(--on-brand-soft);padding:8px 16px 14px}
+@media (max-width:1100px){.city-hint{display:block}}
+
+.city .ln{fill:none;stroke:#fff;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.city .ln.fl,.city .fl{fill:rgba(255,255,255,.08)}
+.city .thin{stroke-width:1.4}
+.city .far{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.28);stroke-width:1.2}
+.city .fw{fill:rgba(255,255,255,.28)}
+.city .win{fill:rgba(255,255,255,.18);stroke:#fff;stroke-width:1.2}
+.city .door{fill:rgba(0,0,40,.25)}
+.city .ground{fill:rgba(0,0,40,.2)}
+.city .lane{stroke:rgba(255,255,255,.45);stroke-width:2;stroke-dasharray:22 18}
+.city .sv{fill:#fff;font:800 14px var(--display);letter-spacing:1px}
+.city .sv.big{font-size:20px}.city .sv.sm{font-size:11px;letter-spacing:.5px}
+.city .plate rect{fill:#fff;transition:fill .2s}
+.city .plate text{fill:var(--brand);font:800 10px var(--display);letter-spacing:.4px}
+
+/* Bâtiments cliquables */
+.city .poi{cursor:pointer}
+.city .poi .b{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.city .poi:hover .b,.city .poi:focus-visible .b{transform:translateY(-8px)}
+.city .poi:hover .plate rect,.city .poi:focus-visible .plate rect{fill:var(--yellow)}
+.city .poi:focus{outline:none}
+.city .poi:focus-visible .plate rect{stroke:#111;stroke-width:2}
+
+/* Ciel : soleil le jour, lune et étoiles la nuit */
+.city .sun{fill:var(--yellow);transition:opacity .4s}
+.city .moon{fill:#fff;opacity:0;transition:opacity .4s}
+.city .star{fill:#fff;opacity:0}
+.city .cloud path{fill:rgba(255,255,255,.7)}
+[data-theme="dark"] .city-hero{background:#0a1162}
+[data-theme="dark"] .city .sun{opacity:0}
+[data-theme="dark"] .city .moon{opacity:.9}
+[data-theme="dark"] .city .star{opacity:.9;animation:twinkle 3s ease-in-out infinite}
+[data-theme="dark"] .city .cloud path{fill:rgba(255,255,255,.2)}
+[data-theme="dark"] .city .win{animation:lit 8s steps(1) infinite}
+
+/* La ville vivante */
+.city .cl1{animation:drift 80s linear infinite}
+.city .cl2{animation:drift 110s linear infinite;animation-delay:-55s}
+.city .blink{fill:#ff5a5a;animation:blink 1.2s steps(1) infinite}
+.city .waves,.city .sound{animation:pulse 1.6s ease-out infinite}
+.city .smoke circle{fill:rgba(255,255,255,.55);transform-box:fill-box;transform-origin:center;animation:smoke 4s ease-out infinite}
+.city .smoke circle:nth-child(2){animation-delay:1.3s}.city .smoke circle:nth-child(3){animation-delay:2.6s}
+.city .gear{transform-box:fill-box;transform-origin:center;animation:spin 10s linear infinite}
+.city .hand-m,.city .hand-h{stroke:#fff;stroke-linecap:round;transform-box:view-box;transform-origin:926px 382px}
+.city .hand-m{stroke-width:3;animation:spin 6s linear infinite}
+.city .hand-h{stroke-width:4;animation:spin 72s linear infinite}
+.city .cone{transform-box:fill-box;transform-origin:center;animation:thump .45s ease-in-out infinite alternate}
+.city .flag{fill:var(--yellow);transform-box:fill-box;transform-origin:left center;animation:flag 1.4s ease-in-out infinite alternate}
+.city .horse{animation:bob 1.2s ease-in-out infinite alternate}
+.city .hook path{transform-box:fill-box;transform-origin:top center;animation:rope 6s ease-in-out infinite alternate}
+.city .hook rect{animation:load 6s ease-in-out infinite alternate}
+.city .c1{animation:drive 22s linear infinite}
+.city .c3{animation:drive 22s linear infinite;animation-delay:-11s}
+.city .c2{animation:back 30s linear infinite}
+
+@keyframes twinkle{50%{opacity:.25}}
+@keyframes lit{0%,70%{fill:var(--yellow)}71%,100%{fill:rgba(255,255,255,.18)}}
+@keyframes drift{from{transform:translateX(-180px)}to{transform:translateX(2100px)}}
+@keyframes blink{50%{opacity:.15}}
+@keyframes pulse{0%{opacity:.1}40%{opacity:1}100%{opacity:.1}}
+@keyframes smoke{0%{transform:translate(0,12px) scale(.6);opacity:0}30%{opacity:.85}100%{transform:translate(18px,-44px) scale(1.4);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes thump{to{transform:scale(1.08)}}
+@keyframes flag{to{transform:skewY(8deg) scaleX(.9)}}
+@keyframes bob{to{transform:translateY(-10px)}}
+@keyframes rope{to{transform:scaleY(2.5)}}
+@keyframes load{to{transform:translateY(105px)}}
+@keyframes drive{from{transform:translateX(-160px)}to{transform:translateX(2100px)}}
+@keyframes back{from{transform:translateX(2100px)}to{transform:translateX(-200px)}}
+
+/* Vision board des quartiers (fenêtre) */
+.vb{margin:auto;border:0;border-radius:18px;padding:0;max-width:min(640px,92vw);max-height:88vh;overflow-y:auto;background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.vb::backdrop{background:rgba(5,8,40,.6)}
+.vb-body{padding:clamp(22px,4vw,34px);position:relative}
+.vb .label{color:var(--accent)}
+.vb h2{font-size:clamp(1.8rem,5vw,2.6rem);color:var(--accent);margin:8px 0 12px}
+.vb ul{list-style:none;margin:16px 0;display:grid;gap:10px}
+.vb li{border-top:1.5px solid var(--line);padding-top:10px}
+.vb li b{font-family:var(--display);font-stretch:110%;font-weight:800;text-transform:uppercase;font-size:.8rem;letter-spacing:.05em;color:var(--accent);display:block}
+.vb .close{position:absolute;top:14px;right:14px}
+.vb [hidden]{display:none}
+
+@media print{
+  .city *{animation:none!important}
+  .city-hero{margin:0;border-radius:0;min-height:0;break-after:page}
+  .city-scroll{overflow:visible}.city{min-width:0}
+  .city-hint,.vb{display:none!important}
+}

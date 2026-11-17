@@ -363,3 +363,6 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
 .pin.note blockquote{font-size:1.45rem;line-height:1.25;font-style:italic;margin-bottom:8px}
 .pin.note p+p{margin-top:8px}
 @media print{.pins{columns:3}.pin{box-shadow:none}}
+.pin .mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#111}
+.pin .mosaic img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;transition:none}
+.pin:hover .mosaic img{transform:none}

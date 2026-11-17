@@ -121,12 +121,15 @@
   var byDoc = {}, bySpot = {}; B.forEach(function (b) { if (b.doc && !byDoc[b.doc]) byDoc[b.doc] = b; if (b.doc) bySpot[b.spot] = b; });
 
   // Images des pochettes (vision board) reprises en pixel art sur les panneaux de la ville
-  var IMG = {};
-  [['grad', 'assets/vb/graduation.jpg'], ['sade', 'assets/vb/diamond-life.jpg']].forEach(function (q) {
-    var im = new Image(); im.onload = function () { IMG[q[0]] = {}; im.ok = 1; dirty = true; }; im.src = q[1]; IMG['_' + q[0]] = im;
-  });
+  // Albums préférés de Paul (pochettes dans assets/vb/albums) : panneaux, fresques, affiches qui défilent
+  var ALB = ["college-dropout", "ram", "thriller", "purple-rain", "seychelles", "astroworld", "morning-glory", "808s", "discovery", "legend", "odyssee", "saw-85-92", "1986", "54-1", "audio-video-disco", "bad", "bar-mediterraneo", "blur", "cassius-1999", "catch-a-fire", "civilisation", "comment-c-est-loin", "devil-wears-prada", "eminem-show", "euphories", "exodus", "first-light", "francafrique", "good-bad-ugly", "heroes-capes", "heroes-villains", "homework", "human-after-all", "jesus-is-king", "kaya", "le-monde-chico", "lucky-boy", "matahari", "modjo", "my-type", "natty-dread", "off-the-wall", "paradise", "pulsar", "rammstein", "shouso-strip", "story-of-espion", "takanaka", "take-care", "tasty", "three-imaginary-boys", "utopia", "watermelon-dandies", "ye"];
+  var IMG = {}, SRC = { grad: 'assets/vb/graduation.jpg', sade: 'assets/vb/diamond-life.jpg' };
+  function img(name) { // chargée à la première demande
+    var im = IMG['_' + name]; if (im) return im;
+    im = IMG['_' + name] = new Image(); im.onload = function () { IMG[name] = {}; im.ok = 1; fill.forEach(function (b) { if (b.board === name || b.mural === name) b.redo = dirty = true; }); }; im.src = SRC[name] || 'assets/vb/albums/' + name + '.jpg'; return im; // on ne redessine que l'immeuble qui porte cette pochette
+  }
   function pix(name, w, h) { // pochette réduite (lissée) puis dessinée en gros pixels
-    var im = IMG['_' + name]; if (!im || !im.ok) return null; var key = w + 'x' + h;
+    var im = img(name); if (!im.ok) return null; var key = w + 'x' + h;
     if (!IMG[name][key]) { var c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d'); x.imageSmoothingQuality = 'high'; x.drawImage(im, 0, 0, w, h); IMG[name][key] = c; }
     return IMG[name][key];
   }
@@ -142,8 +145,8 @@
   var FK = ['brick', 'brown', 'stone', 'grey', 'glass', 'teal', 'white', 'brick', 'brown', 'dark'];
   // Enseignes et panneaux de la ville sur les thèmes du vision board (peu nombreux : ça reste un outil pro)
   var SIGNS = ['VINYL', 'HI-FI', 'ATELIER', 'RECORDS', 'COUTURE', 'STUDIO', 'JAZZ', 'BOUTIQUE', 'DISQUES', 'TAILLEUR', 'VINTAGE', 'SOUND'];
-  var MURALS = { '-1,0': 'sade', '0,-1': 'grad', '3,1': 'sade', '1,3': 'grad' };
-  var BOARDS = { '-1,1': 'grad', '3,-1': 'sade', '-2,2': 'hz', '4,0': 'vinyl', '-1,4': 'runway', '3,2': 'beo', '-3,3': 'kef', '5,-1': 'trunk', '-2,5': 'notes', '2,-2': 'fw', '4,4': 'grad', '-3,0': 'sade' };
+  var MURALS = { '-1,0': 'thriller', '0,-1': 'grad', '3,1': 'sade', '1,3': 'ram', '-2,1': 'seychelles', '1,-2': 'purple-rain', '4,1': 'astroworld', '1,4': 'college-dropout' };
+  var BOARDS = { '-1,1': 'grad', '3,-1': 'sade', '-2,2': 'hz', '4,0': 'vinyl', '-1,4': 'runway', '3,2': 'beo', '-3,3': 'kef', '5,-1': 'trunk', '-2,5': 'notes', '2,-2': 'fw', '4,4': 'morning-glory', '-3,0': 'discovery', '-1,3': 'legend', '3,-2': 'odyssee', '5,1': '808s', '-2,4': 'saw-85-92', '2,5': 'watermelon-dandies', '-4,2': 'off-the-wall', '4,-3': 'first-light', '0,-3': 'bad' };
   var fill = [], deco = [];
   function genWorld() {
     fill = []; deco = [];
@@ -268,6 +271,7 @@
     var c = center(b, b.h), bw = 38, bh = 26, x = Math.round(c[0] - bw / 2), y = Math.round(c[1] - bh - 10);
     R(x + 6, y + bh, 2, 10, '#3a3a3a'); R(x + bw - 8, y + bh, 2, 10, '#3a3a3a'); R(x + 4, y + bh + 4, bw - 8, 1, '#3a3a3a');
     R(x - 1, y - 1, bw + 2, bh + 2, '#111'); R(x, y, bw, bh, N ? '#1a1430' : '#f7f2e6');
+    if (ALB.indexOf(kind) > -1) { R(x + 3, y - 3, 32, 32, '#111'); cover(kind, x + 4, y - 2, 30, 30); R(x - 1, y - 1, 0, 0, '#111'); if (N) A(.18, function () { R(x, y - 6, 38, 38, '#fff6c8'); }); return; }
     if (kind === 'grad' || kind === 'sade') { cover(kind, x + 1, y + 1, bh - 2, bh - 2); T(kind === 'grad' ? 'NOW' : 'SADE', x + bh + 1, y + 3, N ? '#ff4fd8' : '#c0392b'); T(kind === 'grad' ? 'ON' : '84', x + bh + 1, y + 10, N ? '#3ef0ff' : '#1b2fbf'); R(x + bh + 2, y + 18, 7, 4, '#d4af37'); }
     else if (kind === 'hz') { T('20 HZ', x + 9, y + 2, N ? '#3ef0ff' : '#1b2fbf'); for (var i = 0; i < bw - 6; i++) R(x + 3 + i, y + 13 + Math.round(Math.sin(i * (0.25 + i / 60)) * 4), 1, 1, N ? '#ff4fd8' : '#c0392b'); T('20 KHZ', x + 7, y + 19, N ? '#3ef0ff' : '#1b2fbf'); }
     else if (kind === 'vinyl') { disc(x + 13, y + 13, 10, '#111'); disc(x + 13, y + 13, 7, '#2a2a2a'); disc(x + 13, y + 13, 3, N ? '#ff4fd8' : '#e63946'); R(x + 13, y + 13, 1, 1, '#eee'); T('LP', x + 27, y + 10, N ? '#ffe14f' : '#111'); }
@@ -311,7 +315,9 @@
     if (N) A(.22, function () { R(x - 4, y - 4, bw + 8, bh + 8, '#fff6c8'); });
   }
   function coverBoard(b, t) { // grand panneau du quartier des passions : pochettes (son) et mode
-    detailed(b); var c = center(b, b.h), bw = 76, bh = 46, x = Math.round(c[0] - bw / 2), y = Math.round(c[1] - bh - 12);
+    detailed(b); var Lw = faceL(b), tick = reduce ? 0 : (t / 2600 | 0);
+    fr(Lw, 3, 45, 42, 46, N ? '#0d0a18' : '#2b2b30'); ftext(Lw, 6, 83, 'MES ALBUMS', N ? '#ffe14f' : '#ffffff'); // mur de pochettes, au-dessus du toit de la couture
+    for (var gi = 0; gi < 9; gi++) faceCover(ALB[(gi * 7 + (gi % 3 === tick % 3 ? tick : 0)) % ALB.length], Lw, 6 + (gi % 3) * 13, 47 + (2 - ((gi / 3) | 0)) * 12, 11, 11); var c = center(b, b.h), bw = 76, bh = 46, x = Math.round(c[0] - bw / 2), y = Math.round(c[1] - bh - 12);
     R(x + 10, y + bh, 2, 12, '#3a3a3a'); R(x + bw - 12, y + bh, 2, 12, '#3a3a3a'); R(x + 8, y + bh + 5, bw - 16, 1, '#3a3a3a');
     R(x - 2, y - 2, bw + 4, bh + 4, '#111'); R(x, y, bw, bh, N ? '#140f24' : '#f7f2e6');
     cover('grad', x + 2, y + 2, 42, 42); cover('sade', x + 46, y + 2, 28, 28);
@@ -351,7 +357,7 @@
   }
   function records(b, t) { // disquaire : pochettes en vitrine et vinyle géant qui tourne sur le toit
     detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
-    fr(L, 3, 1, 42, 17, N ? '#2a1f3f' : '#f0e6d2'); faceCover('sade', L, 5, 3, 13, 13); faceCover('grad', L, 20, 3, 13, 13);
+    fr(L, 3, 1, 42, 17, N ? '#2a1f3f' : '#f0e6d2'); var rt = reduce ? 0 : (t / 3500 | 0); faceCover(rt % 2 ? ALB[(rt * 3 + 5) % ALB.length] : 'sade', L, 5, 3, 13, 13); faceCover(rt % 2 ? 'grad' : ALB[(rt * 3 + 9) % ALB.length], L, 20, 3, 13, 13);
     for (var k = 0; k < 4; k++) fr(L, 35 + k * 2, 3, 1, 9, ['#c0392b', '#1b2fbf', '#d4af37', '#111'][k]);
     fr(L, 3, 19, 42, 7, '#111'); ftext(L, 6, 20, 'DISQUAIRE', N ? '#ffe14f' : '#ffffff');
     fr(Rf, 6, 0, 9, 14, '#3b2a22'); fr(Rf, 18, 12, 24, 8, N ? '#1a0f2e' : '#c0392b'); ftext(Rf, 21, 13, 'VINYL', N ? '#3ef0ff' : '#ffffff');
@@ -377,7 +383,7 @@
     detailed(b); var L = faceL(b), Rf = faceR(b), on = reduce ? 0 : (t / 300 | 0) % 2;
     fr(L, 4, 12, 40, 11, '#111'); for (var u = 4; u < 44; u += 3) { fr(L, u, 22, 1, 1, (u / 3 + on) % 2 ? '#ffe14f' : '#7a5a10'); fr(L, u, 12, 1, 1, (u / 3 + on) % 2 ? '#7a5a10' : '#ffe14f'); }
     ftext(L, 9, 14, 'LIVE', N ? '#ff4fd8' : '#ff4fd8'); ftext(L, 27, 14, 'CE SOIR', '#ffffff');
-    faceCover('grad', Rf, 6, 13, 14, 14); faceCover('sade', Rf, 26, 13, 14, 14); fr(Rf, 5, 12, 16, 1, '#111'); fr(Rf, 25, 12, 16, 1, '#111');
+    var ct = reduce ? 0 : (t / 3000 | 0); faceCover(ALB[(ct * 2) % ALB.length], Rf, 6, 13, 14, 14); faceCover(ALB[(ct * 2 + 1) % ALB.length], Rf, 26, 13, 14, 14); fr(Rf, 5, 12, 16, 1, '#111'); fr(Rf, 25, 12, 16, 1, '#111');
   }
   function bandstand(b, t) { // kiosque à musique : guitariste, chanteuse et batteur
     prism(b, b.h, N ? '#6a4a3a' : '#c8945a', N ? '#4a3228' : '#a8763e', N ? '#3a2620' : '#8a5e30');
@@ -642,12 +648,12 @@
   function halo(x, y, r, rgba) { g.save(); g.translate(x, y); g.scale(1, .5); var gr = g.createRadialGradient(0, 0, 0, 0, 0, r); gr.addColorStop(0, rgba + '.32)'); gr.addColorStop(1, rgba + '0)'); g.fillStyle = gr; g.fillRect(-r, -r, 2 * r, 2 * r); g.restore(); }
   function rebuild() {
     layout(); genWorld(); N = night(); buildBg(); deco.forEach(function (d) { var main = g; g = bg.getContext('2d'); quad({ x: d.x + .12, y: d.y + .12, w: 3.76, d: 3.76 }, mix(N ? '#1f4a3a' : '#79cf6a', N ? FOG.n : FOG.d, d.fog)); g = main; });
-    fill.forEach(sprite); dirty = false; extras(); placeSpots();
+    fill.forEach(sprite); extras(); placeSpots();
   }
   function onScreen(p, m) { return p[0] > -m && p[0] < W + m && p[1] > -10 && p[1] < H + m; }
   function draw(t) {
     if (night() !== N) rebuild();
-    if (dirty) { dirty = false; fill.forEach(sprite); }
+    if (dirty) { dirty = false; fill.forEach(function (b) { if (b.redo) { b.redo = false; sprite(b); } }); }
     g.imageSmoothingEnabled = false; g.drawImage(bg, 0, 0);
     var items = [];
     fill.forEach(function (b) { items.push([b.key, function () { g.drawImage(b.spr, b.sx, b.sy); }]); });
@@ -698,7 +704,7 @@
     });
   }
   rebuild();
-  if (reduce) { draw(0); [IMG._grad, IMG._sade].forEach(function (im) { im.addEventListener('load', function () { draw(0); }); }); }
+  if (reduce) { draw(0); setInterval(function () { if (dirty) draw(0); }, 700); } // sans animation : on redessine quand une pochette arrive
   else requestAnimationFrame(function (t) { last = t; loop(t); });
   var rz; function later() { clearTimeout(rz); rz = setTimeout(function () { rebuild(); if (reduce) draw(0); }, 150); }
   addEventListener('resize', later);

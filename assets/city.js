@@ -105,7 +105,8 @@
     { x: 2, y: 2, w: 2, d: 2, h: 58, k: 'dark', doc: 'cinema', draw: cinema, extra: 22 },
     { x: 6, y: -4, w: 1, d: 1, h: 26, k: 'grey', draw: radio, extra: 96 },
     { x: 8, y: -5, w: 1, d: 3, h: 58, k: 'brown', doc: 'mode', spot: 'mo-malle', draw: atelier },
-    { x: 11, y: -9, w: 2, d: 2, h: 0, doc: 'voyage', spot: 'v-eye', draw: londonEye, extra: 122 },
+    { x: 10, y: -9, w: .5, d: 3.3, h: 0, doc: 'voyage', spot: 'v-bridge', draw: towerBridge, extra: 86 },
+    { x: 11, y: -10, w: 2, d: 2, h: 0, doc: 'voyage', spot: 'v-eye', draw: londonEye, extra: 122 },
     { x: -5, y: 10, w: 3, d: 3, h: 40, k: 'brick', doc: 'racines', spot: 'r-krema', draw: confiserie, extra: 26 },
     { x: 0, y: 5, w: 2, d: 2, h: 40, k: 'white', doc: 'musique', spot: 'm-concert', draw: concert },
     { x: 2.25, y: 5.25, w: 1.5, d: 1.5, h: 5, draw: bandstand },
@@ -126,7 +127,7 @@
     { x: 15.3, y: -4.8, w: 3.4, d: 1.3, h: 18, k: 'white', doc: 'voyage', spot: 'v-air', draw: airport, extra: 70 },
     { x: 10.6, y: 5.6, w: 2, d: 2, h: 30, k: 'stone', doc: 'musique', spot: 'm-disques', draw: records, extra: 8 }
   ];
-  var TREES = [[-9.6, 10.4], [-7.4, 10.5], [-9.5, 13.6], [-7.3, 13.5], [-4.6, 5.6], [-3.4, 5.5], [5.5, -2.4], [6.6, -1.5], [10.5, -6.6], [12.6, -6.5], [13.5, -8.4], [-1.5, 10.5], [-1.4, 12.6], [0.5, 8.5], [3.6, 8.6],
+  var TREES = [[-9.6, 10.4], [-7.4, 10.5], [-9.5, 13.6], [-7.3, 13.5], [-4.6, 5.6], [-3.4, 5.5], [5.5, -2.4], [6.6, -1.5], [-1.5, 10.5], [-1.4, 12.6], [0.5, 8.5], [3.6, 8.6],
     [8.6, 0.5], [8.6, 2.6], [10.5, -2.4], [12.6, -2.5], [13.6, -4], [3.6, 15.5], [3.6, 17.6], [6.6, 13.5], [7.6, 12.4], [10.4, 3.6], [13.6, 0.4]];
   function blk(v) { return Math.floor(v / 5); }
   function inBand(bx, by) { var s = bx + by, d = Math.abs(bx - by); return s >= 0 && s <= 3 && d <= 4; }
@@ -181,7 +182,7 @@
       var dist = bandDist(bx, by), band = dist === 0;
       var hmax = band ? (s <= 0 ? 150 : s === 1 ? 90 : s === 2 ? 66 : 40) : s < 0 ? 90 + Math.min(dist, 4) * 30 : s > 3 ? 32 : 70 + Math.min(dist, 3) * 25;
       var fog = band ? 0 : dist === 1 ? .3 : dist === 2 ? .45 : .58;
-      if ((s >= 5 && hs(1) < .3) || key === '-1,4') { deco.push({ t: 'green', x: x0, y: y0, fog: fog }); continue; } // petit square arboré
+      if ((s >= 5 && hs(1) < .3) || key === '-1,4' || key === '1,-2') { deco.push({ t: 'green', x: x0, y: y0, fog: fog }); continue; } // petit square arboré
       var lots = [], r = hs(2);
       if (r < .25) lots.push([0, 0, 4, 4]); else if (r < .6) lots.push.apply(lots, hs(3) < .5 ? [[0, 0, 4, 2], [0, 2, 4, 2]] : [[0, 0, 2, 4], [2, 0, 2, 4]]); else lots.push([0, 0, 2, 2], [2, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2]);
       lots.forEach(function (l, n) {
@@ -777,10 +778,48 @@
   }
 
   /* ---------- Londres : le London Eye au bord de la Tamise (roue, rayons, 32 capsules qui tournent lentement, pied en A) ---------- */
+  /* ---------- Londres : Tower Bridge sur la Tamise (deux tours gothiques, passerelles hautes bleu et blanc, chaînes de suspension) ---------- */
+  function towerBridgeStatic(b) {
+    var xc = b.x + .25, yN = -7.95, yS = -6.55, TH = 64, DZ = 10, stone = N ? ['#a59fbd', '#8a84a6', '#6f6a8c'] : ['#e6dcc2', '#cfc2a2', '#b3a682'], blue = N ? ['#7aa3e0', '#4f78b8'] : ['#9cc4f0', '#5b8fd1'], k;
+    quad({ x: 9.1, y: -8.4, w: 4.9, d: 2.3 }, N ? '#1f2e5a' : '#4f8fc0'); // la Tamise
+    for (k = 0; k < 9; k++) { var q = W3(10.2 + hash(k + 60) * 3.6, -8.3 + hash(k + 70) * 2.1, 0); R(q[0], q[1], 4, 1, N ? '#3a4f86' : '#86bde4'); }
+    function chain(y0, y1) { // chaîne de suspension : du quai (bas) à la tour (haut), avec ses suspentes
+      [xc - .14, xc + .14].forEach(function (x) {
+        g.strokeStyle = blue[1]; g.lineWidth = 2; g.beginPath();
+        for (var i = 0; i <= 12; i++) { var t = i / 12, p = W3(x, y0 + (y1 - y0) * t, DZ + 2 + 36 * Math.pow(t, 1.7)); if (i) g.lineTo(p[0], p[1]); else g.moveTo(p[0], p[1]); }
+        g.stroke(); g.lineWidth = 1; g.strokeStyle = blue[0]; g.beginPath();
+        for (i = 1; i < 12; i += 2) { t = i / 12; var a = W3(x, y0 + (y1 - y0) * t, DZ + 2 + 36 * Math.pow(t, 1.7)), c = W3(x, y0 + (y1 - y0) * t, DZ + 2); g.moveTo(a[0], a[1]); g.lineTo(c[0], c[1]); }
+        g.stroke();
+      });
+    }
+    function tower(yc) {
+      var t = { x: xc - .21, y: yc - .21, w: .42, d: .42 }, cx = xc, top = TH;
+      prism(t, TH, stone[0], stone[1], stone[2]);
+      [faceL(t), faceR(t)].forEach(function (f) {
+        fr(f, 2, DZ - 1, f.len - 4, 12, N ? '#1c1830' : '#4a3f30'); // l'arche où passe la route
+        for (var v = 28; v < TH - 6; v += 12) fr(f, (f.len >> 1) - 1, v, 2, 6, N ? '#ffd56b' : '#3a3448');
+        fr(f, 0, TH - 4, f.len, 2, stone[2]);
+      });
+      poly([[t.x, t.y + t.d, top], [t.x + t.w, t.y + t.d, top], [cx, yc, top + 18]], N ? '#3c4458' : '#5b6573');
+      poly([[t.x + t.w, t.y + t.d, top], [t.x + t.w, t.y, top], [cx, yc, top + 18]], N ? '#2e3546' : '#48515e');
+      [[t.x, t.y + t.d], [t.x + t.w, t.y + t.d], [t.x + t.w, t.y]].forEach(function (c) { var p = W3(c[0], c[1], top); R(p[0] - 1, p[1] - 9, 3, 9, N ? '#3c4458' : '#5b6573'); R(p[0], p[1] - 12, 1, 3, '#d4af37'); }); // clochetons
+      var ap = W3(cx, yc, top + 18); R(ap[0], ap[1] - 5, 1, 5, '#d4af37');
+    }
+    chain(-8.9, yN - .21);
+    quad({ x: xc - .16, y: -8.9, w: .32, d: 3.15 }, N ? '#4a4662' : '#8d94a1', DZ); // tablier
+    prism({ x: xc - .16, y: -8.9, w: .32, d: 3.15 }, 2, N ? '#4a4662' : '#8d94a1', blue[1], blue[1], DZ - 2);
+    tower(yN);
+    [xc - .14, xc + .1].forEach(function (x) { // les deux passerelles hautes, en treillis bleu et blanc
+      var wk = { x: x, y: yN + .21, w: .06, d: yS - yN - .42 }; prism(wk, 6, blue[0], blue[1], blue[1], TH - 10);
+      var fR = faceR(wk); for (var u = 0; u < fR.len; u += 3) fr(fR, u, TH - 9, 1, 4, '#ffffff');
+    });
+    tower(yS);
+    chain(-5.75, yS + .21);
+  }
+  function towerBridge(b, t) { cached(b, 'tbridge', function () { towerBridgeStatic(b); }); }
+
   function londonEye(b, t) { // roue dans le plan face à nous (axe x − y), donc vue comme un vrai cercle
     var cx = b.x + b.w / 2, cy = b.y + .8, RZ = 54, rw = RZ / 48, zc = RZ + 10, rot = reduce ? 0 : t / 40000, k, q;
-    quad({ x: b.x - .4, y: b.y + 1.25, w: b.w + .8, d: .8 }, N ? '#1f2e5a' : '#4f8fc0');
-    for (k = 0; k < 5; k++) { q = W3(b.x + hash(k + 40) * b.w, b.y + 1.4 + hash(k + 50) * .5, 0); R(q[0], q[1], 4, 1, N ? '#3a4f86' : '#86bde4'); }
     function at(a, r) { var c = Math.cos(a) * rw * r; return W3(cx + c, cy - c, zc + Math.sin(a) * RZ * r); }
     var hub = at(0, 0), l1 = W3(cx - 1.2, cy - .6, 0), l2 = W3(cx - .6, cy - 1.2, 0);
     g.lineWidth = 3; g.strokeStyle = N ? '#9a96b8' : '#9aa3b0'; g.beginPath(); g.moveTo(l1[0], l1[1]); g.lineTo(hub[0], hub[1]); g.lineTo(l2[0], l2[1]); g.stroke();

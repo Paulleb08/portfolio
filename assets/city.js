@@ -23,7 +23,7 @@
   }
 
   // Police pixel 3×5 pour les enseignes
-  var F = { A: '010101111101101', B: '110101110101110', C: '011100100100011', D: '110101101101110', E: '111100110100111', F: '111100110100100', G: '011100101101011', H: '101101111101101', I: '111010010010111', J: '001001001101010', K: '101101110101101', L: '100100100100111', M: '101111111101101', N: '110101101101101', O: '010101101101010', P: '110101110100100', Q: '010101101110011', R: '110101110101101', S: '011100010001110', T: '111010010010010', U: '101101101101111', V: '101101101101010', W: '101101111111101', X: '101101010101101', Y: '101101010010010', Z: '111001010100111', '0': '111101101101111', '1': '010110010010111', '2': '110001010100111', '4': '101101111001001', '7': '111001010010010', '&': '011100010101011', '-': '000000111000000', "'": '010010000000000', '.': '000000000000010', ' ': '000000000000000', '3': '111001011001111', '5': '111100111001111', '6': '111100111101111', '8': '111101111101111', '9': '111101111001111', '/': '001001010100100', '!': '010010010000010', ':': '000010000010000', '+': '000010111010000', 'X': '101101010101101' };
+  var F = { A: '010101111101101', B: '110101110101110', C: '011100100100011', D: '110101101101110', E: '111100110100111', F: '111100110100100', G: '011100101101011', H: '101101111101101', I: '111010010010111', J: '001001001101010', K: '101101110101101', L: '100100100100111', M: '101111111101101', N: '110101101101101', O: '010101101101010', P: '110101110100100', Q: '010101101110011', R: '110101110101101', S: '011100010001110', T: '111010010010010', U: '101101101101111', V: '101101101101010', W: '101101111111101', X: '101101010101101', Y: '101101010010010', Z: '111001010100111', '0': '111101101101111', '1': '010110010010111', '2': '110001010100111', '4': '101101111001001', '7': '111001010010010', '&': '011100010101011', '-': '000000111000000', "'": '010010000000000', '.': '000000000000010', ',': '000000000010100', ' ': '000000000000000', '3': '111001011001111', '5': '111100111001111', '6': '111100111101111', '8': '111101111101111', '9': '111101111001111', '/': '001001010100100', '!': '010010010000010', ':': '000010000010000', '+': '000010111010000', 'X': '101101010101101' };
   function norm(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase(); }
   function T(s, x, y, c, k) { k = k || 1; s = norm(s); for (var i = 0; i < s.length; i++) { var gl = F[s[i]] || F[' ']; for (var p = 0; p < 15; p++) if (gl[p] === '1') R(x + (i * 4 + p % 3) * k, y + ((p / 3) | 0) * k, k, k, c); } }
   function TL(s, k) { return s.length * 4 * (k || 1) - (k || 1); }
@@ -111,7 +111,7 @@
     { x: 0, y: 5, w: 2, d: 2, h: 40, k: 'white', doc: 'musique', spot: 'm-concert', draw: concert },
     { x: 2.25, y: 5.25, w: 1.5, d: 1.5, h: 5, draw: bandstand },
     { x: 5.5, y: .4, w: 1.7, d: .9, h: 160, doc: 'racines', spot: 'r-tour', draw: tourBretagne, extra: 44 },
-    { x: 5, y: 2, w: 3, d: 2, h: 28, k: 'brown', doc: 'materiel', draw: hifiShop, extra: 22 },
+    { x: 5, y: 2, w: 3, d: 2, h: 84, doc: 'materiel', draw: towerRecords, extra: 26 },
     { x: 10, y: -5, w: 3, d: 2, h: 46, k: 'white', doc: 'inspirations', draw: galerie, extra: 6 },
     { x: -5, y: 15, w: 4, d: 4, h: 19, doc: 'foot', draw: stade, extra: 4, below: 1 },
     { x: 0, y: 10, w: 4, d: 4, h: 0, doc: 'valeurs', draw: park, extra: 26 },
@@ -685,15 +685,28 @@
     R(x - 9, y, 20, 3, N ? '#c9ccd3' : '#ffffff'); R(x - 11, y + 1, 2, 2, N ? '#c9ccd3' : '#ffffff'); R(x - 3, y - 4, 6, 4, N ? '#a9afb9' : '#e8e8ee'); R(x - 2, y + 3, 7, 3, N ? '#a9afb9' : '#e8e8ee'); R(x + 8, y - 5, 3, 5, '#1b2fbf'); R(x - 6, y + 1, 12, 1, '#4d6f96');
     if (N && (t / 400 | 0) % 2) { R(x - 3, y - 5, 1, 1, '#ff3b3b'); R(x + 1, y + 6, 1, 1, '#7dff8a'); }
   }
-  function hifiShop(b, t) { // boutique hi-fi : enceintes en vitrine, casque géant sur le toit
-    detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
-    fr(L, 4, 1, 64, 16, N ? '#1a1430' : '#e8edf2');
-    for (var k = 0; k < 4; k++) { var u = 8 + k * 15; fr(L, u, 2, 8, 13, '#1c1c21'); fr(L, u + 2, 9, 4, 4, '#5f6672'); fr(L, u + 3, 10, 2, 2, '#c9a227'); fr(L, u + 3, 4, 2, 2, '#9aa1ad'); }
-    fr(L, 4, 18, 30, 8, '#111'); ftext(L, 8, 19, 'HI-FI', N ? '#3ef0ff' : '#ffe14f');
-    fr(Rf, 8, 0, 9, 14, '#2b1a12');
-    var hx = c[0], hy = c[1] - 4; for (var a = Math.PI; a <= 2 * Math.PI; a += .05) R(hx + Math.cos(a) * 12, hy - 8 + Math.sin(a) * 12, 2, 2, '#222');
-    R(hx - 15, hy - 10, 6, 10, '#222'); R(hx + 9, hy - 10, 6, 10, '#222'); R(hx - 14, hy - 9, 4, 8, N ? '#ff4fd8' : '#c0392b'); R(hx + 10, hy - 9, 4, 8, N ? '#ff4fd8' : '#c0392b');
-    if (!reduce) { var ph = (t / 1800) % 1; A(1 - ph, function () { R(hx - 1, hy - 26 - ph * 14, 1, 4, '#ffe14f'); R(hx - 3, hy - 23 - ph * 14, 3, 2, '#ffe14f'); }); }
+  /* ---------- Le matériel : le disquaire de Shibuya façon Tower Records (immeuble jaune à bandes rouges, « NO MUSIC, NO LIFE. ») ---------- */
+  function towerStatic(b) {
+    var yel = N ? ['#e0b800', '#c9a300', '#a88800'] : ['#ffd60a', '#f2c200', '#d9ab00'], red = '#d7141a';
+    prism(b, b.h, yel[0], yel[1], yel[2]);
+    [faceL(b), faceR(b)].forEach(function (f, side) {
+      fr(f, 0, b.h - 3, f.len, 3, red); fr(f, 0, b.h - 20, f.len, 2, red); // bandes rouges du haut
+      for (var v = 18; v < b.h - 24; v += 9) for (var u = 3; u < f.len - 4; u += 6) fr(f, u, v, 4, 5, N ? (hash(u * 3 + v + side) > .4 ? '#ffe9a8' : '#3a2a10') : '#5b4a1a'); // fenêtres des étages
+      fr(f, 0, 14, f.len, 2, red);
+      fr(f, 1, 0, f.len - 2, 13, N ? '#1d1a26' : '#2a2a30'); // vitrine du rez-de-chaussée
+    });
+    var L = faceL(b), Rf = faceR(b);
+    ftext(L, (L.len - TL('TOWER RECORDS')) >> 1, b.h - 15, 'TOWER RECORDS', red);
+    fr(Rf, 3, 22, Rf.len - 6, 18, red); ftext(Rf, (Rf.len - TL('NO MUSIC,')) >> 1, 31, 'NO MUSIC,', '#ffd60a'); ftext(Rf, (Rf.len - TL('NO LIFE.')) >> 1, 24, 'NO LIFE.', '#ffffff');
+    var c = center(b, b.h), bw = 78, bh = 16, x = Math.round(c[0] - bw / 2), y = Math.round(c[1] - bh - 10); // grand panneau sur le toit
+    R(c[0] - 20, y + bh, 2, 10, '#333'); R(c[0] + 18, y + bh, 2, 10, '#333');
+    R(x - 1, y - 1, bw + 2, bh + 2, '#111'); R(x, y, bw, bh, red); T('NO MUSIC, NO LIFE.', x + ((bw - TL('NO MUSIC, NO LIFE.')) >> 1), y + 6, '#ffd60a');
+  }
+  function towerRecords(b, t) {
+    cached(b, 'tower-rec', function () { towerStatic(b); });
+    var L = faceL(b), tick = reduce ? 0 : (t / 3000 | 0);
+    for (var k = 0; k < 5; k++) faceCover(ALB[(k * 9 + tick) % ALB.length], L, 5 + k * 13, 2, 10, 10); // les pochettes en vitrine changent
+    if (N && !reduce && (t / 700 | 0) % 2) { var Rf = faceR(b); fr(Rf, 6, 40, Rf.len - 12, 1, '#ffd60a'); fr(Rf, 6, 21, Rf.len - 12, 1, '#ffd60a'); } // néon qui clignote la nuit
   }
   function smoke(x, y, t, off) { for (var i = 0; i < 5; i++) { var ph = reduce ? i / 5 : (t / 2200 + off + i / 5) % 1, s = 2 + ph * 7; A(.85 * (1 - ph), function () { R(x + ph * 16 - s / 2, y - ph * 44 - s / 2, s, s, N ? '#8d86a3' : '#f2f2f6'); }); } }
   function park(b, t) { // le jeu du parachute, en boucle : on le secoue (ballon), on le lève en dôme, deux enfants passent dessous, on le redescend

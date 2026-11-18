@@ -221,3 +221,34 @@
 .cats:not(.cine){align-items:flex-start}
 .cats.cine .cat{max-width:calc(var(--b,3) * 46px + 330px)}
 @media print{.cat{break-before:auto!important}.cats.cine .books{grid-template-columns:repeat(var(--b,3),48px)}}
+
+/* ---------- Étagères sur plusieurs rangées : chaque objet porte son bout de planche (les bouts se rejoignent) ---------- */
+.cats.cine .books{flex-wrap:wrap;overflow:visible;border-bottom:0;box-shadow:none;row-gap:34px;padding:24px 12px 16px;min-height:0}
+.book::after{content:"";position:absolute;left:-4px;right:-4px;bottom:-14px;height:14px;background:linear-gradient(#9c6a42,#7a4f2e 30%,#4a2e18)}
+.book:hover,.book:focus{transform:none}
+.book:hover .cover,.book:focus .cover{transform:translateY(-14px) rotateY(0)}
+/* les albums : disques carrés, tranche avec titre et artiste */
+.records .book{--h:150px;width:30px}
+.records .book .spine{width:30px;padding:8px 0}
+.records .book .spine b{font-size:.6rem;max-height:96px}
+.records .book .spine i{color:var(--t);opacity:.75;font-size:.52rem;letter-spacing:0;text-shadow:none;max-height:44px;overflow:hidden}
+.records .book .cover{width:150px;height:150px}
+.records .book:hover,.records .book:focus{width:150px}
+.cats.records .cat{flex:1 1 calc(min(var(--b,3), 12) * 36px + 160px);max-width:100%}
+@media (max-width:560px){.records .book,.records .book .spine{width:26px}.records .book:hover,.records .book:focus,.records .book .cover{width:128px}.records .book .cover{height:128px}}
+
+/* ---------- Le rack : vêtements de profil sur la barre, qui se tournent de face au survol ---------- */
+.hangers{display:flex;flex-wrap:wrap;align-items:flex-start;gap:34px 8px;perspective:1100px}
+.hanger{flex:none;width:46px;height:300px;padding-top:0;cursor:pointer;outline:none;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.hanger::before{top:0}
+.hanger .hook{position:absolute;left:0;right:0;top:-4px;margin:0;transition:transform .5s}
+.hanger>figure,.hanger>.garment{position:absolute;left:0;top:28px;width:176px;transform-origin:left center;transform:rotateY(-78deg);transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .5s;filter:brightness(.75)}
+.hanger>.garment{height:auto;aspect-ratio:3/4}
+.hanger figcaption{opacity:0;transition:opacity .3s}
+.hanger:hover,.hanger:focus{width:184px}
+.hanger:hover>figure,.hanger:focus>figure,.hanger:hover>.garment,.hanger:focus>.garment{transform:rotateY(0);filter:none}
+.hanger:hover figcaption,.hanger:focus figcaption{opacity:1}
+.hanger:focus-visible{outline:2px solid #d4af37;outline-offset:4px}
+@media (prefers-reduced-motion:reduce){.hanger,.hanger>figure,.hanger>.garment{transition:none}}
+@media (max-width:560px){.hanger{width:40px;height:270px}.hanger>figure,.hanger>.garment{width:150px}.hanger:hover,.hanger:focus{width:158px}}
+@media print{.hangers{display:grid}.hanger{width:auto;height:auto}.hanger>figure,.hanger>.garment{position:static;width:auto;transform:none;filter:none}.hanger figcaption{opacity:1}.book::after{display:none}}

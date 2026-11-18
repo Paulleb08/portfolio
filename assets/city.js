@@ -110,7 +110,7 @@
     { x: -5, y: 10, w: 3, d: 3, h: 40, k: 'brick', doc: 'racines', spot: 'r-krema', draw: confiserie, extra: 26 },
     { x: 0, y: 5, w: 2, d: 2, h: 40, k: 'white', doc: 'musique', spot: 'm-concert', draw: concert },
     { x: 2.25, y: 5.25, w: 1.5, d: 1.5, h: 5, draw: bandstand },
-    { x: 5.4, y: .3, w: 1.8, d: 1.3, h: 160, doc: 'racines', spot: 'r-tour', draw: tourBretagne, extra: 34 },
+    { x: 5.5, y: .4, w: 1.7, d: .9, h: 160, doc: 'racines', spot: 'r-tour', draw: tourBretagne, extra: 44 },
     { x: 5, y: 2, w: 3, d: 2, h: 28, k: 'brown', doc: 'materiel', draw: hifiShop, extra: 22 },
     { x: 10, y: -5, w: 3, d: 2, h: 46, k: 'white', doc: 'inspirations', draw: galerie, extra: 6 },
     { x: -5, y: 15, w: 4, d: 4, h: 19, doc: 'foot', draw: stade, extra: 4, below: 1 },
@@ -143,7 +143,7 @@
 
   // Images des pochettes (vision board) reprises en pixel art sur les panneaux de la ville
   // Albums préférés de Paul (pochettes dans assets/vb/albums) : panneaux, fresques, affiches qui défilent
-  var ALB = ["que-la-famille", "jeune-mort", "fdt", "dreems", "college-dropout", "ram", "thriller", "purple-rain", "seychelles", "astroworld", "morning-glory", "808s", "discovery", "legend", "odyssee", "saw-85-92", "1986", "54-1", "audio-video-disco", "bad", "bar-mediterraneo", "blur", "cassius-1999", "catch-a-fire", "civilisation", "comment-c-est-loin", "devil-wears-prada", "eminem-show", "euphories", "exodus", "first-light", "francafrique", "good-bad-ugly", "heroes-capes", "heroes-villains", "homework", "human-after-all", "jesus-is-king", "kaya", "le-monde-chico", "lucky-boy", "matahari", "modjo", "my-type", "natty-dread", "off-the-wall", "paradise", "pulsar", "rammstein", "shouso-strip", "story-of-espion", "takanaka", "take-care", "tasty", "three-imaginary-boys", "utopia", "watermelon-dandies", "ye"];
+  var ALB = ["que-la-famille", "eponyme", "fdt", "dreems", "college-dropout", "ram", "thriller", "purple-rain", "seychelles", "astroworld", "morning-glory", "808s", "discovery", "legend", "odyssee", "saw-85-92", "1986", "54-1", "audio-video-disco", "bad", "bar-mediterraneo", "blur", "cassius-1999", "catch-a-fire", "civilisation", "comment-c-est-loin", "devil-wears-prada", "eminem-show", "euphories", "exodus", "first-light", "francafrique", "good-bad-ugly", "heroes-capes", "heroes-villains", "homework", "human-after-all", "jesus-is-king", "kaya", "le-monde-chico", "lucky-boy", "matahari", "modjo", "my-type", "natty-dread", "off-the-wall", "paradise", "pulsar", "rammstein", "shouso-strip", "story-of-espion", "takanaka", "take-care", "tasty", "three-imaginary-boys", "utopia", "watermelon-dandies", "ye"];
   var IMG = {}, SRC = { grad: 'assets/vb/graduation.jpg', sade: 'assets/vb/diamond-life.jpg', 'p-lv': 'assets/vb/louis-vuitton.jpg', 'p-hermes': 'assets/vb/hermes-sellier.jpg', 'p-dior': 'assets/vb/dior.jpg', 'p-kef': 'assets/vb/kef-ls50.jpg', 'p-beo': 'assets/vb/beosound-9000.jpg', 'p-defile': 'assets/vb/defile.jpg' };
   var FILMS = ['f-raging-bull', 'f-las-vegas-parano', 'f-37-2-le-matin', 'f-pierrot-le-fou', 'f-once-upon-a-time', 'f-memories-of-murder', 'f-anatomie-d-une-chute', 'f-fantastic-mr-fox', 'f-endless-summer', 'f-arrete-moi-si-tu-peux', 'f-99-francs'];
   FILMS.forEach(function (f) { SRC[f] = 'assets/vb/films/' + f.slice(2) + '.jpg'; });
@@ -759,22 +759,28 @@
   }
 
   /* ---------- Nantes : la tour Bretagne (lame de béton à fenêtres en bandes, étage vitré du « Nid » et son oiseau blanc, antennes) ---------- */
-  function tourStatic(b) {
-    var p = N ? ['#5a5672', '#45415c', '#36324a'] : ['#e4e2dc', '#c9c6bf', '#a9a59d'];
-    prism(b, b.h, p[0], p[1], p[2]);
+  function tourStatic(b) { // d'après photos : lame de verre brun foncé, bande blanche verticale, couronnement noir, bloc blanc sur le toit, socle blanc arrondi
+    var p = N ? ['#2e2433', '#241b29', '#1a131e'] : ['#5a463b', '#3d2d25', '#2b1f1a'], Z0 = 10, k;
+    var pod = { x: b.x - .35, y: b.y - .3, w: b.w + .7, d: b.d + .6 };
+    prism(pod, Z0, N ? '#bdb8cf' : '#f6f4ef', N ? '#9d98b4' : '#e9e6df', N ? '#86819f' : '#d6d2c8');
+    [faceL(pod), faceR(pod)].forEach(function (f) { fr(f, 0, 3, f.len, 4, N ? '#2a2540' : '#4a4f5a'); fr(f, 0, Z0 - 2, f.len, 1, '#c0392b'); }); // vitrines du socle, liseré rouge
+    prism(b, b.h - Z0 - 14, p[0], p[1], p[2], Z0);
     [faceL(b), faceR(b)].forEach(function (f, side) {
-      for (var v = 6; v < b.h - 16; v += 4) for (var u = 1; u < f.len - 2; u += 3) fr(f, u, v, 2, 3, lit(side * 7 + u * 3 + v * 11) || (side ? '#8a96a6' : '#9fb2c6'));
-      fr(f, 0, b.h - 15, f.len, 11, N ? '#ffd56b' : '#bcd8ea');
-      for (var u2 = 2; u2 < f.len; u2 += 5) fr(f, u2, b.h - 15, 1, 11, p[2]);
-      fr(f, 0, b.h - 4, f.len, 4, p[1]);
+      for (var v = Z0 + 2; v < b.h - 15; v += 3) fr(f, 0, v, f.len, 1, side ? (N ? '#2c2232' : '#4a3a31') : (N ? '#382c3e' : '#6b5649'));
+      for (var u = 2; u < f.len - 1; u += 3) fr(f, u, Z0, 1, b.h - Z0 - 14, side ? '#1e1612' : '#2e221c');
+      if (N) for (var v2 = Z0 + 3; v2 < b.h - 16; v2 += 6) for (var u2 = 1; u2 < f.len - 2; u2 += 3) { var c = lit(side * 13 + u2 * 7 + v2 * 3); if (c && hash(u2 + v2 * 9 + side) > .55) fr(f, u2, v2, 2, 2, c); }
     });
-    var L = faceL(b); fr(L, 4, b.h - 27, 35, 9, '#1b1b1b'); ftext(L, 6, b.h - 25, 'BRETAGNE', '#ffffff');
-    var c = center(b, b.h); R(c[0] - 6, c[1] - 30, 1, 30, '#d0d4dc'); R(c[0] + 4, c[1] - 22, 1, 22, '#d0d4dc');
-    R(c[0] - 3, c[1] - 8, 8, 3, '#ffffff'); R(c[0] + 3, c[1] - 11, 3, 3, '#ffffff'); R(c[0] + 6, c[1] - 10, 2, 1, '#f4a261'); R(c[0] - 5, c[1] - 9, 3, 2, '#ffffff'); // l'oiseau du Nid
+    var L = faceL(b); fr(L, 4, Z0, 3, b.h - Z0 - 14, N ? '#cfcbe0' : '#f2efe8'); // la bande blanche verticale
+    var cr = { x: b.x - .03, y: b.y - .03, w: b.w + .06, d: b.d + .06 };
+    prism(cr, 14, '#151515', '#1c1c1c', '#0e0e0e', b.h - 14); // couronnement noir
+    [faceL(cr), faceR(cr)].forEach(function (f) { for (var u = 1; u < f.len; u += 4) fr(f, u, b.h - 12, 2, 9, N ? '#3a2f5a' : '#2c3440'); });
+    var blk = { x: b.x + .25, y: b.y + .2, w: .5, d: .6 };
+    prism(blk, 26, '#ffffff', N ? '#cfcbe0' : '#f1f1f1', N ? '#a9a5bf' : '#d9d9d9', b.h); // bloc blanc sur le toit
+    var c2 = center(blk, b.h + 26); R(c2[0], c2[1] - 12, 1, 12, '#d0d4dc');
   }
   function tourBretagne(b, t) {
     cached(b, 'tourB', function () { tourStatic(b); });
-    var c = center(b, b.h); if (reduce || (t / 800 | 0) % 2) { R(c[0] - 7, c[1] - 32, 3, 3, '#ff3b3b'); R(c[0] + 3, c[1] - 24, 3, 3, '#ff3b3b'); }
+    var c = center({ x: b.x + .25, y: b.y + .2, w: .5, d: .6 }, b.h + 26); if (reduce || (t / 800 | 0) % 2) R(c[0] - 1, c[1] - 14, 3, 3, '#ff3b3b');
   }
 
   /* ---------- Londres : le London Eye au bord de la Tamise (roue, rayons, 32 capsules qui tournent lentement, pied en A) ---------- */

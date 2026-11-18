@@ -120,8 +120,11 @@
     { x: 11, y: 1, w: 2, d: 2, h: 84, k: 'dark', draw: screenTower, extra: 30 },
     { x: 1, y: 15, w: 2, d: 2, h: 30, k: 'brick', doc: 'garde', draw: house, extra: 12, below: 1 },
     { x: 0.2, y: 17.25, w: .9, d: .5, h: 7, draw: vinylStall },
-    { x: 5, y: 10, w: 2, d: 2, h: 40, k: 'white' },
-    { x: 8, y: 12, w: 1, d: 1, h: 6, doc: 'plan', draw: metro, extra: 14, below: 1 }
+    { x: 5.05, y: 10.1, w: 2.9, d: 2.6, h: 0, doc: 'vision-board', spot: 'vb-defile', draw: fashionShow, extra: 44 },
+    { x: 8, y: 12, w: 1, d: 1, h: 6, doc: 'plan', draw: metro, extra: 14, below: 1 },
+    { x: 15.2, y: 0.4, w: 3.6, d: 2.2, h: 44, k: 'stone', doc: 'voyage', draw: station, extra: 30, below: 1 },
+    { x: 15.3, y: -4.8, w: 3.4, d: 1.3, h: 18, k: 'white', doc: 'voyage', spot: 'voyage-air', draw: airport, extra: 70 },
+    { x: 10.3, y: 5.4, w: 3, d: 2.2, h: 50, k: 'dark', doc: 'vision-board', spot: 'vb-cinema', draw: cinema, extra: 20 }
   ];
   var TREES = [[-9.6, 10.4], [-7.4, 10.5], [-9.5, 13.6], [-7.3, 13.5], [-4.6, 7.6], [-3.4, 8.5], [5.5, -2.4], [6.6, -1.5], [10.5, -6.6], [12.6, -6.5], [13.5, -8.4], [-1.5, 10.5], [-1.4, 12.6], [0.5, 8.5], [3.6, 8.6],
     [8.6, 0.5], [8.6, 2.6], [10.5, -2.4], [12.6, -2.5], [13.6, -4], [-1.5, 15.5], [-1.4, 17.6], [3.6, 15.5], [3.6, 17.6], [6.6, 13.5], [7.6, 12.4], [10.4, 3.6], [13.6, 0.4]];
@@ -141,6 +144,8 @@
   // Albums préférés de Paul (pochettes dans assets/vb/albums) : panneaux, fresques, affiches qui défilent
   var ALB = ["college-dropout", "ram", "thriller", "purple-rain", "seychelles", "astroworld", "morning-glory", "808s", "discovery", "legend", "odyssee", "saw-85-92", "1986", "54-1", "audio-video-disco", "bad", "bar-mediterraneo", "blur", "cassius-1999", "catch-a-fire", "civilisation", "comment-c-est-loin", "devil-wears-prada", "eminem-show", "euphories", "exodus", "first-light", "francafrique", "good-bad-ugly", "heroes-capes", "heroes-villains", "homework", "human-after-all", "jesus-is-king", "kaya", "le-monde-chico", "lucky-boy", "matahari", "modjo", "my-type", "natty-dread", "off-the-wall", "paradise", "pulsar", "rammstein", "shouso-strip", "story-of-espion", "takanaka", "take-care", "tasty", "three-imaginary-boys", "utopia", "watermelon-dandies", "ye"];
   var IMG = {}, SRC = { grad: 'assets/vb/graduation.jpg', sade: 'assets/vb/diamond-life.jpg', 'p-lv': 'assets/vb/louis-vuitton.jpg', 'p-hermes': 'assets/vb/hermes-sellier.jpg', 'p-dior': 'assets/vb/dior.jpg', 'p-kef': 'assets/vb/kef-ls50.jpg', 'p-beo': 'assets/vb/beosound-9000.jpg', 'p-defile': 'assets/vb/defile.jpg' };
+  var FILMS = ['f-raging-bull', 'f-las-vegas-parano', 'f-37-2-le-matin', 'f-once-upon-a-time', 'f-memories-of-murder', 'f-anatomie-d-une-chute', 'f-fantastic-mr-fox', 'f-endless-summer', 'f-arrete-moi-si-tu-peux', 'f-99-francs'];
+  FILMS.forEach(function (f) { SRC[f] = 'assets/vb/films/' + f.slice(2) + '.jpg'; });
   function img(name) { // chargée à la première demande
     var im = IMG['_' + name]; if (im) return im;
     im = IMG['_' + name] = new Image(); im.onload = function () { IMG[name] = {}; im.ok = 1; fill.forEach(function (b) { if (b.board === name || b.mural === name) b.redo = dirty = true; }); }; im.src = SRC[name] || 'assets/vb/albums/' + name + '.jpg'; return im; // on ne redessine que l'immeuble qui porte cette pochette
@@ -164,7 +169,7 @@
   var SIGNS = ['VINYL', 'HI-FI', 'ATELIER', 'RECORDS', 'COUTURE', 'STUDIO', 'JAZZ', 'BOUTIQUE', 'DISQUES', 'TAILLEUR', 'VINTAGE', 'SOUND'];
   var BK = ['grad', 'p-lv', 'sil-pink', 'college-dropout', 'p-hermes', 'hz', 'thriller', 'sil-blue', 'p-kef', 'purple-rain', 'p-dior', 'sil-green', 'seychelles', 'p-beo', 'vinyl', 'astroworld', 'sil-orange', 'p-defile', 'runway', 'fw', 'sade', 'discovery', 'legend', '808s', 'odyssee', 'saw-85-92', 'morning-glory'];
   var MU = ['thriller', 'grad', 'sade', 'ram', 'seychelles', 'purple-rain', 'astroworld', 'college-dropout', 'legend', 'discovery'];
-  var SK = ['alb', 'word', 'sil', 'photo', 'alb', 'ticker', 'word', 'photo'];
+  var SK = ['alb', 'word', 'sil', 'photo', 'alb', 'ticker', 'word', 'photo', 'film', 'film'];
   var fill = [], deco = [];
   function genWorld() {
     fill = []; deco = [];
@@ -441,13 +446,14 @@
     for (var i = 0; i < txt.length * 2; i++) { var u = i * 4 - off; if (u < 0 || u > len - 4) continue; var gl = F[txt[i % txt.length]] || F[' ']; for (var p = 0; p < 15; p++) if (gl[p] === '1') fr(f, u0 + u + p % 3, v + (4 - ((p / 3) | 0)), 1, 1, c); }
   }
   var TICK = 'PAUL SIGNE - ELEVE ARTS ET METIERS - RECHERCHE STAGE TECHNICIEN 12/04 - 02/07/2027 - SON + MODE - ';
-  var WORDS = ['LIVE', 'SON', 'MODE', 'NYC', 'TOKYO', 'PARIS', 'NEW', 'MUSIC', '2027', 'HI-FI', 'NANTES'], WCOL = ['#ff2e88', '#1b2fbf', '#ffd84a', '#18c29c', '#ff7a1a', '#7a3cff'];
+  var WORDS = ['LIVE', 'SON', 'MODE', 'NYC', 'TOKYO', 'PARIS', 'NEW', 'MUSIC', '2027', 'HI-FI', 'NANTES', 'LONDON', 'BERLIN', 'PRAHA', 'WIEN', 'CINEMA'], WCOL = ['#ff2e88', '#1b2fbf', '#ffd84a', '#18c29c', '#ff7a1a', '#7a3cff'];
   var PH = ['p-lv', 'p-hermes', 'p-dior', 'p-kef', 'p-beo', 'p-defile'];
   function screenOn(f, u0, v0, sw, sh, kind, seed, t) { // contenu d'un écran publicitaire, change toutes les quelques secondes
     var tick = reduce ? 0 : (t / 3200 | 0) + seed, col = WCOL[tick % WCOL.length];
     fr(f, u0 - 1, v0 - 1, sw + 2, sh + 2, '#0a0a0a');
     if (kind === 'alb') faceCover(ALB[(seed * 7 + tick) % ALB.length], f, u0, v0, sw, sh);
     else if (kind === 'photo') faceCover(PH[(seed + tick) % PH.length], f, u0, v0, sw, sh);
+    else if (kind === 'film') { fr(f, u0, v0, sw, sh, '#111'); var pw = Math.min(sw, Math.round(sh * 2 / 3)); faceCover(FILMS[(seed + tick) % FILMS.length], f, u0 + ((sw - pw) >> 1), v0, pw, sh); }
     else if (kind === 'sil' && sh >= 29 && sw >= 22) { fr(f, u0, v0, sw, sh, col); var fl = reduce ? 0 : (t / 450 | 0) % 2; silhouette(function (c, r, cc) { fr(f, u0 + ((sw - 20) >> 1) + c, v0 + sh - 1 - r - ((sh - 27) >> 1), 1, 1, cc); }, fl); }
     else if (kind === 'ticker') { fr(f, u0, v0, sw, sh, '#111'); for (var k = 0; k + 6 <= sh; k += 8) ticker(f, u0 + 1, v0 + sh - 7 - k, sw - 2, k % 16 ? TICK : WORDS.join(' - ') + ' - ', t + k * 900, k % 16 ? '#ffd84a' : '#3ef0ff'); }
     else { var w = WORDS[(seed + tick) % WORDS.length], kk = sw >= TL(w, 2) + 4 && sh >= 14 ? 2 : 1; fr(f, u0, v0, sw, sh, col); fr(f, u0, v0, sw, 2, '#ffffff'); ftext2(f, u0 + ((sw - TL(w, kk)) >> 1), v0 + ((sh - 5 * kk) >> 1), w, col === '#ffd84a' ? '#111' : '#ffffff', kk); }
@@ -464,72 +470,182 @@
     [L, Rf].forEach(function (f, i) { fr(f, 0, 12, f.len, 8, '#0a0a0a'); ticker(f, 1, 13, f.len - 2, TICK, t + i * 1700, i ? '#3ef0ff' : '#ffd84a'); });
     var c = center(b, b.h); R(c[0] - 18, c[1] - 26, 36, 18, '#0a0a0a'); R(c[0] - 17, c[1] - 25, 34, 16, WCOL[(reduce ? 0 : (t / 1500 | 0)) % WCOL.length]); T('SHIBUYA', c[0] - 13, c[1] - 20, '#ffffff'); R(c[0] - 12, c[1] - 8, 2, 8, '#333'); R(c[0] + 10, c[1] - 8, 2, 8, '#333');
   }
-  function eiffel(b, t) { // la Tour Eiffel en pixel art, avec PNL au sommet (clip « Au DD ») : Ademo fume une cigarette
-    var c = center(b, 0), cx = Math.round(c[0]), by = Math.round(c[1]) + 8, HT = 204;
-    var iron = N ? '#d89a4e' : '#6e5140', dk = N ? '#8a5a26' : '#4b3527', lt = N ? '#ffd88a' : '#93715a', sk = N ? '#ffe9a8' : '#b58e72';
-    A(.18, function () { disc(cx, by + 2, 50, '#000', .42); });
-    function wOut(v) { return v < 60 ? 48 - 21 * Math.pow(v / 60, .7) : v < 122 ? 27 - (v - 60) / 62 * 14 : 13 - (v - 122) / (HT - 122) * 11.5; }
-    for (var v = 0; v < HT; v++) {
-      var wo = Math.round(wOut(v)), y = by - v, wi = v < 40 ? Math.round(31 * Math.sqrt(1 - (v / 40) * (v / 40))) : -1, leg = v < 60 ? Math.round(wo - (v < 40 ? wi : 0)) : 0;
-      for (var x = -wo; x <= wo; x++) {
-        var ax = Math.abs(x);
-        if (wi >= 0 && ax < wi) continue; // grande arche entre les piliers
-        if (v < 60 && v >= 40 && ax < 8) continue; // jour entre les piliers sous le 1er étage
-        var outer = ax >= wo - 1, inner = (wi >= 0 && ax <= wi + 1) || (v >= 40 && v < 60 && ax <= 9), lat = ((x + v) & 3) === 0 || ((x - v) & 3) === 0;
-        if (outer || inner) R(cx + x, y, 1, 1, x < 0 ? sk : iron); else if (lat) R(cx + x, y, 1, 1, v > 122 && ax < 3 ? iron : dk);
-      }
-      if (v >= 60 && v < 122 && (v & 7) === 0) R(cx - wo, y, 2 * wo + 1, 1, dk); // entretoises
-    }
-    // 1er étage : plateforme et frise d'arcades ; 2e étage ; sommet
-    R(cx - 33, by - 64, 67, 5, iron); R(cx - 33, by - 64, 67, 1, lt); for (var k = -31; k < 32; k += 4) { R(cx + k, by - 59, 1, 3, dk); R(cx + k + 1, by - 57, 2, 1, dk); }
-    R(cx - 19, by - 126, 39, 4, iron); R(cx - 19, by - 126, 39, 1, lt); R(cx - 17, by - 122, 35, 1, dk);
-    R(cx - 12, by - HT - 3, 25, 2, iron); R(cx - 12, by - HT - 3, 25, 1, lt); // galerie du sommet
-    R(cx - 4, by - HT - 9, 9, 6, iron); R(cx - 5, by - HT - 10, 11, 1, lt); R(cx - 2, by - HT - 7, 5, 2, N ? '#ffd56b' : '#c9d6e2'); R(cx, by - HT - 25, 1, 15, '#9a9a9a'); R(cx - 1, by - HT - 26, 3, 1, '#ff3b3b');
-    if (N) { A(.22, function () { disc(cx, by - HT - 6, 12, '#fff3a0'); }); if (!reduce) for (k = 0; k < 30; k++) if (hash(k * 7 + (t / 140 | 0)) > .7) { var sv = (hash(k) * (HT - 10)) | 0; R(cx + (hash(k + 3) * 2 - 1) * wOut(sv), by - sv, 1, 1, '#ffffff'); } } // scintillement
-    // PNL assis sur la galerie, jambes dans le vide ; Ademo (à gauche) fume, N.O.S (à droite)
-    var gy = by - HT - 3;
-    function pnl(x, hood, skin, flip) {
-      R(x, gy - 10, 4, 3, '#111'); R(x + (flip ? -1 : 4), gy - 9, 1, 1, '#111'); R(x, gy - 8, 4, 3, skin); R(x + (flip ? 0 : 3), gy - 7, 1, 1, '#1a1a1a'); // capuche, visage
-      R(x - 1, gy - 5, 6, 5, hood); R(x - 1, gy - 5, 1, 5, mix(hood, '#000000', .3)); // sweat
-      R(x, gy, 2, 4, '#1a1a2e'); R(x + 3, gy, 2, 4, '#1a1a2e'); R(x, gy + 4, 2, 1, '#f2f2f2'); R(x + 3, gy + 4, 2, 1, '#f2f2f2'); // jambes dans le vide, baskets
-    }
-    pnl(cx - 11, '#111111', '#a8714a', false); pnl(cx + 7, '#3a3f4a', '#8d5524', true);
-    R(cx - 7, gy - 7, 3, 1, '#f4f4f4'); R(cx - 4, gy - 7, 1, 1, (reduce || (t / 300 | 0) % 2) ? '#ff7a1a' : '#ffb347'); R(cx - 6, gy - 6, 1, 1, '#a8714a'); // cigarette et main
-    if (!reduce) for (k = 0; k < 4; k++) { var ph = (t / 1600 + k / 4) % 1; A(.7 * (1 - ph), function () { R(cx - 4 + Math.sin(ph * 7 + k) * 2, gy - 9 - ph * 14, 1 + (ph > .5 ? 1 : 0), 1, '#d9d9d9'); }); }
-    R(cx + 1, by - HT - 33, 13, 7, '#111'); T('QLF', cx + 2, by - HT - 32, '#ffffff'); // drapeau « Que la famille »
+  function W3(x, y, z) { var q = P(x, y); return [q[0], q[1] - z]; }
+  function poly(pts, c) { g.fillStyle = c; g.beginPath(); pts.forEach(function (q, i) { var w = W3(q[0], q[1], q[2]); if (i) g.lineTo(w[0], w[1]); else g.moveTo(w[0], w[1]); }); g.closePath(); g.fill(); }
+  function cached(b, key, fn) { // dessin statique et coûteux : rendu une fois dans une image, redessiné si le thème ou le cadrage change
+    var c = corners(b), x0 = Math.floor(c.w[0]) - 70, x1 = Math.ceil(c.e[0]) + 70, y0 = Math.floor(c.n[1] - b.h - (b.extra || 0) - 50), y1 = Math.ceil(c.s[1]) + 60, k = key + N + OX + ',' + OY;
+    if (b.ck !== k) { var sc = document.createElement('canvas'); sc.width = x1 - x0; sc.height = y1 - y0; var main = g; g = sc.getContext('2d'); g.translate(-x0, -y0); fn(); g = main; b.cimg = sc; b.cx0 = x0; b.cy0 = y0; b.ck = k; }
+    g.drawImage(b.cimg, b.cx0, b.cy0);
   }
-  function chateau(b, t) { // château des ducs de Bretagne (Nantes), vu de face : douves, pont-levis, tours d'entrée, Grand Logis
-    var c = center(b, 0), cx = Math.round(c[0]), by = Math.round(c[1]) + 18;
-    var st = N ? '#8e88a8' : '#f4efe3', sm = N ? '#77719a' : '#e2d9c6', sd = N ? '#5d5880' : '#c9bda4', ml = N ? '#6c6690' : '#d6cbb4';
-    var sl = N ? '#2c3348' : '#4b5568', sll = N ? '#3c4560' : '#66708a', sld = N ? '#1f2535' : '#353d4f', gate = '#2a2320', wood = '#7a4f2e';
-    var water = N ? '#1d3a5a' : '#4fa3c7', wl = N ? '#2f5a86' : '#86c8e3', win = N ? '#ffd56b' : '#3a4256';
-    R(cx - 74, by + 9, 148, 3, N ? '#1f4a3a' : '#6cc45e'); R(cx - 72, by, 144, 9, water); for (var k = -68; k < 70; k += 9) R(cx + k + ((k / 9) & 1) * 3, by + 3 + ((k / 9) & 1) * 3, 4, 1, wl); // douves
-    // Grand Logis derrière les remparts : toit d'ardoise très pentu, grandes lucarnes à pinacles, cheminées
-    R(cx - 36, by - 54, 72, 24, sm); for (var v = 0; v < 30; v++) { var w = Math.round(40 - v * 1.05); R(cx - w, by - 54 - v, 2 * w, 1, v % 5 === 4 ? sld : sl); R(cx - w, by - 54 - v, w, 1, v % 5 === 4 ? sld : sll); }
-    R(cx - 30, by - 92, 4, 12, st); R(cx - 31, by - 93, 6, 2, sd); R(cx + 26, by - 90, 4, 10, st); R(cx + 25, by - 91, 6, 2, sd);
-    [-26, -9, 9, 26].forEach(function (dx) { var x = cx + dx; R(x - 4, by - 66, 9, 12, st); R(x - 4, by - 66, 1, 12, sm); R(x - 2, by - 64, 5, 7, win); R(x, by - 64, 1, 7, sm);
-      for (var r = 0; r < 6; r++) R(x - 4 + Math.ceil(r * .7), by - 67 - r, 9 - 2 * Math.ceil(r * .7), 1, st); R(x, by - 75, 1, 3, sd); R(x - 5, by - 70, 1, 4, sd); R(x + 5, by - 70, 1, 4, sd); });
-    R(cx - 36, by - 55, 72, 1, sd);
-    // rempart blanc (tuffeau) avec mâchicoulis et créneaux
-    R(cx - 64, by - 30, 128, 30, st); for (v = 3; v < 30; v += 4) { R(cx - 64, by - v, 128, 1, ml); for (var x = -64 + ((v / 4) & 1) * 4; x < 64; x += 8) R(cx + x, by - v - 3, 1, 3, ml); }
-    R(cx - 64, by - 33, 128, 3, st); for (x = -64; x < 64; x += 3) R(cx + x, by - 31, 1, 2, sd); for (x = -64; x < 64; x += 4) R(cx + x, by - 36, 2, 3, st);
-    [-46, -30, 30, 46].forEach(function (dx) { R(cx + dx, by - 22, 2, 6, gate); });
-    // tours d'angle et tours d'entrée, rondes, avec mâchicoulis
-    function tour(x, wd, ht) {
-      for (var dx = 0; dx < wd; dx++) { var f = dx / (wd - 1); R(x + dx, by - ht, 1, ht, f < .3 ? st : f < .7 ? sm : sd); }
-      R(x - 1, by - ht - 4, wd + 2, 4, st); for (var d2 = 0; d2 < wd + 2; d2 += 2) R(x - 1 + d2, by - ht - 1, 1, 2, sd); for (d2 = 0; d2 < wd + 2; d2 += 3) R(x - 1 + d2, by - ht - 6, 2, 2, st);
-      R(x + (wd >> 1), by - ht + 10, 1, 5, gate); R(x + (wd >> 1), by - ht + 22, 1, 4, gate); R(x, by - 3, wd, 3, sd);
+  /* ---------- Tour Eiffel, en isométrique : 4 piliers, arches, treillis en X, 2 plateformes, sommet ; PNL assis en haut ---------- */
+  var EH = 214;
+  function eHW(z) { return z < 64 ? 1.0 - .4 * Math.pow(z / 64, .8) : z < 128 ? .52 - .25 * (z - 64) / 64 : .25 - .18 * (z - 128) / (EH - 128); }
+  function eiffelStatic(b) {
+    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, light = N ? '#e7a85a' : '#a8846c', mid = N ? '#c4863e' : '#8a6a56', dark = N ? '#7a4f22' : '#4e382b', back = N ? '#8a5f2e' : '#9c8270';
+    A(.2, function () { poly([[cx - 1.3, cy - 1.3, 0], [cx + 1.3, cy - 1.3, 0], [cx + 1.3, cy + 1.3, 0], [cx - 1.3, cy + 1.3, 0]], '#000'); });
+    // les 4 faces : on balaie la hauteur ; faces de derrière d'abord (plus claires, vues à travers le treillis)
+    var faces = [[[-1, -1], [1, -1], back], [[-1, -1], [-1, 1], back], [[-1, 1], [1, 1], light], [[1, 1], [1, -1], mid]];
+    function seg(z0, z1, fs) {
+      fs.forEach(function (fc) {
+        for (var z = z0; z < z1; z++) {
+          var hw = eHW(z), a = W3(cx + fc[0][0] * hw, cy + fc[0][1] * hw, z), bb = W3(cx + fc[1][0] * hw, cy + fc[1][1] * hw, z), n = Math.max(2, Math.round(Math.abs(bb[0] - a[0])));
+          var archW = z < 40 ? Math.sqrt(1 - (z / 40) * (z / 40)) * .66 : 0, legW = z < 64 ? .2 : z < 128 ? .14 : .5;
+          for (var i = 0; i <= n; i++) {
+            var tt = i / n, d = Math.abs(tt - .5) * 2; if (d < archW) continue;
+            var edge = tt < .035 || tt > .965 || (archW > 0 && d < archW + .05), inLeg = tt < legW || tt > 1 - legW, row = (z % 8), lat = ((i + row) % 8 === 0) || ((i - row + 800) % 8 === 0);
+            if (!inLeg && !lat && !edge && fc[2] === back) continue; // faces arrière : on ne voit que le treillis
+            R(a[0] + (bb[0] - a[0]) * tt, a[1] + (bb[1] - a[1]) * tt, 1, 1, edge ? dark : lat || row === 0 ? mix(fc[2], '#000000', .32) : inLeg ? fc[2] : mix(fc[2], '#ffffff', .12));
+          }
+        }
+      });
     }
-    tour(cx - 74, 16, 40); tour(cx + 58, 16, 40); tour(cx - 30, 22, 50); tour(cx + 8, 22, 50);
-    // porte en arc brisé, herse, pont-levis et chaînes
-    R(cx - 8, by - 36, 16, 36, st); for (v = 0; v < 22; v++) { var gw = v < 16 ? 5 : Math.round(5 - (v - 16) * .8); R(cx - gw, by - v, 2 * gw, 1, gate); }
-    for (x = -4; x <= 4; x += 2) R(cx + x, by - 18, 1, 16, '#4a3c34'); R(cx - 5, by - 10, 10, 1, '#4a3c34');
-    R(cx - 6, by, 12, 9, wood); for (v = 1; v < 9; v += 2) R(cx - 6, by + v, 12, 1, '#5e3c22'); for (v = 0; v < 12; v++) { R(cx - 8 + v * .2, by - 24 + v * 2, 1, 1, '#555'); R(cx + 7 - v * .2, by - 24 + v * 2, 1, 1, '#555'); }
-    R(cx - 3, by - 31, 7, 6, '#ffffff'); R(cx - 2, by - 30, 1, 1, '#111'); R(cx + 1, by - 30, 1, 1, '#111'); R(cx - 1, by - 28, 1, 1, '#111'); R(cx + 2, by - 28, 1, 1, '#111'); // écu d'hermine
-    // drapeau breton (Gwenn-ha-du) au faîte du Grand Logis
-    R(cx, by - 104, 1, 20, '#777'); for (var r2 = 0; r2 < 9; r2++) R(cx + 1, by - 104 + r2, 14, 1, r2 % 2 ? '#ffffff' : '#111'); R(cx + 1, by - 104, 6, 5, '#ffffff'); R(cx + 2, by - 103, 1, 1, '#111'); R(cx + 5, by - 103, 1, 1, '#111'); R(cx + 3, by - 101, 1, 1, '#111');
-    if (N) A(.12, function () { R(cx - 76, by - 60, 152, 60, '#fff1c4'); }); // château illuminé la nuit
-    R(cx + 40, by + 12, 1, 6, '#555'); R(cx + 26, by + 4, 29, 8, N ? '#1a0f2e' : '#1b2fbf'); T('NANTES', cx + 29, by + 6, '#ffffff');
+    function deck(z, hw, th) { prism({ x: cx - hw, y: cy - hw, w: 2 * hw, d: 2 * hw }, th, light, mid, dark, z); var f = faceL({ x: cx - hw, y: cy - hw, w: 2 * hw, d: 2 * hw }), fr2 = faceR({ x: cx - hw, y: cy - hw, w: 2 * hw, d: 2 * hw }); [f, fr2].forEach(function (ff) { for (var u = 1; u < ff.len; u += 3) fr(ff, u, z + 1, 1, th - 2, dark); }); }
+    seg(0, 64, faces.slice(0, 2)); seg(0, 64, faces.slice(2)); deck(62, .62, 6);
+    seg(68, 128, faces.slice(0, 2)); seg(68, 128, faces.slice(2)); deck(126, .32, 4);
+    seg(130, EH, faces.slice(0, 2)); seg(130, EH, faces.slice(2));
+    deck(EH - 2, .13, 6); prism({ x: cx - .07, y: cy - .07, w: .14, d: .14 }, 8, light, N ? '#ffd56b' : '#c9d6e2', N ? '#e8c47a' : '#9fb3c6', EH + 4); deck(EH + 12, .1, 2);
+    var tip = W3(cx, cy, EH + 14); R(tip[0], tip[1] - 22, 1, 22, '#8a8a8a'); R(tip[0] - 1, tip[1] - 23, 3, 1, '#ff3b3b');
+  }
+  function eiffel(b, t) {
+    cached(b, 'eiffel', function () { eiffelStatic(b); });
+    var cx = b.x + b.w / 2, cy = b.y + b.d / 2;
+    if (N && !reduce) for (var k = 0; k < 30; k++) if (hash(k * 7 + (t / 140 | 0)) > .72) { var zz = (hash(k) * (EH - 10)) | 0, hw = eHW(zz), s2 = hash(k + 3) * 2 - 1, q = W3(cx + hw * s2, cy + hw, zz); R(q[0], q[1], 1, 1, '#ffffff'); } // scintillement
+    function lift(z, x, y, col) { var q = W3(x, y, z); R(q[0] - 2, q[1] - 6, 5, 6, col); R(q[0] - 1, q[1] - 5, 3, 2, N ? '#ffe9a8' : '#cfe3f5'); R(q[0] - 2, q[1] - 6, 5, 1, '#3a2a22'); }
+    var e1 = reduce ? .5 : .5 - .5 * Math.cos(t / 10000 * Math.PI * 2), z1 = 4 + e1 * 54, hw1 = eHW(z1) * .82; // ascenseur du pilier : sol → 1er étage
+    lift(z1, cx + hw1, cy + hw1 * .55, '#c0392b');
+    var e2 = reduce ? .3 : .5 - .5 * Math.cos(t / 14000 * Math.PI * 2), z2 = 130 + e2 * (EH - 136), c0 = W3(cx, cy + .02, 130), c1 = W3(cx, cy + .02, EH - 4); // ascenseur central : 2e étage → sommet
+    R(c0[0], c1[1], 1, c0[1] - c1[1], N ? '#5a4632' : '#3a2a22'); lift(z2, cx, cy + .02, '#ffd23f');
+    // PNL assis sur la galerie du sommet, jambes dans le vide ; Ademo (à gauche) fume
+    var top = W3(cx, cy + .13, EH + 4), gx = Math.round(top[0]), gy = Math.round(top[1]);
+    function pnl(x, hood, skin, flip) {
+      R(x, gy - 10, 4, 3, '#111'); R(x + (flip ? -1 : 4), gy - 9, 1, 1, '#111'); R(x, gy - 8, 4, 3, skin); R(x + (flip ? 0 : 3), gy - 7, 1, 1, '#1a1a1a');
+      R(x - 1, gy - 5, 6, 5, hood); R(x - 1, gy - 5, 1, 5, mix(hood, '#000000', .3));
+      R(x, gy, 2, 4, '#1a1a2e'); R(x + 3, gy, 2, 4, '#1a1a2e'); R(x, gy + 4, 2, 1, '#f2f2f2'); R(x + 3, gy + 4, 2, 1, '#f2f2f2');
+    }
+    pnl(gx - 9, '#111111', '#a8714a', false); pnl(gx + 5, '#3a3f4a', '#8d5524', true);
+    R(gx - 5, gy - 7, 3, 1, '#f4f4f4'); R(gx - 2, gy - 7, 1, 1, (reduce || (t / 300 | 0) % 2) ? '#ff7a1a' : '#ffb347'); R(gx - 4, gy - 6, 1, 1, '#a8714a'); // cigarette
+    if (!reduce) for (k = 0; k < 4; k++) { var ph = (t / 1600 + k / 4) % 1; A(.7 * (1 - ph), function () { R(gx - 2 + Math.sin(ph * 7 + k) * 2, gy - 9 - ph * 14, 1 + (ph > .5 ? 1 : 0), 1, '#d9d9d9'); }); }
+    var fl = W3(cx, cy, EH + 14); R(fl[0] + 1, fl[1] - 21, 13, 7, '#111'); T('QLF', fl[0] + 2, fl[1] - 20, '#ffffff'); // drapeau « Que la famille »
+  }
+  /* ---------- Château des ducs de Bretagne, en isométrique : douves, tours rondes à mâchicoulis, remparts, Grand Logis, pont ---------- */
+  function tourRonde(tx, ty, r, h, roof) {
+    var c = W3(tx, ty, 0), Rx = Math.round(34 * r), Ry = 17 * r, st = N ? ['#9e98b8', '#837da3', '#68628a'] : ['#efe8d8', '#d9cfb8', '#b9ac90'];
+    for (var dx = -Rx; dx <= Rx; dx++) {
+      var e = Ry * Math.sqrt(Math.max(0, 1 - (dx / Rx) * (dx / Rx))), col = dx < -Rx / 3 ? st[0] : dx < Rx / 3 ? st[1] : st[2], x = c[0] + dx;
+      R(x, c[1] + e - h, 1, h, col);
+      for (var v = 4; v < h - 10; v += 5) R(x, c[1] + e - v, 1, 1, mix(col, '#000000', .14)); // assises de pierre
+      if ((dx + 40) % 6 < 3) R(x, c[1] + e - h + 2, 1, 4, mix(col, '#000000', .3)); // mâchicoulis
+      R(x, c[1] - e - h - 3, 1, 2 * e + 3, N ? '#7d7799' : '#cfc4aa'); // plateforme
+      if ((dx + 40) % 5 < 3) R(x, c[1] + e - h - 5, 1, 5, col); // créneaux
+    }
+    for (dx = -Rx + 2; dx <= Rx - 2; dx += 9) R(c[0] + dx, c[1] + Ry * .6 - h * .55, 1, 4, '#3a3448'); // archères
+    if (roof) { var tp = [c[0], c[1] - h - roof]; g.fillStyle = N ? '#2c3348' : '#4b5568'; g.beginPath(); g.moveTo(c[0] - Rx * .55, c[1] - h - 2); g.lineTo(c[0] + Rx * .55, c[1] - h - 2); g.lineTo(tp[0], tp[1]); g.fill(); }
+  }
+  function gable(x0, y0, w, d, h, rh, wall) { // corps de logis à toit d'ardoise très pentu (faîte dans le sens x)
+    var sl = N ? ['#3c4560', '#2c3348', '#1f2535'] : ['#6b7590', '#4b5568', '#353d4f'];
+    prism({ x: x0, y: y0, w: w, d: d }, h, wall[0], wall[1], wall[2]);
+    poly([[x0, y0, h], [x0 + w, y0, h], [x0 + w, y0 + d / 2, h + rh], [x0, y0 + d / 2, h + rh]], sl[2]);
+    poly([[x0 + w, y0, h], [x0 + w, y0 + d, h], [x0 + w, y0 + d / 2, h + rh]], wall[2]);
+    poly([[x0, y0 + d, h], [x0 + w, y0 + d, h], [x0 + w, y0 + d / 2, h + rh], [x0, y0 + d / 2, h + rh]], sl[0]);
+    for (var k = 1; k < 6; k++) { var a = W3(x0, y0 + d - k * d / 12, h + k * rh / 6), b2 = W3(x0 + w, y0 + d - k * d / 12, h + k * rh / 6); g.fillStyle = sl[1]; g.fillRect(a[0], a[1], b2[0] - a[0], 1); }
+  }
+  function chateauStatic(b) {
+    var x0 = b.x, y0 = b.y, X1 = b.x + b.w, Y1 = b.y + b.d, wall = N ? ['#9e98b8', '#837da3', '#68628a'] : ['#efe8d8', '#d9cfb8', '#b9ac90'], white = N ? ['#c8c2dc', '#aba4c6', '#8f88ae'] : ['#ffffff', '#f1ede4', '#ddd6c6'];
+    quad({ x: x0 - .6, y: y0 - .6, w: b.w + 1.2, d: b.d + 1.2 }, N ? '#1f4a3a' : '#6cc45e'); // pelouse
+    quad({ x: x0 - .42, y: y0 - .42, w: b.w + .84, d: b.d + .84 }, N ? '#1d3a4a' : '#5f8f6e'); // douves vertes
+    for (var k = 0; k < 14; k++) quad({ x: x0 - .3 + hash(k) * (b.w + .6), y: Y1 + .12 + hash(k + 5) * .2, w: .14, d: .02 }, N ? '#2f5a6e' : '#86b597');
+    tourRonde(x0, y0, .42, 34); prism({ x: x0, y: y0, w: b.w, d: .25 }, 26, wall[0], wall[1], wall[2]); prism({ x: x0, y: y0, w: .25, d: b.d }, 26, wall[0], wall[1], wall[2]); // tour et remparts du fond
+    gable(x0 + .45, y0 + .35, 1.9, .8, 56, 30, white); // Grand Logis
+    [.55, 1.1, 1.65].forEach(function (dx) { var e = W3(x0 + .45 + dx, y0 + 1.15, 56); // lucarnes à pinacles
+      R(e[0] - 4, e[1] - 12, 9, 12, white[0]); R(e[0] - 2, e[1] - 10, 5, 7, '#3a4256'); for (var r = 0; r < 7; r++) R(e[0] - 4 + Math.ceil(r * .6), e[1] - 13 - r, 9 - 2 * Math.ceil(r * .6), 1, white[0]); R(e[0], e[1] - 23, 1, 4, white[2]); R(e[0] - 5, e[1] - 16, 1, 5, white[2]); R(e[0] + 5, e[1] - 16, 1, 5, white[2]); });
+    var lt = W3(x0 + .8, y0 + .75, 86); R(lt[0] - 2, lt[1] - 10, 5, 10, N ? '#2c3348' : '#4b5568'); R(lt[0] - 1, lt[1] - 15, 3, 5, N ? '#3c4560' : '#6b7590'); R(lt[0], lt[1] - 20, 1, 5, '#8a8a8a'); // lanternon
+    var fg = W3(x0 + 2.0, y0 + .75, 86); R(fg[0], fg[1] - 16, 1, 16, '#777'); for (var r2 = 0; r2 < 9; r2++) R(fg[0] + 1, fg[1] - 16 + r2, 13, 1, r2 % 2 ? '#ffffff' : '#111'); R(fg[0] + 1, fg[1] - 16, 6, 5, '#ffffff'); R(fg[0] + 2, fg[1] - 15, 1, 1, '#111'); R(fg[0] + 5, fg[1] - 15, 1, 1, '#111'); R(fg[0] + 3, fg[1] - 13, 1, 1, '#111'); // Gwenn-ha-du
+    tourRonde(X1, y0, .42, 34); tourRonde(x0, Y1, .42, 34);
+    prism({ x: X1 - .25, y: y0, w: .25, d: b.d }, 26, wall[0], wall[1], wall[2]); // rempart droit
+    var fw = { x: x0, y: Y1 - .25, w: b.w, d: .25 }; prism(fw, 26, wall[0], wall[1], wall[2]); var L = faceL(fw); // rempart de devant
+    for (var u = 0; u < L.len; u += 3) fr(L, u, 22, 1, 3, wall[2]); for (u = 1; u < L.len; u += 4) fr(L, u, 26, 2, 3, wall[1]); for (var v = 4; v < 22; v += 5) fr(L, 0, v, L.len, 1, mix(wall[1], '#000000', .1));
+    // pont de pierre à arches, vers la porte entre les deux tours d'entrée
+    var br = { x: x0 + 1.18, y: Y1, w: .44, d: .7 }; prism(br, 9, N ? '#8e88a8' : '#d4c9ad', wall[1], wall[2]); var bf = faceR(br); for (var a3 = 0; a3 < 2; a3++) arch(bf, 2 + a3 * 9, 0, 6, 1, '#2a3a3a', '#2a3a3a');
+    fr(faceL(br), 0, 9, faceL(br).len, 1, wall[2]);
+    var gt = W3(x0 + 1.4, Y1, 0); for (var gv = 0; gv < 18; gv++) { var gw = gv < 12 ? 4 : Math.round(4 - (gv - 12) * .7); R(gt[0] - gw, gt[1] - gv - 9, 2 * gw, 1, '#2a2320'); } // porte
+    tourRonde(x0 + 1.0, Y1, .3, 40); tourRonde(x0 + 1.8, Y1, .3, 40); tourRonde(X1, Y1, .46, 36);
+  }
+  function chateau(b, t) { cached(b, 'chateau', function () { chateauStatic(b); }); var sg = W3(b.x + b.w + .45, b.y + b.d + .5, 0); R(sg[0], sg[1] - 9, 1, 9, '#555'); R(sg[0] - 13, sg[1] - 16, 27, 8, N ? '#1a0f2e' : '#1b2fbf'); T('NANTES', sg[0] - 11, sg[1] - 14, '#ffffff'); }
+  /* ---------- Défilé Comme des Garçons : podium, mannequins, photographes et flashs, public, Karl Lagerfeld et Anna Wintour au premier rang ---------- */
+  function fashionShow(b, t) {
+    var x0 = b.x, y0 = b.y, ph = reduce ? 0 : t / 1000;
+    quad({ x: x0, y: y0, w: b.w, d: b.d }, N ? '#15121f' : '#2a2a30'); // sol de la salle
+    var wall = { x: x0, y: y0 + .25, w: .14, d: b.d - .5 }; prism(wall, 36, '#111', '#1a1a1a', '#0d0d0d'); var wf = faceR(wall);
+    ftext2(wf, 6, 22, 'COMME DES', '#ffffff', 1); ftext2(wf, 10, 13, 'GARCONS', '#ffffff', 1); fr(wf, 4, 6, wf.len - 8, 1, '#ffffff'); // fond de scène
+    function row(y, fromX, looks, names, lift) { for (var k = 0; k < looks.length; k++) { var q = P(fromX + k * .48, y); R(q[0] - 5, q[1] - 6 - lift, 10, 3 + lift, '#3a3a40'); drawPerson(q[0], q[1] - 1 - lift, looks[k], k + 5, false, 0); if (names && names[k]) { R(q[0] - 8, q[1] - lift - 1, 17, 7, '#ffffff'); T(names[k], q[0] - 7, q[1] - lift, '#111'); } } }
+    row(y0 + .3, x0 + .55, ['corporate', 'mode', 'etudiant', 'mode', 'corporate'], null, 10); // gradin du haut
+    row(y0 + .72, x0 + .45, ['mode', 'anna', 'karl', 'corporate', 'mode'], [0, 'ANNA', 'KARL'], 0); // premier rang
+    prism({ x: x0 + .3, y: y0 + 1.15, w: b.w - .45, d: .55 }, 4, '#f4f4f4', '#d9d9de', '#bdbdc4'); // podium blanc
+    for (var m = 0; m < 4; m++) { // mannequins : aller sur un côté du podium, retour de l'autre
+      var p2 = (ph * .09 + m / 4) % 1, out = p2 < .5, f = out ? p2 * 2 : (p2 - .5) * 2, mx = out ? x0 + .45 + f * (b.w - .7) : x0 + .45 + (1 - f) * (b.w - .7), my = y0 + (out ? 1.55 : 1.32), q = P(mx, my);
+      drawPerson(q[0], q[1] - 4, ['cdgA', 'cdgB', 'cdgC', 'cdgA'][m], m + 1, !out, reduce ? 0 : ((t / 160 + m) | 0) % 4);
+    }
+    for (var rl = 0; rl < 9; rl++) { var rq = P(x0 + .3 + rl * .3, y0 + 2.0); R(rq[0], rq[1] - 6, 1, 6, '#888'); } var r0 = P(x0 + .3, y0 + 2.0), r1 = P(x0 + 2.7, y0 + 2.0); for (var rx = 0; rx <= r1[0] - r0[0]; rx++) R(r0[0] + rx, r0[1] - 6 + rx / 2, 1, 1, '#b9b9c0'); // barrière
+    for (var k = 0; k < 4; k++) { // photographes au bout du podium, flashs au hasard
+      var q2 = P(x0 + b.w - .1, y0 + 1.0 + k * .24); drawPerson(q2[0], q2[1], 'photo', k + 2, true, 0);
+      if (!reduce && hash(k * 13 + (t / 120 | 0)) > .9) A(.9, function () { disc(q2[0] - 6, q2[1] - 19, 4, '#ffffff'); }); }
+    if (N || !reduce) [[.6, 0], [1.4, 1], [2.2, 2]].forEach(function (s3) { var q = P(x0 + s3[0], y0 + 1.3), a = Math.sin(t / 900 + s3[1]) * .25; A(.12, function () { g.fillStyle = '#fff6c8'; g.beginPath(); g.moveTo(q[0] + Math.sin(a) * 60, q[1] - 70); g.lineTo(q[0] - 8, q[1] - 3); g.lineTo(q[0] + 8, q[1] - 3); g.fill(); }); }); // projecteurs
+  }
+  function arch(f, u0, v0, wd, hb, c, c2) { var r = wd / 2; for (var i = 0; i < wd; i++) { var dx = i + .5 - r, top = Math.round(Math.sqrt(Math.max(0, r * r - dx * dx))); fr(f, u0 + i, v0, 1, hb + top, (i % 4 === 0) ? c2 : c); } }
+  function station(b, t) { // la gare : façade à grandes arches, horloge, panneau des départs, train qui arrive et repart
+    var p = pal(b.k), L = faceL(b), Rf = faceR(b), glass = N ? '#ffd98a' : '#9ec9f0', rib = N ? '#a8873a' : '#6b7c8f';
+    prism(b, b.h, p[0], p[1], p[2]);
+    [L, Rf].forEach(function (f, side) { fr(f, 0, b.h - 3, f.len, 3, mix(side ? p[2] : p[1], '#000000', .25)); fr(f, 0, b.h - 4, f.len, 1, N ? '#6a6490' : '#ffffff'); });
+    var vault = { x: b.x + .3, y: b.y + .25, w: b.w - .6, d: b.d - .5 }; // verrière en berceau sur le toit
+    for (var k = 0; k < 7; k++) prism({ x: vault.x, y: vault.y + k * vault.d / 7, w: vault.w, d: vault.d / 7 }, Math.round(9 * Math.sin((k + .5) / 7 * Math.PI)), glass, rib, rib, b.h);
+    arch(L, 6, 4, 14, 14, glass, rib); arch(L, 36, 4, 14, 14, glass, rib); arch(L, 66, 4, 14, 14, glass, rib); // grandes baies
+    fr(L, 24, 0, 9, 13, '#3a2a22'); fr(L, 54, 0, 9, 13, '#3a2a22');
+    fr(L, 24, 28, 38, 9, N ? '#1a0f2e' : '#1b2fbf'); ftext(L, 35, 30, 'GARE', '#ffffff');
+    circleOn(L, 43, b.h - 1, 6, '#f7f2e6'); circleOn(L, 43, b.h - 1, 5, '#ffffff'); fr(L, 43, b.h - 1, 1, 4, '#111'); // horloge
+    var mn = reduce ? 2 : (t / 1000 * 6 | 0) % 12; fr(L, 43 + [0, 1, 2, 3, 2, 1, 0, -1, -2, -3, -2, -1][mn], b.h - 1 + [3, 3, 2, 0, -2, -3, -3, -3, -2, 0, 2, 3][mn], 1, 1, '#c0392b');
+    fr(Rf, 4, 8, 44, 32, '#0d0d12'); fr(Rf, 4, 38, 44, 2, '#333'); ftext(Rf, 7, 32, 'DEPARTS', '#ffffff'); // panneau des départs
+    ['LONDON', 'AMSTERDAM', 'BERLIN', 'PRAHA', 'WIEN'].forEach(function (c, i) { var on = reduce || ((t / 600 | 0) + i) % 9; ftext(Rf, 7, 25 - i * 4.4 | 0, c, on ? '#ffd23f' : '#7a6420'); });
+    // quais et train (aller-retour en 14 s)
+    var ty = b.y + b.d + .22, rail = N ? '#77749a' : '#8a8f99'; quad({ x: b.x - .1, y: ty + .08, w: b.w + .2, d: .04 }, rail); quad({ x: b.x - .1, y: ty + .34, w: b.w + .2, d: .04 }, rail);
+    var ph = reduce ? 6 : (t / 1000) % 14, e = function (x) { return x * x * (3 - 2 * x); }, pos = ph < 4 ? 1 - e(ph / 4) : ph < 9 ? 0 : ph < 13 ? e((ph - 9) / 4) : 1;
+    if (ph < 13.5) A(pos > .85 ? (1 - pos) / .15 : 1, function () {
+      var tr = { x: b.x + .05 + pos * 1.4, y: ty, w: 2.1, d: .42 }; prism(tr, 11, '#f4f4f4', '#e8e8ee', '#c9ccd3');
+      var tl = faceL(tr), trr = faceR(tr); fr(tl, 0, 3, tl.len, 2, '#1b2fbf'); for (var u = 3; u < tl.len - 4; u += 6) fr(tl, u, 6, 4, 3, N ? '#ffe9a8' : '#4d6f96'); fr(trr, 1, 5, trr.len - 2, 4, '#4d6f96'); fr(trr, 0, 3, trr.len, 2, '#1b2fbf');
+    });
+  }
+  function airport(b, t) { // l'aéroport : terminal vitré, tour de contrôle avec radar, avion au sol
+    var p = pal(b.k), L = faceL(b), Rf = faceR(b);
+    prism(b, b.h, p[0], p[1], p[2]); fr(L, 2, 4, L.len - 4, 9, N ? '#ffd98a' : '#9ec9f0'); fr(Rf, 2, 4, Rf.len - 4, 9, N ? '#e8c47a' : '#7fb1dc');
+    fr(L, 4, b.h - 6, 38, 7, N ? '#1a0f2e' : '#1b2fbf'); ftext(L, 6, b.h - 5, 'AEROPORT', '#ffffff');
+    var sh = { x: b.x + b.w - .75, y: b.y + .2, w: .45, d: .45 }; prism(sh, 62, '#e8e8ee', '#c9ccd3', '#a9afb9', b.h);
+    var cab = { x: sh.x - .15, y: sh.y - .15, w: .75, d: .75 }; prism(cab, 9, '#3a4256', N ? '#ffd98a' : '#4fa3c7', N ? '#e8c47a' : '#3b88b0', b.h + 62); prism({ x: cab.x - .05, y: cab.y - .05, w: .85, d: .85 }, 2, '#c9ccd3', '#a9afb9', '#8a909b', b.h + 71);
+    var c = center(cab, b.h + 73), a = reduce ? 0 : t / 500; R(c[0], c[1] - 6, 1, 6, '#555'); R(c[0] - Math.round(Math.cos(a) * 4), c[1] - 7, 1 + Math.round(Math.abs(Math.cos(a)) * 7), 2, '#e8e8ee'); // radar
+    if (N && (t / 700 | 0) % 2) R(c[0], c[1] - 9, 1, 2, '#ff3b3b');
+    var py = b.y + b.d + .9, px = b.x + .5; // avion au sol, face à la piste
+    quad({ x: b.x - .1, y: b.y + b.d + .2, w: b.w + .2, d: 1.6 }, N ? '#2a2846' : '#b9bcc4'); for (var k = 0; k < 6; k++) quad({ x: b.x + .1 + k * .58, y: b.y + b.d + 1.65, w: .3, d: .05 }, '#f4f4f4');
+    quad({ x: px + .9, y: py - .75, w: .45, d: 1.9 }, '#dfe3ea', 3); // ailes
+    var fus = { x: px, y: py, w: 2.3, d: .32 }; prism(fus, 6, '#ffffff', '#f2f2f2', '#d6d9df', 1); var fl = faceL(fus); for (var u = 6; u < fl.len - 6; u += 3) fr(fl, u, 3, 1, 1, '#4d6f96'); fr(fl, 0, 1, fl.len, 1, '#1b2fbf');
+    prism({ x: px, y: py + .07, w: .35, d: .18 }, 9, '#1b2fbf', '#1b2fbf', '#14248f', 7); // dérive
+  }
+  function cinema(b, t) { // le cinéma : marquise lumineuse, enseigne verticale, affiches des films préférés (Letterboxd)
+    var p = pal(b.k), L = faceL(b), Rf = faceR(b), gold = '#d4af37', on = reduce ? 0 : (t / 220 | 0) % 2;
+    prism(b, b.h, p[0], p[1], p[2]); [L, Rf].forEach(function (f) { fr(f, 0, b.h - 2, f.len, 2, gold); for (var v = 8; v < b.h - 6; v += 9) fr(f, 0, v, f.len, 1, mix(p[1], gold, .25)); });
+    fr(L, 6, 1, 10, 15, '#111'); fr(L, 56, 1, 10, 15, '#111'); var tk = reduce ? 0 : (t / 4000 | 0);
+    faceCover(FILMS[tk % FILMS.length], L, 7, 2, 8, 13); faceCover(FILMS[(tk + 5) % FILMS.length], L, 57, 2, 8, 13); // vitrines d'affiches
+    fr(L, 24, 0, 24, 12, '#2a1a12'); fr(L, 24, 0, 24, 1, gold);
+    fr(L, 2, 17, L.len - 4, 10, '#111'); for (var u = 2; u < L.len - 2; u += 2) { fr(L, u, 26, 1, 1, (u / 2 + on) % 2 ? '#ffe9a8' : '#7a5a10'); fr(L, u, 17, 1, 1, (u / 2 + on) % 2 ? '#7a5a10' : '#ffe9a8'); } // marquise
+    ticker(L, 4, 19, L.len - 8, 'CE SOIR : RAGING BULL - LAS VEGAS PARANO - 37 2 LE MATIN - MEMORIES OF MURDER - ', t, '#ffd23f');
+    fr(L, 10, 30, 52, 16, '#0d0d12'); faceCover(FILMS[(tk + 2) % FILMS.length], L, 11, 31, 10, 14); faceCover(FILMS[(tk + 3) % FILMS.length], L, 31, 31, 10, 14); faceCover(FILMS[(tk + 4) % FILMS.length], L, 51, 31, 10, 14);
+    var cs = corners(b).s, bx = Math.round(cs[0]) - 3, by = Math.round(cs[1]) - b.h - 22; R(bx, by, 7, 44, '#b3202f'); R(bx, by, 7, 1, gold); R(bx, by + 43, 7, 1, gold); // enseigne verticale
+    'CINEMA'.split('').forEach(function (ch, i) { T(ch, bx + 2, by + 3 + i * 7, N && (on || i % 2) ? '#fff3a0' : '#ffffff'); });
+    if (N) A(.25, function () { R(bx - 3, by - 3, 13, 50, '#ff7a7a'); });
+  }
+  function skyPlane(t) { // avion qui décolle et traverse le ciel, avec sa traînée
+    if (reduce) return; var per = 24000, ph = (t % per) / per; if (ph > .55) return;
+    var x = W + 40 - ph / .55 * (W + 120), y = TOPA + 130 - ph / .55 * 90;
+    for (var k = 1; k < 40; k++) A(.5 * (1 - k / 40), function () { R(x + 10 + k * 3, y + 1 + k * 1.2, 3, 1, N ? '#9a97c0' : '#ffffff'); });
+    R(x - 9, y, 20, 3, N ? '#c9ccd3' : '#ffffff'); R(x - 11, y + 1, 2, 2, N ? '#c9ccd3' : '#ffffff'); R(x - 3, y - 4, 6, 4, N ? '#a9afb9' : '#e8e8ee'); R(x - 2, y + 3, 7, 3, N ? '#a9afb9' : '#e8e8ee'); R(x + 8, y - 5, 3, 5, '#1b2fbf'); R(x - 6, y + 1, 12, 1, '#4d6f96');
+    if (N && (t / 400 | 0) % 2) { R(x - 3, y - 5, 1, 1, '#ff3b3b'); R(x + 1, y + 6, 1, 1, '#7dff8a'); }
   }
   function hifiShop(b, t) { // boutique hi-fi : enceintes en vitrine, casque géant sur le toit
     detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
@@ -664,6 +780,11 @@
     chanteuse: { hair: '#111111', top: '#d4af37', bot: '#d4af37', shoe: '#111111', dress: 1, long: 1 },
     batteur: { hair: '#6b4423', top: '#2a9d8f', bot: '#1a1a2e', shoe: '#111111', cap: '#111111' },
     photo: { hair: '#111111', top: '#2b2b30', bot: '#3a5a8c', shoe: '#111111', camera: 1 },
+    cdgA: { hair: '#111111', top: '#111111', bot: '#111111', shoe: '#111111', dress: 1 },
+    cdgB: { hair: '#2b1a0e', top: '#f2f2f2', bot: '#f2f2f2', shoe: '#111111', dress: 1, long: 1 },
+    cdgC: { hair: '#111111', top: '#b3202f', bot: '#111111', shoe: '#111111', coat: 1 },
+    karl: { hair: '#f2f2f2', top: '#111111', bot: '#111111', shoe: '#111111', glasses: 1, collar: 1, pony: 1 },
+    anna: { hair: '#6b4a2b', top: '#c9a227', bot: '#c9a227', shoe: '#111111', dress: 1, glasses: 1, bob: 1 },
     kid2: { hair: '#8d5524', top: '#e63946', bot: '#2a9d8f', shoe: '#ffffff', kid: 1 },
     kid3: { hair: '#111111', top: '#4361ee', bot: '#ffd60a', shoe: '#222222', kid: 1, cap: '#ffd60a' }
   };
@@ -684,7 +805,9 @@
     R(6, hy + 2, 5, 5, s); R(7, hy + 7, 3, 1, s); R(7, hy + 3, 1, 2, sh); R(11, hy + 4, 1, 1, s);
     R(9, hy + 3, 1, 1, '#1a1a2e'); R(9, hy + 5, 1, 1, mix(s, '#7a3b2e', .5));
     R(6, hy, 5, 2, o.hair); R(5, hy + 1, 2, 4, o.hair); R(10, hy + 1, 1, 1, o.hair);
-    if (o.glasses) R(9, hy + 3, 2, 1, '#111');
+    if (o.glasses) R(8, hy + 3, 3, 1, '#111');
+    if (o.pony) R(4, hy + 2, 2, 4, o.hair);
+    if (o.bob) { R(5, hy + 2, 2, 5, o.hair); R(10, hy + 1, 1, 2, o.hair); }
     if (o.cap) { R(5, hy - 1, 6, 2, o.cap); R(10, hy + 1, 2, 1, o.cap); }
     if (o.helmet) { R(5, hy - 2, 6, 3, o.helmet); R(4, hy + 1, 8, 1, mix(o.helmet, '#000000', .15)); R(6, hy - 2, 2, 1, '#fff4a8'); }
     R(7, hy + 8, 2, 1, sh); // cou
@@ -693,6 +816,7 @@
     if (o.pack) { R(2, ty, 3, 7, o.pack); R(2, ty, 3, 1, mix(o.pack, '#ffffff', .3)); R(3, ty + 3, 1, 2, mix(o.pack, '#000000', .3)); }
     R(5, ty, 6, tl, o.top); R(5, ty, 1, tl, ts); R(6, ty, 4, 1, hi);
     if (o.dress) { R(4, ty + 6, 8, 4, o.top); R(4, ty + 6, 1, 4, ts); R(5, ty + 4, 6, 1, mix(o.top, '#000000', .4)); }
+    if (o.collar) { R(7, ty - 1, 4, 3, '#ffffff'); R(8 + sw, ty + 6, 2, 1, '#111'); }
     if (o.shirt) { R(9, ty, 2, 2, o.shirt); R(10, ty + 1, 1, 4, o.tie); R(8, ty + 2, 1, 1, ts); }
     if (o.apron) { R(7, ty + 2, 4, 8, o.apron); R(8, ty, 1, 2, o.apron); R(7, ty + 4, 4, 1, mix(o.apron, '#ffffff', .3)); }
     if (o.vest) { R(5, ty + 3, 6, 1, '#e8f0e8'); R(5, ty + 5, 6, 1, '#e8f0e8'); }
@@ -729,16 +853,16 @@
 
   /* ---------- Qui va où : chaque profil a ses bâtiments ---------- */
   var CLASSES = {
-    corporate: { n: 5, v: .55, go: ['competences', 'cv', 'annexes', 'vision-board', 'contact'] },
-    etudiant: { n: 5, v: .7, go: ['a-propos', 'projets', 'vision-board', 'animation', 'annexes'] },
+    corporate: { n: 5, v: .55, go: ['competences', 'cv', 'annexes', 'vision-board', 'contact', 'voyage'] },
+    etudiant: { n: 5, v: .7, go: ['a-propos', 'projets', 'vision-board', 'animation', 'annexes', 'voyage'] },
     enfant: { n: 5, v: .75, go: ['a-propos', 'animation', 'garde'] },
     commercant: { n: 3, v: .5, go: ['vision-board', 'animation', 'garde'] },
     facteur: { n: 2, v: .6, go: ['la-poste', 'garde', 'a-propos', 'annexes', 'competences'] },
     ouvrier: { n: 3, v: .55, go: ['la-poste', 'projets'] },
     mode: { n: 3, v: .6, go: ['vision-board', 'competences', 'cv'] }
   };
-  var VB = ['vision-board', 'vb-club', 'vb-mode', 'vb-disques'];
-  function spotOf(doc) { return doc === 'vision-board' ? VB[(Math.random() * VB.length) | 0] : doc; }
+  var VB = ['vision-board', 'vb-club', 'vb-mode', 'vb-disques', 'vb-cinema', 'vb-defile'], VOY = ['voyage', 'voyage-air'];
+  function spotOf(doc) { return doc === 'vision-board' ? VB[(Math.random() * VB.length) | 0] : doc === 'voyage' ? VOY[(Math.random() * 2) | 0] : doc; }
   function route(a, b) { // déplacement par les rues (lignes 4,5 et 9,5)
     var aV = Math.abs(a[0] - road(a[0])) < .01, bV = Math.abs(b[0] - road(b[0])) < .01, pts = [a];
     function near(v) { return road(v); }
@@ -823,7 +947,7 @@
     people.forEach(function (p) { if (!p.path) return; var s = P(p.x, p.y); items.push([p.x + p.y + .3, function () { drawPerson(s[0] + (p.k % 3 - 1) * 3, s[1] + 2, p.cl === 'enfant' ? ['enfant', 'kid2', 'kid3'][p.k % 3] : p.cl, p.k, p.flip, reduce ? 0 : ((t / 170 + p.k) | 0) % 4); }]); });
     items.sort(function (a, b) { return a[0] - b[0]; }).forEach(function (it) { it[1](); });
     if (N) { g.globalCompositeOperation = 'lighter'; g.drawImage(glow, 0, 0); g.globalCompositeOperation = 'source-over'; }
-    blimp(t);
+    blimp(t); skyPlane(t);
     g.drawImage(vig, 0, 0);
     var hb = hover && bySpot[hover];
     if (hb && hb.box) {
@@ -920,6 +1044,7 @@
         win.animate([{ transform: 'scale(.08)', opacity: .2 }, { transform: 'scale(1)', opacity: 1 }], { duration: 320, easing: 'steps(7, end)' });
       }
     }
+    var sc = from && from.dataset && { 'vb-cinema': '.vb-cine' }[from.dataset.spot]; if (sc) { var el2 = body.querySelector(sc); if (el2) setTimeout(function () { el2.scrollIntoView({ block: 'start' }); }, 30); }
     history.replaceState(null, '', '#' + id);
     if (id === 'cv') renderCV();
     return true;

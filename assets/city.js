@@ -430,7 +430,7 @@
     for (var i = 0; i < txt.length * 2; i++) { var u = i * 4 - off; if (u < 0 || u > len - 4) continue; var gl = F[txt[i % txt.length]] || F[' ']; for (var p = 0; p < 15; p++) if (gl[p] === '1') fr(f, u0 + u + p % 3, v + (4 - ((p / 3) | 0)), 1, 1, c); }
   }
   var TICK = 'PAUL SIGNE - MON VISION BOARD - SEUL ON VA PLUS VITE - ENSEMBLE ON VA PLUS LOIN - ALLEZ NANTES - SON + MODE + CINEMA - ';
-  var WORDS = ['LIVE', 'SON', 'MODE', 'NYC', 'TOKYO', 'PARIS', 'BREIZH', 'MUSIC', 'FOOT', 'HI-FI', 'NANTES', 'LONDON', 'BERLIN', 'PRAHA', 'WIEN', 'CINEMA'], WCOL = ['#ff2e88', '#1b2fbf', '#ffd84a', '#18c29c', '#ff7a1a', '#7a3cff'];
+  var WORDS = ['LIVE', 'SON', 'MODE', 'NYC', 'TOKYO', 'PARIS', 'BREIZH', 'MUSIC', 'FOOT', 'HI-FI', 'NANTES', 'LONDON', 'CINEMA'], WCOL = ['#ff2e88', '#1b2fbf', '#ffd84a', '#18c29c', '#ff7a1a', '#7a3cff'];
   var PH = ['p-lv', 'p-hermes', 'p-dior', 'p-kef', 'p-beo', 'p-defile'];
   function screenOn(f, u0, v0, sw, sh, kind, seed, t) { // contenu d'un écran publicitaire, change toutes les quelques secondes
     var tick = reduce ? 0 : (t / 3200 | 0) + seed, col = WCOL[tick % WCOL.length];
@@ -638,7 +638,7 @@
     circleOn(L, 43, b.h - 1, 6, '#f7f2e6'); circleOn(L, 43, b.h - 1, 5, '#ffffff'); fr(L, 43, b.h - 1, 1, 4, '#111'); // horloge
     var mn = reduce ? 2 : (t / 1000 * 6 | 0) % 12; fr(L, 43 + [0, 1, 2, 3, 2, 1, 0, -1, -2, -3, -2, -1][mn], b.h - 1 + [3, 3, 2, 0, -2, -3, -3, -3, -2, 0, 2, 3][mn], 1, 1, '#c0392b');
     fr(Rf, 4, 8, 44, 32, '#0d0d12'); fr(Rf, 4, 38, 44, 2, '#333'); ftext(Rf, 7, 32, 'DEPARTS', '#ffffff'); // panneau des départs
-    ['LONDON', 'AMSTERDAM', 'BERLIN', 'PRAHA', 'WIEN'].forEach(function (c, i) { var on = reduce || ((t / 600 | 0) + i) % 9; ftext(Rf, 7, 25 - i * 4.4 | 0, c, on ? '#ffd23f' : '#7a6420'); });
+    ['LONDON', 'PARIS', 'NANTES', 'NYC', 'TOKYO'].forEach(function (c, i) { var on = reduce || ((t / 600 | 0) + i) % 9; ftext(Rf, 7, 25 - i * 4.4 | 0, c, on ? '#ffd23f' : '#7a6420'); });
     // quais et train (aller-retour en 14 s)
     var ty = b.y + b.d + .22, rail = N ? '#77749a' : '#8a8f99'; quad({ x: b.x - .1, y: ty + .08, w: b.w + .2, d: .04 }, rail); quad({ x: b.x - .1, y: ty + .34, w: b.w + .2, d: .04 }, rail);
     var ph = reduce ? 6 : (t / 1000) % 14, e = function (x) { return x * x * (3 - 2 * x); }, pos = ph < 4 ? 1 - e(ph / 4) : ph < 9 ? 0 : ph < 13 ? e((ph - 9) / 4) : 1;

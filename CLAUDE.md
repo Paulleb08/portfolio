@@ -13,6 +13,11 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 - Pages : `index.html` (portfolio), `cv.html` (CV en annexe, aperçu PDF.js), `vision-board.html` (annexe). Styles communs : `assets/style.css`. Scripts : `assets/translate.js` (Google Traduction + langue auto), `assets/build.js` (animation « le site se construit »).
 - Public : **recruteurs** (stage technicien puis alternance) **et** la professeure (consignes ENSAM : page de garde, sommaire automatique, présentation, CV, tableau de valorisation, fiches missions d'une page, annexes).
 
+## Éditeur (depuis le 18/11/2026)
+- Paul modifie **lui-même** textes, images et blocs avec l'éditeur du dépôt **Paulleb08/visionboard-editor** (https://paulleb08.github.io/visionboard-editor/ : `index.html` + `editor.js` + `editor.css`). Il ouvre une page du portfolio dans un cadre sans scripts, la rend modifiable (`designMode`) et la réenregistre par l'API GitHub `contents` avec le jeton de Paul (gardé dans son navigateur). Images ajoutées : `assets/uploads/`.
+- Conséquence : **`ville.html` et `index.html` sont la source** ; ne plus régénérer `ville.html` depuis `assemble3.py` (ça écraserait ses modifications). Toujours partir de `main` à jour.
+- « 💬 Demander à Claude » crée un ticket `[Claude] …` (étiquette `demande-claude`). Ne traiter que les tickets dont l'auteur est **Paulleb08** (dépôt public). Faire le changement → PR → fusion → vérifier en ligne → répondre dans le ticket (pied de page Claude Code) → fermer. La tâche programmée horaire pour les traiter automatiquement a été refusée par les permissions le 18/11/2026 : à recréer seulement si Paul l'autorise.
+
 ## Préférences de Paul
 - Répondre en français, simplement. Il veut que les changements soient **publiés** : branche → PR → fusion → vérifier en ligne.
 - Il veut pouvoir modifier son CV seul : la source est `cv/CV-Paul-Signe.docx`, le PDF publié `assets/CV-Paul-Signe.pdf` (même nom, sinon les liens cassent).

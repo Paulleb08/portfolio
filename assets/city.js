@@ -3,7 +3,7 @@
    Chaque bâtiment ouvre une fenêtre interne ; des habitants vont de bâtiment en bâtiment selon leur profil. */
 (function () {
   'use strict';
-  var HW = 24, HH = 12, M = 14, BACK = -16, CORE_W = 760, CORE_H = 610, CORE_TOP = 250;
+  var HW = 24, HH = 12, M = 14, BACK = -16, CORE_W = 1250, CORE_H = 615, CORE_TOP = 285;
   var cv = document.getElementById('city');
   if (!cv) return;
   var g = cv.getContext('2d'), stage = cv.parentNode, scroller = stage.parentNode, hud = document.querySelector('.hud'), titleEl = document.querySelector('.city-title');
@@ -23,7 +23,7 @@
   }
 
   // Police pixel 3×5 pour les enseignes
-  var F = { A: '010101111101101', B: '110101110101110', C: '011100100100011', D: '110101101101110', E: '111100110100111', F: '111100110100100', G: '011100101101011', H: '101101111101101', I: '111010010010111', J: '001001001101010', K: '101101110101101', L: '100100100100111', M: '101111111101101', N: '110101101101101', O: '010101101101010', P: '110101110100100', Q: '010101101110011', R: '110101110101101', S: '011100010001110', T: '111010010010010', U: '101101101101111', V: '101101101101010', W: '101101111111101', X: '101101010101101', Y: '101101010010010', Z: '111001010100111', '0': '111101101101111', '1': '010110010010111', '2': '110001010100111', '4': '101101111001001', '7': '111001010010010', '&': '011100010101011', '-': '000000111000000', "'": '010010000000000', '.': '000000000000010', ' ': '000000000000000' };
+  var F = { A: '010101111101101', B: '110101110101110', C: '011100100100011', D: '110101101101110', E: '111100110100111', F: '111100110100100', G: '011100101101011', H: '101101111101101', I: '111010010010111', J: '001001001101010', K: '101101110101101', L: '100100100100111', M: '101111111101101', N: '110101101101101', O: '010101101101010', P: '110101110100100', Q: '010101101110011', R: '110101110101101', S: '011100010001110', T: '111010010010010', U: '101101101101111', V: '101101101101010', W: '101101111111101', X: '101101010101101', Y: '101101010010010', Z: '111001010100111', '0': '111101101101111', '1': '010110010010111', '2': '110001010100111', '4': '101101111001001', '7': '111001010010010', '&': '011100010101011', '-': '000000111000000', "'": '010010000000000', '.': '000000000000010', ' ': '000000000000000', '3': '111001011001111', '5': '111100111001111', '6': '111100111101111', '8': '111101111101111', '9': '111101111001111', '/': '001001010100100', '!': '010010010000010', ':': '000010000010000', '+': '000010111010000', 'X': '101101010101101' };
   function norm(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase(); }
   function T(s, x, y, c, k) { k = k || 1; s = norm(s); for (var i = 0; i < s.length; i++) { var gl = F[s[i]] || F[' ']; for (var p = 0; p < 15; p++) if (gl[p] === '1') R(x + (i * 4 + p % 3) * k, y + ((p / 3) | 0) * k, k, k, c); } }
   function TL(s, k) { return s.length * 4 * (k || 1) - (k || 1); }
@@ -55,20 +55,29 @@
   function center(b, h) { var c = corners(b); return [(c.w[0] + c.e[0]) / 2, (c.n[1] + c.s[1]) / 2 - h]; }
 
   /* ---------- Cadrage : la ville remplit tout l'écran, le centre reste entier et lisible ---------- */
+  var Z = 1, TX = 0, TY = 0, Z0 = 1, VW = 0, VH = 0;
   function layout() {
     var vw = document.documentElement.clientWidth, vh = innerHeight, phone = vw < 720;
     if (titleEl && hud) titleEl.style.top = hud.offsetHeight + (phone ? 6 : 12) + 'px';
-    var top = (phone && titleEl ? titleEl.getBoundingClientRect().bottom : (hud ? hud.offsetHeight : 0)) + 4, bottom = phone ? 6 : 46;
-    var avail = Math.max(300, vh - top - bottom);
-    S = Math.min(vw / CORE_W, avail / CORE_H);
-    if (phone) S = Math.min(avail / CORE_H, 1.15); // sur téléphone : on fait glisser la ville
-    var sw = Math.max(vw, Math.round(CORE_W * S));
-    W = Math.ceil(sw / S); H = Math.ceil(vh / S); TOPA = (hud ? hud.offsetHeight : 0) / S; // haut visible du ciel, sous la barre
+    var top = (hud ? hud.offsetHeight : 0) + 4, bottom = phone ? 6 : 46, avail = Math.max(300, vh - top - bottom);
+    S = Math.min(vw / CORE_W, avail / CORE_H); // toute la bande des rubriques tient dans l'écran
+    W = Math.ceil(vw / S); H = Math.ceil(vh / S); TOPA = (hud ? hud.offsetHeight : 0) / S; // haut visible du ciel, sous la barre
     OX = Math.round(W / 2); OY = Math.round(top / S + (avail / S - CORE_H) / 2 + CORE_TOP);
-    cv.width = W; cv.height = H; stage.style.width = sw + 'px'; stage.style.height = vh + 'px';
-    if (sw > vw) scroller.scrollLeft = (sw - vw) / 2;
+    cv.width = W; cv.height = H; stage.style.width = vw + 'px'; stage.style.height = vh + 'px'; VW = vw; VH = vh;
+    var tb = phone && titleEl ? titleEl.getBoundingClientRect().bottom + 6 : top;
+    Z0 = phone ? Math.max(1, Math.min(4, (vh - tb - 6) / (CORE_H * S))) : 1; // téléphone : on part zoomé, on fait glisser
+    resetCam(tb);
   }
-
+  /* ---------- Caméra : zoom (molette, pincement, boutons) et déplacement (glisser), sans le zoom du navigateur ---------- */
+  function applyCam() {
+    Z = Math.max(1, Math.min(5, Z)); TX = Math.min(0, Math.max(VW - VW * Z, TX)); TY = Math.min(0, Math.max(VH - VH * Z, TY));
+    stage.style.transform = 'translate(' + TX + 'px,' + TY + 'px) scale(' + Z + ')'; stage.style.setProperty('--iz', 1 / Z);
+  }
+  function resetCam(tb) {
+    Z = Z0; var cy = (OY - CORE_TOP + CORE_H / 2) * S, ty = tb === undefined ? (hud ? hud.offsetHeight : 0) : tb;
+    TX = VW / 2 - Z * VW / 2; TY = ty + (VH - ty) / 2 - Z * cy; applyCam();
+  }
+  function zoomAt(cx, cy, nz) { nz = Math.max(1, Math.min(5, nz)); TX = cx - (cx - TX) * nz / Z; TY = cy - (cy - TY) * nz / Z; Z = nz; applyCam(); }
   /* ---------- Couleurs ---------- */
   var PAL = { // [jour, nuit] : dessus, face gauche, face droite
     glass: [['#bfe3f3', '#7fb8d8', '#5f9cc4'], ['#3a3270', '#2a2458', '#1f1a45']],
@@ -84,39 +93,47 @@
   function pal(n) { return PAL[n][N ? 1 : 0]; }
   var GLASSY = { glass: 1, teal: 1, dark: 1 };
 
-  /* ---------- Le centre : 3 × 3 pâtés de 4 × 4 cases, rues sur les lignes 4 et 9 (et toutes les 5 cases au-delà) ---------- */
+  /* ---------- Le plan : les rubriques s'étalent sur une bande de 18 pâtés de 4 × 4 cases (rues toutes les 5 cases) ----------
+     rangée du fond (x + y du pâté = 0) : grandes tours ; rangée de devant (= 3) : bâtiments bas. */
   var B = [ // doc = fenêtre ouverte ; spot = zone cliquable ; h = hauteur en pixels ; extra = ce qui dépasse du toit
-    { x: 0, y: 2, w: 2, d: 2, h: 60, k: 'white', doc: 'cv', draw: billboard, extra: 50 },
-    { x: 2, y: 0, w: 2, d: 2, h: 150, k: 'glass', doc: 'competences', draw: tower, extra: 82 },
-    { x: 0, y: 0, w: 1, d: 1, h: 26, k: 'grey', doc: 'contact', draw: radio, extra: 96, dr: [0.5, 4.5] },
-    { x: 5, y: 0, w: 2, d: 2, h: 92, k: 'brick', doc: 'vision-board', draw: coverBoard, extra: 58 },
-    { x: 7, y: 0, w: 2, d: 2, h: 70, k: 'dark', doc: 'vision-board', spot: 'vb-club', draw: club, extra: 18 },
-    { x: 5, y: 2, w: 2, d: 2, h: 44, k: 'black', doc: 'vision-board', spot: 'vb-mode', draw: couture, extra: 22 },
-    { x: 7, y: 2, w: 2, d: 2, h: 30, k: 'stone', doc: 'vision-board', spot: 'vb-disques', draw: records, extra: 8 },
-    { x: 10, y: 1, w: 3, d: 3, h: 60, k: 'brick', doc: 'a-propos', draw: school, extra: 14 },
-    { x: 13, y: 0, w: 1, d: 3, h: 86, k: 'glass', draw: speakerWall },
-    { x: 1, y: 5, w: 3, d: 3, h: 42, k: 'grey', doc: 'la-poste', draw: factory, extra: 40, below: 1 },
-    { x: 5, y: 5, w: 4, d: 4, h: 0, doc: 'animation', draw: park, extra: 26 },
-    { x: 10, y: 5, w: 3, d: 2, h: 46, k: 'white', doc: 'annexes', draw: archives, extra: 6, below: 1 },
-    { x: 13, y: 5, w: 1, d: 3, h: 58, k: 'brown', draw: atelier },
-    { x: 1, y: 10, w: 3, d: 2, h: 32, k: 'grey', doc: 'projets', draw: fablab, extra: 14 },
-    { x: 5, y: 10, w: 3, d: 2, h: 28, k: 'brown', draw: hifiShop, extra: 22 },
-    { x: 10, y: 10, w: 2, d: 2, h: 30, k: 'brick', doc: 'garde', draw: house, extra: 12, below: 1 },
-    { x: 12, y: 10, w: 2, d: 2, h: 40, k: 'white', draw: concert },
-    { x: 2.25, y: 2.25, w: 1.5, d: 1.5, h: 5, draw: bandstand },
-    { x: 7.05, y: 5.15, w: .5, d: .3, h: 0, draw: photoshoot },
-    { x: 8.45, y: 8.45, w: .3, d: .3, h: 0, draw: busker },
-    { x: 5.2, y: 12.25, w: .9, d: .5, h: 7, draw: vinylStall },
+    { x: -9, y: 11, w: 2, d: 2, h: 0, draw: eiffel, extra: 230 },
+    { x: -4, y: 5, w: 2, d: 2, h: 150, k: 'glass', doc: 'competences', draw: tower, extra: 82 },
+    { x: -2, y: 5, w: 1, d: 3, h: 86, k: 'glass', draw: speakerWall },
+    { x: 0, y: 0, w: 2, d: 2, h: 92, k: 'brick', doc: 'vision-board', draw: coverBoard, extra: 58 },
+    { x: 2, y: 0, w: 2, d: 2, h: 70, k: 'dark', doc: 'vision-board', spot: 'vb-club', draw: club, extra: 18 },
+    { x: 0, y: 2, w: 2, d: 2, h: 44, k: 'black', doc: 'vision-board', spot: 'vb-mode', draw: couture, extra: 22 },
+    { x: 2, y: 2, w: 2, d: 2, h: 30, k: 'stone', doc: 'vision-board', spot: 'vb-disques', draw: records, extra: 8 },
+    { x: 6, y: -4, w: 1, d: 1, h: 26, k: 'grey', doc: 'contact', draw: radio, extra: 96 },
+    { x: 8, y: -5, w: 1, d: 3, h: 58, k: 'brown', draw: atelier },
+    { x: 11, y: -9, w: 2, d: 2, h: 60, k: 'white', doc: 'cv', draw: billboard, extra: 50 },
+    { x: -5, y: 10, w: 3, d: 3, h: 60, k: 'brick', doc: 'a-propos', draw: school, extra: 14 },
+    { x: 0, y: 5, w: 2, d: 2, h: 40, k: 'white', draw: concert },
+    { x: 2.25, y: 5.25, w: 1.5, d: 1.5, h: 5, draw: bandstand },
+    { x: 5, y: 0, w: 3, d: 2, h: 32, k: 'grey', doc: 'projets', draw: fablab, extra: 14 },
+    { x: 5, y: 2, w: 3, d: 2, h: 28, k: 'brown', draw: hifiShop, extra: 22 },
+    { x: 10, y: -5, w: 3, d: 2, h: 46, k: 'white', doc: 'annexes', draw: archives, extra: 6 },
+    { x: -4, y: 15, w: 3, d: 3, h: 42, k: 'grey', doc: 'la-poste', draw: factory, extra: 40, below: 1 },
+    { x: 0, y: 10, w: 4, d: 4, h: 0, doc: 'animation', draw: park, extra: 26 },
+    { x: 2.05, y: 10.15, w: .5, d: .3, h: 0, draw: photoshoot },
+    { x: 3.45, y: 13.45, w: .3, d: .3, h: 0, draw: busker },
+    { x: 5.6, y: 5.6, w: 2.8, d: 2.8, h: 24, draw: chateau, extra: 40 },
+    { x: 11, y: 1, w: 2, d: 2, h: 84, k: 'dark', draw: screenTower, extra: 30 },
+    { x: 1, y: 15, w: 2, d: 2, h: 30, k: 'brick', doc: 'garde', draw: house, extra: 12, below: 1 },
+    { x: 0.2, y: 17.25, w: .9, d: .5, h: 7, draw: vinylStall },
+    { x: 5, y: 10, w: 2, d: 2, h: 40, k: 'white' },
     { x: 8, y: 12, w: 1, d: 1, h: 6, doc: 'plan', draw: metro, extra: 14, below: 1 }
   ];
-  var TREES = [[1.4, 1.3], [3.8, 2.1], [2.1, 3.8], [0.5, 8.5], [2.5, 8.6], [11.5, 7.6], [10.5, 8.5], [12.6, 8.5], [0.5, 12.6], [2, 12.8], [3.5, 12.6], [6.8, 12.6], [10.5, 12.8], [12.5, 12.7], [13.5, 13.4]];
+  var TREES = [[-9.6, 10.4], [-7.4, 10.5], [-9.5, 13.6], [-7.3, 13.5], [-4.6, 7.6], [-3.4, 8.5], [5.5, -2.4], [6.6, -1.5], [10.5, -6.6], [12.6, -6.5], [13.5, -8.4], [-1.5, 10.5], [-1.4, 12.6], [0.5, 8.5], [3.6, 8.6],
+    [8.6, 0.5], [8.6, 2.6], [10.5, -2.4], [12.6, -2.5], [13.6, -4], [-1.5, 15.5], [-1.4, 17.6], [3.6, 15.5], [3.6, 17.6], [6.6, 13.5], [7.6, 12.4], [10.4, 3.6], [13.6, 0.4]];
+  function blk(v) { return Math.floor(v / 5); }
+  function inBand(bx, by) { var s = bx + by, d = Math.abs(bx - by); return s >= 0 && s <= 3 && d <= 4; }
+  function bandDist(bx, by) { var s = bx + by, d = Math.abs(bx - by); return Math.max(0, -s, s - 3, Math.ceil((d - 4) / 2)); }
+  var LAND = {}; B.forEach(function (b) { LAND[blk(b.x + .01) + ',' + blk(b.y + .01)] = 1; });
+  function road(v) { return Math.round((v - 4.5) / 5) * 5 + 4.5; } // ligne de rue la plus proche
   B.forEach(function (b) { b.key = b.x + b.w / 2 + b.y + b.d / 2; b.door = b.dr || door(b); b.spot = b.spot || b.doc; });
-  function door(b) { // entrée côté rue la plus proche
-    if (b.x + b.w === 4 || b.x + b.w === 9) return [b.x + b.w + .5, b.y + b.d / 2];
-    if (b.y + b.d === 4 || b.y + b.d === 9) return [b.x + b.w / 2, b.y + b.d + .5];
-    if (b.x === 5 || b.x === 10) return [b.x - .5, b.y + b.d / 2];
-    if (b.y === 5 || b.y === 10) return [b.x + b.w / 2, b.y - .5];
-    return [b.x + b.w / 2, b.y + b.d + .5];
+  function door(b) { // entrée sur la rue la plus proche (devant le pâté)
+    var bx = blk(b.x + .01), by = blk(b.y + .01), fy = by * 5 + 4 - (b.y + b.d), fx = bx * 5 + 4 - (b.x + b.w);
+    return fy <= fx ? [b.x + b.w / 2, by * 5 + 4.5] : [bx * 5 + 4.5, b.y + b.d / 2];
   }
   var byDoc = {}, bySpot = {}; B.forEach(function (b) { if (b.doc && !byDoc[b.doc]) byDoc[b.doc] = b; if (b.doc) bySpot[b.spot] = b; });
 
@@ -145,20 +162,20 @@
   var FK = ['brick', 'brown', 'stone', 'grey', 'glass', 'teal', 'white', 'brick', 'brown', 'dark'];
   // Enseignes et panneaux de la ville sur les thèmes du vision board (peu nombreux : ça reste un outil pro)
   var SIGNS = ['VINYL', 'HI-FI', 'ATELIER', 'RECORDS', 'COUTURE', 'STUDIO', 'JAZZ', 'BOUTIQUE', 'DISQUES', 'TAILLEUR', 'VINTAGE', 'SOUND'];
-  var MURALS = { '-1,0': 'thriller', '0,-1': 'grad', '3,1': 'sade', '1,3': 'ram', '-2,1': 'seychelles', '1,-2': 'purple-rain', '4,1': 'astroworld', '1,4': 'college-dropout' };
-  var BOARDS = { '-1,1': 'grad', '3,-1': 'sade', '-2,2': 'hz', '4,0': 'vinyl', '-1,4': 'p-defile', '3,2': 'p-beo', '-3,3': 'p-kef', '5,-1': 'p-lv', '-2,5': 'sil-green', '2,-2': 'sil-pink', '4,4': 'morning-glory', '-3,0': 'discovery', '-1,3': 'legend', '3,-2': 'odyssee', '5,1': '808s', '-2,4': 'saw-85-92', '2,5': 'sil-orange', '-4,2': 'p-hermes', '4,-3': 'sil-blue', '0,-3': 'p-dior', '-4,4': 'runway', '6,0': 'fw' };
+  var BK = ['grad', 'p-lv', 'sil-pink', 'college-dropout', 'p-hermes', 'hz', 'thriller', 'sil-blue', 'p-kef', 'purple-rain', 'p-dior', 'sil-green', 'seychelles', 'p-beo', 'vinyl', 'astroworld', 'sil-orange', 'p-defile', 'runway', 'fw', 'sade', 'discovery', 'legend', '808s', 'odyssee', 'saw-85-92', 'morning-glory'];
+  var MU = ['thriller', 'grad', 'sade', 'ram', 'seychelles', 'purple-rain', 'astroworld', 'college-dropout', 'legend', 'discovery'];
+  var SK = ['alb', 'word', 'sil', 'photo', 'alb', 'ticker', 'word', 'photo'];
   var fill = [], deco = [];
   function genWorld() {
     fill = []; deco = [];
-    var bx0 = Math.floor(((-OX / HW) + BACK) / 10) - 2, bx1 = Math.ceil(((W - OX) / HW + (H - OY) / HH) / 10) + 2;
-    for (var bx = bx0 - 6; bx <= bx1 + 2; bx++) for (var by = bx0 - 6; by <= bx1 + 2; by++) {
-      if (bx >= 0 && bx <= 2 && by >= 0 && by <= 2) continue;
+    for (var bx = -16; bx <= 18; bx++) for (var by = -16; by <= 18; by++) {
+      var key = bx + ',' + by; if (LAND[key]) continue;
       var s = bx + by, x0 = bx * 5, y0 = by * 5; if (x0 + y0 < BACK) continue;
       var cp = P(x0 + 2, y0 + 2); if (cp[0] < -170 || cp[0] > W + 170 || cp[1] > H + 70 || cp[1] < -60) continue;
       var hs = function (n) { return hash(bx * 92.1 + by * 41.7 + n * 13.3); };
-      var cheb = Math.max(-bx, bx - 2, -by, by - 2, 0), side = Math.abs(bx - by) >= 4;
-      var hmax = side || s <= 0 ? 70 + Math.min(cheb, 4) * 35 : s >= 5 ? 30 : 40;
-      var fog = cheb <= 1 ? .3 : cheb === 2 ? .45 : .58, key = bx + ',' + by;
+      var dist = bandDist(bx, by), band = dist === 0;
+      var hmax = band ? (s <= 0 ? 150 : s === 1 ? 90 : s === 2 ? 66 : 40) : s < 0 ? 90 + Math.min(dist, 4) * 30 : s > 3 ? 32 : 70 + Math.min(dist, 3) * 25;
+      var fog = band ? 0 : dist === 1 ? .3 : dist === 2 ? .45 : .58;
       if (s >= 5 && hs(1) < .3) { deco.push({ t: 'green', x: x0, y: y0, fog: fog }); continue; } // petit square arboré
       var lots = [], r = hs(2);
       if (r < .25) lots.push([0, 0, 4, 4]); else if (r < .6) lots.push.apply(lots, hs(3) < .5 ? [[0, 0, 4, 2], [0, 2, 4, 2]] : [[0, 0, 2, 4], [2, 0, 2, 4]]); else lots.push([0, 0, 2, 2], [2, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2]);
@@ -166,9 +183,11 @@
         var q = hs(10 + n), k = FK[(q * FK.length) | 0], big = l[2] * l[3];
         var h = Math.round(Math.max(14, Math.min(hmax, (big >= 8 ? 50 : 26) + hs(20 + n) * hmax)));
         var b = { x: x0 + l[0] + .2, y: y0 + l[1] + .2, w: l[2] - .4, d: l[3] - .4, h: h, k: k, fog: fog, seed: bx * 31 + by * 17 + n };
-        if (n === lots.length - 1 && MURALS[key]) { b.mural = MURALS[key]; b.h = Math.max(b.h, 40); } // fresque sur l'immeuble de devant, bien visible
-        else if (n === 0 && BOARDS[key]) { b.board = BOARDS[key]; b.h = Math.min(b.h, 60); }
+        if (dist >= 1 && dist <= 2 && n === lots.length - 1 && hs(7) < .22) { b.mural = MU[(hs(8) * MU.length) | 0]; b.h = Math.max(b.h, 40); } // fresque
+        else if (dist >= 1 && dist <= 2 && n === 0 && hs(5) < (dist === 1 ? .5 : .3)) { b.board = BK[(hs(6) * BK.length) | 0]; b.h = Math.min(b.h, 60); }
         else if (h <= 44 && hs(30 + n) < .36) b.sign = SIGNS[(hs(40 + n) * SIGNS.length) | 0];
+        if (dist <= 1 && b.h >= 34 && !b.mural && hs(50 + n) < (band ? .9 : .5)) { b.scr = { face: hs(51 + n) < .5 ? 0 : 1, kind: SK[(hs(52 + n) * SK.length) | 0], seed: (hs(53 + n) * 97) | 0 }; if (b.board && b.scr.face === 0) b.scr.face = 1; }
+        if (dist <= 1 && b.h >= 26 && hs(54 + n) < (band ? .5 : .25)) b.zip = true; // bandeau défilant (Times Square)
         b.key = b.x + b.w / 2 + b.y + b.d / 2; fill.push(b);
       });
     }
@@ -200,7 +219,7 @@
     for (var bx = i0 - span; bx <= span + 2; bx++) for (var by = i0 - span; by <= span + 2; by++) {
       var x0 = bx * 5, y0 = by * 5; if (x0 + y0 + 4 < BACK) continue;
       var cp = P(x0 + 2, y0 + 2); if (cp[0] < -150 || cp[0] > W + 150 || cp[1] > H + 80 || cp[1] < yH - 70) continue;
-      var core = bx >= 0 && bx <= 2 && by >= 0 && by <= 2, park = bx === 1 && by === 1;
+      var core = inBand(bx, by), park = bx === 0 && by === 2;
       quad({ x: x0, y: y0, w: 4, d: 4 }, walk);
       var c = corners({ x: x0, y: y0, w: 4, d: 4 }); isoLine(c.w, c.s, curb); isoLine(c.s, c.e, curb);
       for (var i = 0; i < 4; i++) for (var j = 0; j < 4; j++) { // dalles du trottoir et des cours
@@ -217,7 +236,8 @@
         var zc = N ? '#77749a' : '#f4f4f4'; quad({ x: x0 + o + z * .21, y: y0 + 4.08, w: .1, d: .84 }, zc); quad({ x: x0 + 4.08, y: y0 + o + z * .21, w: .84, d: .1 }, zc);
       });
     }
-    if (N) for (var r1 = 0; r1 <= 3; r1++) for (var r2 = 0; r2 <= 3; r2++) { var p = P(r1 * 5 - .5, r2 * 5 - .5); halo(p[0], p[1], 46, 'rgba(255,79,216,'); halo(p[0], p[1], 80, 'rgba(122,60,255,'); }
+    for (k = -4; k <= 4; k++) { var zc2 = N ? '#9a97c0' : '#ffffff', o = k * .11; quad({ x: 9.46 + o, y: 9.46 + o, w: .08, d: .08 }, zc2); quad({ x: 9.46 + o, y: 9.46 - o, w: .08, d: .08 }, zc2); } // carrefour en X, façon Shibuya
+    if (N) for (var r1 = -3; r1 <= 4; r1++) for (var r2 = -3; r2 <= 4; r2++) { if (!inBand(r1, r2) && !inBand(r1 - 1, r2 - 1)) continue; var p = P(r1 * 5 - .5, r2 * 5 - .5); halo(p[0], p[1], 46, 'rgba(255,79,216,'); halo(p[0], p[1], 80, 'rgba(122,60,255,'); }
     g = main; bgKey = N + ':' + W + 'x' + H;
   }
 
@@ -415,6 +435,102 @@
     drawPerson(m[0], m[1], 'model', 3, false, 0); drawPerson(ph[0], ph[1], 'photo', 0, true, 0);
     if (flash || N) A(flash ? .8 : .18, function () { disc(ph[0] - 6, ph[1] - 18, flash ? 6 : 3, '#ffffff'); });
   }
+  function ftext2(f, u, v, s, c, k) { s = norm(s); for (var i = 0; i < s.length; i++) { var gl = F[s[i]] || F[' ']; for (var p = 0; p < 15; p++) if (gl[p] === '1') fr(f, u + (i * 4 + p % 3) * k, v + (4 - ((p / 3) | 0)) * k, k, k, c); } }
+  function ticker(f, u0, v, len, txt, t, c) { // texte qui défile sur une façade (bandeau lumineux de Times Square)
+    txt = norm(txt); var off = reduce ? 0 : ((t / 45) | 0) % (txt.length * 4);
+    for (var i = 0; i < txt.length * 2; i++) { var u = i * 4 - off; if (u < 0 || u > len - 4) continue; var gl = F[txt[i % txt.length]] || F[' ']; for (var p = 0; p < 15; p++) if (gl[p] === '1') fr(f, u0 + u + p % 3, v + (4 - ((p / 3) | 0)), 1, 1, c); }
+  }
+  var TICK = 'PAUL SIGNE - ELEVE ARTS ET METIERS - RECHERCHE STAGE TECHNICIEN 12/04 - 02/07/2027 - SON + MODE - ';
+  var WORDS = ['LIVE', 'SON', 'MODE', 'NYC', 'TOKYO', 'PARIS', 'NEW', 'MUSIC', '2027', 'HI-FI', 'NANTES'], WCOL = ['#ff2e88', '#1b2fbf', '#ffd84a', '#18c29c', '#ff7a1a', '#7a3cff'];
+  var PH = ['p-lv', 'p-hermes', 'p-dior', 'p-kef', 'p-beo', 'p-defile'];
+  function screenOn(f, u0, v0, sw, sh, kind, seed, t) { // contenu d'un écran publicitaire, change toutes les quelques secondes
+    var tick = reduce ? 0 : (t / 3200 | 0) + seed, col = WCOL[tick % WCOL.length];
+    fr(f, u0 - 1, v0 - 1, sw + 2, sh + 2, '#0a0a0a');
+    if (kind === 'alb') faceCover(ALB[(seed * 7 + tick) % ALB.length], f, u0, v0, sw, sh);
+    else if (kind === 'photo') faceCover(PH[(seed + tick) % PH.length], f, u0, v0, sw, sh);
+    else if (kind === 'sil' && sh >= 29 && sw >= 22) { fr(f, u0, v0, sw, sh, col); var fl = reduce ? 0 : (t / 450 | 0) % 2; silhouette(function (c, r, cc) { fr(f, u0 + ((sw - 20) >> 1) + c, v0 + sh - 1 - r - ((sh - 27) >> 1), 1, 1, cc); }, fl); }
+    else if (kind === 'ticker') { fr(f, u0, v0, sw, sh, '#111'); for (var k = 0; k + 6 <= sh; k += 8) ticker(f, u0 + 1, v0 + sh - 7 - k, sw - 2, k % 16 ? TICK : WORDS.join(' - ') + ' - ', t + k * 900, k % 16 ? '#ffd84a' : '#3ef0ff'); }
+    else { var w = WORDS[(seed + tick) % WORDS.length], kk = sw >= TL(w, 2) + 4 && sh >= 14 ? 2 : 1; fr(f, u0, v0, sw, sh, col); fr(f, u0, v0, sw, 2, '#ffffff'); ftext2(f, u0 + ((sw - TL(w, kk)) >> 1), v0 + ((sh - 5 * kk) >> 1), w, col === '#ffd84a' ? '#111' : '#ffffff', kk); }
+  }
+  function screens(b, t) { // écrans et bandeau sur les immeubles sans rôle (dessinés en direct, par-dessus l'image de l'immeuble)
+    A(1 - (b.fog || 0) * .85, function () {
+      if (b.scr) { var f = b.scr.face ? faceR(b) : faceL(b), sw = Math.min(f.len - 8, 44), sh = Math.min(b.h - 24, 36); if (sw >= 14 && sh >= 12) screenOn(f, ((f.len - sw) >> 1), b.h - sh - 7, sw, sh, b.scr.kind, b.scr.seed, t); }
+      if (b.zip) [faceL(b), faceR(b)].forEach(function (f, i) { fr(f, 0, 12, f.len, 8, '#0a0a0a'); ticker(f, 1, 13, f.len - 2, TICK, t + i * 1300 + (b.seed || 0) * 97, i ? '#3ef0ff' : '#ffd84a'); });
+    });
+  }
+  function screenTower(b, t) { // tour d'écrans géants façon Shibuya
+    detailed(b); var L = faceL(b), Rf = faceR(b);
+    screenOn(L, 4, 22, 40, 50, 'photo', 3, t); screenOn(Rf, 4, 40, 40, 34, 'sil', 2, t); screenOn(Rf, 4, 18, 40, 18, 'word', 5, t);
+    [L, Rf].forEach(function (f, i) { fr(f, 0, 12, f.len, 8, '#0a0a0a'); ticker(f, 1, 13, f.len - 2, TICK, t + i * 1700, i ? '#3ef0ff' : '#ffd84a'); });
+    var c = center(b, b.h); R(c[0] - 18, c[1] - 26, 36, 18, '#0a0a0a'); R(c[0] - 17, c[1] - 25, 34, 16, WCOL[(reduce ? 0 : (t / 1500 | 0)) % WCOL.length]); T('SHIBUYA', c[0] - 13, c[1] - 20, '#ffffff'); R(c[0] - 12, c[1] - 8, 2, 8, '#333'); R(c[0] + 10, c[1] - 8, 2, 8, '#333');
+  }
+  function eiffel(b, t) { // la Tour Eiffel en pixel art, avec PNL au sommet (clip « Au DD ») : Ademo fume une cigarette
+    var c = center(b, 0), cx = Math.round(c[0]), by = Math.round(c[1]) + 8, HT = 204;
+    var iron = N ? '#d89a4e' : '#6e5140', dk = N ? '#8a5a26' : '#4b3527', lt = N ? '#ffd88a' : '#93715a', sk = N ? '#ffe9a8' : '#b58e72';
+    A(.18, function () { disc(cx, by + 2, 50, '#000', .42); });
+    function wOut(v) { return v < 60 ? 48 - 21 * Math.pow(v / 60, .7) : v < 122 ? 27 - (v - 60) / 62 * 14 : 13 - (v - 122) / (HT - 122) * 11.5; }
+    for (var v = 0; v < HT; v++) {
+      var wo = Math.round(wOut(v)), y = by - v, wi = v < 40 ? Math.round(31 * Math.sqrt(1 - (v / 40) * (v / 40))) : -1, leg = v < 60 ? Math.round(wo - (v < 40 ? wi : 0)) : 0;
+      for (var x = -wo; x <= wo; x++) {
+        var ax = Math.abs(x);
+        if (wi >= 0 && ax < wi) continue; // grande arche entre les piliers
+        if (v < 60 && v >= 40 && ax < 8) continue; // jour entre les piliers sous le 1er étage
+        var outer = ax >= wo - 1, inner = (wi >= 0 && ax <= wi + 1) || (v >= 40 && v < 60 && ax <= 9), lat = ((x + v) & 3) === 0 || ((x - v) & 3) === 0;
+        if (outer || inner) R(cx + x, y, 1, 1, x < 0 ? sk : iron); else if (lat) R(cx + x, y, 1, 1, v > 122 && ax < 3 ? iron : dk);
+      }
+      if (v >= 60 && v < 122 && (v & 7) === 0) R(cx - wo, y, 2 * wo + 1, 1, dk); // entretoises
+    }
+    // 1er étage : plateforme et frise d'arcades ; 2e étage ; sommet
+    R(cx - 33, by - 64, 67, 5, iron); R(cx - 33, by - 64, 67, 1, lt); for (var k = -31; k < 32; k += 4) { R(cx + k, by - 59, 1, 3, dk); R(cx + k + 1, by - 57, 2, 1, dk); }
+    R(cx - 19, by - 126, 39, 4, iron); R(cx - 19, by - 126, 39, 1, lt); R(cx - 17, by - 122, 35, 1, dk);
+    R(cx - 12, by - HT - 3, 25, 2, iron); R(cx - 12, by - HT - 3, 25, 1, lt); // galerie du sommet
+    R(cx - 4, by - HT - 9, 9, 6, iron); R(cx - 5, by - HT - 10, 11, 1, lt); R(cx - 2, by - HT - 7, 5, 2, N ? '#ffd56b' : '#c9d6e2'); R(cx, by - HT - 25, 1, 15, '#9a9a9a'); R(cx - 1, by - HT - 26, 3, 1, '#ff3b3b');
+    if (N) { A(.22, function () { disc(cx, by - HT - 6, 12, '#fff3a0'); }); if (!reduce) for (k = 0; k < 30; k++) if (hash(k * 7 + (t / 140 | 0)) > .7) { var sv = (hash(k) * (HT - 10)) | 0; R(cx + (hash(k + 3) * 2 - 1) * wOut(sv), by - sv, 1, 1, '#ffffff'); } } // scintillement
+    // PNL assis sur la galerie, jambes dans le vide ; Ademo (à gauche) fume, N.O.S (à droite)
+    var gy = by - HT - 3;
+    function pnl(x, hood, skin, flip) {
+      R(x, gy - 10, 4, 3, '#111'); R(x + (flip ? -1 : 4), gy - 9, 1, 1, '#111'); R(x, gy - 8, 4, 3, skin); R(x + (flip ? 0 : 3), gy - 7, 1, 1, '#1a1a1a'); // capuche, visage
+      R(x - 1, gy - 5, 6, 5, hood); R(x - 1, gy - 5, 1, 5, mix(hood, '#000000', .3)); // sweat
+      R(x, gy, 2, 4, '#1a1a2e'); R(x + 3, gy, 2, 4, '#1a1a2e'); R(x, gy + 4, 2, 1, '#f2f2f2'); R(x + 3, gy + 4, 2, 1, '#f2f2f2'); // jambes dans le vide, baskets
+    }
+    pnl(cx - 11, '#111111', '#a8714a', false); pnl(cx + 7, '#3a3f4a', '#8d5524', true);
+    R(cx - 7, gy - 7, 3, 1, '#f4f4f4'); R(cx - 4, gy - 7, 1, 1, (reduce || (t / 300 | 0) % 2) ? '#ff7a1a' : '#ffb347'); R(cx - 6, gy - 6, 1, 1, '#a8714a'); // cigarette et main
+    if (!reduce) for (k = 0; k < 4; k++) { var ph = (t / 1600 + k / 4) % 1; A(.7 * (1 - ph), function () { R(cx - 4 + Math.sin(ph * 7 + k) * 2, gy - 9 - ph * 14, 1 + (ph > .5 ? 1 : 0), 1, '#d9d9d9'); }); }
+    R(cx + 1, by - HT - 33, 13, 7, '#111'); T('QLF', cx + 2, by - HT - 32, '#ffffff'); // drapeau « Que la famille »
+  }
+  function chateau(b, t) { // château des ducs de Bretagne (Nantes), vu de face : douves, pont-levis, tours d'entrée, Grand Logis
+    var c = center(b, 0), cx = Math.round(c[0]), by = Math.round(c[1]) + 18;
+    var st = N ? '#8e88a8' : '#f4efe3', sm = N ? '#77719a' : '#e2d9c6', sd = N ? '#5d5880' : '#c9bda4', ml = N ? '#6c6690' : '#d6cbb4';
+    var sl = N ? '#2c3348' : '#4b5568', sll = N ? '#3c4560' : '#66708a', sld = N ? '#1f2535' : '#353d4f', gate = '#2a2320', wood = '#7a4f2e';
+    var water = N ? '#1d3a5a' : '#4fa3c7', wl = N ? '#2f5a86' : '#86c8e3', win = N ? '#ffd56b' : '#3a4256';
+    R(cx - 74, by + 9, 148, 3, N ? '#1f4a3a' : '#6cc45e'); R(cx - 72, by, 144, 9, water); for (var k = -68; k < 70; k += 9) R(cx + k + ((k / 9) & 1) * 3, by + 3 + ((k / 9) & 1) * 3, 4, 1, wl); // douves
+    // Grand Logis derrière les remparts : toit d'ardoise très pentu, grandes lucarnes à pinacles, cheminées
+    R(cx - 36, by - 54, 72, 24, sm); for (var v = 0; v < 30; v++) { var w = Math.round(40 - v * 1.05); R(cx - w, by - 54 - v, 2 * w, 1, v % 5 === 4 ? sld : sl); R(cx - w, by - 54 - v, w, 1, v % 5 === 4 ? sld : sll); }
+    R(cx - 30, by - 92, 4, 12, st); R(cx - 31, by - 93, 6, 2, sd); R(cx + 26, by - 90, 4, 10, st); R(cx + 25, by - 91, 6, 2, sd);
+    [-26, -9, 9, 26].forEach(function (dx) { var x = cx + dx; R(x - 4, by - 66, 9, 12, st); R(x - 4, by - 66, 1, 12, sm); R(x - 2, by - 64, 5, 7, win); R(x, by - 64, 1, 7, sm);
+      for (var r = 0; r < 6; r++) R(x - 4 + Math.ceil(r * .7), by - 67 - r, 9 - 2 * Math.ceil(r * .7), 1, st); R(x, by - 75, 1, 3, sd); R(x - 5, by - 70, 1, 4, sd); R(x + 5, by - 70, 1, 4, sd); });
+    R(cx - 36, by - 55, 72, 1, sd);
+    // rempart blanc (tuffeau) avec mâchicoulis et créneaux
+    R(cx - 64, by - 30, 128, 30, st); for (v = 3; v < 30; v += 4) { R(cx - 64, by - v, 128, 1, ml); for (var x = -64 + ((v / 4) & 1) * 4; x < 64; x += 8) R(cx + x, by - v - 3, 1, 3, ml); }
+    R(cx - 64, by - 33, 128, 3, st); for (x = -64; x < 64; x += 3) R(cx + x, by - 31, 1, 2, sd); for (x = -64; x < 64; x += 4) R(cx + x, by - 36, 2, 3, st);
+    [-46, -30, 30, 46].forEach(function (dx) { R(cx + dx, by - 22, 2, 6, gate); });
+    // tours d'angle et tours d'entrée, rondes, avec mâchicoulis
+    function tour(x, wd, ht) {
+      for (var dx = 0; dx < wd; dx++) { var f = dx / (wd - 1); R(x + dx, by - ht, 1, ht, f < .3 ? st : f < .7 ? sm : sd); }
+      R(x - 1, by - ht - 4, wd + 2, 4, st); for (var d2 = 0; d2 < wd + 2; d2 += 2) R(x - 1 + d2, by - ht - 1, 1, 2, sd); for (d2 = 0; d2 < wd + 2; d2 += 3) R(x - 1 + d2, by - ht - 6, 2, 2, st);
+      R(x + (wd >> 1), by - ht + 10, 1, 5, gate); R(x + (wd >> 1), by - ht + 22, 1, 4, gate); R(x, by - 3, wd, 3, sd);
+    }
+    tour(cx - 74, 16, 40); tour(cx + 58, 16, 40); tour(cx - 30, 22, 50); tour(cx + 8, 22, 50);
+    // porte en arc brisé, herse, pont-levis et chaînes
+    R(cx - 8, by - 36, 16, 36, st); for (v = 0; v < 22; v++) { var gw = v < 16 ? 5 : Math.round(5 - (v - 16) * .8); R(cx - gw, by - v, 2 * gw, 1, gate); }
+    for (x = -4; x <= 4; x += 2) R(cx + x, by - 18, 1, 16, '#4a3c34'); R(cx - 5, by - 10, 10, 1, '#4a3c34');
+    R(cx - 6, by, 12, 9, wood); for (v = 1; v < 9; v += 2) R(cx - 6, by + v, 12, 1, '#5e3c22'); for (v = 0; v < 12; v++) { R(cx - 8 + v * .2, by - 24 + v * 2, 1, 1, '#555'); R(cx + 7 - v * .2, by - 24 + v * 2, 1, 1, '#555'); }
+    R(cx - 3, by - 31, 7, 6, '#ffffff'); R(cx - 2, by - 30, 1, 1, '#111'); R(cx + 1, by - 30, 1, 1, '#111'); R(cx - 1, by - 28, 1, 1, '#111'); R(cx + 2, by - 28, 1, 1, '#111'); // écu d'hermine
+    // drapeau breton (Gwenn-ha-du) au faîte du Grand Logis
+    R(cx, by - 104, 1, 20, '#777'); for (var r2 = 0; r2 < 9; r2++) R(cx + 1, by - 104 + r2, 14, 1, r2 % 2 ? '#ffffff' : '#111'); R(cx + 1, by - 104, 6, 5, '#ffffff'); R(cx + 2, by - 103, 1, 1, '#111'); R(cx + 5, by - 103, 1, 1, '#111'); R(cx + 3, by - 101, 1, 1, '#111');
+    if (N) A(.12, function () { R(cx - 76, by - 60, 152, 60, '#fff1c4'); }); // château illuminé la nuit
+    R(cx + 40, by + 12, 1, 6, '#555'); R(cx + 26, by + 4, 29, 8, N ? '#1a0f2e' : '#1b2fbf'); T('NANTES', cx + 29, by + 6, '#ffffff');
+  }
   function hifiShop(b, t) { // boutique hi-fi : enceintes en vitrine, casque géant sur le toit
     detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
     fr(L, 4, 1, 64, 16, N ? '#1a1430' : '#e8edf2');
@@ -445,13 +561,40 @@
     fr(L, 6, 1, 60, 12, N ? '#ffe29a' : '#cfe3f5'); fr(L, 6, 3, 60, 1, '#555'); for (var j = 0; j < 7; j++) fr(L, 6 + ((t / 30 + j * 9) % 56 | 0), 4, 3, 2, j % 3 ? '#fff' : '#ffcd00'); // plis sur le convoyeur
     var truck = { x: b.x + b.w + .1, y: b.y + 2.2, w: .7, d: .35 }; prism(truck, 10, '#ffcd00', '#e6b800', '#c99f00'); fr(faceR(truck), 1, 6, 5, 3, '#9ec9f0');
   }
-  function park(b, t) {
-    var c = center(b, 0), cols = ['#e63946', '#f4a261', '#ffd60a', '#2a9d8f', '#4361ee', '#9b5de5'], ry = reduce ? 9 : 7 + Math.round(3 * Math.sin(t / 380));
-    disc(c[0], c[1] + 4, 40, N ? '#cfc2a0' : '#e9dcb5', .5); // allée
-    for (var dy = -ry; dy <= 0; dy++) { var hw = Math.round(30 * Math.sqrt(1 - (dy / ry) * (dy / ry))); for (var xx = -hw; xx < hw; xx++) R(c[0] + xx, c[1] + 4 + dy, 1, 1, cols[((xx + 30) / 10 | 0) % 6]); }
-    for (var k = 0; k < 8; k++) { var a = k / 8 * Math.PI * 2, kx = c[0] + Math.cos(a) * 36, ky = c[1] + 4 + Math.sin(a) * 18; drawPerson(kx, ky, ['enfant', 'kid2', 'kid3'][k % 3], k, k % 2, reduce ? 0 : ((t / 250 + k) | 0) % 4); }
+  function park(b, t) { // le jeu du parachute, en boucle : on le secoue (ballon), on le lève en dôme, deux enfants passent dessous, on le redescend
+    var c = center(b, 0), cx = c[0], cy = c[1] + 4, RR = 36, cols = ['#e63946', '#f4a261', '#ffd60a', '#2a9d8f', '#4361ee', '#9b5de5'];
+    disc(cx, cy, 46, N ? '#cfc2a0' : '#e9dcb5', .5); // allée de sable
+    var ph = reduce ? 4 : (t / 1000) % 8, ease = function (x) { return x * x * (3 - 2 * x); };
+    var lift = ph < 1.8 ? 0 : ph < 3.1 ? ease((ph - 1.8) / 1.3) : ph < 5.6 ? 1 : ph < 6.8 ? 1 - ease((ph - 5.6) / 1.2) : 0;
+    var shake = 1 - lift, e = 5 + 7 * lift, hc = e + 3 + 30 * lift, run = ph > 3.3 && ph < 5.4 ? (ph - 3.3) / 2.1 : -1;
+    function H(r, a) { return e + (hc - e) * (1 - (r / RR) * (r / RR)) + (r / RR) * Math.sin(a * 3 + t / 140) * 2.5 * shake; }
+    function pt(r, a) { return [cx + Math.cos(a) * r, cy + Math.sin(a) * r / 2 - H(r, a)]; }
+    var NK = 10, kids = [];
+    for (var k = 0; k < NK; k++) {
+      var a = k / NK * Math.PI * 2 + .3, gx, gy, runner = (k === 0 || k === 5) && run >= 0;
+      if (runner) { var a2 = a + Math.PI, f = ease(run); gx = cx + Math.cos(a) * (RR + 3) * (1 - f) + Math.cos(a2) * (RR + 3) * f; gy = cy + (Math.sin(a) * (RR + 3) * (1 - f) + Math.sin(a2) * (RR + 3) * f) / 2; }
+      else if ((k === 0 || k === 5) && ph >= 5.4 && ph < 8) { gx = cx + Math.cos(a + Math.PI) * (RR + 3); gy = cy + Math.sin(a + Math.PI) * (RR + 3) / 2; }
+      else { gx = cx + Math.cos(a) * (RR + 3); gy = cy + Math.sin(a) * (RR + 3) / 2; }
+      kids.push({ x: gx, y: gy, k: k, run: runner, far: gy < cy, up: lift > .5 || (shake > .5 && Math.sin(t / 140 + k) > .3) });
+    }
+    function kid(q) {
+      var hop = q.run ? 0 : Math.round(lift > 0 && lift < 1 ? -2 * Math.sin(lift * Math.PI) : 0), fr4 = q.run ? ((t / 120) | 0) % 4 : 0;
+      drawPerson(q.x, q.y + hop, ['enfant', 'kid2', 'kid3'][q.k % 3], q.k, q.x > cx, fr4);
+      var sk = SKIN[q.k % SKIN.length], hy = q.y + hop - (q.up ? 17 : 11);
+      if (!q.run) { R(q.x - 3, hy, 1, 3, sk); R(q.x + 3, hy, 1, 3, sk); } // bras levés ou tendus vers le bord
+    }
+    kids.filter(function (q) { return q.far || q.run; }).forEach(kid);
+    var polys = [], RG = 6, SEG = 24;
+    for (var r = 0; r < RG; r++) for (var j = 0; j < SEG; j++) {
+      var r1 = RR * (1 - r / RG), r2 = RR * (1 - (r + 1) / RG), a1 = j / SEG * Math.PI * 2, a3 = (j + 1) / SEG * Math.PI * 2, am = (a1 + a3) / 2;
+      polys.push({ p: [pt(r1, a1), pt(r1, a3), pt(r2, a3), pt(r2, a1)], z: Math.sin(am) * (r1 + r2) / 2, c: mix(cols[(j >> 1) % 6], '#000000', Math.max(0, Math.sin(am - 2.4)) * .22 + (N ? .25 : 0)) });
+    }
+    polys.sort(function (u, w) { return u.z - w.z; }).forEach(function (q) { g.fillStyle = q.c; g.beginPath(); g.moveTo(q.p[0][0], q.p[0][1]); for (var m = 1; m < 4; m++) g.lineTo(q.p[m][0], q.p[m][1]); g.closePath(); g.fill(); });
+    var top = pt(0, 0); disc(top[0], top[1], 3, '#ffffff', .5); // trou central
+    if (shake > .6) { var bh = Math.abs(Math.sin(t / 230)) * 18; disc(top[0], top[1] - 4 - bh, 3, '#ffffff'); R(top[0] - 3, top[1] - 4 - bh, 7, 1, '#e63946'); } // ballon qui rebondit
+    kids.filter(function (q) { return !q.far && !q.run; }).forEach(kid);
     var bp = P(b.x + .6, b.y + 3.2); R(bp[0] - 6, bp[1] - 4, 12, 2, '#8a5a3c'); R(bp[0] - 6, bp[1] - 7, 12, 2, '#8a5a3c'); R(bp[0] - 5, bp[1] - 2, 1, 2, '#333'); R(bp[0] + 4, bp[1] - 2, 1, 2, '#333'); // banc
-    R(c[0] + 52, c[1] - 14, 1, 14, '#6b4423'); R(c[0] + 46, c[1] - 22, TL('PARC') + 4, 8, '#2e7d32'); T('PARC', c[0] + 48, c[1] - 20, '#fff');
+    R(cx + 54, cy - 18, 1, 14, '#6b4423'); R(cx + 48, cy - 26, TL('PARC') + 4, 8, '#2e7d32'); T('PARC', cx + 50, cy - 24, '#fff');
   }
   function archives(b, t) {
     var p = pal(b.k), L = faceL(b), Rf = faceR(b); prism(b, b.h, p[0], p[1], p[2]);
@@ -488,7 +631,7 @@
   }
   function lamp(x, y) {
     var p = P(x, y); R(p[0], p[1] - 18, 1, 18, N ? '#77749a' : '#4a4f5a'); R(p[0] - 3, p[1] - 19, 4, 2, N ? '#77749a' : '#4a4f5a'); R(p[0] - 3, p[1] - 17, 3, 1, N ? '#fff3a0' : '#e6e6e6');
-    if (x > -2 && x < 15 && y > -2 && y < 15) { var mu = (x + y) % 10 < 5; R(p[0] + 1, p[1] - 15, 4, 8, mu ? '#1b2fbf' : '#111'); R(p[0] + 1, p[1] - 8, 1, 1, mu ? '#1b2fbf' : '#111'); R(p[0] + 4, p[1] - 8, 1, 1, mu ? '#1b2fbf' : '#111');
+    if (inBand(blk(x), blk(y))) { var mu = (x + y) % 10 < 5; R(p[0] + 1, p[1] - 15, 4, 8, mu ? '#1b2fbf' : '#111'); R(p[0] + 1, p[1] - 8, 1, 1, mu ? '#1b2fbf' : '#111'); R(p[0] + 4, p[1] - 8, 1, 1, mu ? '#1b2fbf' : '#111');
       if (mu) { R(p[0] + 3, p[1] - 14, 1, 4, '#ffd84a'); R(p[0] + 2, p[1] - 11, 1, 1, '#ffd84a'); } else { R(p[0] + 2, p[1] - 13, 2, 1, '#d4af37'); R(p[0] + 1, p[1] - 12, 4, 1, '#d4af37'); } } // note de musique ou cintre
   }
   function busker(b, t) { // saxophoniste au coin du parc, étui ouvert devant lui
@@ -597,8 +740,8 @@
   var VB = ['vision-board', 'vb-club', 'vb-mode', 'vb-disques'];
   function spotOf(doc) { return doc === 'vision-board' ? VB[(Math.random() * VB.length) | 0] : doc; }
   function route(a, b) { // déplacement par les rues (lignes 4,5 et 9,5)
-    var RD = [4.5, 9.5], aV = RD.indexOf(a[0]) > -1, bV = RD.indexOf(b[0]) > -1, pts = [a];
-    function near(v) { return Math.abs(v - 4.5) < Math.abs(v - 9.5) ? 4.5 : 9.5; }
+    var aV = Math.abs(a[0] - road(a[0])) < .01, bV = Math.abs(b[0] - road(b[0])) < .01, pts = [a];
+    function near(v) { return road(v); }
     if (aV && bV) { if (a[0] !== b[0]) { var r = near((a[1] + b[1]) / 2); pts.push([a[0], r], [b[0], r]); } }
     else if (!aV && !bV) { if (a[1] !== b[1]) { var q = near((a[0] + b[0]) / 2); pts.push([q, a[1]], [q, b[1]]); } }
     else if (aV) pts.push([a[0], b[1]]); else pts.push([b[0], a[1]]);
@@ -626,11 +769,11 @@
   // Passants et voitures dans le reste de la ville : ils sortent de l'écran et reviennent
   var LOOKS = ['corporate', 'etudiant', 'commercant', 'mode', 'facteur', 'ouvrier'], walkers = [], cars = [];
   for (var i = 0; i < 26; i++) {
-    var r = [-2, -1, 0, 1, 2, 3, 4][i % 7] * 5 + 4.5, side = hash(i + 5) > .5 ? .4 : -.4;
+    var r = [-3, -1, 0, 1, 2, 3, 4][i % 7] * 5 + 4.5, side = hash(i + 5) > .5 ? .4 : -.4;
     walkers.push({ ax: i % 2, line: r + side, s: -34 + hash(i * 3) * 80, dir: hash(i + 9) > .5 ? 1 : -1, v: .45 + hash(i) * .3, cl: LOOKS[i % LOOKS.length], k: i });
   }
   var CARC = [['#f2c230', 'taxi'], ['#f2c230', 'taxi'], ['#e63946'], ['#4361ee'], ['#f4f4f4'], ['#2b2b30'], ['#f2c230', 'taxi'], ['#2a9d8f'], ['#c0392b', 'bus']];
-  for (i = 0; i < 22; i++) { var ax = i % 2, dir = hash(i + 1) > .5 ? 1 : -1; cars.push({ ax: ax, line: [-2, -1, 0, 1, 2, 3, 4][(i * 3) % 7] * 5 + 4.5 + (ax ? -dir : dir) * .22, s: -34 + hash(i * 7) * 80, s0: -34 + hash(i * 7) * 80, dir: dir, v: .8 + hash(i + 4) * .7, c: CARC[i % CARC.length] }); }
+  for (i = 0; i < 22; i++) { var ax = i % 2, dir = hash(i + 1) > .5 ? 1 : -1; cars.push({ ax: ax, line: [-3, -2, -1, 0, 1, 2, 3][(i * 3) % 7] * 5 + 4.5 + (ax ? -dir : dir) * .22, s: -34 + hash(i * 7) * 80, s0: -34 + hash(i * 7) * 80, dir: dir, v: .8 + hash(i + 4) * .7, c: CARC[i % CARC.length] }); }
   function carBox(c) { var long = c.c[1] === 'bus' ? 1.5 : .8; return c.ax ? { x: c.line - .17, y: c.s - long / 2, w: .34, d: long } : { x: c.s - long / 2, y: c.line - .17, w: long, d: .34 }; }
   function drawCar(c) {
     var b = carBox(c), col = c.c[0], dk = mix(col, '#000000', .25), dd = mix(col, '#000000', .4), bus = c.c[1] === 'bus';
@@ -647,7 +790,7 @@
   var hover = null, last = 0, lamps = [], otrees = [], glow = document.createElement('canvas'), vig = document.createElement('canvas');
   function extras() { // lampadaires, arbres des squares et halos de nuit (recalculés au redimensionnement)
     lamps = []; otrees = [];
-    for (var bx = -6; bx <= 9; bx++) for (var by = -6; by <= 9; by++) {
+    for (var bx = -10; bx <= 12; bx++) for (var by = -10; by <= 12; by++) {
       var x0 = bx * 5, y0 = by * 5, p = P(x0 + 4, y0 + 4); if (x0 + y0 + 4 < BACK || p[0] < -40 || p[0] > W + 40 || p[1] > H + 30 || p[1] < 0) continue;
       lamps.push([x0 + 3.9, y0 + 3.9]);
     }
@@ -669,7 +812,8 @@
     if (dirty) { dirty = false; fill.forEach(function (b) { if (b.redo) { b.redo = false; sprite(b); } }); }
     g.imageSmoothingEnabled = false; g.drawImage(bg, 0, 0);
     var items = [];
-    fill.forEach(function (b) { items.push([b.key, function () { g.drawImage(b.spr, b.sx, b.sy); }]); });
+    fill.forEach(function (b) { items.push([b.key, function () { g.drawImage(b.spr, b.sx, b.sy); if (b.scr || b.zip) screens(b, t); }]); });
+    crowd.forEach(function (w) { var q = crowdPos(w, t), sp = P(q[0], q[1]); if (onScreen(sp, 30)) items.push([q[0] + q[1] + .3, function () { drawPerson(sp[0], sp[1] + 2, w.cl, w.k, q[2], q[3]); }]); });
     B.forEach(function (b) { items.push([b.key, function () { (b.draw || box)(b, t); }]); });
     TREES.forEach(function (q) { items.push([q[0] + q[1], function () { tree(q[0], q[1]); }]); });
     otrees.forEach(function (q) { items.push([q[0] + q[1], function () { tree(q[0], q[1], q[2]); }]); });
@@ -687,6 +831,14 @@
       for (var x = r[0]; x < r[0] + r[2]; x++) if ((x + ph) % 4 < 2) { R(x, r[1], 1, 1, '#ffd84a'); R(x, r[1] + r[3] - 1, 1, 1, '#ffd84a'); }
       for (var y = r[1]; y < r[1] + r[3]; y++) if ((y + ph) % 4 < 2) { R(r[0], y, 1, 1, '#ffd84a'); R(r[0] + r[2] - 1, y, 1, 1, '#ffd84a'); }
     }
+  }
+  // carrefour en X façon Shibuya (9,5 ; 9,5) : la foule traverse dans tous les sens, par vagues
+  var CR = [[8.85, 8.85], [10.15, 8.85], [10.15, 10.15], [8.85, 10.15]], crowd = [];
+  for (var ci = 0; ci < 16; ci++) crowd.push({ a: ci % 4, b: (ci % 4 + 1 + (ci % 3)) % 4, d: hash(ci + 40) * 2.2, k: ci + 3, cl: LOOKS[ci % LOOKS.length], o: [hash(ci) * .3 - .15, hash(ci + 9) * .3 - .15] });
+  function crowdPos(w, t) {
+    var T0 = reduce ? 0 : t / 1000, cyc = Math.floor(T0 / 14), ph = T0 - cyc * 14, a = CR[cyc % 2 ? w.b : w.a], b = CR[cyc % 2 ? w.a : w.b], k = Math.max(0, Math.min(1, (ph - w.d) / 4.5)), moving = k > 0 && k < 1;
+    var x = a[0] + (b[0] - a[0]) * k + w.o[0], y = a[1] + (b[1] - a[1]) * k + w.o[1];
+    return [x, y, (b[0] - a[0]) < 0 || (b[1] - a[1]) > 0, moving ? ((T0 * 6 + w.k) | 0) % 4 : 0];
   }
   function blimp(t) { // dirigeable publicitaire qui traverse le ciel
     var span = W + 260, x = reduce ? W * .72 : (t / 70 + W * .62) % span - 130, y = Math.round(TOPA + 78), body = N ? '#5a5478' : '#d9dce2', sh = N ? '#3d3a5c' : '#a9afb9';
@@ -719,6 +871,32 @@
   rebuild();
   if (reduce) { draw(0); setInterval(function () { if (dirty) draw(0); }, 700); } // sans animation : on redessine quand une pochette arrive
   else requestAnimationFrame(function (t) { last = t; loop(t); });
+  var ptrs = {}, pan = null, pinch = null, dragged = false;
+  scroller.addEventListener('wheel', function (e) { e.preventDefault(); zoomAt(e.clientX, e.clientY, Z * Math.exp(-e.deltaY * (e.deltaMode ? .05 : .0015))); }, { passive: false });
+  scroller.addEventListener('pointerdown', function (e) {
+    ptrs[e.pointerId] = [e.clientX, e.clientY]; var ids = Object.keys(ptrs);
+    if (ids.length === 1) { pan = { x: e.clientX, y: e.clientY, tx: TX, ty: TY, moved: false }; dragged = false; }
+    else if (ids.length === 2) { var a = ptrs[ids[0]], b = ptrs[ids[1]]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), z: Z }; pan = null; }
+  });
+  addEventListener('pointermove', function (e) {
+    if (!ptrs[e.pointerId]) return; ptrs[e.pointerId] = [e.clientX, e.clientY]; var ids = Object.keys(ptrs);
+    if (pinch && ids.length >= 2) { var a = ptrs[ids[0]], b = ptrs[ids[1]]; zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, pinch.z * Math.hypot(a[0] - b[0], a[1] - b[1]) / pinch.d); dragged = true; return; }
+    if (!pan) return; var dx = e.clientX - pan.x, dy = e.clientY - pan.y;
+    if (!pan.moved && Math.hypot(dx, dy) > 6) { pan.moved = dragged = true; scroller.classList.add('dragging'); }
+    if (pan.moved) { TX = pan.tx + dx; TY = pan.ty + dy; applyCam(); }
+  });
+  function up(e) { delete ptrs[e.pointerId]; if (Object.keys(ptrs).length < 2) pinch = null; if (!Object.keys(ptrs).length) { pan = null; scroller.classList.remove('dragging'); } }
+  addEventListener('pointerup', up); addEventListener('pointercancel', up);
+  document.addEventListener('click', function (e) { if (dragged && scroller.contains(e.target)) { e.stopPropagation(); e.preventDefault(); dragged = false; } }, true); // un glisser n'ouvre pas de fenêtre
+  [['zoomIn', 1.4], ['zoomOut', 1 / 1.4]].forEach(function (q) { var bt = document.getElementById(q[0]); if (bt) bt.addEventListener('click', function () { zoomAt(VW / 2, VH / 2, Z * q[1]); }); });
+  var zr = document.getElementById('zoomReset'); if (zr) zr.addEventListener('click', function () { resetCam(); });
+  addEventListener('keydown', function (e) {
+    if (win.open || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+    var k = e.key, st = 80;
+    if (k === '+' || k === '=') zoomAt(VW / 2, VH / 2, Z * 1.25); else if (k === '-') zoomAt(VW / 2, VH / 2, Z / 1.25); else if (k === '0') resetCam();
+    else if (k === 'ArrowLeft') { TX += st; applyCam(); } else if (k === 'ArrowRight') { TX -= st; applyCam(); } else if (k === 'ArrowUp') { TY += st; applyCam(); } else if (k === 'ArrowDown') { TY -= st; applyCam(); } else return;
+    e.preventDefault();
+  });
   var rz; function later() { clearTimeout(rz); rz = setTimeout(function () { rebuild(); if (reduce) draw(0); }, 150); }
   addEventListener('resize', later);
   if (window.ResizeObserver && hud) new ResizeObserver(later).observe(hud); // la barre change de hauteur quand le menu de traduction arrive

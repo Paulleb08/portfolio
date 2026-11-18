@@ -206,3 +206,18 @@
 @media print{.books{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;min-height:0;padding:6px;background:#fff!important;border-bottom:3px solid #7a4f2e;box-shadow:none}.book{width:auto!important;height:auto;transform:none!important}.book .spine{display:none}.book .cover{position:static;width:100%;height:auto;aspect-ratio:2/3;transform:none;opacity:1;box-shadow:none}.albums.top4{grid-template-columns:repeat(8,1fr);max-width:none}.bookshelf .vb-h{font-size:.9rem}}
 @media print{.shelfroom{break-inside:auto!important;gap:4mm}.bookshelf{break-inside:avoid}.books{grid-template-columns:repeat(10,1fr)}.films.top4{max-width:none;grid-template-columns:repeat(8,1fr)}}
 @media print{.shelfroom{gap:1mm;padding:6px!important}.bookshelf .vb-h{font-size:.75rem;margin:0}.books{grid-template-columns:repeat(12,1fr);padding:3px;gap:4px}.vb-cine .vb-h{margin-bottom:4px}}
+
+/* ---------- Catégories compactes, côte à côte, nom en étiquette au-dessus (dessin de Paul) ---------- */
+.cats{display:flex;flex-wrap:wrap;gap:30px 16px;margin-top:34px;align-items:stretch}
+.cat{position:relative;flex:1 1 calc(var(--n,3) * 118px + 34px);max-width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:16px;background:var(--surface);padding:24px 16px 14px}
+.cat-name{position:absolute;top:0;left:14px;transform:translateY(-55%);margin:0;padding:5px 12px;border-radius:999px;background:var(--brand);color:#fff;font-family:var(--display);font-stretch:115%;font-weight:900;text-transform:uppercase;font-size:.78rem;letter-spacing:.04em;white-space:nowrap}
+.cat .albums.shelf{display:flex;flex-wrap:wrap;gap:16px 12px}
+.cat .albums.shelf figure{width:106px}
+.cats.cine .cat{flex:1 1 calc(var(--b,3) * 46px + 140px);background:#141414;border-color:#141414}
+.cats.cine .cat-name{background:#ff5c5c}
+.cats.cine .books{min-height:236px;padding:22px 10px 0}
+@media (max-width:560px){.cat .albums.shelf figure{width:calc(33.3% - 8px)}.cat{padding:22px 10px 12px}}
+@media print{.cats{gap:5mm 3mm;margin-top:6mm}.cat{break-inside:avoid;padding:14px 6px 6px;flex-basis:calc(var(--n,3) * 60px + 20px)}.cat .albums.shelf figure{width:52px}.cats.cine .cat{flex-basis:calc(var(--b,3) * 52px + 20px);background:#fff!important}.cat-name{font-size:.6rem;padding:2px 8px}.cats.cine .books{display:grid;grid-template-columns:repeat(var(--b,3),1fr);min-height:0}}
+.cats:not(.cine){align-items:flex-start}
+.cats.cine .cat{max-width:calc(var(--b,3) * 46px + 330px)}
+@media print{.cat{break-before:auto!important}.cats.cine .books{grid-template-columns:repeat(var(--b,3),48px)}}

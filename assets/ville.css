@@ -252,3 +252,9 @@
 @media (prefers-reduced-motion:reduce){.hanger,.hanger>figure,.hanger>.garment{transition:none}}
 @media (max-width:560px){.hanger{width:40px;height:270px}.hanger>figure,.hanger>.garment{width:150px}.hanger:hover,.hanger:focus{width:158px}}
 @media print{.hangers{display:grid}.hanger{width:auto;height:auto}.hanger>figure,.hanger>.garment{position:static;width:auto;transform:none;filter:none}.hanger figcaption{opacity:1}.book::after{display:none}}
+/* tranche nommée des vêtements du rack (couleur dominante de la photo), qui s'efface quand le vêtement se tourne */
+.hanger .spine{position:absolute;left:0;top:28px;width:46px;height:236px;box-sizing:border-box;padding:12px 0;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;background:linear-gradient(90deg,rgba(0,0,0,.3),rgba(255,255,255,.1) 25%,transparent 50%,rgba(0,0,0,.3)),var(--c);color:var(--t);border-radius:4px;z-index:1;transition:opacity .35s,transform .5s cubic-bezier(.2,.8,.2,1);transform-origin:right center;pointer-events:none}
+.hanger .spine b{font-family:var(--display);font-stretch:110%;font-weight:800;text-transform:uppercase;font-size:.72rem;letter-spacing:.05em;max-height:210px;overflow:hidden}
+.hanger:hover .spine,.hanger:focus .spine{opacity:0;transform:rotateY(-90deg)}
+@media (max-width:560px){.hanger .spine{width:40px;height:200px}}
+@media print{.hanger .spine{display:none}}

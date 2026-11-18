@@ -101,8 +101,8 @@
     { x: -2, y: 5, w: 1, d: 3, h: 86, k: 'glass', draw: speakerWall },
     { x: 0, y: 0, w: 2, d: 2, h: 92, k: 'brick', doc: 'vision-board', draw: coverBoard, extra: 58 },
     { x: 2, y: 0, w: 2, d: 2, h: 70, k: 'dark', doc: 'vision-board', spot: 'vb-club', draw: club, extra: 18 },
-    { x: 0, y: 2, w: 2, d: 2, h: 44, k: 'black', doc: 'vision-board', spot: 'vb-mode', draw: couture, extra: 22 },
-    { x: 2, y: 2, w: 2, d: 2, h: 30, k: 'stone', doc: 'vision-board', spot: 'vb-disques', draw: records, extra: 8 },
+    { x: 0, y: 2, w: 2, d: 2, h: 44, k: 'black', doc: 'vision-board', spot: 'vb-mode', draw: couture, extra: 22, below: 1 },
+    { x: 2, y: 2, w: 2, d: 2, h: 58, k: 'dark', doc: 'vision-board', spot: 'vb-cinema', draw: cinema, extra: 22 },
     { x: 6, y: -4, w: 1, d: 1, h: 26, k: 'grey', doc: 'contact', draw: radio, extra: 96 },
     { x: 8, y: -5, w: 1, d: 3, h: 58, k: 'brown', draw: atelier },
     { x: 11, y: -9, w: 2, d: 2, h: 60, k: 'white', doc: 'cv', draw: billboard, extra: 50 },
@@ -124,7 +124,7 @@
     { x: 8, y: 12, w: 1, d: 1, h: 6, doc: 'plan', draw: metro, extra: 14, below: 1 },
     { x: 15.2, y: 0.4, w: 3.6, d: 2.2, h: 44, k: 'stone', doc: 'voyage', draw: station, extra: 30, below: 1 },
     { x: 15.3, y: -4.8, w: 3.4, d: 1.3, h: 18, k: 'white', doc: 'voyage', spot: 'voyage-air', draw: airport, extra: 70 },
-    { x: 10.3, y: 5.4, w: 3, d: 2.2, h: 50, k: 'dark', doc: 'vision-board', spot: 'vb-cinema', draw: cinema, extra: 20 }
+    { x: 10.6, y: 5.6, w: 2, d: 2, h: 30, k: 'stone', doc: 'vision-board', spot: 'vb-disques', draw: records, extra: 8 }
   ];
   var TREES = [[-9.6, 10.4], [-7.4, 10.5], [-9.5, 13.6], [-7.3, 13.5], [-4.6, 7.6], [-3.4, 8.5], [5.5, -2.4], [6.6, -1.5], [10.5, -6.6], [12.6, -6.5], [13.5, -8.4], [-1.5, 10.5], [-1.4, 12.6], [0.5, 8.5], [3.6, 8.6],
     [8.6, 0.5], [8.6, 2.6], [10.5, -2.4], [12.6, -2.5], [13.6, -4], [-1.5, 15.5], [-1.4, 17.6], [3.6, 15.5], [3.6, 17.6], [6.6, 13.5], [7.6, 12.4], [10.4, 3.6], [13.6, 0.4]];
@@ -572,11 +572,16 @@
   }
   function chateau(b, t) { cached(b, 'chateau', function () { chateauStatic(b); }); var sg = W3(b.x + b.w + .45, b.y + b.d + .5, 0); R(sg[0], sg[1] - 9, 1, 9, '#555'); R(sg[0] - 13, sg[1] - 16, 27, 8, N ? '#1a0f2e' : '#1b2fbf'); T('NANTES', sg[0] - 11, sg[1] - 14, '#ffffff'); }
   /* ---------- Défilé Comme des Garçons : podium, mannequins, photographes et flashs, public, Karl Lagerfeld et Anna Wintour au premier rang ---------- */
+  var HEART = [ // cœur à yeux façon Comme des Garçons PLAY, 22 × 19 (r = rouge, w = blanc de l'œil, k = pupille)
+    '...rrrrr......rrrrr...', '..rrrrrrr....rrrrrrr..', '.rrrrrrrrr..rrrrrrrrr.', 'rrrrwwwrrrrrrrrwwwrrrr', 'rrrwkkwwrrrrrrwkkwwrrr', 'rrrwkkwwrrrrrrwkkwwrrr', 'rrrwwwwwrrrrrrwwwwwrrr', 'rrrrwwwrrrrrrrrwwwrrrr',
+    'rrrrrrrrrrrrrrrrrrrrrr', '.rrrrrrrrrrrrrrrrrrrr.', '..rrrrrrrrrrrrrrrrrr..', '...rrrrrrrrrrrrrrrr...', '....rrrrrrrrrrrrrr....', '.....rrrrrrrrrrrr.....', '......rrrrrrrrrr......', '.......rrrrrrrr.......',
+    '........rrrrrr........', '.........rrrr.........', '..........rr..........'];
+  function playHeart(f, u0, vTop, k) { var C = { r: '#e3262e', w: '#ffffff', k: '#111111' }; for (var r = 0; r < HEART.length; r++) for (var c = 0; c < 22; c++) { var ch = HEART[r][c]; if (ch !== '.') fr(f, u0 + c * k, vTop - r * k, k, k, C[ch]); } }
   function fashionShow(b, t) {
     var x0 = b.x, y0 = b.y, ph = reduce ? 0 : t / 1000;
     quad({ x: x0, y: y0, w: b.w, d: b.d }, N ? '#15121f' : '#2a2a30'); // sol de la salle
-    var wall = { x: x0, y: y0 + .25, w: .14, d: b.d - .5 }; prism(wall, 36, '#111', '#1a1a1a', '#0d0d0d'); var wf = faceR(wall);
-    ftext2(wf, 6, 22, 'COMME DES', '#ffffff', 1); ftext2(wf, 10, 13, 'GARCONS', '#ffffff', 1); fr(wf, 4, 6, wf.len - 8, 1, '#ffffff'); // fond de scène
+    var wall = { x: x0, y: y0 + .25, w: .14, d: b.d - .5 }; prism(wall, 44, '#111', '#1a1a1a', '#0d0d0d'); var wf = faceR(wall);
+    playHeart(wf, (wf.len - 22) >> 1, 33, 1); ftext2(wf, 7, 6, 'COMME DES GARCONS', '#ffffff', 1); ftext2(wf, 19, 0, 'PLAY', '#e3262e', 1); // fond de scène : logo PLAY
     function row(y, fromX, looks, names, lift) { for (var k = 0; k < looks.length; k++) { var q = P(fromX + k * .48, y); R(q[0] - 5, q[1] - 6 - lift, 10, 3 + lift, '#3a3a40'); drawPerson(q[0], q[1] - 1 - lift, looks[k], k + 5, false, 0); if (names && names[k]) { R(q[0] - 8, q[1] - lift - 1, 17, 7, '#ffffff'); T(names[k], q[0] - 7, q[1] - lift, '#111'); } } }
     row(y0 + .3, x0 + .55, ['corporate', 'mode', 'etudiant', 'mode', 'corporate'], null, 10); // gradin du haut
     row(y0 + .72, x0 + .45, ['mode', 'anna', 'karl', 'corporate', 'mode'], [0, 'ANNA', 'KARL'], 0); // premier rang
@@ -627,16 +632,19 @@
     var fus = { x: px, y: py, w: 2.3, d: .32 }; prism(fus, 6, '#ffffff', '#f2f2f2', '#d6d9df', 1); var fl = faceL(fus); for (var u = 6; u < fl.len - 6; u += 3) fr(fl, u, 3, 1, 1, '#4d6f96'); fr(fl, 0, 1, fl.len, 1, '#1b2fbf');
     prism({ x: px, y: py + .07, w: .35, d: .18 }, 9, '#1b2fbf', '#1b2fbf', '#14248f', 7); // dérive
   }
-  function cinema(b, t) { // le cinéma : marquise lumineuse, enseigne verticale, affiches des films préférés (Letterboxd)
+  var TOP4 = ['f-raging-bull', 'f-las-vegas-parano', 'f-37-2-le-matin', 'f-once-upon-a-time']; // top 4 de Paul (à confirmer avec son profil Letterboxd)
+  function cinema(b, t) { // le cinéma du quartier vision board : marquise, enseigne verticale, le top 4 à l'affiche
     var p = pal(b.k), L = faceL(b), Rf = faceR(b), gold = '#d4af37', on = reduce ? 0 : (t / 220 | 0) % 2;
-    prism(b, b.h, p[0], p[1], p[2]); [L, Rf].forEach(function (f) { fr(f, 0, b.h - 2, f.len, 2, gold); for (var v = 8; v < b.h - 6; v += 9) fr(f, 0, v, f.len, 1, mix(p[1], gold, .25)); });
-    fr(L, 6, 1, 10, 15, '#111'); fr(L, 56, 1, 10, 15, '#111'); var tk = reduce ? 0 : (t / 4000 | 0);
-    faceCover(FILMS[tk % FILMS.length], L, 7, 2, 8, 13); faceCover(FILMS[(tk + 5) % FILMS.length], L, 57, 2, 8, 13); // vitrines d'affiches
-    fr(L, 24, 0, 24, 12, '#2a1a12'); fr(L, 24, 0, 24, 1, gold);
-    fr(L, 2, 17, L.len - 4, 10, '#111'); for (var u = 2; u < L.len - 2; u += 2) { fr(L, u, 26, 1, 1, (u / 2 + on) % 2 ? '#ffe9a8' : '#7a5a10'); fr(L, u, 17, 1, 1, (u / 2 + on) % 2 ? '#7a5a10' : '#ffe9a8'); } // marquise
-    ticker(L, 4, 19, L.len - 8, 'CE SOIR : RAGING BULL - LAS VEGAS PARANO - 37 2 LE MATIN - MEMORIES OF MURDER - ', t, '#ffd23f');
-    fr(L, 10, 30, 52, 16, '#0d0d12'); faceCover(FILMS[(tk + 2) % FILMS.length], L, 11, 31, 10, 14); faceCover(FILMS[(tk + 3) % FILMS.length], L, 31, 31, 10, 14); faceCover(FILMS[(tk + 4) % FILMS.length], L, 51, 31, 10, 14);
-    var cs = corners(b).s, bx = Math.round(cs[0]) - 3, by = Math.round(cs[1]) - b.h - 22; R(bx, by, 7, 44, '#b3202f'); R(bx, by, 7, 1, gold); R(bx, by + 43, 7, 1, gold); // enseigne verticale
+    prism(b, b.h, p[0], p[1], p[2]); [L, Rf].forEach(function (f) { fr(f, 0, b.h - 2, f.len, 2, gold); fr(f, 0, b.h - 6, f.len, 1, mix(p[1], gold, .35)); });
+    fr(L, 1, 31, L.len - 2, 19, '#0d0d12'); fr(L, 1, 49, L.len - 2, 1, gold); // vitrine du top 4
+    TOP4.forEach(function (f, i) { faceCover(f, L, 3 + i * 11, 33, 10, 15); });
+    fr(L, 1, 18, L.len - 2, 10, '#111'); for (var u = 1; u < L.len - 1; u += 2) { fr(L, u, 27, 1, 1, (u / 2 + on) % 2 ? '#ffe9a8' : '#7a5a10'); fr(L, u, 18, 1, 1, (u / 2 + on) % 2 ? '#7a5a10' : '#ffe9a8'); } // marquise
+    ticker(L, 3, 20, L.len - 6, 'MON TOP 4 : RAGING BULL - LAS VEGAS PARANO - 37 2 LE MATIN - ONCE UPON A TIME IN HOLLYWOOD - ', t, '#ffd23f');
+    fr(L, 16, 0, 16, 13, '#2a1a12'); fr(L, 16, 13, 16, 1, gold); fr(L, 3, 1, 9, 12, '#111'); fr(L, 36, 1, 9, 12, '#111');
+    var tk = reduce ? 0 : (t / 4000 | 0); faceCover(FILMS[(tk + 4) % FILMS.length], L, 4, 2, 7, 10); faceCover(FILMS[(tk + 7) % FILMS.length], L, 37, 2, 7, 10);
+    fr(Rf, 4, 34, 40, 14, '#111'); ftext2(Rf, 8, 37, 'TOP 4', '#ffd23f', 2); // côté : TOP 4
+    for (var k = 0; k < 3; k++) faceCover(FILMS[(tk + k) % FILMS.length], Rf, 6 + k * 14, 8, 10, 15);
+    var cs = corners(b).s, bx = Math.round(cs[0]) - 3, by = Math.round(cs[1]) - b.h - 20; R(bx, by, 7, 44, '#b3202f'); R(bx, by, 7, 1, gold); R(bx, by + 43, 7, 1, gold); // enseigne verticale
     'CINEMA'.split('').forEach(function (ch, i) { T(ch, bx + 2, by + 3 + i * 7, N && (on || i % 2) ? '#fff3a0' : '#ffffff'); });
     if (N) A(.25, function () { R(bx - 3, by - 3, 13, 50, '#ff7a7a'); });
   }
@@ -1044,7 +1052,7 @@
         win.animate([{ transform: 'scale(.08)', opacity: .2 }, { transform: 'scale(1)', opacity: 1 }], { duration: 320, easing: 'steps(7, end)' });
       }
     }
-    var sc = from && from.dataset && { 'vb-cinema': '.vb-cine' }[from.dataset.spot]; if (sc) { var el2 = body.querySelector(sc); if (el2) setTimeout(function () { el2.scrollIntoView({ block: 'start' }); }, 30); }
+    var sc = from && from.dataset && { 'vb-cinema': '.vb-cine', 'vb-mode': '.vb-side.mode', 'vb-defile': '.vb-side.mode', 'vb-club': '.vb-side.son', 'vb-disques': '.vb-albums' }[from.dataset.spot]; if (sc) { var el2 = body.querySelector(sc); if (el2) setTimeout(function () { el2.scrollIntoView({ block: 'start' }); }, 30); }
     history.replaceState(null, '', '#' + id);
     if (id === 'cv') renderCV();
     return true;

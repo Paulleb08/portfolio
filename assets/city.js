@@ -524,6 +524,22 @@
     cached(b, 'eiffel', function () { eiffelStatic(b); });
     var cx = b.x + b.w / 2, cy = b.y + b.d / 2, k;
     if (N && !reduce) for (k = 0; k < 40; k++) if (hash(k * 7 + (t / 140 | 0)) > .72) { var zz = (hash(k) * (EH - 10)) | 0, o = eO(zz), s2 = hash(k + 3) * 2 - 1, q = W3(cx + o * s2, cy + o, zz); R(q[0], q[1], 1, 1, '#ffffff'); } // scintillement
+    // Grand scintillement, comme la vraie tour : les 10 premières secondes de chaque minute (horloge du visiteur)
+    var sec = (Date.now() / 1000) % 60;
+    if (!reduce && sec < 10) {
+      var fade = Math.min(1, sec / .6, (10 - sec) / .8), seed = (t / 90) | 0;
+      var hc = W3(cx, cy, EH * .45); g.save(); g.globalAlpha = .55 * fade; g.translate(hc[0], hc[1]); g.scale(.45, 1); var gr = g.createRadialGradient(0, 0, 0, 0, 0, 150); gr.addColorStop(0, 'rgba(255,240,190,.55)'); gr.addColorStop(1, 'rgba(255,240,190,0)'); g.fillStyle = gr; g.fillRect(-150, -150, 300, 300); g.restore(); // halo doré
+      A(fade, function () {
+        for (var n = 0; n < 520; n++) {
+          if (hash(n * 13 + seed * 977) < .4) continue;
+          var zs = hash(n * 7 + 1) * (EH + 8), os = eO(zs), ss = eS(zs), side = hash(n * 3 + 5) < .5, u = hash(n * 11 + 9) * 2 - 1;
+          if (zs < F2 && Math.abs(u) * os < os - 2 * ss) u = u < 0 ? -(os - ss) / os : (os - ss) / os; // sous le 2e étage : éclats sur les piliers
+          var qs = side ? W3(cx + u * os, cy + os, zs) : W3(cx + os, cy + u * os, zs);
+          R(qs[0], qs[1], 1, 1, '#ffffff');
+          if (hash(n * 17 + seed) > .72) { R(qs[0] - 2, qs[1], 5, 1, '#fffbe0'); R(qs[0], qs[1] - 2, 1, 5, '#fffbe0'); R(qs[0], qs[1], 1, 1, '#ffffff'); }
+        }
+      });
+    }
     if (N) { var bc = W3(cx, cy, EH + 40), ang = reduce ? 0 : t / 1400; A(.18, function () { g.fillStyle = '#fff3c4'; g.beginPath(); g.moveTo(bc[0], bc[1]); g.lineTo(bc[0] + Math.cos(ang) * 140, bc[1] + Math.sin(ang) * 22 - 8); g.lineTo(bc[0] + Math.cos(ang) * 140, bc[1] + Math.sin(ang) * 22 + 8); g.fill(); }); } // phare du sommet
     function lift(z, x, y, col) { var q = W3(x, y, z); R(q[0] - 2, q[1] - 6, 5, 6, col); R(q[0] - 1, q[1] - 5, 3, 2, N ? '#ffe9a8' : '#cfe3f5'); R(q[0] - 2, q[1] - 6, 5, 1, '#3a2a22'); }
     var e1 = reduce ? .5 : .5 - .5 * Math.cos(t / 10000 * Math.PI * 2), z1 = 3 + e1 * (F1 - 6), o1 = eO(z1), s1 = eS(z1); // ascenseur du pilier : sol → 1er étage

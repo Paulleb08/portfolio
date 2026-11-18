@@ -111,7 +111,7 @@
     { x: 0, y: 5, w: 2, d: 2, h: 40, k: 'white', doc: 'musique', spot: 'm-concert', draw: concert },
     { x: 2.25, y: 5.25, w: 1.5, d: 1.5, h: 5, draw: bandstand },
     { x: 5.5, y: .4, w: 1.7, d: .9, h: 160, doc: 'racines', spot: 'r-tour', draw: tourBretagne, extra: 44 },
-    { x: 5, y: 2, w: 3, d: 2, h: 84, doc: 'materiel', draw: towerRecords, extra: 26 },
+    { x: 5, y: 2, w: 3, d: 2, h: 84, doc: 'materiel', draw: towerRecords, extra: 26, below: 1 },
     { x: 10, y: -5, w: 3, d: 2, h: 46, k: 'white', doc: 'inspirations', draw: galerie, extra: 6 },
     { x: -5, y: 15, w: 4, d: 4, h: 19, doc: 'foot', draw: stade, extra: 4, below: 1 },
     { x: 0, y: 10, w: 4, d: 4, h: 0, doc: 'valeurs', draw: park, extra: 26 },

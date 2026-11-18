@@ -144,7 +144,7 @@
   // Albums préférés de Paul (pochettes dans assets/vb/albums) : panneaux, fresques, affiches qui défilent
   var ALB = ["college-dropout", "ram", "thriller", "purple-rain", "seychelles", "astroworld", "morning-glory", "808s", "discovery", "legend", "odyssee", "saw-85-92", "1986", "54-1", "audio-video-disco", "bad", "bar-mediterraneo", "blur", "cassius-1999", "catch-a-fire", "civilisation", "comment-c-est-loin", "devil-wears-prada", "eminem-show", "euphories", "exodus", "first-light", "francafrique", "good-bad-ugly", "heroes-capes", "heroes-villains", "homework", "human-after-all", "jesus-is-king", "kaya", "le-monde-chico", "lucky-boy", "matahari", "modjo", "my-type", "natty-dread", "off-the-wall", "paradise", "pulsar", "rammstein", "shouso-strip", "story-of-espion", "takanaka", "take-care", "tasty", "three-imaginary-boys", "utopia", "watermelon-dandies", "ye"];
   var IMG = {}, SRC = { grad: 'assets/vb/graduation.jpg', sade: 'assets/vb/diamond-life.jpg', 'p-lv': 'assets/vb/louis-vuitton.jpg', 'p-hermes': 'assets/vb/hermes-sellier.jpg', 'p-dior': 'assets/vb/dior.jpg', 'p-kef': 'assets/vb/kef-ls50.jpg', 'p-beo': 'assets/vb/beosound-9000.jpg', 'p-defile': 'assets/vb/defile.jpg' };
-  var FILMS = ['f-raging-bull', 'f-las-vegas-parano', 'f-37-2-le-matin', 'f-once-upon-a-time', 'f-memories-of-murder', 'f-anatomie-d-une-chute', 'f-fantastic-mr-fox', 'f-endless-summer', 'f-arrete-moi-si-tu-peux', 'f-99-francs'];
+  var FILMS = ['f-raging-bull', 'f-las-vegas-parano', 'f-37-2-le-matin', 'f-pierrot-le-fou', 'f-once-upon-a-time', 'f-memories-of-murder', 'f-anatomie-d-une-chute', 'f-fantastic-mr-fox', 'f-endless-summer', 'f-arrete-moi-si-tu-peux', 'f-99-francs'];
   FILMS.forEach(function (f) { SRC[f] = 'assets/vb/films/' + f.slice(2) + '.jpg'; });
   function img(name) { // chargée à la première demande
     var im = IMG['_' + name]; if (im) return im;
@@ -661,14 +661,14 @@
     var fus = { x: px, y: py, w: 2.3, d: .32 }; prism(fus, 6, '#ffffff', '#f2f2f2', '#d6d9df', 1); var fl = faceL(fus); for (var u = 6; u < fl.len - 6; u += 3) fr(fl, u, 3, 1, 1, '#4d6f96'); fr(fl, 0, 1, fl.len, 1, '#1b2fbf');
     prism({ x: px, y: py + .07, w: .35, d: .18 }, 9, '#1b2fbf', '#1b2fbf', '#14248f', 7); // dérive
   }
-  var TOP4 = ['f-raging-bull', 'f-las-vegas-parano', 'f-37-2-le-matin', 'f-once-upon-a-time']; // top 4 de Paul (à confirmer avec son profil Letterboxd)
+  var TOP4 = ['f-raging-bull', 'f-las-vegas-parano', 'f-37-2-le-matin', 'f-pierrot-le-fou']; // top 4 de Paul, confirmé par lui le 18/11/2026
   function cinema(b, t) { // le cinéma du quartier vision board : marquise, enseigne verticale, le top 4 à l'affiche
     var p = pal(b.k), L = faceL(b), Rf = faceR(b), gold = '#d4af37', on = reduce ? 0 : (t / 220 | 0) % 2;
     prism(b, b.h, p[0], p[1], p[2]); [L, Rf].forEach(function (f) { fr(f, 0, b.h - 2, f.len, 2, gold); fr(f, 0, b.h - 6, f.len, 1, mix(p[1], gold, .35)); });
     fr(L, 1, 31, L.len - 2, 19, '#0d0d12'); fr(L, 1, 49, L.len - 2, 1, gold); // vitrine du top 4
     TOP4.forEach(function (f, i) { faceCover(f, L, 3 + i * 11, 33, 10, 15); });
     fr(L, 1, 18, L.len - 2, 10, '#111'); for (var u = 1; u < L.len - 1; u += 2) { fr(L, u, 27, 1, 1, (u / 2 + on) % 2 ? '#ffe9a8' : '#7a5a10'); fr(L, u, 18, 1, 1, (u / 2 + on) % 2 ? '#7a5a10' : '#ffe9a8'); } // marquise
-    ticker(L, 3, 20, L.len - 6, 'MON TOP 4 : RAGING BULL - LAS VEGAS PARANO - 37 2 LE MATIN - ONCE UPON A TIME IN HOLLYWOOD - ', t, '#ffd23f');
+    ticker(L, 3, 20, L.len - 6, 'MON TOP 4 : RAGING BULL - LAS VEGAS PARANO - 37 2 LE MATIN - PIERROT LE FOU - ', t, '#ffd23f');
     fr(L, 16, 0, 16, 13, '#2a1a12'); fr(L, 16, 13, 16, 1, gold); fr(L, 3, 1, 9, 12, '#111'); fr(L, 36, 1, 9, 12, '#111');
     var tk = reduce ? 0 : (t / 4000 | 0); faceCover(FILMS[(tk + 4) % FILMS.length], L, 4, 2, 7, 10); faceCover(FILMS[(tk + 7) % FILMS.length], L, 37, 2, 7, 10);
     fr(Rf, 4, 34, 40, 14, '#111'); ftext2(Rf, 8, 37, 'TOP 4', '#ffd23f', 2); // côté : TOP 4
@@ -797,20 +797,23 @@
 
   /* ---------- Le stade de la Beaujoire (FC Nantes), d'après photo : rectangle aux coins arrondis, grand toit gris-vert tout autour
      et son bandeau vert clair, tribunes blanches avec « NANTES » en bleu, façade blanche à poteaux et rampes d'escalier ---------- */
-  var SA = 1.9, SB = 1.5, SRC_ = .9, SWALL = 12, SROOF = 17;
-  function stadeRing(sc) { // contour (coins arrondis), points dans le sens trigonométrique, avec la normale extérieure
-    var pts = [], A = SA * sc, Bv = SB * sc, r = SRC_ * sc, cs = [[A - r, Bv - r, 0], [-(A - r), Bv - r, 1], [-(A - r), -(Bv - r), 2], [A - r, -(Bv - r), 3]];
-    cs.forEach(function (c, q) {
-      for (var k = 0; k <= 6; k++) { var a = (q + k / 6) * Math.PI / 2; pts.push([c[0] + Math.cos(a) * r, c[1] + Math.sin(a) * r, Math.cos(a), Math.sin(a)]); }
-      var nx = cs[(q + 1) % 4], last = pts[pts.length - 1], na = (q + 1) * Math.PI / 2, ex = nx[0] + Math.cos(na) * r, ey = nx[1] + Math.sin(na) * r, n = Math.max(1, Math.round((q % 2 ? SB - SRC_ : SA - SRC_) * 2 / .16)); // même nombre de points à toutes les échelles
-      for (var j = 1; j < n; j++) pts.push([last[0] + (ex - last[0]) * j / n, last[1] + (ey - last[1]) * j / n, Math.round(Math.cos(na)), Math.round(Math.sin(na))]); // côté droit : normale constante
-    });
+  var SA = 1.95, SB = 1.5, SN = 64;
+  function stadeRing(sc) { // contour ovale (superellipse d'exposant 2,3), SN points : [x, y, normale x, normale y, |sin θ|]
+    var pts = [], A = SA * sc, Bv = SB * sc, ex = 2 / 2.3;
+    for (var k = 0; k < SN; k++) {
+      var th = k / SN * Math.PI * 2, c = Math.cos(th), sn = Math.sin(th), x = A * Math.sign(c) * Math.pow(Math.abs(c), ex), y = Bv * Math.sign(sn) * Math.pow(Math.abs(sn), ex);
+      var gx = Math.sign(x) * Math.pow(Math.abs(x / A), 1.3) / A, gy = Math.sign(y) * Math.pow(Math.abs(y / Bv), 1.3) / Bv, gl = Math.hypot(gx, gy) || 1;
+      pts.push([x, y, gx / gl, gy / gl, Math.abs(sn)]);
+    }
     return pts;
   }
+  function zWall(q) { return 8 + 9 * Math.pow(q[4], 1.4); } // le toit est galbé : haut au milieu des grandes tribunes, bas dans les virages
+  function zRoof(q) { return zWall(q) + 5 + 3 * q[4]; }
   function stadeStatic(b) {
-    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, out = stadeRing(1), inn = stadeRing(.78), st1 = stadeRing(.76), st0 = stadeRing(.55), n = out.length, i, k;
+    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, out = stadeRing(1), inn = stadeRing(.76), st1 = stadeRing(.74), st0 = stadeRing(.55), n = SN, i, k;
     function Wp(q, z) { return [cx + q[0], cy + q[1], z]; }
     function vis(q) { return q[2] + q[3] > .05; }
+    function order(ring) { var l = []; for (var a = 0; a < n; a++) { var j = (a + 1) % n; l.push({ d: ring[a][0] + ring[a][1] + ring[j][0] + ring[j][1], i: a, j: j }); } return l.sort(function (u, v) { return u.d - v.d; }); }
     var road = stadeRing(1.16); A(.9, function () { poly(road.map(function (q) { return Wp(q, 0); }), N ? '#3a3850' : '#b9bcc4'); });
     A(.22, function () { poly(out.map(function (q) { return [cx + q[0] + .25, cy + q[1] + .25, 0]; }), '#000'); });
     poly(st0.map(function (q) { return Wp(q, 2); }), N ? '#2e6b3c' : '#3f9e4f');
@@ -818,37 +821,35 @@
     for (k = 0; k < 10; k++) quad({ x: pt.x + k * .16, y: pt.y, w: .16, d: pt.d }, k % 2 ? (N ? '#2a6e3a' : '#43a653') : (N ? '#327f45' : '#52b862'), 2); // bandes de tonte
     [[0, 0, pt.w, .04], [0, pt.d - .04, pt.w, .04], [0, 0, .04, pt.d], [pt.w - .04, 0, .04, pt.d], [pt.w / 2 - .02, 0, .04, pt.d], [0, .27, .24, .04], [0, .73, .24, .04], [.22, .27, .04, .5], [pt.w - .24, .27, .24, .04], [pt.w - .24, .73, .24, .04], [pt.w - .26, .27, .04, .5]].forEach(function (l) { quad({ x: pt.x + l[0], y: pt.y + l[1], w: l[2], d: l[3] }, '#ffffff', 2); });
     for (k = 0; k < 24; k++) { var q0 = W3(cx + Math.cos(k / 24 * 6.283) * .17, cy + Math.sin(k / 24 * 6.283) * .17, 2); R(q0[0], q0[1], 1, 1, '#ffffff'); } // rond central
-    var quads = [];
-    for (i = 0; i < n; i++) { var j = (i + 1) % n; quads.push({ d: st1[i][0] + st1[i][1] + st1[j][0] + st1[j][1], i: i, j: j }); }
-    quads.sort(function (u, v) { return u.d - v.d; }).forEach(function (q) { // tribunes : rangées de sièges blancs, du toit jusqu'à la pelouse
-      for (var r = 0; r < 4; r++) { var t0 = r / 4, t1 = (r + 1) / 4, L = function (a, t) { return [cx + st1[a][0] + (st0[a][0] - st1[a][0]) * t, cy + st1[a][1] + (st0[a][1] - st1[a][1]) * t, SWALL + 2 - SWALL * t]; };
-        poly([L(q.i, t0), L(q.j, t0), L(q.j, t1), L(q.i, t1)], r % 2 ? (N ? '#9a9cb8' : '#dfe4e8') : (N ? '#b4b6cf' : '#f4f6f7')); }
+    order(st1).forEach(function (q) { // tribunes : rangées de sièges blancs, du toit jusqu'à la pelouse
+      for (var r = 0; r < 4; r++) {
+        var t0 = r / 4, t1 = (r + 1) / 4, L = function (a, t) { var top = zWall(st1[a]) + 2; return [cx + st1[a][0] + (st0[a][0] - st1[a][0]) * t, cy + st1[a][1] + (st0[a][1] - st1[a][1]) * t, top - (top - 2) * t]; };
+        poly([L(q.i, t0), L(q.j, t0), L(q.j, t1), L(q.i, t1)], r % 2 ? (N ? '#9a9cb8' : '#dfe4e8') : (N ? '#b4b6cf' : '#f4f6f7'));
+      }
     });
-    var word = norm('NANTES'), cols = word.length * 4 - 1;
+    var word = norm('NANTES'), cols = word.length * 4 - 1, zt = zWall([0, 0, 0, 0, 1]) + 2;
     for (var gx = 0; gx < cols; gx++) for (var gy = 0; gy < 5; gy++) { // le mot NANTES dans les sièges de la tribune du fond
       var gl = F[word[(gx / 4) | 0]]; if (gx % 4 === 3 || gl[gy * 3 + gx % 4] !== '1') continue;
-      var x0 = -.95 + gx * 1.9 / cols, x1 = x0 + 1.9 / cols, t0 = .12 + gy * .15, t1 = t0 + .15, yA = -SB * .76, yB = -SB * .55;
-      var M = function (x, t) { return [cx + x, cy + yA + (yB - yA) * t, SWALL + 2 - SWALL * t]; };
+      var x0 = -.78 + gx * 1.56 / cols, x1 = x0 + 1.56 / cols, t0 = .12 + gy * .15, t1 = t0 + .15, yA = -SB * .74, yB = -SB * .55;
+      var M = function (x, t) { return [cx + x, cy + yA + (yB - yA) * t, zt - (zt - 2) * t]; };
       poly([M(x0, t0), M(x1, t0), M(x1, t1), M(x0, t1)], N ? '#6f8fd0' : '#8fb2dc');
     }
-    var rq = [];
-    for (i = 0; i < n; i++) { var j2 = (i + 1) % n; rq.push({ d: out[i][0] + out[i][1] + out[j2][0] + out[j2][1], i: i, j: j2 }); }
-    rq.sort(function (u, v) { return u.d - v.d; }).forEach(function (q) { // le toit, puis son bandeau vert clair côté pelouse
-      var o = out[q.i], sh = (o[2] + o[3]) * .08, base = N ? '#344a3e' : '#557a62'; // vert sombre du vrai toit
-      poly([Wp(out[q.i], SWALL), Wp(out[q.j], SWALL), Wp(inn[q.j], SROOF), Wp(inn[q.i], SROOF)], mix(base, sh > 0 ? '#ffffff' : '#000000', Math.abs(sh) + (q.i % 3 === 0 ? .06 : 0)));
+    order(out).forEach(function (q) { // le toit galbé, puis son bandeau vert clair côté pelouse
+      var o = out[q.i], sh = (o[2] + o[3]) * .07, base = N ? '#344a3e' : '#557a62';
+      poly([Wp(out[q.i], zWall(out[q.i])), Wp(out[q.j], zWall(out[q.j])), Wp(inn[q.j], zRoof(inn[q.j])), Wp(inn[q.i], zRoof(inn[q.i]))], mix(base, sh > 0 ? '#ffffff' : '#000000', Math.abs(sh) + (q.i % 2 ? .05 : 0)));
       if (!(inn[q.i][2] + inn[q.i][3] < -.05)) return;
-      poly([Wp(inn[q.i], SROOF), Wp(inn[q.j], SROOF), Wp(inn[q.j], SROOF - 3), Wp(inn[q.i], SROOF - 3)], N ? '#5f9a63' : '#9be08f');
+      poly([Wp(inn[q.i], zRoof(inn[q.i])), Wp(inn[q.j], zRoof(inn[q.j])), Wp(inn[q.j], zRoof(inn[q.j]) - 3), Wp(inn[q.i], zRoof(inn[q.i]) - 3)], N ? '#5f9a63' : '#9be08f');
     });
-    for (i = 0; i < n; i++) { // façade : bandeau blanc du toit, poteaux, étages, rampes d'escalier en diagonale
+    for (i = 0; i < n; i++) { // façade : bandeau blanc du toit, nervures de béton, dalle d'étage, rampes d'escalier
       var a1 = out[i], a2 = out[(i + 1) % n]; if (!vis(a1) && !vis(a2)) continue;
-      var lt = (a1[3] > a1[2]) ? (N ? ['#a9a6c2', '#4a4662'] : ['#ffffff', '#a9a69c']) : (N ? ['#8f8aa8', '#3c3852'] : ['#ecebe6', '#8f8c83']);
-      poly([Wp(a1, 0), Wp(a2, 0), Wp(a2, SWALL - 5), Wp(a1, SWALL - 5)], lt[1]);
-      poly([Wp(a1, SWALL - 5), Wp(a2, SWALL - 5), Wp(a2, SWALL), Wp(a1, SWALL)], lt[0]);
-      poly([Wp(a1, 3), Wp(a2, 3), Wp(a2, 4), Wp(a1, 4)], lt[0]); var w0 = W3(cx + a1[0], cy + a1[1], 0); if (i % 2) R(w0[0], w0[1] - SWALL + 5, 1, SWALL - 5, lt[0]); // dalle d'étage et poteaux blancs
-      if (i % 5 === 2) { var b0 = W3(cx + a1[0], cy + a1[1], 0), b1 = W3(cx + a2[0] * 1.02, cy + a2[1] * 1.02, SWALL - 5); g.strokeStyle = N ? '#d9d6ec' : '#ffffff'; g.lineWidth = 2; g.beginPath(); g.moveTo(b0[0], b0[1]); g.lineTo(b1[0] + 4, b1[1]); g.stroke(); g.lineWidth = 1; }
+      var lt = (a1[3] > a1[2]) ? (N ? ['#a9a6c2', '#4a4662'] : ['#ffffff', '#a9a69c']) : (N ? ['#8f8aa8', '#3c3852'] : ['#ecebe6', '#8f8c83']), z1 = zWall(a1), z2 = zWall(a2);
+      poly([Wp(a1, 0), Wp(a2, 0), Wp(a2, z2 - 4), Wp(a1, z1 - 4)], lt[1]);
+      poly([Wp(a1, z1 - 4), Wp(a2, z2 - 4), Wp(a2, z2), Wp(a1, z1)], lt[0]);
+      poly([Wp(a1, 3), Wp(a2, 3), Wp(a2, 4), Wp(a1, 4)], lt[0]);
+      var w0 = W3(cx + a1[0], cy + a1[1], 0); if (i % 2) R(w0[0], w0[1] - z1 + 4, 1, z1 - 4, lt[0]);
+      if (i % 6 === 3) { var b0 = W3(cx + a1[0], cy + a1[1], 0), b1 = W3(cx + a2[0] * 1.02, cy + a2[1] * 1.02, z2 - 4); g.strokeStyle = N ? '#d9d6ec' : '#ffffff'; g.lineWidth = 2; g.beginPath(); g.moveTo(b0[0], b0[1]); g.lineTo(b1[0] + 4, b1[1]); g.stroke(); g.lineWidth = 1; }
     }
-    var f = { x: P(cx - (SA - SRC_), cy + SB)[0], y: P(cx - (SA - SRC_), cy + SB)[1], dir: 1, len: (SA - SRC_) * 2 * 24 };
-    fr(f, 0, SWALL - 5, f.len, 5, N ? '#0b5a2b' : '#0b7a3b'); ftext(f, (f.len - TL('LA BEAUJOIRE')) / 2 | 0, SWALL - 5, 'LA BEAUJOIRE', '#ffd60a');
+    var sg = W3(cx, cy + SB, 0); R(sg[0] - 26, sg[1] - 9, 53, 7, N ? '#0b5a2b' : '#0b7a3b'); T('LA BEAUJOIRE', sg[0] - TL('LA BEAUJOIRE') / 2, sg[1] - 8, '#ffd60a');
   }
   function stade(b, t) {
     cached(b, 'stade2', function () { stadeStatic(b); });

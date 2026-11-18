@@ -840,12 +840,13 @@
     var x = a[0] + (b[0] - a[0]) * k + w.o[0], y = a[1] + (b[1] - a[1]) * k + w.o[1];
     return [x, y, (b[0] - a[0]) < 0 || (b[1] - a[1]) > 0, moving ? ((T0 * 6 + w.k) | 0) % 4 : 0];
   }
-  function blimp(t) { // dirigeable publicitaire qui traverse le ciel
-    var span = W + 260, x = reduce ? W * .72 : (t / 70 + W * .62) % span - 130, y = Math.round(TOPA + 78), body = N ? '#5a5478' : '#d9dce2', sh = N ? '#3d3a5c' : '#a9afb9';
-    disc(x, y, 34, sh, .32); disc(x - 2, y - 2, 32, body, .28); R(x - 20, y - 4, 40, 1, N ? '#77749a' : '#f4f4f4');
-    R(x + 30, y - 9, 6, 3, sh); R(x + 30, y + 6, 6, 3, sh); R(x + 32, y - 3, 6, 6, sh); R(x - 6, y + 9, 12, 4, '#2b2b30'); R(x - 4, y + 10, 2, 2, N ? '#ffd56b' : '#9ec9f0'); R(x + 1, y + 10, 2, 2, N ? '#ffd56b' : '#9ec9f0');
-    R(x - 24, y - 4, 48, 9, '#1b2fbf'); T('SON & MODE', x - 19, y - 2, '#ffd84a');
-    if (N && (t / 500 | 0) % 2) { R(x - 34, y - 1, 2, 2, '#ff3b3b'); R(x + 37, y - 1, 2, 2, '#7dff8a'); }
+  function blimp(t) { // dirigeable qui traverse le ciel, clin d'œil à Scarface : « THE WORLD IS YOURS »
+    var span = W + 320, x = reduce ? W * .72 : (t / 70 + W * .62) % span - 160, y = Math.round(TOPA + 78), body = N ? '#5a5478' : '#d9dce2', sh = N ? '#3d3a5c' : '#a9afb9';
+    disc(x, y, 48, sh, .3); disc(x - 2, y - 2, 46, body, .27); R(x - 30, y - 9, 60, 1, N ? '#77749a' : '#f4f4f4');
+    R(x + 44, y - 10, 7, 3, sh); R(x + 44, y + 7, 7, 3, sh); R(x + 46, y - 3, 7, 6, sh); R(x - 7, y + 12, 14, 4, '#2b2b30'); R(x - 5, y + 13, 2, 2, N ? '#ffd56b' : '#9ec9f0'); R(x + 1, y + 13, 2, 2, N ? '#ffd56b' : '#9ec9f0');
+    var msg = 'THE WORLD IS YOURS', tw = TL(msg); R(x - tw / 2 - 3, y - 5, tw + 6, 9, '#14102a'); // bandeau lumineux
+    T(msg, x - tw / 2, y - 3, N ? ((reduce || (t / 400 | 0) % 2) ? '#ffd84a' : '#fff3a0') : '#ffd84a');
+    if (N && (t / 500 | 0) % 2) { R(x - 48, y - 1, 2, 2, '#ff3b3b'); R(x + 52, y - 1, 2, 2, '#7dff8a'); }
   }
   function loop(now) { var dt = Math.min(now - last, 200); if (dt > 66) { stepPeople(dt); last = now; draw(now); } requestAnimationFrame(loop); }
 

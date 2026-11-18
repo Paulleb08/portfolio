@@ -96,7 +96,7 @@
   /* ---------- Le plan : les rubriques s'étalent sur une bande de 18 pâtés de 4 × 4 cases (rues toutes les 5 cases) ----------
      rangée du fond (x + y du pâté = 0) : grandes tours ; rangée de devant (= 3) : bâtiments bas. */
   var B = [ // doc = fenêtre ouverte ; spot = zone cliquable ; h = hauteur en pixels ; extra = ce qui dépasse du toit
-    { x: -9, y: 11, w: 2, d: 2, h: 0, draw: eiffel, extra: 230 },
+    { x: -9.2, y: 10.8, w: 2.4, d: 2.4, h: 0, draw: eiffel, extra: 272, below: 1, note: ['PARIS', "La ville où j'aimerais vivre plus tard"] },
     { x: -4, y: 5, w: 2, d: 2, h: 150, k: 'glass', doc: 'competences', draw: tower, extra: 82 },
     { x: -2, y: 5, w: 1, d: 3, h: 86, k: 'glass', draw: speakerWall },
     { x: 0, y: 0, w: 2, d: 2, h: 92, k: 'brick', doc: 'vision-board', draw: coverBoard, extra: 58 },
@@ -116,7 +116,7 @@
     { x: 0, y: 10, w: 4, d: 4, h: 0, doc: 'animation', draw: park, extra: 26 },
     { x: 2.05, y: 10.15, w: .5, d: .3, h: 0, draw: photoshoot },
     { x: 3.45, y: 13.45, w: .3, d: .3, h: 0, draw: busker },
-    { x: 5.6, y: 5.6, w: 2.8, d: 2.8, h: 24, draw: chateau, extra: 40 },
+    { x: 5.6, y: 5.6, w: 2.8, d: 2.8, h: 24, draw: chateau, extra: 40, below: 1, note: ['NANTES', "D'où je viens · Bretagne historique et culturelle"] },
     { x: 11, y: 1, w: 2, d: 2, h: 84, k: 'dark', draw: screenTower, extra: 30 },
     { x: 1, y: 15, w: 2, d: 2, h: 30, k: 'brick', doc: 'garde', draw: house, extra: 12, below: 1 },
     { x: 0.2, y: 17.25, w: .9, d: .5, h: 7, draw: vinylStall },
@@ -224,7 +224,7 @@
     for (var bx = i0 - span; bx <= span + 2; bx++) for (var by = i0 - span; by <= span + 2; by++) {
       var x0 = bx * 5, y0 = by * 5; if (x0 + y0 + 4 < BACK) continue;
       var cp = P(x0 + 2, y0 + 2); if (cp[0] < -150 || cp[0] > W + 150 || cp[1] > H + 80 || cp[1] < yH - 70) continue;
-      var core = inBand(bx, by), park = bx === 0 && by === 2;
+      var core = inBand(bx, by), park = (bx === 0 && by === 2) || (bx === -2 && by === 2); // parc et Champ-de-Mars
       quad({ x: x0, y: y0, w: 4, d: 4 }, walk);
       var c = corners({ x: x0, y: y0, w: 4, d: 4 }); isoLine(c.w, c.s, curb); isoLine(c.s, c.e, curb);
       for (var i = 0; i < 4; i++) for (var j = 0; j < 4; j++) { // dalles du trottoir et des cours
@@ -477,46 +477,61 @@
     if (b.ck !== k) { var sc = document.createElement('canvas'); sc.width = x1 - x0; sc.height = y1 - y0; var main = g; g = sc.getContext('2d'); g.translate(-x0, -y0); fn(); g = main; b.cimg = sc; b.cx0 = x0; b.cy0 = y0; b.ck = k; }
     g.drawImage(b.cimg, b.cx0, b.cy0);
   }
-  /* ---------- Tour Eiffel, en isométrique : 4 piliers, arches, treillis en X, 2 plateformes, sommet ; PNL assis en haut ---------- */
-  var EH = 214;
-  function eHW(z) { return z < 64 ? 1.0 - .4 * Math.pow(z / 64, .8) : z < 128 ? .52 - .25 * (z - 64) / 64 : .25 - .18 * (z - 128) / (EH - 128); }
+  /* ---------- Tour Eiffel, en isométrique (d'après photo) : 4 piliers penchés et séparés, grandes arches, 3 étages, flèche ----------
+     Profil concave : demi-largeur O(z) = 0,07 + 1,08·e^(−3,1 z / EH) (en cases) ; chaque pilier a une demi-section s(z) ; ils se rejoignent au 2e étage. */
+  var EH = 230, F1 = 46, F2 = 100;
+  function eO(z) { return .07 + 1.08 * Math.exp(-3.1 * z / EH); }
+  function eS(z) { return .17 - .03 * Math.min(1, z / F2); }
   function eiffelStatic(b) {
-    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, light = N ? '#e7a85a' : '#a8846c', mid = N ? '#c4863e' : '#8a6a56', dark = N ? '#7a4f22' : '#4e382b', back = N ? '#8a5f2e' : '#9c8270';
-    A(.2, function () { poly([[cx - 1.3, cy - 1.3, 0], [cx + 1.3, cy - 1.3, 0], [cx + 1.3, cy + 1.3, 0], [cx - 1.3, cy + 1.3, 0]], '#000'); });
-    // les 4 faces : on balaie la hauteur ; faces de derrière d'abord (plus claires, vues à travers le treillis)
-    var faces = [[[-1, -1], [1, -1], back], [[-1, -1], [-1, 1], back], [[-1, 1], [1, 1], light], [[1, 1], [1, -1], mid]];
-    function seg(z0, z1, fs) {
-      fs.forEach(function (fc) {
-        for (var z = z0; z < z1; z++) {
-          var hw = eHW(z), a = W3(cx + fc[0][0] * hw, cy + fc[0][1] * hw, z), bb = W3(cx + fc[1][0] * hw, cy + fc[1][1] * hw, z), n = Math.max(2, Math.round(Math.abs(bb[0] - a[0])));
-          var archW = z < 40 ? Math.sqrt(1 - (z / 40) * (z / 40)) * .66 : 0, legW = z < 64 ? .2 : z < 128 ? .14 : .5;
-          for (var i = 0; i <= n; i++) {
-            var tt = i / n, d = Math.abs(tt - .5) * 2; if (d < archW) continue;
-            var edge = tt < .035 || tt > .965 || (archW > 0 && d < archW + .05), inLeg = tt < legW || tt > 1 - legW, row = (z % 8), lat = ((i + row) % 8 === 0) || ((i - row + 800) % 8 === 0);
-            if (!inLeg && !lat && !edge && fc[2] === back) continue; // faces arrière : on ne voit que le treillis
-            R(a[0] + (bb[0] - a[0]) * tt, a[1] + (bb[1] - a[1]) * tt, 1, 1, edge ? dark : lat || row === 0 ? mix(fc[2], '#000000', .32) : inLeg ? fc[2] : mix(fc[2], '#ffffff', .12));
-          }
+    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, iron = N ? ['#f0b56a', '#d08f45', '#8f5a24'] : ['#b48a6c', '#8c6650', '#4f3628'], frieze = N ? '#ffe6a8' : '#d9c2ad';
+    A(.22, function () { poly([[cx - 1.3, cy - 1.3, 0], [cx + 1.6, cy - 1.3, 0], [cx + 1.6, cy + 1.3, 0], [cx - 1.3, cy + 1.3, 0]], '#000'); }); // ombre
+    function px(x, y, z, c) { var q = W3(x, y, z); R(q[0], q[1], 1, 1, c); }
+    function tex(i, n, z, col) { // treillis : arêtes sombres, croisillons en X, entretoises horizontales
+      if (i === 0 || i === n) return iron[2];
+      if (z % 8 === 0) return mix(col, '#000000', .38); // entretoises
+      if (((i + z) % 6 === 0) || ((i - z + 1200) % 6 === 0)) return mix(col, '#000000', .24); // croisillons
+      return col;
+    }
+    function faceRow(x0, y0, x1, y1, z, col) { var a = W3(x0, y0, z), c = W3(x1, y1, z), n = Math.max(1, Math.round(Math.abs(c[0] - a[0]))); for (var i = 0; i <= n; i++) R(a[0] + (c[0] - a[0]) * i / n, a[1] + (c[1] - a[1]) * i / n, 1, 1, tex(i, n, z, col)); }
+    function leg(sx, sy, z0, z1) { // un pilier : faces visibles (gauche = y+, droite = x+)
+      for (var z = z0; z < z1; z++) { var o = eO(z), sv = eS(z), lx = cx + sx * (o - sv), ly = cy + sy * (o - sv);
+        faceRow(lx - sv, ly + sv, lx + sv, ly + sv, z, iron[0]); faceRow(lx + sv, ly + sv, lx + sv, ly - sv, z, iron[1]); }
+    }
+    function archs(front) { // grandes arches décoratives entre les pieds, sous le 1er étage
+      [[0, 1], [1, 0]].forEach(function (ax) {
+        var sgn = front ? 1 : -1;
+        for (var th = 0; th <= Math.PI; th += .02) {
+          var zA = 6 + 34 * Math.sin(th), o = eO(zA), sv = eS(zA), ins = (eO(6) - 2 * eS(6)) * Math.cos(th), dep = sgn * (o - sv);
+          for (var k = 0; k < 3; k++) { var zz = zA + k, x = ax[0] ? cx + ins : cx + dep, y = ax[0] ? cy + dep : cy + ins; px(x, y, zz, k === 0 ? iron[2] : front ? (ax[0] ? iron[0] : iron[1]) : iron[2]); }
         }
       });
     }
-    function deck(z, hw, th) { prism({ x: cx - hw, y: cy - hw, w: 2 * hw, d: 2 * hw }, th, light, mid, dark, z); var f = faceL({ x: cx - hw, y: cy - hw, w: 2 * hw, d: 2 * hw }), fr2 = faceR({ x: cx - hw, y: cy - hw, w: 2 * hw, d: 2 * hw }); [f, fr2].forEach(function (ff) { for (var u = 1; u < ff.len; u += 3) fr(ff, u, z + 1, 1, th - 2, dark); }); }
-    seg(0, 64, faces.slice(0, 2)); seg(0, 64, faces.slice(2)); deck(62, .62, 6);
-    seg(68, 128, faces.slice(0, 2)); seg(68, 128, faces.slice(2)); deck(126, .32, 4);
-    seg(130, EH, faces.slice(0, 2)); seg(130, EH, faces.slice(2));
-    deck(EH - 2, .13, 6); prism({ x: cx - .07, y: cy - .07, w: .14, d: .14 }, 8, light, N ? '#ffd56b' : '#c9d6e2', N ? '#e8c47a' : '#9fb3c6', EH + 4); deck(EH + 12, .1, 2);
-    var tip = W3(cx, cy, EH + 14); R(tip[0], tip[1] - 22, 1, 22, '#8a8a8a'); R(tip[0] - 1, tip[1] - 23, 3, 1, '#ff3b3b');
+    function deck(z, hw, th, arcs) {
+      var d = { x: cx - hw, y: cy - hw, w: 2 * hw, d: 2 * hw }; prism(d, th, iron[0], iron[1], iron[2], z);
+      [faceL(d), faceR(d)].forEach(function (f, side) { fr(f, 0, z + th - 2, f.len, 1, frieze); if (arcs) for (var u = 1; u < f.len - 3; u += 5) { fr(f, u, z + 2, 1, th - 5, frieze); fr(f, u + 1, z + th - 4, 3, 1, frieze); } fr(f, 0, z, f.len, 1, iron[2]); });
+      for (var u = 0; u < 2 * hw * 24; u += 3) { var a = W3(cx - hw + u / 24, cy + hw, z + th), b2 = W3(cx + hw, cy + hw - u / 24, z + th); R(a[0], a[1] - 3, 1, 3, iron[2]); R(b2[0], b2[1] - 3, 1, 3, iron[2]); } // garde-corps
+    }
+    leg(-1, -1, 0, F1); archs(false); leg(-1, 1, 0, F1); leg(1, -1, 0, F1); archs(true); leg(1, 1, 0, F1);
+    deck(F1, eO(F1) + .07, 10, true);
+    leg(-1, -1, F1 + 10, F2); leg(-1, 1, F1 + 10, F2); leg(1, -1, F1 + 10, F2); leg(1, 1, F1 + 10, F2);
+    deck(F2, eO(F2) + .05, 6, false);
+    for (var z = F2 + 6; z < EH; z++) { var o = eO(z); faceRow(cx - o, cy + o, cx + o, cy + o, z, iron[0]); faceRow(cx + o, cy + o, cx + o, cy - o, z, iron[1]); } // la flèche
+    deck(EH, eO(EH) + .04, 4, false);
+    var cab = { x: cx - .07, y: cy - .07, w: .14, d: .14 }; prism(cab, 10, iron[0], N ? '#ffd56b' : '#cfe0ee', N ? '#e8c47a' : '#a9c1d6', EH + 4); prism({ x: cx - .1, y: cy - .1, w: .2, d: .2 }, 2, iron[0], iron[1], iron[2], EH + 14);
+    var tip = W3(cx, cy, EH + 16); R(tip[0], tip[1] - 24, 1, 24, '#9a9a9a'); R(tip[0] - 1, tip[1] - 12, 3, 1, '#9a9a9a'); R(tip[0] - 1, tip[1] - 25, 3, 2, '#ff3b3b');
   }
   function eiffel(b, t) {
     cached(b, 'eiffel', function () { eiffelStatic(b); });
-    var cx = b.x + b.w / 2, cy = b.y + b.d / 2;
-    if (N && !reduce) for (var k = 0; k < 30; k++) if (hash(k * 7 + (t / 140 | 0)) > .72) { var zz = (hash(k) * (EH - 10)) | 0, hw = eHW(zz), s2 = hash(k + 3) * 2 - 1, q = W3(cx + hw * s2, cy + hw, zz); R(q[0], q[1], 1, 1, '#ffffff'); } // scintillement
+    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, k;
+    if (N && !reduce) for (k = 0; k < 40; k++) if (hash(k * 7 + (t / 140 | 0)) > .72) { var zz = (hash(k) * (EH - 10)) | 0, o = eO(zz), s2 = hash(k + 3) * 2 - 1, q = W3(cx + o * s2, cy + o, zz); R(q[0], q[1], 1, 1, '#ffffff'); } // scintillement
+    if (N) { var bc = W3(cx, cy, EH + 40), ang = reduce ? 0 : t / 1400; A(.18, function () { g.fillStyle = '#fff3c4'; g.beginPath(); g.moveTo(bc[0], bc[1]); g.lineTo(bc[0] + Math.cos(ang) * 140, bc[1] + Math.sin(ang) * 22 - 8); g.lineTo(bc[0] + Math.cos(ang) * 140, bc[1] + Math.sin(ang) * 22 + 8); g.fill(); }); } // phare du sommet
     function lift(z, x, y, col) { var q = W3(x, y, z); R(q[0] - 2, q[1] - 6, 5, 6, col); R(q[0] - 1, q[1] - 5, 3, 2, N ? '#ffe9a8' : '#cfe3f5'); R(q[0] - 2, q[1] - 6, 5, 1, '#3a2a22'); }
-    var e1 = reduce ? .5 : .5 - .5 * Math.cos(t / 10000 * Math.PI * 2), z1 = 4 + e1 * 54, hw1 = eHW(z1) * .82; // ascenseur du pilier : sol → 1er étage
-    lift(z1, cx + hw1, cy + hw1 * .55, '#c0392b');
-    var e2 = reduce ? .3 : .5 - .5 * Math.cos(t / 14000 * Math.PI * 2), z2 = 130 + e2 * (EH - 136), c0 = W3(cx, cy + .02, 130), c1 = W3(cx, cy + .02, EH - 4); // ascenseur central : 2e étage → sommet
-    R(c0[0], c1[1], 1, c0[1] - c1[1], N ? '#5a4632' : '#3a2a22'); lift(z2, cx, cy + .02, '#ffd23f');
+    var e1 = reduce ? .5 : .5 - .5 * Math.cos(t / 10000 * Math.PI * 2), z1 = 3 + e1 * (F1 - 6), o1 = eO(z1), s1 = eS(z1); // ascenseur du pilier : sol → 1er étage
+    lift(z1, cx + (o1 - s1), cy + o1, '#c0392b');
+    var e2 = reduce ? .3 : .5 - .5 * Math.cos(t / 14000 * Math.PI * 2), z2 = F2 + 8 + e2 * (EH - F2 - 14), c0 = W3(cx, cy + eO(F2 + 8), F2 + 8), c1 = W3(cx, cy + eO(EH - 4), EH - 4); // ascenseur central : 2e étage → sommet
+    R(c0[0], c1[1], 1, c0[1] - c1[1], N ? '#5a4632' : '#3a2a22'); lift(z2, cx, cy + eO(z2) + .01, '#ffd23f');
     // PNL assis sur la galerie du sommet, jambes dans le vide ; Ademo (à gauche) fume
-    var top = W3(cx, cy + .13, EH + 4), gx = Math.round(top[0]), gy = Math.round(top[1]);
+    var top = W3(cx, cy + eO(EH) + .04, EH + 4), gx = Math.round(top[0]), gy = Math.round(top[1]);
     function pnl(x, hood, skin, flip) {
       R(x, gy - 10, 4, 3, '#111'); R(x + (flip ? -1 : 4), gy - 9, 1, 1, '#111'); R(x, gy - 8, 4, 3, skin); R(x + (flip ? 0 : 3), gy - 7, 1, 1, '#1a1a1a');
       R(x - 1, gy - 5, 6, 5, hood); R(x - 1, gy - 5, 1, 5, mix(hood, '#000000', .3));
@@ -525,7 +540,7 @@
     pnl(gx - 9, '#111111', '#a8714a', false); pnl(gx + 5, '#3a3f4a', '#8d5524', true);
     R(gx - 5, gy - 7, 3, 1, '#f4f4f4'); R(gx - 2, gy - 7, 1, 1, (reduce || (t / 300 | 0) % 2) ? '#ff7a1a' : '#ffb347'); R(gx - 4, gy - 6, 1, 1, '#a8714a'); // cigarette
     if (!reduce) for (k = 0; k < 4; k++) { var ph = (t / 1600 + k / 4) % 1; A(.7 * (1 - ph), function () { R(gx - 2 + Math.sin(ph * 7 + k) * 2, gy - 9 - ph * 14, 1 + (ph > .5 ? 1 : 0), 1, '#d9d9d9'); }); }
-    var fl = W3(cx, cy, EH + 14); R(fl[0] + 1, fl[1] - 21, 13, 7, '#111'); T('QLF', fl[0] + 2, fl[1] - 20, '#ffffff'); // drapeau « Que la famille »
+    var fl = W3(cx, cy, EH + 16); R(fl[0] + 1, fl[1] - 22, 13, 7, '#111'); T('QLF', fl[0] + 2, fl[1] - 21, '#ffffff'); // drapeau « Que la famille »
   }
   /* ---------- Château des ducs de Bretagne, en isométrique : douves, tours rondes à mâchicoulis, remparts, Grand Logis, pont ---------- */
   function tourRonde(tx, ty, r, h, roof) {
@@ -559,7 +574,7 @@
     [.55, 1.1, 1.65].forEach(function (dx) { var e = W3(x0 + .45 + dx, y0 + 1.15, 56); // lucarnes à pinacles
       R(e[0] - 4, e[1] - 12, 9, 12, white[0]); R(e[0] - 2, e[1] - 10, 5, 7, '#3a4256'); for (var r = 0; r < 7; r++) R(e[0] - 4 + Math.ceil(r * .6), e[1] - 13 - r, 9 - 2 * Math.ceil(r * .6), 1, white[0]); R(e[0], e[1] - 23, 1, 4, white[2]); R(e[0] - 5, e[1] - 16, 1, 5, white[2]); R(e[0] + 5, e[1] - 16, 1, 5, white[2]); });
     var lt = W3(x0 + .8, y0 + .75, 86); R(lt[0] - 2, lt[1] - 10, 5, 10, N ? '#2c3348' : '#4b5568'); R(lt[0] - 1, lt[1] - 15, 3, 5, N ? '#3c4560' : '#6b7590'); R(lt[0], lt[1] - 20, 1, 5, '#8a8a8a'); // lanternon
-    var fg = W3(x0 + 2.0, y0 + .75, 86); R(fg[0], fg[1] - 16, 1, 16, '#777'); for (var r2 = 0; r2 < 9; r2++) R(fg[0] + 1, fg[1] - 16 + r2, 13, 1, r2 % 2 ? '#ffffff' : '#111'); R(fg[0] + 1, fg[1] - 16, 6, 5, '#ffffff'); R(fg[0] + 2, fg[1] - 15, 1, 1, '#111'); R(fg[0] + 5, fg[1] - 15, 1, 1, '#111'); R(fg[0] + 3, fg[1] - 13, 1, 1, '#111'); // Gwenn-ha-du
+    // le Gwenn-ha-du est dessiné à part (il flotte au vent)
     tourRonde(X1, y0, .42, 34); tourRonde(x0, Y1, .42, 34);
     prism({ x: X1 - .25, y: y0, w: .25, d: b.d }, 26, wall[0], wall[1], wall[2]); // rempart droit
     var fw = { x: x0, y: Y1 - .25, w: b.w, d: .25 }; prism(fw, 26, wall[0], wall[1], wall[2]); var L = faceL(fw); // rempart de devant
@@ -570,7 +585,20 @@
     var gt = W3(x0 + 1.4, Y1, 0); for (var gv = 0; gv < 18; gv++) { var gw = gv < 12 ? 4 : Math.round(4 - (gv - 12) * .7); R(gt[0] - gw, gt[1] - gv - 9, 2 * gw, 1, '#2a2320'); } // porte
     tourRonde(x0 + 1.0, Y1, .3, 40); tourRonde(x0 + 1.8, Y1, .3, 40); tourRonde(X1, Y1, .46, 36);
   }
-  function chateau(b, t) { cached(b, 'chateau', function () { chateauStatic(b); }); var sg = W3(b.x + b.w + .45, b.y + b.d + .5, 0); R(sg[0], sg[1] - 9, 1, 9, '#555'); R(sg[0] - 13, sg[1] - 16, 27, 8, N ? '#1a0f2e' : '#1b2fbf'); T('NANTES', sg[0] - 11, sg[1] - 14, '#ffffff'); }
+  var ERM = ['.#.', '###', '.#.', '#.#']; // moucheture d'hermine (3 × 4)
+  function gwennHaDu(x, y, t) { // drapeau breton 30 × 18 : 9 bandes (5 noires, 4 blanches), franc-quartier blanc semé de 11 hermines, qui ondule
+    var Wd = 30, Hd = 18;
+    R(x - 1, y - 2, 1, Hd + 30, '#6b6b6b'); R(x - 2, y - 3, 3, 2, '#d4af37'); // mât
+    for (var c = 0; c < Wd; c++) {
+      var dy = reduce ? 0 : Math.round(Math.sin(t / 260 - c / 4) * 1.6 * c / Wd), sh = reduce ? 0 : Math.sin(t / 260 - c / 4) * .12;
+      for (var r = 0; r < Hd; r++) {
+        var canton = c < 13 && r < 10, stripe = Math.floor(r / 2), col = canton ? '#ffffff' : stripe % 2 ? '#ffffff' : '#111111';
+        R(x + c, y + r + dy, 1, 1, sh > .06 ? mix(col, '#000000', .15) : col);
+      }
+      if (c < 13) [[1, 1], [5, 1], [9, 1], [3, 5], [7, 5]].forEach(function (q) { var ec = c - q[0]; if (ec < 0 || ec > 2) return; for (var rr = 0; rr < 4; rr++) if (ERM[rr][ec] === '#') R(x + c, y + q[1] + rr + dy, 1, 1, '#111111'); });
+    }
+  }
+  function chateau(b, t) { cached(b, 'chateau', function () { chateauStatic(b); }); var fg = W3(b.x + b.w, b.y, 40); gwennHaDu(fg[0] + 1, fg[1] - 46, t); var sg = W3(b.x + b.w + .45, b.y + b.d + .5, 0); R(sg[0], sg[1] - 9, 1, 9, '#555'); R(sg[0] - 13, sg[1] - 16, 27, 8, N ? '#1a0f2e' : '#1b2fbf'); T('NANTES', sg[0] - 11, sg[1] - 14, '#ffffff'); }
   /* ---------- Défilé Comme des Garçons : podium, mannequins, photographes et flashs, public, Karl Lagerfeld et Anna Wintour au premier rang ---------- */
   var HEART = [ // cœur à yeux façon Comme des Garçons PLAY, 22 × 19 (r = rouge, w = blanc de l'œil, k = pupille)
     '...rrrrr......rrrrr...', '..rrrrrrr....rrrrrrr..', '.rrrrrrrrr..rrrrrrrrr.', 'rrrrwwwrrrrrrrrwwwrrrr', 'rrrwkkwwrrrrrrwkkwwrrr', 'rrrwkkwwrrrrrrwkkwwrrr', 'rrrwwwwwrrrrrrwwwwwrrr', 'rrrrwwwrrrrrrrrwwwrrrr',
@@ -985,6 +1013,11 @@
   /* ---------- Zones cliquables et étiquettes des rubriques ---------- */
   function placeSpots() {
     B.forEach(function (b) {
+      if (b.note) { // repère expliqué par une étiquette (Tour Eiffel, château)
+        var cn = corners(b), nt = b.ntag;
+        if (!nt) { nt = b.ntag = document.createElement('span'); nt.className = 'tag note'; nt.setAttribute('role', 'note'); nt.innerHTML = '<span class="t1"></span><small></small>'; nt.firstChild.textContent = b.note[0]; nt.lastChild.textContent = b.note[1]; stage.appendChild(nt); }
+        nt.style.left = ((cn.w[0] + cn.e[0]) / 2 / W * 100) + '%'; nt.style.top = ((b.below ? cn.s[1] + 4 : cn.n[1] - b.h - (b.extra || 0)) / H * 100) + '%'; nt.classList.toggle('below', !!b.below);
+      }
       if (!b.doc) return; var c = corners(b), top = c.n[1] - b.h - (b.extra || 0);
       b.box = [c.w[0], top, c.e[0] - c.w[0], c.s[1] - top];
       var el = b.el || (b.el = document.querySelector('.hs[data-spot="' + b.spot + '"]')); if (!el) return;

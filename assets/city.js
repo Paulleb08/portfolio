@@ -479,7 +479,7 @@
   }
   /* ---------- Tour Eiffel, en isométrique (d'après photo) : 4 piliers penchés et séparés, grandes arches, 3 étages, flèche ----------
      Profil concave : demi-largeur O(z) = 0,07 + 1,08·e^(−3,1 z / EH) (en cases) ; chaque pilier a une demi-section s(z) ; ils se rejoignent au 2e étage. */
-  var EH = 230, F1 = 46, F2 = 100;
+  var EH = 230, F1 = 46, F2 = 100, eHover = false;
   function eO(z) { return .07 + 1.08 * Math.exp(-3.1 * z / EH); }
   function eS(z) { return .17 - .03 * Math.min(1, z / F2); }
   function eiffelStatic(b) {
@@ -526,8 +526,8 @@
     if (N && !reduce) for (k = 0; k < 40; k++) if (hash(k * 7 + (t / 140 | 0)) > .72) { var zz = (hash(k) * (EH - 10)) | 0, o = eO(zz), s2 = hash(k + 3) * 2 - 1, q = W3(cx + o * s2, cy + o, zz); R(q[0], q[1], 1, 1, '#ffffff'); } // scintillement
     // Grand scintillement, comme la vraie tour : les 10 premières secondes de chaque minute (horloge du visiteur)
     var sec = (Date.now() / 1000) % 60;
-    if (!reduce && sec < 10) {
-      var fade = Math.min(1, sec / .6, (10 - sec) / .8), seed = (t / 90) | 0;
+    if ((!reduce && sec < 10) || eHover) { // chaque minute, ou quand la souris passe sur la tour
+      var fade = eHover ? 1 : Math.min(1, sec / .6, (10 - sec) / .8), seed = (t / 90) | 0;
       var hc = W3(cx, cy, EH * .45); g.save(); g.globalAlpha = .55 * fade; g.translate(hc[0], hc[1]); g.scale(.45, 1); var gr = g.createRadialGradient(0, 0, 0, 0, 0, 150); gr.addColorStop(0, 'rgba(255,240,190,.55)'); gr.addColorStop(1, 'rgba(255,240,190,0)'); g.fillStyle = gr; g.fillRect(-150, -150, 300, 300); g.restore(); // halo doré
       A(fade, function () {
         for (var n = 0; n < 520; n++) {
@@ -1053,6 +1053,14 @@
   rebuild();
   if (reduce) { draw(0); setInterval(function () { if (dirty) draw(0); }, 700); } // sans animation : on redessine quand une pochette arrive
   else requestAnimationFrame(function (t) { last = t; loop(t); });
+  var EB = B.filter(function (b) { return b.draw === eiffel; })[0];
+  function overEiffel(e) { // le pointeur est-il sur la silhouette de la tour ? (coordonnées du dessin)
+    var r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height, base = W3(EB.x + EB.w / 2, EB.y + EB.d / 2, 0), z = base[1] - y;
+    return z > -6 && z < EH + 44 && Math.abs(x - base[0]) < 2 * eO(Math.min(z, EH)) * HW + 5;
+  }
+  function eiffelHover(e) { var on = !!EB && overEiffel(e); if (on !== eHover) { eHover = on; if (reduce) draw(0); } }
+  scroller.addEventListener('pointermove', eiffelHover); scroller.addEventListener('pointerdown', eiffelHover);
+  scroller.addEventListener('pointerleave', function () { if (eHover) { eHover = false; if (reduce) draw(0); } });
   var ptrs = {}, pan = null, pinch = null, dragged = false;
   scroller.addEventListener('wheel', function (e) { e.preventDefault(); zoomAt(e.clientX, e.clientY, Z * Math.exp(-e.deltaY * (e.deltaMode ? .05 : .0015))); }, { passive: false });
   scroller.addEventListener('pointerdown', function (e) {

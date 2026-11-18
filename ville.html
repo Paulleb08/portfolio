@@ -23,7 +23,7 @@
 <body class="city-page">
 
 <header class="hud">
-  <a class="hud-logo notranslate" href="ville.html">PAUL SIGNE'S CITY</a>
+  <div class="hud-id"><h1 class="notranslate">PAUL SIGNE'S CITY</h1><p class="who"><span class="notranslate">Paul Signe</span> · Élève Bachelor de Technologie ENSAM, 2e année · Stage technicien du 12/04 au 02/07/2027 · poursuite possible en alternance</p></div>
   <div class="hud-tools">
     <button class="pxbtn" type="button" data-doc="plan">Plan</button>
     <div class="lang notranslate" title="Traduire la page / Translate this page"><span aria-hidden="true">🌐</span><div id="gt"></div></div>
@@ -54,11 +54,8 @@
       <button class="hs" type="button" data-doc="plan" data-spot="plan" aria-label="Le métro — Plan de la ville (sommaire)"><span class="tag" data-doc="plan" aria-hidden="true"><span class="t1">PLAN</span><small>Sommaire</small></span></button>
     </div>
   </div>
-  <div class="city-title">
-    <h1 class="notranslate">PAUL SIGNE'S CITY</h1>
-    <p class="who"><span class="notranslate">Paul Signe</span> · Élève Bachelor de Technologie ENSAM, 2e année<br>Recherche un stage technicien du 12/04 au 02/07/2027 · poursuite possible en alternance</p>
-  </div>
-  <p class="city-hint"><span class="click">&gt; Clique sur un bâtiment pour entrer &lt;</span><span class="swipe">← Fais glisser pour visiter la ville →</span></p>
+  <p class="city-hint"><span class="click">&gt; Clique sur un bâtiment · molette pour zoomer · glisse pour te déplacer &lt;</span></p>
+  <div class="zoom-ui" aria-label="Zoom de la ville"><button class="pxbtn" type="button" id="zoomIn" aria-label="Zoomer">+</button><button class="pxbtn" type="button" id="zoomOut" aria-label="Dézoomer">−</button><button class="pxbtn" type="button" id="zoomReset" aria-label="Revoir toute la ville"><small>TOUT</small></button></div>
 </main>
 
 <!-- Contenu des fenêtres (aussi imprimé à la suite, après la page de garde) -->

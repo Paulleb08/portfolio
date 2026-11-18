@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Illustration d'un baladeur audio FiiO M21">
+  <!-- Illustration originale (pas de photo libre disponible) : baladeur haute résolution, grand écran tactile, molette de volume -->
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a3e45"/><stop offset=".5" stop-color="#5a5f68"/><stop offset="1" stop-color="#2c2f35"/></linearGradient>
+  <linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2445b0"/><stop offset="1" stop-color="#e05a7a"/></linearGradient></defs>
+  <rect width="640" height="400" fill="#f4f1ea"/>
+  <ellipse cx="320" cy="368" rx="110" ry="12" fill="#000" opacity=".12"/>
+  <rect x="236" y="30" width="168" height="330" rx="20" fill="url(#b)" stroke="#202328" stroke-width="2"/>
+  <rect x="404" y="92" width="12" height="44" rx="5" fill="#6c717a"/><rect x="404" y="150" width="8" height="22" rx="3" fill="#6c717a"/><rect x="404" y="180" width="8" height="22" rx="3" fill="#6c717a"/>
+  <rect x="250" y="46" width="140" height="250" rx="10" fill="#0c0e12"/>
+  <rect x="262" y="62" width="116" height="116" rx="6" fill="url(#s)"/>
+  <circle cx="320" cy="120" r="34" fill="#111" opacity=".55"/><circle cx="320" cy="120" r="8" fill="#ddd"/>
+  <rect x="262" y="192" width="90" height="8" rx="3" fill="#e9ebef"/><rect x="262" y="208" width="60" height="6" rx="3" fill="#8a909a"/>
+  <rect x="262" y="232" width="116" height="4" rx="2" fill="#3a3f48"/><rect x="262" y="232" width="70" height="4" rx="2" fill="#7fb1ff"/>
+  <path d="M298 262l-12 9 12 9zM320 260v22M330 260v22M342 262l12 9-12 9z" fill="#e9ebef" stroke="#e9ebef" stroke-width="3" stroke-linejoin="round"/>
+  <text x="320" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="20" fill="#c9ced6" letter-spacing="3">FiiO</text>
+  <circle cx="290" cy="350" r="5" fill="#1a1c20"/><circle cx="350" cy="350" r="5" fill="#1a1c20"/>
+  <text x="520" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#5a616b" letter-spacing="2">FIIO M21</text>
+  <text x="520" y="222" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#8a8f98">Illustration</text>
+</svg>

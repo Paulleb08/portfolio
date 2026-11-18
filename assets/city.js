@@ -96,38 +96,38 @@
   /* ---------- Le plan : les rubriques s'étalent sur une bande de 18 pâtés de 4 × 4 cases (rues toutes les 5 cases) ----------
      rangée du fond (x + y du pâté = 0) : grandes tours ; rangée de devant (= 3) : bâtiments bas. */
   var B = [ // doc = fenêtre ouverte ; spot = zone cliquable ; h = hauteur en pixels ; extra = ce qui dépasse du toit
-    { x: -9.2, y: 10.8, w: 2.4, d: 2.4, h: 0, draw: eiffel, extra: 272, below: 1, note: ['PARIS', "La ville où j'aimerais vivre plus tard"] },
-    { x: -4, y: 5, w: 2, d: 2, h: 150, k: 'glass', doc: 'competences', draw: tower, extra: 82 },
-    { x: -2, y: 5, w: 1, d: 3, h: 86, k: 'glass', draw: speakerWall },
-    { x: 0, y: 0, w: 2, d: 2, h: 92, k: 'brick', doc: 'vision-board', draw: coverBoard, extra: 58 },
-    { x: 2, y: 0, w: 2, d: 2, h: 70, k: 'dark', doc: 'vision-board', spot: 'vb-club', draw: club, extra: 18 },
-    { x: 0, y: 2, w: 2, d: 2, h: 44, k: 'black', doc: 'vision-board', spot: 'vb-mode', draw: couture, extra: 22, below: 1 },
-    { x: 2, y: 2, w: 2, d: 2, h: 58, k: 'dark', doc: 'vision-board', spot: 'vb-cinema', draw: cinema, extra: 22 },
-    { x: 6, y: -4, w: 1, d: 1, h: 26, k: 'grey', doc: 'contact', draw: radio, extra: 96 },
-    { x: 8, y: -5, w: 1, d: 3, h: 58, k: 'brown', draw: atelier },
-    { x: 11, y: -9, w: 2, d: 2, h: 60, k: 'white', doc: 'cv', draw: billboard, extra: 50 },
-    { x: -5, y: 10, w: 3, d: 3, h: 60, k: 'brick', doc: 'a-propos', draw: school, extra: 14 },
-    { x: 0, y: 5, w: 2, d: 2, h: 40, k: 'white', draw: concert },
+    { x: -9.2, y: 10.8, w: 2.4, d: 2.4, h: 0, doc: 'paris', draw: eiffel, extra: 272, below: 1 },
+    { x: -5, y: 6.6, w: 2.2, d: 1.2, h: 50, doc: 'paris', spot: 'p-arc', draw: arcTriomphe, extra: 4 },
+    { x: -2, y: 5, w: 1, d: 3, h: 86, k: 'glass', doc: 'materiel', spot: 'mat-sound', draw: speakerWall },
+    { x: 0, y: 0, w: 2, d: 2, h: 92, k: 'brick', doc: 'musique', draw: coverBoard, extra: 58 },
+    { x: 2, y: 0, w: 2, d: 2, h: 70, k: 'dark', doc: 'musique', spot: 'm-club', draw: club, extra: 18 },
+    { x: 0, y: 2, w: 2, d: 2, h: 44, k: 'black', doc: 'mode', draw: couture, extra: 22, below: 1 },
+    { x: 2, y: 2, w: 2, d: 2, h: 58, k: 'dark', doc: 'cinema', draw: cinema, extra: 22 },
+    { x: 6, y: -4, w: 1, d: 1, h: 26, k: 'grey', draw: radio, extra: 96 },
+    { x: 8, y: -5, w: 1, d: 3, h: 58, k: 'brown', doc: 'mode', spot: 'mo-malle', draw: atelier },
+    { x: 11, y: -9, w: 2, d: 2, h: 0, doc: 'voyage', spot: 'v-eye', draw: londonEye, extra: 122 },
+    { x: -5, y: 10, w: 3, d: 3, h: 40, k: 'brick', doc: 'racines', spot: 'r-krema', draw: confiserie, extra: 26 },
+    { x: 0, y: 5, w: 2, d: 2, h: 40, k: 'white', doc: 'musique', spot: 'm-concert', draw: concert },
     { x: 2.25, y: 5.25, w: 1.5, d: 1.5, h: 5, draw: bandstand },
-    { x: 5, y: 0, w: 3, d: 2, h: 32, k: 'grey', doc: 'projets', draw: fablab, extra: 14 },
-    { x: 5, y: 2, w: 3, d: 2, h: 28, k: 'brown', draw: hifiShop, extra: 22 },
-    { x: 10, y: -5, w: 3, d: 2, h: 46, k: 'white', doc: 'annexes', draw: archives, extra: 6 },
-    { x: -4, y: 15, w: 3, d: 3, h: 42, k: 'grey', doc: 'la-poste', draw: factory, extra: 40, below: 1 },
-    { x: 0, y: 10, w: 4, d: 4, h: 0, doc: 'animation', draw: park, extra: 26 },
+    { x: 5.4, y: .3, w: 1.8, d: 1.3, h: 160, doc: 'racines', spot: 'r-tour', draw: tourBretagne, extra: 34 },
+    { x: 5, y: 2, w: 3, d: 2, h: 28, k: 'brown', doc: 'materiel', draw: hifiShop, extra: 22 },
+    { x: 10, y: -5, w: 3, d: 2, h: 46, k: 'white', doc: 'inspirations', draw: galerie, extra: 6 },
+    { x: -5, y: 15, w: 4, d: 4, h: 19, doc: 'foot', draw: stade, extra: 4, below: 1 },
+    { x: 0, y: 10, w: 4, d: 4, h: 0, doc: 'valeurs', draw: park, extra: 26 },
     { x: 2.05, y: 10.15, w: .5, d: .3, h: 0, draw: photoshoot },
     { x: 3.45, y: 13.45, w: .3, d: .3, h: 0, draw: busker },
-    { x: 5.6, y: 5.6, w: 2.8, d: 2.8, h: 24, draw: chateau, extra: 40, below: 1, note: ['NANTES', "D'où je viens · Bretagne historique et culturelle"] },
+    { x: 5.6, y: 5.6, w: 2.8, d: 2.8, h: 24, doc: 'racines', draw: chateau, extra: 40, below: 1 },
     { x: 11, y: 1, w: 2, d: 2, h: 84, k: 'dark', draw: screenTower, extra: 30 },
-    { x: 1, y: 15, w: 2, d: 2, h: 30, k: 'brick', doc: 'garde', draw: house, extra: 12, below: 1 },
+    { x: 1, y: 15, w: 2, d: 2, h: 30, k: 'brick', doc: 'mode', spot: 'mo-cdpc', draw: petitsChats, extra: 52, below: 1 },
     { x: 0.2, y: 17.25, w: .9, d: .5, h: 7, draw: vinylStall },
-    { x: 5.05, y: 10.1, w: 2.9, d: 2.6, h: 0, doc: 'vision-board', spot: 'vb-defile', draw: fashionShow, extra: 44 },
+    { x: 5.05, y: 10.1, w: 2.9, d: 2.6, h: 0, doc: 'mode', spot: 'mo-defile', draw: fashionShow, extra: 44 },
     { x: 8, y: 12, w: 1, d: 1, h: 6, doc: 'plan', draw: metro, extra: 14, below: 1 },
     { x: 15.2, y: 0.4, w: 3.6, d: 2.2, h: 44, k: 'stone', doc: 'voyage', draw: station, extra: 30, below: 1 },
-    { x: 15.3, y: -4.8, w: 3.4, d: 1.3, h: 18, k: 'white', doc: 'voyage', spot: 'voyage-air', draw: airport, extra: 70 },
-    { x: 10.6, y: 5.6, w: 2, d: 2, h: 30, k: 'stone', doc: 'vision-board', spot: 'vb-disques', draw: records, extra: 8 }
+    { x: 15.3, y: -4.8, w: 3.4, d: 1.3, h: 18, k: 'white', doc: 'voyage', spot: 'v-air', draw: airport, extra: 70 },
+    { x: 10.6, y: 5.6, w: 2, d: 2, h: 30, k: 'stone', doc: 'musique', spot: 'm-disques', draw: records, extra: 8 }
   ];
-  var TREES = [[-9.6, 10.4], [-7.4, 10.5], [-9.5, 13.6], [-7.3, 13.5], [-4.6, 7.6], [-3.4, 8.5], [5.5, -2.4], [6.6, -1.5], [10.5, -6.6], [12.6, -6.5], [13.5, -8.4], [-1.5, 10.5], [-1.4, 12.6], [0.5, 8.5], [3.6, 8.6],
-    [8.6, 0.5], [8.6, 2.6], [10.5, -2.4], [12.6, -2.5], [13.6, -4], [-1.5, 15.5], [-1.4, 17.6], [3.6, 15.5], [3.6, 17.6], [6.6, 13.5], [7.6, 12.4], [10.4, 3.6], [13.6, 0.4]];
+  var TREES = [[-9.6, 10.4], [-7.4, 10.5], [-9.5, 13.6], [-7.3, 13.5], [-4.6, 5.6], [-3.4, 5.5], [5.5, -2.4], [6.6, -1.5], [10.5, -6.6], [12.6, -6.5], [13.5, -8.4], [-1.5, 10.5], [-1.4, 12.6], [0.5, 8.5], [3.6, 8.6],
+    [8.6, 0.5], [8.6, 2.6], [10.5, -2.4], [12.6, -2.5], [13.6, -4], [3.6, 15.5], [3.6, 17.6], [6.6, 13.5], [7.6, 12.4], [10.4, 3.6], [13.6, 0.4]];
   function blk(v) { return Math.floor(v / 5); }
   function inBand(bx, by) { var s = bx + by, d = Math.abs(bx - by); return s >= 0 && s <= 3 && d <= 4; }
   function bandDist(bx, by) { var s = bx + by, d = Math.abs(bx - by); return Math.max(0, -s, s - 3, Math.ceil((d - 4) / 2)); }
@@ -169,7 +169,7 @@
   var SIGNS = ['VINYL', 'HI-FI', 'ATELIER', 'RECORDS', 'COUTURE', 'STUDIO', 'JAZZ', 'BOUTIQUE', 'DISQUES', 'TAILLEUR', 'VINTAGE', 'SOUND'];
   var BK = ['grad', 'p-lv', 'sil-pink', 'college-dropout', 'p-hermes', 'hz', 'thriller', 'sil-blue', 'p-kef', 'purple-rain', 'p-dior', 'sil-green', 'seychelles', 'p-beo', 'vinyl', 'astroworld', 'sil-orange', 'p-defile', 'runway', 'fw', 'sade', 'discovery', 'legend', '808s', 'odyssee', 'saw-85-92', 'morning-glory'];
   var MU = ['thriller', 'grad', 'sade', 'ram', 'seychelles', 'purple-rain', 'astroworld', 'college-dropout', 'legend', 'discovery'];
-  var SK = ['alb', 'word', 'sil', 'photo', 'alb', 'ticker', 'word', 'photo', 'film', 'film'];
+  var SK = ['alb', 'word', 'sil', 'photo', 'alb', 'ticker', 'cat', 'photo', 'film', 'film', 'cat'];
   var fill = [], deco = [];
   function genWorld() {
     fill = []; deco = [];
@@ -181,7 +181,7 @@
       var dist = bandDist(bx, by), band = dist === 0;
       var hmax = band ? (s <= 0 ? 150 : s === 1 ? 90 : s === 2 ? 66 : 40) : s < 0 ? 90 + Math.min(dist, 4) * 30 : s > 3 ? 32 : 70 + Math.min(dist, 3) * 25;
       var fog = band ? 0 : dist === 1 ? .3 : dist === 2 ? .45 : .58;
-      if (s >= 5 && hs(1) < .3) { deco.push({ t: 'green', x: x0, y: y0, fog: fog }); continue; } // petit square arboré
+      if ((s >= 5 && hs(1) < .3) || key === '-1,4') { deco.push({ t: 'green', x: x0, y: y0, fog: fog }); continue; } // petit square arboré
       var lots = [], r = hs(2);
       if (r < .25) lots.push([0, 0, 4, 4]); else if (r < .6) lots.push.apply(lots, hs(3) < .5 ? [[0, 0, 4, 2], [0, 2, 4, 2]] : [[0, 0, 2, 4], [2, 0, 2, 4]]); else lots.push([0, 0, 2, 2], [2, 0, 2, 2], [0, 2, 2, 2], [2, 2, 2, 2]);
       lots.forEach(function (l, n) {
@@ -329,28 +329,12 @@
   /* ---------- Bâtiments remarquables du centre ---------- */
   function box(b) { detailed(b); }
   function ribbons(b, h, z, sd) { [faceL(b), faceR(b)].forEach(function (f, side) { for (var v = 6; v <= h - 6; v += 8) { fr(f, 1, v + z, f.len - 2, 4, N ? '#1c1640' : (side ? '#86c0e4' : '#a9d7f2')); for (var u = 2; u < f.len - 3; u += 6) { var c = lit(sd + side * 3 + u + v * 5); if (c) fr(f, u, v + z + 1, 5, 2, c); } } }); }
-  function tower(b, t) {
-    var p = pal(b.k), t2 = { x: b.x + .35, y: b.y + .35, w: 1.3, d: 1.3 }, t3 = { x: b.x + .65, y: b.y + .65, w: .7, d: .7 };
-    detailed(b); prism(t2, 34, p[0], p[1], p[2], b.h); ribbons(t2, 34, b.h, 41); prism(t3, 18, p[0], p[1], p[2], b.h + 34); ribbons(t3, 18, b.h + 34, 77);
-    var c = center(t3, b.h + 52); R(c[0], c[1] - 26, 1, 26, '#d0d4dc'); if (reduce || (t / 700 | 0) % 2) R(c[0] - 1, c[1] - 29, 3, 3, '#ff3b3b');
-    var f = faceR(b); fr(f, 2, 18, 48, 9, '#1b2fbf'); ftext(f, 4, 20, 'COMPETENCES', '#ffffff');
-    var Lt = faceL(b), beat = reduce ? 0 : (t / 450 | 0) % 2, bgc = ['#ff5fa2', '#4fc3f7', '#7ed957', '#ffa726'][reduce ? 0 : (t / 3600 | 0) % 4];
-    fr(Lt, 2, 76, 44, 62, '#111'); fr(Lt, 3, 77, 42, 60, bgc); silhouette(function (c, r, col) { fr(Lt, 4 + c * 2, 130 - r * 2, col === '#111' ? 2 : 1, 2, col); }, beat);
-    if (N) fr(Lt, 4, 134, 40, 1, '#fff6c8');
-  }
   function radio(b, t) {
     detailed(b); var c = center(b, b.h), top = c[1] - 92;
     for (var y = top; y < c[1]; y++) { var lw = 1 + ((y - top) / 92 * 7 | 0), col = ((y / 9) | 0) % 2 ? '#e8e8ee' : '#d23b3b'; R(c[0] - lw, y, 1, 1, col); R(c[0] + lw, y, 1, 1, col); if ((y - top) % 10 === 0) R(c[0] - lw, y, lw * 2 + 1, 1, col); }
     if (reduce || (t / 600 | 0) % 2) R(c[0] - 1, top - 3, 3, 3, '#ff3b3b');
     if (!reduce) for (var j = 0; j < 3; j++) { var ph = (t / 1400 + j / 3) % 1, r = 4 + ph * 18; A(1 - ph, function () { for (var a = -.9; a <= .9; a += .1) { R(c[0] + Math.cos(a) * r, top + Math.sin(a) * r, 1, 1, '#fff'); R(c[0] - Math.cos(a) * r, top + Math.sin(a) * r, 1, 1, '#fff'); } }); }
     var f = faceR(b); fr(f, 1, 12, 22, 8, '#f4f1ea'); ftext(f, 2, 13, 'RADIO', '#c62828');
-  }
-  function billboard(b, t) {
-    detailed(b); var c = center(b, b.h), bw = 62, bh = 32, x = c[0] - bw / 2, y = c[1] - bh - 12;
-    R(c[0] - 16, y + bh, 2, 14, '#444'); R(c[0] + 14, y + bh, 2, 14, '#444'); R(c[0] - 18, y + bh + 6, 36, 1, '#444');
-    R(x - 1, y - 1, bw + 2, bh + 2, '#111'); R(x + 1, y + 1, bw - 2, bh - 2, '#f7f2e6'); R(x + 1, y + 1, bw - 2, 3, '#1b2fbf');
-    T('PAUL SIGNE', x + (bw - TL('PAUL SIGNE')) / 2, y + 7, '#1b2fbf'); T('CV', x + (bw - TL('CV', 2)) / 2, y + 15, '#d62828', 2);
-    if (N) A(.22, function () { R(x - 4, y - 4, bw + 8, bh + 8, '#fff6c8'); });
   }
   function coverBoard(b, t) { // grand panneau du quartier des passions : pochettes (son) et mode
     detailed(b); var Lw = faceL(b), tick = reduce ? 0 : (t / 2600 | 0);
@@ -445,8 +429,8 @@
     txt = norm(txt); var off = reduce ? 0 : ((t / 45) | 0) % (txt.length * 4);
     for (var i = 0; i < txt.length * 2; i++) { var u = i * 4 - off; if (u < 0 || u > len - 4) continue; var gl = F[txt[i % txt.length]] || F[' ']; for (var p = 0; p < 15; p++) if (gl[p] === '1') fr(f, u0 + u + p % 3, v + (4 - ((p / 3) | 0)), 1, 1, c); }
   }
-  var TICK = 'PAUL SIGNE - ELEVE ARTS ET METIERS - RECHERCHE STAGE TECHNICIEN 12/04 - 02/07/2027 - SON + MODE - ';
-  var WORDS = ['LIVE', 'SON', 'MODE', 'NYC', 'TOKYO', 'PARIS', 'NEW', 'MUSIC', '2027', 'HI-FI', 'NANTES', 'LONDON', 'BERLIN', 'PRAHA', 'WIEN', 'CINEMA'], WCOL = ['#ff2e88', '#1b2fbf', '#ffd84a', '#18c29c', '#ff7a1a', '#7a3cff'];
+  var TICK = 'PAUL SIGNE - MON VISION BOARD - SEUL ON VA PLUS VITE - ENSEMBLE ON VA PLUS LOIN - ALLEZ NANTES - SON + MODE + CINEMA - ';
+  var WORDS = ['LIVE', 'SON', 'MODE', 'NYC', 'TOKYO', 'PARIS', 'BREIZH', 'MUSIC', 'FOOT', 'HI-FI', 'NANTES', 'LONDON', 'BERLIN', 'PRAHA', 'WIEN', 'CINEMA'], WCOL = ['#ff2e88', '#1b2fbf', '#ffd84a', '#18c29c', '#ff7a1a', '#7a3cff'];
   var PH = ['p-lv', 'p-hermes', 'p-dior', 'p-kef', 'p-beo', 'p-defile'];
   function screenOn(f, u0, v0, sw, sh, kind, seed, t) { // contenu d'un écran publicitaire, change toutes les quelques secondes
     var tick = reduce ? 0 : (t / 3200 | 0) + seed, col = WCOL[tick % WCOL.length];
@@ -455,6 +439,7 @@
     else if (kind === 'photo') faceCover(PH[(seed + tick) % PH.length], f, u0, v0, sw, sh);
     else if (kind === 'film') { fr(f, u0, v0, sw, sh, '#111'); var pw = Math.min(sw, Math.round(sh * 2 / 3)); faceCover(FILMS[(seed + tick) % FILMS.length], f, u0 + ((sw - pw) >> 1), v0, pw, sh); }
     else if (kind === 'sil' && sh >= 29 && sw >= 22) { fr(f, u0, v0, sw, sh, col); var fl = reduce ? 0 : (t / 450 | 0) % 2; silhouette(function (c, r, cc) { fr(f, u0 + ((sw - 20) >> 1) + c, v0 + sh - 1 - r - ((sh - 27) >> 1), 1, 1, cc); }, fl); }
+    else if (kind === 'cat' && sh >= 16) { fr(f, u0, v0, sw, sh, '#ffd1e3'); catPix(function (dx, dy, w, h, c) { fr(f, u0 + ((sw - 11) >> 1) + dx, v0 + sh - 4 - dy - h, w, h, c); }, t); if (sh >= 24) ftext(f, u0 + ((sw - TL('CHATS')) >> 1), v0 + 2, 'CHATS', '#2445b0'); } // pub Comme des Petits Chats
     else if (kind === 'ticker') { fr(f, u0, v0, sw, sh, '#111'); for (var k = 0; k + 6 <= sh; k += 8) ticker(f, u0 + 1, v0 + sh - 7 - k, sw - 2, k % 16 ? TICK : WORDS.join(' - ') + ' - ', t + k * 900, k % 16 ? '#ffd84a' : '#3ef0ff'); }
     else { var w = WORDS[(seed + tick) % WORDS.length], kk = sw >= TL(w, 2) + 4 && sh >= 14 ? 2 : 1; fr(f, u0, v0, sw, sh, col); fr(f, u0, v0, sw, 2, '#ffffff'); ftext2(f, u0 + ((sw - TL(w, kk)) >> 1), v0 + ((sh - 5 * kk) >> 1), w, col === '#ffd84a' ? '#111' : '#ffffff', kk); }
   }
@@ -709,26 +694,7 @@
     R(hx - 15, hy - 10, 6, 10, '#222'); R(hx + 9, hy - 10, 6, 10, '#222'); R(hx - 14, hy - 9, 4, 8, N ? '#ff4fd8' : '#c0392b'); R(hx + 10, hy - 9, 4, 8, N ? '#ff4fd8' : '#c0392b');
     if (!reduce) { var ph = (t / 1800) % 1; A(1 - ph, function () { R(hx - 1, hy - 26 - ph * 14, 1, 4, '#ffe14f'); R(hx - 3, hy - 23 - ph * 14, 3, 2, '#ffe14f'); }); }
   }
-  function school(b, t) {
-    detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
-    fr(L, 4, b.h - 16, 66, 11, '#f7f2e6'); fr(L, 4, b.h - 16, 66, 1, '#1b2fbf'); ftext(L, 7, b.h - 14, 'ARTS ET METIERS', '#1b2fbf');
-    for (var k = 0; k < 4; k++) { // élèves derrière les fenêtres de la salle de cours
-      var u2 = 8 + k * 16; fr(Rf, u2, 26, 10, 10, N ? '#ffe3a3' : '#d4e8fb'); fr(Rf, u2 + 3, 28, 3, 3, ['#3b2a1a', '#d9a066', '#6b4423', '#2b1d14'][k]); fr(Rf, u2 + 2, 26, 5, 2, ['#c0392b', '#2e86de', '#27ae60', '#8e44ad'][k]); fr(Rf, u2, 26, 10, 1, '#5a3a2a');
-      if (!reduce && (t / 700 + k) % 3 < 1) fr(Rf, u2 + 7, 31, 1, 3, '#d9a066');
-    }
-    fr(Rf, 36, 26, 12, 10, '#24412e'); fr(Rf, 38, 30, 6, 1, '#ffffff'); fr(Rf, 38, 33, 4, 1, '#ffffff'); // tableau
-    fr(Rf, 30, 0, 10, 14, '#3b2a22'); fr(Rf, 29, 14, 12, 2, '#efe6d6');
-    var wv = reduce ? 0 : (t / 300 | 0) % 2; R(c[0] + 20, c[1] - 24, 1, 24, '#ddd'); R(c[0] + 21, c[1] - 24, 3, 5 - wv, '#1b2fbf'); R(c[0] + 24, c[1] - 24, 3, 5, '#fff'); R(c[0] + 27, c[1] - 24 + wv, 3, 5 - wv, '#d62828');
-  }
   function smoke(x, y, t, off) { for (var i = 0; i < 5; i++) { var ph = reduce ? i / 5 : (t / 2200 + off + i / 5) % 1, s = 2 + ph * 7; A(.85 * (1 - ph), function () { R(x + ph * 16 - s / 2, y - ph * 44 - s / 2, s, s, N ? '#8d86a3' : '#f2f2f6'); }); } }
-  function factory(b, t) {
-    detailed(b); var Rf = faceR(b), L = faceL(b), p = pal(b.k);
-    for (var k = 0; k < 3; k++) prism({ x: b.x + .3 + k * .9, y: b.y + .2, w: .6, d: 2.6 }, 8, p[1], N ? '#ffd56b' : '#9ec3e6', p[2], b.h); // toits en sheds
-    [[b.x + 2.4, b.y + .4, 40], [b.x + 2.4, b.y + 1.2, 30]].forEach(function (q, i) { var cc = { x: q[0], y: q[1], w: .4, d: .4 }; prism(cc, q[2], '#6d3a2c', '#8a4b3a', '#6d3a2c', b.h); var cp = center(cc, b.h + q[2]); smoke(cp[0], cp[1] - 2, t, i * .5); });
-    fr(Rf, 6, 22, 62, 14, '#ffcd00'); ftext(Rf, 16, 26, 'LA POSTE', '#003da5');
-    fr(L, 6, 1, 60, 12, N ? '#ffe29a' : '#cfe3f5'); fr(L, 6, 3, 60, 1, '#555'); for (var j = 0; j < 7; j++) fr(L, 6 + ((t / 30 + j * 9) % 56 | 0), 4, 3, 2, j % 3 ? '#fff' : '#ffcd00'); // plis sur le convoyeur
-    var truck = { x: b.x + b.w + .1, y: b.y + 2.2, w: .7, d: .35 }; prism(truck, 10, '#ffcd00', '#e6b800', '#c99f00'); fr(faceR(truck), 1, 6, 5, 3, '#9ec9f0');
-  }
   function park(b, t) { // le jeu du parachute, en boucle : on le secoue (ballon), on le lève en dôme, deux enfants passent dessous, on le redescend
     var c = center(b, 0), cx = c[0], cy = c[1] + 4, RR = 36, cols = ['#e63946', '#f4a261', '#ffd60a', '#2a9d8f', '#4361ee', '#9b5de5'];
     disc(cx, cy, 46, N ? '#cfc2a0' : '#e9dcb5', .5); // allée de sable
@@ -764,26 +730,184 @@
     var bp = P(b.x + .6, b.y + 3.2); R(bp[0] - 6, bp[1] - 4, 12, 2, '#8a5a3c'); R(bp[0] - 6, bp[1] - 7, 12, 2, '#8a5a3c'); R(bp[0] - 5, bp[1] - 2, 1, 2, '#333'); R(bp[0] + 4, bp[1] - 2, 1, 2, '#333'); // banc
     R(cx + 54, cy - 18, 1, 14, '#6b4423'); R(cx + 48, cy - 26, TL('PARC') + 4, 8, '#2e7d32'); T('PARC', cx + 50, cy - 24, '#fff');
   }
-  function archives(b, t) {
+  /* ---------- Paris : l'arc de Triomphe (grande arche sur la face principale, petite sur le côté, corniche, attique) ---------- */
+  function arcStatic(b) {
+    var st = N ? ['#a49ec0', '#8a84a8', '#6d688e'] : ['#f1e6cc', '#dccca8', '#bfae88'], dk = N ? '#1c1830' : '#5e5040';
+    A(.22, function () { quad({ x: b.x + .25, y: b.y + .25, w: b.w, d: b.d }, '#000'); });
+    prism(b, b.h, st[0], st[1], st[2]);
+    [faceL(b), faceR(b)].forEach(function (f, side) {
+      var c = side ? st[2] : st[1], aw = Math.round(f.len * (side ? .3 : .36)), u0 = (f.len - aw) >> 1, ah = Math.round(b.h * (side ? .4 : .5)), r = aw / 2;
+      for (var i = 0; i < aw; i++) {
+        var top = ah + Math.round(Math.sqrt(Math.max(0, r * r - (i + .5 - r) * (i + .5 - r))) * .9);
+        fr(f, u0 + i, 0, 1, top, dk); fr(f, u0 + i, top, 1, 1, mix(c, '#000000', .3));
+      }
+      fr(f, 0, b.h - 13, f.len, 2, mix(c, '#000000', .22)); fr(f, 0, b.h - 11, f.len, 1, N ? '#c9c4e0' : '#ffffff');
+      for (var u = 2; u < f.len - 2; u += 4) fr(f, u, b.h - 8, 2, 4, mix(c, '#000000', .12));
+      if (!side) [u0 - 12, u0 + aw + 3].forEach(function (u1) {
+        if (u1 < 1 || u1 + 9 > f.len) return;
+        fr(f, u1, 8, 9, 15, mix(c, '#000000', .1)); fr(f, u1 + 2, 10, 2, 9, mix(c, '#000000', .3)); fr(f, u1 + 5, 12, 2, 7, mix(c, '#000000', .3)); // groupes sculptés
+      });
+      fr(f, 0, 0, f.len, 3, mix(c, '#000000', .15));
+    });
+  }
+  function arcTriomphe(b, t) {
+    cached(b, 'arc', function () { arcStatic(b); });
+    var L = faceL(b), aw = Math.round(L.len * .36), mid = ((L.len - aw) >> 1) + (aw >> 1), ah = Math.round(b.h * .5), wv = reduce ? 0 : (t / 400 | 0) % 2;
+    fr(L, mid - 5, ah - 15 + wv, 3, 13, '#1f3f9e'); fr(L, mid - 2, ah - 15, 3, 13, '#f5f5f5'); fr(L, mid + 1, ah - 15 + wv, 3, 13, '#d32f2f'); // drapeau tricolore sous la voûte
+    A(reduce ? 1 : .6 + .4 * Math.sin(t / 120), function () { fr(L, mid - 1, 1, 2, 3, '#ffb13b'); }); // la flamme
+  }
+
+  /* ---------- Nantes : la tour Bretagne (lame de béton à fenêtres en bandes, étage vitré du « Nid » et son oiseau blanc, antennes) ---------- */
+  function tourStatic(b) {
+    var p = N ? ['#5a5672', '#45415c', '#36324a'] : ['#e4e2dc', '#c9c6bf', '#a9a59d'];
+    prism(b, b.h, p[0], p[1], p[2]);
+    [faceL(b), faceR(b)].forEach(function (f, side) {
+      for (var v = 6; v < b.h - 16; v += 4) for (var u = 1; u < f.len - 2; u += 3) fr(f, u, v, 2, 3, lit(side * 7 + u * 3 + v * 11) || (side ? '#8a96a6' : '#9fb2c6'));
+      fr(f, 0, b.h - 15, f.len, 11, N ? '#ffd56b' : '#bcd8ea');
+      for (var u2 = 2; u2 < f.len; u2 += 5) fr(f, u2, b.h - 15, 1, 11, p[2]);
+      fr(f, 0, b.h - 4, f.len, 4, p[1]);
+    });
+    var L = faceL(b); fr(L, 4, b.h - 27, 35, 9, '#1b1b1b'); ftext(L, 6, b.h - 25, 'BRETAGNE', '#ffffff');
+    var c = center(b, b.h); R(c[0] - 6, c[1] - 30, 1, 30, '#d0d4dc'); R(c[0] + 4, c[1] - 22, 1, 22, '#d0d4dc');
+    R(c[0] - 3, c[1] - 8, 8, 3, '#ffffff'); R(c[0] + 3, c[1] - 11, 3, 3, '#ffffff'); R(c[0] + 6, c[1] - 10, 2, 1, '#f4a261'); R(c[0] - 5, c[1] - 9, 3, 2, '#ffffff'); // l'oiseau du Nid
+  }
+  function tourBretagne(b, t) {
+    cached(b, 'tourB', function () { tourStatic(b); });
+    var c = center(b, b.h); if (reduce || (t / 800 | 0) % 2) { R(c[0] - 7, c[1] - 32, 3, 3, '#ff3b3b'); R(c[0] + 3, c[1] - 24, 3, 3, '#ff3b3b'); }
+  }
+
+  /* ---------- Londres : le London Eye au bord de la Tamise (roue, rayons, 32 capsules qui tournent lentement, pied en A) ---------- */
+  function londonEye(b, t) { // roue dans le plan face à nous (axe x − y), donc vue comme un vrai cercle
+    var cx = b.x + b.w / 2, cy = b.y + .8, RZ = 54, rw = RZ / 48, zc = RZ + 10, rot = reduce ? 0 : t / 40000, k, q;
+    quad({ x: b.x - .4, y: b.y + 1.25, w: b.w + .8, d: .8 }, N ? '#1f2e5a' : '#4f8fc0');
+    for (k = 0; k < 5; k++) { q = W3(b.x + hash(k + 40) * b.w, b.y + 1.4 + hash(k + 50) * .5, 0); R(q[0], q[1], 4, 1, N ? '#3a4f86' : '#86bde4'); }
+    function at(a, r) { var c = Math.cos(a) * rw * r; return W3(cx + c, cy - c, zc + Math.sin(a) * RZ * r); }
+    var hub = at(0, 0), l1 = W3(cx - 1.2, cy - .6, 0), l2 = W3(cx - .6, cy - 1.2, 0);
+    g.lineWidth = 3; g.strokeStyle = N ? '#9a96b8' : '#9aa3b0'; g.beginPath(); g.moveTo(l1[0], l1[1]); g.lineTo(hub[0], hub[1]); g.lineTo(l2[0], l2[1]); g.stroke();
+    g.lineWidth = 1; g.strokeStyle = N ? '#8a86a8' : '#a9b0bb'; g.beginPath();
+    for (k = 0; k < 16; k++) { q = at(k / 16 * Math.PI * 2 + rot, 1); g.moveTo(hub[0], hub[1]); g.lineTo(q[0], q[1]); }
+    g.stroke();
+    [[4, N ? '#6d6990' : '#7c8696'], [2, N ? '#e8e8f0' : '#ffffff']].forEach(function (st) {
+      g.lineWidth = st[0]; g.strokeStyle = st[1]; g.beginPath(); for (var j = 0; j <= 72; j++) { var p2 = at(j / 72 * Math.PI * 2, 1); if (j) g.lineTo(p2[0], p2[1]); else g.moveTo(p2[0], p2[1]); } g.stroke();
+    });
+    g.lineWidth = 1;
+    for (k = 0; k < 32; k++) { q = at(k / 32 * Math.PI * 2 + rot, 1.08); R(q[0] - 2, q[1] - 1, 4, 3, '#4b5568'); R(q[0] - 1, q[1] - 1, 2, 2, N ? '#ffe9a8' : '#dfeefa'); }
+    disc(hub[0], hub[1], 3, '#6d7380'); disc(hub[0], hub[1], 1, '#d0d4dc');
+  }
+
+  /* ---------- Le stade de la Beaujoire (FC Nantes), d'après photo : rectangle aux coins arrondis, grand toit gris-vert tout autour
+     et son bandeau vert clair, tribunes blanches avec « NANTES » en bleu, façade blanche à poteaux et rampes d'escalier ---------- */
+  var SA = 1.9, SB = 1.5, SRC_ = .9, SWALL = 12, SROOF = 17;
+  function stadeRing(sc) { // contour (coins arrondis), points dans le sens trigonométrique, avec la normale extérieure
+    var pts = [], A = SA * sc, Bv = SB * sc, r = SRC_ * sc, cs = [[A - r, Bv - r, 0], [-(A - r), Bv - r, 1], [-(A - r), -(Bv - r), 2], [A - r, -(Bv - r), 3]];
+    cs.forEach(function (c, q) {
+      for (var k = 0; k <= 6; k++) { var a = (q + k / 6) * Math.PI / 2; pts.push([c[0] + Math.cos(a) * r, c[1] + Math.sin(a) * r, Math.cos(a), Math.sin(a)]); }
+      var nx = cs[(q + 1) % 4], last = pts[pts.length - 1], na = (q + 1) * Math.PI / 2, ex = nx[0] + Math.cos(na) * r, ey = nx[1] + Math.sin(na) * r, n = Math.max(1, Math.round((q % 2 ? SB - SRC_ : SA - SRC_) * 2 / .16)); // même nombre de points à toutes les échelles
+      for (var j = 1; j < n; j++) pts.push([last[0] + (ex - last[0]) * j / n, last[1] + (ey - last[1]) * j / n, Math.round(Math.cos(na)), Math.round(Math.sin(na))]); // côté droit : normale constante
+    });
+    return pts;
+  }
+  function stadeStatic(b) {
+    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, out = stadeRing(1), inn = stadeRing(.78), st1 = stadeRing(.76), st0 = stadeRing(.55), n = out.length, i, k;
+    function Wp(q, z) { return [cx + q[0], cy + q[1], z]; }
+    function vis(q) { return q[2] + q[3] > .05; }
+    var road = stadeRing(1.16); A(.9, function () { poly(road.map(function (q) { return Wp(q, 0); }), N ? '#3a3850' : '#b9bcc4'); });
+    A(.22, function () { poly(out.map(function (q) { return [cx + q[0] + .25, cy + q[1] + .25, 0]; }), '#000'); });
+    poly(st0.map(function (q) { return Wp(q, 2); }), N ? '#2e6b3c' : '#3f9e4f');
+    var pt = { x: cx - .8, y: cy - .52, w: 1.6, d: 1.04 };
+    for (k = 0; k < 10; k++) quad({ x: pt.x + k * .16, y: pt.y, w: .16, d: pt.d }, k % 2 ? (N ? '#2a6e3a' : '#43a653') : (N ? '#327f45' : '#52b862'), 2); // bandes de tonte
+    [[0, 0, pt.w, .04], [0, pt.d - .04, pt.w, .04], [0, 0, .04, pt.d], [pt.w - .04, 0, .04, pt.d], [pt.w / 2 - .02, 0, .04, pt.d], [0, .27, .24, .04], [0, .73, .24, .04], [.22, .27, .04, .5], [pt.w - .24, .27, .24, .04], [pt.w - .24, .73, .24, .04], [pt.w - .26, .27, .04, .5]].forEach(function (l) { quad({ x: pt.x + l[0], y: pt.y + l[1], w: l[2], d: l[3] }, '#ffffff', 2); });
+    for (k = 0; k < 24; k++) { var q0 = W3(cx + Math.cos(k / 24 * 6.283) * .17, cy + Math.sin(k / 24 * 6.283) * .17, 2); R(q0[0], q0[1], 1, 1, '#ffffff'); } // rond central
+    var quads = [];
+    for (i = 0; i < n; i++) { var j = (i + 1) % n; quads.push({ d: st1[i][0] + st1[i][1] + st1[j][0] + st1[j][1], i: i, j: j }); }
+    quads.sort(function (u, v) { return u.d - v.d; }).forEach(function (q) { // tribunes : rangées de sièges blancs, du toit jusqu'à la pelouse
+      for (var r = 0; r < 4; r++) { var t0 = r / 4, t1 = (r + 1) / 4, L = function (a, t) { return [cx + st1[a][0] + (st0[a][0] - st1[a][0]) * t, cy + st1[a][1] + (st0[a][1] - st1[a][1]) * t, SWALL + 2 - SWALL * t]; };
+        poly([L(q.i, t0), L(q.j, t0), L(q.j, t1), L(q.i, t1)], r % 2 ? (N ? '#9a9cb8' : '#dfe4e8') : (N ? '#b4b6cf' : '#f4f6f7')); }
+    });
+    var word = norm('NANTES'), cols = word.length * 4 - 1;
+    for (var gx = 0; gx < cols; gx++) for (var gy = 0; gy < 5; gy++) { // le mot NANTES dans les sièges de la tribune du fond
+      var gl = F[word[(gx / 4) | 0]]; if (gx % 4 === 3 || gl[gy * 3 + gx % 4] !== '1') continue;
+      var x0 = -.95 + gx * 1.9 / cols, x1 = x0 + 1.9 / cols, t0 = .12 + gy * .15, t1 = t0 + .15, yA = -SB * .76, yB = -SB * .55;
+      var M = function (x, t) { return [cx + x, cy + yA + (yB - yA) * t, SWALL + 2 - SWALL * t]; };
+      poly([M(x0, t0), M(x1, t0), M(x1, t1), M(x0, t1)], N ? '#6f8fd0' : '#8fb2dc');
+    }
+    var rq = [];
+    for (i = 0; i < n; i++) { var j2 = (i + 1) % n; rq.push({ d: out[i][0] + out[i][1] + out[j2][0] + out[j2][1], i: i, j: j2 }); }
+    rq.sort(function (u, v) { return u.d - v.d; }).forEach(function (q) { // le toit, puis son bandeau vert clair côté pelouse
+      var o = out[q.i], sh = (o[2] + o[3]) * .08, base = N ? '#3e5248' : '#6f8a76';
+      poly([Wp(out[q.i], SWALL), Wp(out[q.j], SWALL), Wp(inn[q.j], SROOF), Wp(inn[q.i], SROOF)], mix(base, sh > 0 ? '#ffffff' : '#000000', Math.abs(sh) + (q.i % 3 === 0 ? .06 : 0)));
+      if (!(inn[q.i][2] + inn[q.i][3] < -.05)) return;
+      poly([Wp(inn[q.i], SROOF), Wp(inn[q.j], SROOF), Wp(inn[q.j], SROOF - 3), Wp(inn[q.i], SROOF - 3)], N ? '#5f9a63' : '#9be08f');
+    });
+    for (i = 0; i < n; i++) { // façade : bandeau blanc du toit, poteaux, étages, rampes d'escalier en diagonale
+      var a1 = out[i], a2 = out[(i + 1) % n]; if (!vis(a1) && !vis(a2)) continue;
+      var lt = (a1[3] > a1[2]) ? (N ? ['#a9a6c2', '#4a4662'] : ['#ffffff', '#a9a69c']) : (N ? ['#8f8aa8', '#3c3852'] : ['#ecebe6', '#8f8c83']);
+      poly([Wp(a1, 0), Wp(a2, 0), Wp(a2, SWALL - 5), Wp(a1, SWALL - 5)], lt[1]);
+      poly([Wp(a1, SWALL - 5), Wp(a2, SWALL - 5), Wp(a2, SWALL), Wp(a1, SWALL)], lt[0]);
+      poly([Wp(a1, 3), Wp(a2, 3), Wp(a2, 4), Wp(a1, 4)], lt[0]); var w0 = W3(cx + a1[0], cy + a1[1], 0); if (i % 2) R(w0[0], w0[1] - SWALL + 5, 1, SWALL - 5, lt[0]); // dalle d'étage et poteaux blancs
+      if (i % 5 === 2) { var b0 = W3(cx + a1[0], cy + a1[1], 0), b1 = W3(cx + a2[0] * 1.02, cy + a2[1] * 1.02, SWALL - 5); g.strokeStyle = N ? '#d9d6ec' : '#ffffff'; g.lineWidth = 2; g.beginPath(); g.moveTo(b0[0], b0[1]); g.lineTo(b1[0] + 4, b1[1]); g.stroke(); g.lineWidth = 1; }
+    }
+    var f = { x: P(cx - (SA - SRC_), cy + SB)[0], y: P(cx - (SA - SRC_), cy + SB)[1], dir: 1, len: (SA - SRC_) * 2 * 24 };
+    fr(f, 0, SWALL - 5, f.len, 5, N ? '#0b5a2b' : '#0b7a3b'); ftext(f, (f.len - TL('LA BEAUJOIRE')) / 2 | 0, SWALL - 5, 'LA BEAUJOIRE', '#ffd60a');
+  }
+  function stade(b, t) {
+    cached(b, 'stade2', function () { stadeStatic(b); });
+    var cx = b.x + b.w / 2, cy = b.y + b.d / 2, ph = reduce ? 0 : t / 1000, bx = cx + Math.sin(ph * .7) * .6, by = cy - .3 + Math.sin(ph * 1.3) * .18, k;
+    for (k = 0; k < 10; k++) { // le match, sur la moitié de pelouse qu'on voit sous le toit : FC Nantes en jaune, visiteurs en blanc
+      var home = k < 5, gk = k % 5 === 0, px = gk ? cx + (home ? -.76 : .76) : cx + (home ? -.3 : .3) + Math.sin(ph * (.5 + k * .07) + k) * .25 + (bx - cx) * .4, py = gk ? cy - .25 : cy - .45 + (k % 5) * .1 + Math.cos(ph * (.6 + k * .05) + k) * .06, q = W3(px, py, 2);
+      R(q[0], q[1] - 3, 2, 2, gk ? '#7a3cff' : home ? '#ffd60a' : '#f4f4f4'); R(q[0], q[1] - 1, 2, 1, home ? '#0b7a3b' : '#1f3f9e'); R(q[0], q[1] - 4, 2, 1, SKIN[k % SKIN.length]);
+    }
+    var qb = W3(bx, by, 2); R(qb[0], qb[1] - 1, 1, 1, '#ffffff');
+    if (N) A(.14, function () { disc(P(cx, cy)[0], P(cx, cy)[1] - 8, 60, '#fff6c8', .45); });
+  }
+
+  /* ---------- Mes racines : la confiserie et le bonbon Kréma géant sur le toit ---------- */
+  function confiserie(b, t) {
+    detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
+    for (var u = 2; u < L.len - 2; u += 6) fr(L, u, 22, 6, 5, (u / 6 | 0) % 2 ? '#ffffff' : '#ff7eb6');
+    fr(L, 4, 2, 30, 18, N ? '#ffe3a3' : '#fff3e6');
+    [['#e63946', 6], ['#ffd60a', 13], ['#2a9d8f', 20], ['#9b5de5', 27]].forEach(function (q) { fr(L, q[1], 3, 5, 9, '#d9eef7'); fr(L, q[1] + 1, 4, 3, 6, q[0]); }); // bocaux de bonbons
+    fr(L, 40, 0, 9, 16, '#5a2a3a');
+    fr(Rf, 4, 18, 46, 9, '#ffffff'); ftext(Rf, 7, 20, 'CONFISERIE', '#e63946');
+    var bx = c[0], by = c[1] - 16, sw = reduce ? 0 : Math.round(Math.sin(t / 700) * 2);
+    g.fillStyle = '#ffd60a';
+    g.beginPath(); g.moveTo(bx - 6, by); g.lineTo(bx - 15, by - 5 + sw); g.lineTo(bx - 15, by + 5 - sw); g.fill();
+    g.beginPath(); g.moveTo(bx + 6, by); g.lineTo(bx + 15, by - 5 - sw); g.lineTo(bx + 15, by + 5 + sw); g.fill();
+    disc(bx, by, 7, '#ff4f6d'); disc(bx - 2, by - 2, 2, '#ffd1dc');
+    R(bx - 13, by + 9, 27, 9, '#111'); T('KREMA', bx - TL('KREMA') / 2, by + 11, '#ffd60a');
+  }
+
+  /* ---------- La mode : la boutique « Comme des Petits Chats » et sa grande pub ---------- */
+  function catPix(put, t) { // tête de chat 11 × 9 (dessin original) ; put(colonne, rangée depuis le haut, largeur, hauteur, couleur)
+    var bl = !reduce && (t / 2600 | 0) % 5 === 0 ? 1 : 2;
+    put(0, 0, 3, 3, '#141634'); put(8, 0, 3, 3, '#141634'); put(0, 3, 11, 6, '#141634');
+    put(2, 4, 2, bl, '#ffd60a'); put(7, 4, 2, bl, '#ffd60a'); put(5, 6, 1, 1, '#ff7eb6');
+  }
+  function petitsChats(b, t) {
+    detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
+    fr(L, 4, 2, 28, 16, N ? '#ffe3a3' : '#fdf3f6'); fr(L, 36, 0, 8, 14, '#2b1a12');
+    catPix(function (dx, dy, w, h, col) { fr(L, 13 + dx, 15 - dy - h, w, h, col); }, t);
+    fr(Rf, 4, 18, 40, 7, '#ff7eb6');
+    var bw = 62, bh = 36, x = Math.round(c[0] - bw / 2), y = Math.round(c[1] - bh - 14);
+    R(c[0] - 16, y + bh, 2, 16, '#444'); R(c[0] + 14, y + bh, 2, 16, '#444'); R(c[0] - 18, y + bh + 7, 36, 1, '#444');
+    R(x - 1, y - 1, bw + 2, bh + 2, '#111'); R(x, y, bw, bh, '#ffd1e3'); R(x, y, bw, 2, '#2445b0');
+    T('COMME DES', x + (bw - TL('COMME DES')) / 2, y + 5, '#2445b0'); T('PETITS CHATS', x + (bw - TL('PETITS CHATS')) / 2, y + 12, '#2445b0');
+    catPix(function (dx, dy, w, h, col) { R(x + 25 + dx, y + 22 + dy, w, h, col); }, t);
+    R(x + 18, y + 26, 5, 1, '#141634'); R(x + 39, y + 26, 5, 1, '#141634'); // moustaches
+    if (N) A(.22, function () { R(x - 4, y - 4, bw + 8, bh + 8, '#fff6c8'); });
+  }
+
+  /* ---------- La galerie des inspirations : colonnes, maillots de Sala (FC Nantes, 9) et Pogba (France, 6), pochettes de PNL et Justice ---------- */
+  function jersey(f, u, v, body, trim, num) { fr(f, u + 2, v + 1, 6, 9, body); fr(f, u, v + 7, 2, 3, body); fr(f, u + 8, v + 7, 2, 3, body); fr(f, u + 4, v + 9, 2, 1, trim); ftext(f, u + 4, v + 2, num, trim); }
+  function galerie(b, t) {
     var p = pal(b.k), L = faceL(b), Rf = faceR(b); prism(b, b.h, p[0], p[1], p[2]);
-    [L, Rf].forEach(function (f) { fr(f, 0, b.h - 3, f.len, 3, N ? '#2e2a48' : '#c9c4b8'); for (var u = 2; u < f.len - 2; u += 8) { fr(f, u, 4, 4, b.h - 16, N ? '#6a6488' : '#ffffff'); fr(f, u + 4, 6, 4, b.h - 18, N ? '#3a2e24' : '#6d5b49'); for (var v = 8; v < b.h - 14; v += 6) fr(f, u + 4, v, 4, 4, ['#c0392b', '#2e86de', '#27ae60', '#f39c12'][(u + v) % 4]); } });
-    fr(L, 4, b.h - 12, 64, 8, N ? '#4a4660' : '#bdb4a0'); ftext(L, 18, b.h - 11, 'ARCHIVES', N ? '#ffd56b' : '#5a4a3a');
-  }
-  function fablab(b, t) {
-    detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
-    fr(L, 8, 0, 30, 18, N ? '#f0c879' : '#e1dacb'); fr(L, 8, 14, 30, 4, '#8d94a1');
-    fr(L, 12, 2, 10, 4, '#4d5a6a'); fr(L, 12, 6, 3, 5, '#3d6a8a'); fr(L, 15 + (reduce ? 0 : (t / 90 | 0) % 2), 7, 6, 2, '#d9dde3'); // tour
-    fr(L, 28, 2, 7, 9, '#2a2a2a'); fr(L, 29, 3, 5, 2 + (reduce ? 2 : (t / 900 | 0) % 4), '#ff7a1a'); // imprimante 3D
-    fr(Rf, 6, 18, 30, 9, '#ff7a1a'); ftext(Rf, 9, 20, 'FABLAB', '#fff');
-    var rot = reduce ? 0 : t / 800; disc(c[0], c[1] - 8, 4, '#9aa1ad'); disc(c[0], c[1] - 8, 1, '#383d48');
-    for (var k = 0; k < 8; k++) { var a = k * Math.PI / 4 + rot; R(c[0] + Math.cos(a) * 5.5 - 1, c[1] - 8 + Math.sin(a) * 5.5 - 1, 2, 2, '#9aa1ad'); }
-  }
-  function house(b, t) {
-    detailed(b); var L = faceL(b), Rf = faceR(b), c = center(b, b.h);
-    prism({ x: b.x + .1, y: b.y + .1, w: b.w - .2, d: b.d - .2 }, 6, N ? '#7a2e3a' : '#c0392b', N ? '#5a2230' : '#a33025', N ? '#461a26' : '#8a281f', b.h);
-    fr(L, 10, 12, 18, 14, '#fff3d6'); [['#e63946', 0, 0], ['#4361ee', 9, 0], ['#2a9d8f', 0, 7], ['#ffd60a', 9, 7]].forEach(function (q) { fr(L, 11 + q[1], 13 + q[2], 6, 5, q[0]); }); // pictogrammes
-    fr(Rf, 8, 0, 8, 14, '#2b1a12');
-    var hx = c[0] - 2, hy = c[1] - 18; [[1, 0, 2], [4, 0, 2], [0, 1, 7], [0, 2, 7], [1, 3, 5], [2, 4, 3], [3, 5, 1]].forEach(function (q) { R(hx + q[0], hy + q[1], q[2], 1, '#ff5c8a'); });
+    [L, Rf].forEach(function (f) { fr(f, 0, b.h - 3, f.len, 3, N ? '#2e2a48' : '#c9c4b8'); fr(f, 0, 0, f.len, 4, N ? '#4a4660' : '#d8d2c3'); for (var u = 2; u < f.len - 2; u += 8) fr(f, u, 4, 3, b.h - 16, N ? '#6a6488' : '#ffffff'); });
+    fr(L, 4, b.h - 12, 64, 8, N ? '#4a4660' : '#bdb4a0'); ftext(L, 22, b.h - 11, 'GALERIE', N ? '#ffd56b' : '#5a4a3a');
+    [['j', '#ffd60a', '#0b7a3b', '9'], ['c', 'le-monde-chico'], ['j', '#1f3f9e', '#ffffff', '6'], ['c', 'audio-video-disco']].forEach(function (q, i) {
+      var u = 7 + i * 16, v = 12; fr(L, u - 1, v - 1, 14, 16, '#111'); fr(L, u, v, 12, 14, N ? '#2b2740' : '#f7f2e6');
+      if (q[0] === 'c') faceCover(q[1], L, u + 1, v + 2, 10, 10); else jersey(L, u + 1, v + 1, q[1], q[2], q[3]);
+    });
+    fr(Rf, 18, 0, 10, 14, '#2b1a12');
   }
   function metro(b, t) {
     var c = center(b, 0), gl = N || reduce || (t / 900 | 0) % 2 ? '#7dff8a' : '#4fd15e';
@@ -905,16 +1029,16 @@
 
   /* ---------- Qui va où : chaque profil a ses bâtiments ---------- */
   var CLASSES = {
-    corporate: { n: 5, v: .55, go: ['competences', 'cv', 'annexes', 'vision-board', 'contact', 'voyage'] },
-    etudiant: { n: 5, v: .7, go: ['a-propos', 'projets', 'vision-board', 'animation', 'annexes', 'voyage'] },
-    enfant: { n: 5, v: .75, go: ['a-propos', 'animation', 'garde'] },
-    commercant: { n: 3, v: .5, go: ['vision-board', 'animation', 'garde'] },
-    facteur: { n: 2, v: .6, go: ['la-poste', 'garde', 'a-propos', 'annexes', 'competences'] },
-    ouvrier: { n: 3, v: .55, go: ['la-poste', 'projets'] },
-    mode: { n: 3, v: .6, go: ['vision-board', 'competences', 'cv'] }
+    corporate: { n: 5, v: .55, go: ['materiel', 'paris', 'voyage', 'cinema', 'inspirations'] },
+    etudiant: { n: 5, v: .7, go: ['musique', 'cinema', 'foot', 'valeurs', 'voyage', 'inspirations'] },
+    enfant: { n: 5, v: .75, go: ['valeurs', 'racines', 'foot'] },
+    commercant: { n: 3, v: .5, go: ['mode', 'musique', 'racines'] },
+    facteur: { n: 2, v: .6, go: ['racines', 'paris', 'voyage', 'valeurs'] },
+    ouvrier: { n: 3, v: .55, go: ['foot', 'racines', 'materiel'] },
+    mode: { n: 3, v: .6, go: ['mode', 'paris', 'cinema'] }
   };
-  var VB = ['vision-board', 'vb-club', 'vb-mode', 'vb-disques', 'vb-cinema', 'vb-defile'], VOY = ['voyage', 'voyage-air'];
-  function spotOf(doc) { return doc === 'vision-board' ? VB[(Math.random() * VB.length) | 0] : doc === 'voyage' ? VOY[(Math.random() * 2) | 0] : doc; }
+  var SPOTS = {}; B.forEach(function (b) { if (b.doc) (SPOTS[b.doc] = SPOTS[b.doc] || []).push(b.spot); });
+  function spotOf(doc) { var l = SPOTS[doc]; return l[(Math.random() * l.length) | 0]; } // un des bâtiments de cette rubrique
   function route(a, b) { // déplacement par les rues (lignes 4,5 et 9,5)
     var aV = Math.abs(a[0] - road(a[0])) < .01, bV = Math.abs(b[0] - road(b[0])) < .01, pts = [a];
     function near(v) { return road(v); }
@@ -929,7 +1053,7 @@
     for (var i = 0; i < C.n; i++) { var at = spotOf(C.go[(i + seedK) % C.go.length]), d = bySpot[at].door; people.push({ cl: cl, c: C, at: at, x: d[0], y: d[1], path: null, wait: 500 + hash(seedK * 7) * 8000, k: seedK++, flip: false }); }
   });
   function nextStop(p) {
-    if (N && (p.cl === 'corporate' || p.cl === 'etudiant' || p.cl === 'mode') && Math.random() < .5) return 'vb-club'; // la nuit, direction le club
+    if (N && (p.cl === 'corporate' || p.cl === 'etudiant' || p.cl === 'mode') && Math.random() < .5) return 'm-club'; // la nuit, direction le club
     var go = p.c.go.filter(function (x) { return x !== p.at; }); return spotOf(go[Math.floor(Math.random() * go.length)]);
   }
   function stepPeople(dt) {
@@ -1094,7 +1218,7 @@
   /* ---------- Fenêtres internes ---------- */
   var win = document.getElementById('win'), body = document.getElementById('winBody'), wt = document.getElementById('winTitle'), cur = null, home = null;
   function openDoc(id, from) {
-    if (id === 'hifi' || id === 'mode') id = 'vision-board'; // anciens liens vers les deux vision boards
+    id = { 'vision-board': 'musique', hifi: 'materiel', 'voyage-air': 'voyage' }[id] || id; // anciens liens
     var d = document.getElementById(id);
     if (!d || !d.classList.contains('doc')) return false;
     if (cur) home.replaceWith(cur);
@@ -1109,9 +1233,7 @@
         win.animate([{ transform: 'scale(.08)', opacity: .2 }, { transform: 'scale(1)', opacity: 1 }], { duration: 320, easing: 'steps(7, end)' });
       }
     }
-    var sc = from && from.dataset && { 'vb-cinema': '.vb-cine', 'vb-mode': '.vb-side.mode', 'vb-defile': '.vb-side.mode', 'vb-club': '.vb-side.son', 'vb-disques': '.vb-albums' }[from.dataset.spot]; if (sc) { var el2 = body.querySelector(sc); if (el2) setTimeout(function () { el2.scrollIntoView({ block: 'start' }); }, 30); }
     history.replaceState(null, '', '#' + id);
-    if (id === 'cv') renderCV();
     return true;
   }
   win.addEventListener('close', function () { if (cur) { home.replaceWith(cur); cur = null; } history.replaceState(null, '', location.pathname + location.search); });
@@ -1139,20 +1261,6 @@
   });
   if (location.hash.length > 1) openDoc(location.hash.slice(1));
 
-  // CV : la page 1 du PDF dessinée par PDF.js (réexporter le PDF suffit à mettre l'aperçu à jour)
-  var cvDone = false;
-  function renderCV() {
-    var c = document.getElementById('cvCanvas'), fb = document.getElementById('cvFallback');
-    if (cvDone || !c) return; cvDone = true;
-    if (!window.pdfjsLib) { c.remove(); fb.hidden = false; return; }
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    pdfjsLib.getDocument('assets/CV-Paul-Signe.pdf').promise
-      .then(function (pdf) { return pdf.getPage(1); })
-      .then(function (pg) { var vp = pg.getViewport({ scale: 2.2 }); c.width = vp.width; c.height = vp.height; return pg.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise; })
-      .catch(function () { c.remove(); fb.hidden = false; });
-  }
-  setTimeout(renderCV, 2500);
-
   // Jour / nuit (choix mémorisé)
   var tb = document.getElementById('themeBtn');
   function paint() { var d = night(); tb.textContent = d ? 'Jour' : 'Nuit'; tb.setAttribute('aria-label', d ? 'Passer en mode jour' : 'Passer en mode nuit'); }
@@ -1162,14 +1270,6 @@
     paint(); if (reduce) draw(0);
   });
   paint();
-
-  // Formulaire de contact : site statique, le message s'ouvre dans la messagerie du visiteur
-  var form = document.getElementById('contactForm');
-  if (form) form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var msg = form.message.value + '\n\n— ' + form.name.value + ' (' + form.email.value + ')';
-    location.href = 'mailto:paul.signe@ensam.eu?subject=' + encodeURIComponent('Contact portfolio — ' + form.name.value) + '&body=' + encodeURIComponent(msg);
-  });
 
   // Impression : la ville devient l'image de la page de garde, toutes les fenêtres s'impriment à la suite
   addEventListener('beforeprint', function () {

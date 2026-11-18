@@ -834,7 +834,7 @@
     var rq = [];
     for (i = 0; i < n; i++) { var j2 = (i + 1) % n; rq.push({ d: out[i][0] + out[i][1] + out[j2][0] + out[j2][1], i: i, j: j2 }); }
     rq.sort(function (u, v) { return u.d - v.d; }).forEach(function (q) { // le toit, puis son bandeau vert clair côté pelouse
-      var o = out[q.i], sh = (o[2] + o[3]) * .08, base = N ? '#3e5248' : '#6f8a76';
+      var o = out[q.i], sh = (o[2] + o[3]) * .08, base = N ? '#344a3e' : '#557a62'; // vert sombre du vrai toit
       poly([Wp(out[q.i], SWALL), Wp(out[q.j], SWALL), Wp(inn[q.j], SROOF), Wp(inn[q.i], SROOF)], mix(base, sh > 0 ? '#ffffff' : '#000000', Math.abs(sh) + (q.i % 3 === 0 ? .06 : 0)));
       if (!(inn[q.i][2] + inn[q.i][3] < -.05)) return;
       poly([Wp(inn[q.i], SROOF), Wp(inn[q.j], SROOF), Wp(inn[q.j], SROOF - 3), Wp(inn[q.i], SROOF - 3)], N ? '#5f9a63' : '#9be08f');

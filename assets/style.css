@@ -212,6 +212,7 @@ section.alt{background:var(--bg-2)}
 .likes b{display:block;font-family:var(--display);font-stretch:110%;font-weight:800;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
 @media (max-width:600px){.fields,.skills,.likes,.chips{grid-template-columns:1fr}}
 .panel[hidden]{display:none}
+.panel{scroll-margin-top:96px}
 .panel{animation:rise .4s ease both}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 

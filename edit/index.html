@@ -3,88 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, nofollow">
 <title>Éditeur — Portfolio de Paul Signe</title>
 <link rel="stylesheet" href="editor.css">
 </head>
 <body>
 
-<!-- Connexion : le jeton GitHub reste dans ce navigateur (localStorage), il n'est envoyé qu'à api.github.com -->
+<!-- Connexion : le code GitHub reste dans ce navigateur (localStorage), il n'est envoyé qu'à api.github.com -->
 <section id="login" class="login" hidden>
-  <h1>Éditeur du portfolio</h1>
-  <p>Pour enregistrer tes changements sur le site, l'éditeur a besoin d'un <b>jeton GitHub</b> (à créer une seule fois).</p>
-  <form id="loginForm">
-    <label>Jeton GitHub <input id="token" type="password" autocomplete="off" placeholder="github_pat_…" required></label>
-    <button class="btn primary" type="submit">Se connecter</button>
-  </form>
+  <h1>✏️ Mon éditeur</h1>
+  <p>Une seule fois sur cet appareil, en 2 clics :</p>
+  <ol class="steps">
+    <li><a class="btn primary big" href="https://github.com/settings/tokens/new?description=Editeur%20portfolio&amp;scopes=repo" target="_blank" rel="noopener">1. Créer mon code d'accès ↗</a>
+      <span class="hint">GitHub s'ouvre, tout est déjà rempli : descends, clique le bouton vert <b>Generate token</b>, puis copie le code (il commence par <code>ghp_</code>).</span></li>
+    <li><form id="loginForm"><input id="token" type="password" autocomplete="off" placeholder="2. Colle le code ici" required><button class="btn primary big" type="submit">Entrer</button></form></li>
+  </ol>
   <p class="err" id="loginErr" hidden></p>
-  <details open><summary>Comment créer le jeton (2 minutes)</summary>
-    <ol>
-      <li>Ouvre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub › Settings › Developer settings › Fine-grained tokens › Generate new token</a>.</li>
-      <li>Nom : « Éditeur portfolio ». Expiration : 1 an.</li>
-      <li><b>Repository access</b> : « Only select repositories » › <b>Paulleb08/portfolio</b>.</li>
-      <li><b>Permissions</b> : <b>Contents : Read and write</b> et <b>Issues : Read and write</b>.</li>
-      <li>« Generate token », copie-le (il commence par <code>github_pat_</code>) et colle-le ici. Il reste seulement sur cet appareil.</li>
-    </ol>
-  </details>
+  <p class="hint">Le code reste seulement sur cet appareil. Sans lui, personne ne peut rien modifier.</p>
 </section>
 
 <div id="app" class="app" hidden>
   <header class="bar">
-    <b class="brand">Éditeur</b>
-    <label>Page <select id="pageSel"></select></label>
-    <span class="status" id="status">Chargement…</span>
+    <b class="brand">✏️ Éditeur</b>
+    <nav class="tabs" id="tabs"></nav>
     <span class="grow"></span>
-    <a class="btn" id="viewLink" href="https://paulleb08.github.io/portfolio/" target="_blank" rel="noopener">Voir le site ↗</a>
-    <button class="btn" type="button" id="previewBtn" title="Voir la page animée, avec tes changements, à côté de l'éditeur">👁 Aperçu en direct</button>
-    <button class="btn" type="button" id="filesBtn">Fichiers</button>
-    <button class="btn" type="button" id="reloadBtn" title="Oublier les changements non enregistrés">Annuler tout</button>
-    <button class="btn primary" type="button" id="saveBtn" disabled>Enregistrer et publier</button>
-    <button class="btn ghost" type="button" id="logoutBtn" title="Oublier le jeton sur cet appareil">Déconnexion</button>
+    <span class="status" id="status"></span>
+    <button class="btn" type="button" id="previewBtn">👁 Aperçu</button>
+    <button class="btn" type="button" id="undoBtn" title="Revenir à la dernière version publiée">↺ Tout annuler</button>
+    <button class="btn publish" type="button" id="saveBtn" disabled>Publier</button>
+    <button class="btn" type="button" id="moreBtn" title="Plus">⋯</button>
+    <div class="menu" id="moreMenu" hidden>
+      <button type="button" id="filesBtn">📄 Remplacer mon CV ou un fichier</button>
+      <a id="viewLink" href="https://paulleb08.github.io/portfolio/" target="_blank" rel="noopener">↗ Voir le site en ligne</a>
+      <button type="button" id="logoutBtn">Se déconnecter de cet appareil</button>
+    </div>
   </header>
 
-  <aside class="tools">
-    <p class="hint" id="selInfo">Clique sur un texte pour l'écrire directement, ou sur une image / un bloc pour le sélectionner.</p>
-    <div class="row">
-      <button class="btn" type="button" data-cmd="bold" title="Gras"><b>G</b></button>
-      <button class="btn" type="button" data-cmd="italic" title="Italique"><i>I</i></button>
-      <button class="btn" type="button" data-act="link" title="Mettre un lien sur le texte sélectionné">Lien</button>
+  <aside class="side">
+    <div class="help">
+      <b>Comment ça marche</b>
+      <p>1. <b>Clique</b> sur un texte et écris.</p>
+      <p>2. Clique sur un <b>album, un film, une image ou une carte</b> : une barre d'outils apparaît.</p>
+      <p>3. <b>Publier</b> : en ligne en 1 minute.</p>
     </div>
-    <div class="row">
-      <button class="btn" type="button" data-act="parent" title="Sélectionner le bloc qui contient celui-ci">↖ Bloc parent</button>
-      <button class="btn" type="button" data-act="dup" title="Dupliquer (pour ajouter un album, un film, une carte…)">⧉ Dupliquer</button>
-      <button class="btn" type="button" data-act="up" title="Monter">↑</button><button class="btn" type="button" data-act="down" title="Descendre">↓</button>
-      <button class="btn danger" type="button" data-act="del">Supprimer</button>
-    </div>
-    <div class="row">
-      <button class="btn" type="button" data-act="addP">+ Paragraphe après</button>
-      <button class="btn" type="button" data-act="addImg">+ Image après</button>
-      <button class="btn" type="button" data-act="img">Remplacer l'image</button>
-    </div>
-    <div class="fields" id="fields"></div>
+    <b class="side-title">Aller à</b>
+    <ul class="toc" id="toc"></ul>
   </aside>
 
-  <main class="stage" id="stage"><iframe id="frame" title="Page en cours d'édition" sandbox="allow-same-origin"></iframe><iframe id="preview" title="Aperçu en direct de la page" sandbox="allow-scripts allow-popups" hidden></iframe></main>
+  <main class="stage" id="stage"><iframe id="frame" title="Page en cours d'édition" sandbox="allow-same-origin"></iframe><iframe id="preview" title="Aperçu de la page" sandbox="allow-scripts allow-popups" hidden></iframe></main>
+
+  <div class="float" id="float" hidden>
+    <span class="float-name" id="floatName"></span>
+    <button type="button" data-act="edit" title="Modifier les textes et l'image">✎ Modifier</button>
+    <button type="button" data-act="img" title="Changer l'image">🖼 Image</button>
+    <button type="button" data-act="add" title="Ajouter un élément comme celui-ci juste après">＋ Ajouter</button>
+    <button type="button" data-act="up" title="Déplacer avant">◀</button>
+    <button type="button" data-act="down" title="Déplacer après">▶</button>
+    <button type="button" data-act="parent" title="Sélectionner le bloc autour">⤢</button>
+    <button type="button" data-act="del" class="danger" title="Supprimer">🗑</button>
+  </div>
+
+  <dialog id="itemDlg">
+    <form method="dialog" id="itemForm">
+      <h2 id="itemTitle">Modifier</h2>
+      <div class="item-img" id="itemImgBox"><img id="itemImg" alt=""><button class="btn" type="button" id="itemImgBtn">🖼 Choisir une image</button></div>
+      <div id="itemFields"></div>
+      <div class="row end"><button class="btn primary" value="ok">OK</button></div>
+    </form>
+  </dialog>
 
   <section class="ask" id="ask">
-    <button class="ask-head" type="button" id="askToggle">💬 Demander à Claude</button>
+    <button class="ask-head" type="button" id="askToggle">💬 Demander un changement à Claude</button>
     <div class="ask-body">
-      <p class="hint">Pour un changement de structure ou de design (nouvelle rubrique, bâtiment, mise en page, couleurs…). Ta demande part sur GitHub ; Claude la vérifie chaque heure, la fait, la publie et te répond ici.</p>
-      <textarea id="askText" rows="5" placeholder="Ex. : ajoute un bâtiment pour ma passion du skate, avec une rampe…"></textarea>
-      <button class="btn primary" type="button" id="askSend">Envoyer la demande</button>
+      <p class="hint">Pour ce que l'éditeur ne fait pas : nouveau bâtiment, nouvelle rubrique, couleurs, mise en page…</p>
+      <textarea id="askText" rows="4" placeholder="Ex. : ajoute un bâtiment pour ma passion du skate"></textarea>
+      <button class="btn primary" type="button" id="askSend">Envoyer</button>
       <p class="hint" id="askMsg"></p>
-      <h3>Mes demandes</h3>
       <ul id="askList"></ul>
     </div>
   </section>
 
   <dialog id="filesDlg">
-    <h2>Fichiers du site</h2>
-    <p class="hint">Remplace un fichier (par exemple ton CV en PDF ou en Word) ou ajoute-en un. Garde le même nom pour que les liens continuent de marcher.</p>
-    <label>Fichier du site <input id="filePath" list="fileList" placeholder="assets/CV-Paul-Signe.pdf"></label>
+    <h2>Remplacer un fichier</h2>
+    <div class="row">
+      <button class="btn" type="button" data-file="assets/CV-Paul-Signe.pdf">Mon CV en PDF</button>
+      <button class="btn" type="button" data-file="cv/CV-Paul-Signe.docx">Mon CV en Word</button>
+    </div>
+    <label>Ou un autre fichier du site <input id="filePath" list="fileList" placeholder="assets/…"></label>
     <datalist id="fileList"></datalist>
-    <label>Nouveau contenu <input id="fileIn" type="file"></label>
-    <div class="row"><button class="btn primary" id="fileSend" type="button">Envoyer</button><button class="btn" type="button" id="filesClose">Fermer</button></div>
+    <label>Nouveau fichier <input id="fileIn" type="file"></label>
+    <div class="row end"><button class="btn" type="button" id="filesClose">Fermer</button><button class="btn primary" id="fileSend" type="button">Envoyer</button></div>
     <p class="hint" id="fileMsg"></p>
   </dialog>
   <input type="file" id="imgIn" accept="image/*" hidden>

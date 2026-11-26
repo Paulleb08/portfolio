@@ -43,8 +43,8 @@ body *:not(.icon-btn){border-radius:0!important}
 
 /* page de garde : affiche spatiale — nuit bleue, soleil rayonnant or, titre en relief rouge */
 .pill{background:var(--navy);color:#f6e7c4;border:3px solid var(--ink);box-shadow:10px 10px 0 var(--accent);isolation:isolate}
-.pill::before{content:"";position:absolute;inset:-40%;z-index:-1;background:repeating-conic-gradient(from 0deg at 18% 82%,rgba(242,183,5,.22) 0deg 4deg,transparent 4deg 12deg)}
-.pill::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 18% 82%,#f2b705 0 6.4%,#c8331f 6.5% 7.2%,transparent 7.3%),radial-gradient(1.5px 1.5px at 20% 20%,#fff3 50%,transparent 51%),radial-gradient(1.5px 1.5px at 74% 30%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 52% 12%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 86% 64%,#fff4 50%,transparent 51%);background-size:auto,260px 260px,300px 300px,200px 200px,340px 340px}
+.pill::before{content:"";position:absolute;inset:-40%;z-index:-1;background:repeating-conic-gradient(from 0deg at 86% 26%,rgba(242,183,5,.22) 0deg 4deg,transparent 4deg 12deg)}
+.pill::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 86% 26%,#f2b705 0 6.4%,#c8331f 6.5% 7.2%,transparent 7.3%),radial-gradient(1.5px 1.5px at 20% 20%,#fff3 50%,transparent 51%),radial-gradient(1.5px 1.5px at 74% 30%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 52% 12%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 86% 64%,#fff4 50%,transparent 51%);background-size:auto,260px 260px,300px 300px,200px 200px,340px 340px}
 .pill .kicker{color:var(--yellow)}
 .pill h1{color:var(--yellow);text-shadow:5px 5px 0 var(--accent),10px 10px 0 rgba(0,0,0,.35);transform:skewY(-4deg) rotate(-2deg);letter-spacing:-.03em;margin-bottom:34px}
 .pill .role{font-family:var(--serif);color:#f6e7c4}
@@ -108,3 +108,73 @@ footer .disp{color:var(--accent);text-shadow:4px 4px 0 var(--ink)}
   .sheet{font-size:.93rem}
 }
 @media (prefers-reduced-motion:reduce){.btn:hover,.pick:hover .card{transform:none}}
+
+/* ===== Mise en page et animations façon Shopify Editions (26/11/2026) ===== */
+/* Rail : sommaire fixe à gauche, chiffres romains, chapitre en cours en rouge (grands écrans) */
+.rail{display:none}
+@media (min-width:1200px){
+  body{padding-left:210px}
+  .rail{display:flex;flex-direction:column;justify-content:space-between;position:fixed;inset:0 auto 0 0;width:210px;z-index:40;padding:22px 20px 26px;border-right:2px solid var(--line);background:var(--bg)}
+  .rail-id{font-family:var(--display);font-weight:800;font-size:1.05rem;line-height:1;color:var(--accent);text-decoration:none;text-transform:uppercase;letter-spacing:-.02em}
+  .rail-id small{display:block;margin-top:8px;font-family:var(--cond);font-weight:500;font-size:.78rem;letter-spacing:.12em;color:var(--muted)}
+  .rail ol{list-style:none;display:grid;gap:2px}
+  .rail a:not(.rail-id){display:flex;justify-content:space-between;gap:10px;padding:5px 0 5px 10px;border-left:3px solid transparent;text-decoration:none;font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-size:.92rem;line-height:1.15;color:var(--muted);transition:color .25s,border-color .25s,padding .25s}
+  .rail a i{font-style:normal;font-family:"Instrument Serif",serif;font-size:1rem;letter-spacing:0}
+  .rail a:hover,.rail a.on{color:var(--text);border-color:var(--accent);padding-left:14px}
+  .rail a.on i{color:var(--accent)}
+  .nav ul{visibility:hidden}
+}
+/* Page de garde : texte en bas à gauche, comme une couverture d'édition */
+.pill{place-items:end start;text-align:left;min-height:min(86vh,820px);padding:clamp(28px,5vw,70px)}
+.pill .btns{justify-content:flex-start}
+.pill h1{font-size:clamp(3.4rem,13vw,11rem);transform-origin:left bottom}
+.pill .role{font-family:"Instrument Serif",serif;font-style:italic;font-size:clamp(1.3rem,2.8vw,2.1rem)}
+.pill>.fly{position:absolute;inset:0;z-index:0}
+.fly span{position:absolute;top:var(--t);left:var(--l);transform:translate3d(0,var(--sy,0px),0) rotate(-24deg);will-change:transform;pointer-events:none}
+.fly .rk{width:var(--w)}
+.fly .rk svg{display:block;width:100%;animation:rk-hover 4s ease-in-out infinite alternate}
+.fly .st{color:var(--yellow);font-size:clamp(1rem,2vw,1.8rem);animation:twinkle 2.6s ease-in-out infinite alternate}
+@keyframes rk-hover{to{transform:translate(18px,-10px)}}
+@keyframes twinkle{from{opacity:.3}to{opacity:1}}
+
+/* Chapitre : couverture plein écran collante ; le titre monte et grandit, l'accroche apparaît, le papier déchiré remonte par-dessus */
+section.ch{padding-top:0}
+section.ch > .wrap > .head h2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.chapter{--p:0;position:relative;height:190vh;margin:0 calc(-1 * clamp(16px,4vw,56px)) clamp(40px,6vw,80px)}
+.ch-stick{position:sticky;top:0;height:100vh;overflow:hidden;isolation:isolate;background:var(--navy) var(--img) center/cover;background-blend-mode:luminosity;color:#f6e7c4}
+.ch-stick::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(21,24,63,.35),rgba(21,24,63,.92)),radial-gradient(circle at 80% 20%,rgba(200,51,31,.45),transparent 45%)}
+.ch-rays{position:absolute;inset:-60%;z-index:-1;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(242,183,5,.16) 0deg 3deg,transparent 3deg 11deg);transform:rotate(calc(var(--p) * 50deg))}
+.ch-num{position:absolute;top:clamp(80px,12vh,120px);left:clamp(20px,4vw,60px);font-family:"Instrument Serif",serif;font-size:clamp(4rem,12vw,10rem);line-height:1;color:transparent;-webkit-text-stroke:2px var(--yellow);opacity:calc(.35 + var(--p) * .65)}
+.ch-title{position:absolute;left:clamp(20px,4vw,60px);right:clamp(20px,4vw,60px);bottom:clamp(140px,24vh,250px);margin:0;font-size:clamp(2.8rem,11vw,10rem);color:var(--yellow);text-shadow:5px 5px 0 var(--accent);transform-origin:left bottom;transform:translateY(calc((1 - var(--p)) * 22vh)) scale(calc(.62 + var(--p) * .38))}
+.ch-tag{position:absolute;left:clamp(20px,4vw,60px);bottom:clamp(64px,11vh,120px);max-width:760px;font-family:"Instrument Serif",serif;font-style:italic;font-size:clamp(1.4rem,3vw,2.4rem);line-height:1.1;opacity:clamp(0,calc((var(--p) - .62) * 4),1);transform:translateY(calc((1 - var(--p)) * 30px))}
+.ch-tag::first-letter{font-size:1.6em;color:var(--yellow)}
+.ch-words i{position:absolute;left:var(--x);top:var(--y);font-family:"Instrument Serif",serif;font-style:italic;font-size:clamp(1rem,2vw,1.6rem);color:rgba(246,231,196,.55);white-space:nowrap;transform:translateY(calc((.5 - var(--p)) * var(--v) * 160px))}
+.ch-words i::before{content:"/";color:var(--accent);margin-right:2px}
+/* bord de papier déchiré en bas de la couverture */
+.chapter::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:46px;z-index:2;background:var(--bg);clip-path:polygon(0 62%,4% 40%,8% 58%,12% 30%,17% 55%,21% 36%,26% 64%,30% 42%,35% 60%,39% 28%,44% 52%,48% 38%,53% 66%,57% 34%,62% 56%,66% 26%,71% 58%,75% 40%,80% 62%,84% 32%,89% 54%,93% 36%,97% 58%,100% 44%,100% 100%,0 100%)}
+section.alt .chapter::after{background:var(--bg-2)}
+@media (max-width:760px){.chapter{height:160vh}.ch-words i:nth-child(n+6){display:none}}
+
+/* Blocs qui glissent à l'arrivée */
+.mo .rv{opacity:0;transform:translateY(46px);transition:opacity .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.mo .rv.in{opacity:1;transform:none}
+
+/* Intro : épure au compas qui se trace, puis rideau qui se lève */
+.mo-intro{position:fixed;inset:0;z-index:200;display:grid;place-items:center;align-content:center;gap:10px;background:#0c0e26;color:#f6e7c4;cursor:pointer;transition:clip-path .9s cubic-bezier(.7,0,.2,1);clip-path:inset(0 0 0 0)}
+.mo-intro.out{clip-path:inset(0 0 100% 0)}
+.mo-intro svg{position:absolute;inset:0;width:100%;height:100%;opacity:.8}
+.mo-intro svg *{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.6s cubic-bezier(.6,0,.2,1) forwards}
+.mo-intro svg :nth-child(2n){animation-delay:.15s}.mo-intro svg :nth-child(3n){animation-delay:.3s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.mo-intro p{position:relative;font-size:clamp(2.6rem,9vw,7rem);color:var(--yellow);text-shadow:5px 5px 0 #c8331f;animation:rise .9s .5s cubic-bezier(.2,.7,.2,1) both}
+.mo-intro small{position:relative;font-family:var(--cond);letter-spacing:.3em;text-transform:uppercase;animation:rise .9s .7s both}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}}
+
+@media (prefers-reduced-motion:reduce){.chapter{height:100vh}.fly .rk svg,.fly .st{animation:none}}
+@media print{
+  body{padding-left:0}
+  .rail,.chapter,.fly,.mo-intro{display:none!important}
+  section.ch{padding-top:0}
+  section.ch > .wrap > .head h2{position:static;width:auto;height:auto;clip:auto}
+  .pill{place-items:center;text-align:center}.pill .btns{justify-content:center}
+}

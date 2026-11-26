@@ -416,3 +416,7 @@ html.bl-init main,html.bl-init footer{visibility:hidden;animation:bl-failsafe 0s
 .films .stars{display:block;color:#ffd23f;letter-spacing:1px}
 @media (max-width:560px){.films{gap:8px}.films figcaption b,.films figcaption{font-size:.62rem}}
 @media print{.vb-cine{background:#fff!important;color:#141634!important}.vb-cine .vb-h{color:#b3202f}.films{gap:6px}.films img{box-shadow:none}.films figcaption,.films figcaption b{color:#141634;font-size:.52rem}}
+/* Photos du voyage (envoyées par Paul le 26/11/2026) : Londres en grand, nom de la ville en étiquette */
+.trip-photos figure.big{grid-column:span 2;aspect-ratio:8/3}
+.trip-photos figcaption{position:absolute;left:6px;bottom:6px;background:rgba(20,20,20,.72);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.04em;padding:3px 7px}
+@media print{.trip-photos figcaption{font-size:.55rem;padding:1px 4px}.trip-photos figure.big{aspect-ratio:4/1}}

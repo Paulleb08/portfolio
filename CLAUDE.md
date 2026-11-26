@@ -40,6 +40,14 @@ Lues au début de chaque session. Mettre à jour à la fin d'une tâche quand un
 - Bac STI2D AC, lycée Livet (Nantes), 2022-2025 ; anglais B2, allemand A1 ; animateur ALSH Les Mille Potes (Arcachon), 2 saisons, groupe de 12.
 - Inconnus encore à compléter (laisser surlignés `.todo`, ne pas inventer) : URL LinkedIn. Projets : mécatronique (« robot ») 30 séances de 4 h, usinage 6 séances de 4 h (dit par Paul le 26/11/2026). Lettres : phrase « recherche aussi une alternance 2027-2028, intéressé même sans stage » (demandé le 26/11/2026). Garde d'enfant TSA : **1 mois** (dit par Paul le 19/11/2026). **Annexe « Références » supprimée à la demande de Paul (18/11/2026)** : annexes = A plaquette, B vision board (la ville), C CV ; ne pas la remettre.
 
+## Faits donnés par Paul le 26/11/2026 (soir)
+- **Prototype mécatronique (fiche 01)** : équipe de **3**, Paul = **électronique et programmation** (il n'a PAS modélisé le boîtier : retiré du portfolio, du CV FR/EN et des 12 lettres) ; budget **250 €** fourni par l'école (« projet robot » = ce même projet, à confirmer si doute).
+- La Poste : stage **rémunéré**. Animateur : saisonnier **rémunéré par la mairie d'Arcachon** (ALSH Les Mille Potes).
+- **Fiche 05** : pas un particulier employeur ; accompagnement d'**enfants autistes, verbaux et non verbaux**, au sein de l'accueil de loisirs (mairie d'Arcachon), en plus des autres enfants.
+- **Pas de lettre de recommandation** (annexe laissée retirée). LinkedIn : https://www.linkedin.com/in/paul-signe-03346239a (dans le contact).
+- **Pitch** refait selon la méthode des points forts (copie corrigée par la prof : un point fort par paragraphe, connecteurs, exemple précis) : électronique (prototype), relationnel (animation, enfants autistes, pictogrammes), autonomie (voyage seul) ; projet : école d'ingénieurs en alternance en électronique, puis électronique audio. Dans « Mon pitch » + Word/PDF envoyés.
+- Photos du voyage : 6 (En route = gare de St Pancras à l'arrivée de l'Eurostar), dans l'ordre du trajet.
+
 ## Règles CV (fiche « Le CV » de l'ENSAM + filtres ATS)
 - 1 page, une seule colonne, Arial, ni tableau ni zone de texte ; images (photo, QR) en ancrage flottant seulement.
 - Titre = « Élève Bachelor de Technologie ENSAM 2e année », objectif daté dessous, nom dans les références (pas en titre).

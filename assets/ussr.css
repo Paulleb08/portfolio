@@ -1,0 +1,110 @@
+/* Thème « almanach » du portfolio pro (demandé par Paul le 26/11/2026) :
+   affiches constructivistes et conquête spatiale — papier ancien, noir, rouge, or, bleu nuit,
+   typographie étirée (Unbounded) et étiquettes condensées (Oswald), angles droits, ombres d'impression décalées.
+   Chargé seulement par index.html et cv.html, après style.css : la ville garde son style. */
+:root{
+  --bg:#efe4cc; --bg-2:#e4d5b4; --surface:#f8f0dc; --text:#141414; --muted:#4b4336; --accent:#c8331f; --accent-soft:#f1d3c2;
+  --line:#141414; --brand:#c8331f; --on-brand:#fff7e6; --on-brand-soft:rgba(255,247,230,.86); --brand-line:rgba(255,247,230,.45);
+  --cream:#f6e7c4; --yellow:#f2b705; --navy:#15183f; --plus:#e3ecd0; --minus:#f6d9cc;
+  --ink:#141414; --hard:6px 6px 0 var(--ink); --shadow:var(--hard);
+  --display:"Unbounded","Arial Black",sans-serif; --cond:"Oswald","Arial Narrow",sans-serif; --serif:"Golos Text",Arial,sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0c0e26; --bg-2:#12153a; --surface:#181c48; --text:#f4ead4; --muted:#cdbf9f; --accent:#ff5b3d; --accent-soft:#3a1a22;
+  --line:rgba(244,234,212,.45); --brand:#d63a24; --plus:#1d3324; --minus:#45201b; --ink:#000; --hard:6px 6px 0 #000;
+}
+body{font-size:1.04rem;line-height:1.6}
+/* étoiles discrètes en thème sombre, comme le ciel des affiches */
+[data-theme="dark"] body{background-image:radial-gradient(1.2px 1.2px at 12% 18%,rgba(255,240,200,.5) 50%,transparent 51%),radial-gradient(1px 1px at 68% 42%,rgba(255,240,200,.4) 50%,transparent 51%),radial-gradient(1.4px 1.4px at 38% 76%,rgba(255,240,200,.45) 50%,transparent 51%),radial-gradient(1px 1px at 88% 8%,rgba(255,240,200,.35) 50%,transparent 51%);background-size:340px 340px,410px 410px,520px 520px,290px 290px}
+
+/* angles droits partout (sauf les boutons ronds d'icône) */
+body *:not(.icon-btn){border-radius:0!important}
+
+/* typographie */
+.disp{font-family:var(--display);font-stretch:normal;font-weight:800;letter-spacing:-.02em;line-height:.98}
+.label{font-family:var(--cond);font-stretch:normal;font-weight:600;letter-spacing:.14em;font-size:.82rem}
+.head h2,.about-title h2{color:var(--text)}
+.head h2::after{content:"";display:block;width:84px;height:8px;background:var(--accent);margin:18px auto 0;transform:skewX(-24deg)}
+.head .label,.vb-intro .label{color:var(--accent)}
+
+/* boutons : blocs pleins, texte condensé */
+.btn{font-family:var(--cond);font-stretch:normal;font-weight:600;letter-spacing:.12em;font-size:.92rem;border-width:2px;box-shadow:4px 4px 0 var(--ink)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn.solid{background:var(--accent);border-color:var(--ink);color:#fff7e6}
+.btn.solid:hover{background:var(--yellow);border-color:var(--ink);color:#141414}
+.btn.light{background:var(--cream);border-color:var(--ink);color:#141414}
+
+/* barre de navigation : bandeau à filets noirs */
+.nav{background:var(--surface);border:2px solid var(--ink);box-shadow:var(--hard)}
+[data-theme="dark"] .nav{border-color:var(--line)}
+.nav .brand{font-family:var(--display);font-stretch:normal;font-weight:800;color:var(--accent);letter-spacing:-.02em}
+.nav ul a{font-family:var(--cond);text-transform:uppercase;letter-spacing:.1em;font-size:.95rem}
+.nav .cv-link{font-family:var(--cond);font-stretch:normal;font-weight:600;letter-spacing:.1em}
+
+/* page de garde : affiche spatiale — nuit bleue, soleil rayonnant or, titre en relief rouge */
+.pill{background:var(--navy);color:#f6e7c4;border:3px solid var(--ink);box-shadow:10px 10px 0 var(--accent);isolation:isolate}
+.pill::before{content:"";position:absolute;inset:-40%;z-index:-1;background:repeating-conic-gradient(from 0deg at 18% 82%,rgba(242,183,5,.22) 0deg 4deg,transparent 4deg 12deg)}
+.pill::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 18% 82%,#f2b705 0 6.4%,#c8331f 6.5% 7.2%,transparent 7.3%),radial-gradient(1.5px 1.5px at 20% 20%,#fff3 50%,transparent 51%),radial-gradient(1.5px 1.5px at 74% 30%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 52% 12%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 86% 64%,#fff4 50%,transparent 51%);background-size:auto,260px 260px,300px 300px,200px 200px,340px 340px}
+.pill .kicker{color:var(--yellow)}
+.pill h1{color:var(--yellow);text-shadow:5px 5px 0 var(--accent),10px 10px 0 rgba(0,0,0,.35);transform:skewY(-4deg) rotate(-2deg);letter-spacing:-.03em;margin-bottom:34px}
+.pill .role{font-family:var(--serif);color:#f6e7c4}
+.pill .speaker{opacity:.16}
+.cartouche{border:2px solid var(--line);font-family:var(--cond);letter-spacing:.04em}
+.cartouche>div{border-right:2px solid var(--line)}
+
+/* autocollant « stage → alternance » : timbre or */
+.sticker .flag{background:var(--yellow);border:2.5px solid #141414;font-family:var(--display);font-stretch:normal;font-weight:800;box-shadow:5px 5px 0 #141414}
+
+/* sommaire numéroté façon almanach */
+.toc>li,.toc>li:last-child{border-color:var(--line);border-width:2px}
+.toc .n{font-family:var(--cond);font-size:1.5rem;color:var(--accent)}
+
+/* à propos */
+.about-title{border-bottom:4px solid var(--ink)}
+[data-theme="dark"] .about-title{border-color:var(--line)}
+.about figure img{box-shadow:10px 10px 0 var(--accent);border:3px solid var(--ink);filter:contrast(1.05) saturate(.9)}
+.strengths article{border-top:6px solid var(--accent)}
+.stats{border-width:2px;border-color:var(--line)}
+.stats div{border-right:2px solid var(--line)}
+.stats .disp{color:var(--accent)}
+.pitch{border:2px solid var(--ink);box-shadow:var(--hard)}
+
+/* bandeau de recherche : bande rouge à rayures obliques */
+.banner{background:var(--accent);border-block:4px solid var(--ink);background-image:repeating-linear-gradient(-45deg,rgba(0,0,0,.08) 0 14px,transparent 14px 28px)}
+.banner p{font-family:var(--display);font-stretch:normal;font-weight:800;letter-spacing:-.01em}
+.banner small{font-family:var(--cond);letter-spacing:.12em;text-transform:uppercase;font-size:1rem}
+
+/* fiches missions */
+.hero-band{background:var(--navy);border:3px solid var(--ink);box-shadow:10px 10px 0 var(--accent)}
+.hero-band p{font-family:var(--display);font-stretch:normal;color:var(--yellow);text-shadow:4px 4px 0 var(--accent)}
+.pick .card{border:2px solid var(--ink);background:var(--accent);box-shadow:var(--hard)}
+.pick .t{font-family:var(--cond);font-stretch:normal;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:1.05rem;color:#fff7e6}
+.pick .d{font-family:var(--cond);letter-spacing:.06em;text-transform:uppercase;font-size:.86rem}
+.pick:hover .card{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.pick[aria-pressed="true"] .card{border-color:var(--ink);background:var(--navy);box-shadow:9px 9px 0 var(--yellow)}
+.sheet{border:2px solid var(--ink);box-shadow:var(--hard)}
+[data-theme="dark"] .sheet{border-color:var(--line)}
+.xp-band,.tools-strip{background:var(--navy);border:2px solid var(--ink)}
+.xp-band span{font-family:var(--display);font-stretch:normal;color:var(--yellow)}
+.xp-head h3{color:var(--text)}
+.flow li{font-family:var(--cond);letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+
+/* tableau de valorisation */
+.valo th{background:var(--navy);font-family:var(--cond);font-stretch:normal;font-weight:600;letter-spacing:.12em;font-size:.8rem;border-bottom:4px solid var(--accent)}
+.valo td{border-top:1px solid var(--line)}
+
+/* annexes, contact, pied de page */
+.annexes article{border-top:6px solid var(--accent)}
+.contact-box{background:var(--navy);border:3px solid var(--ink);box-shadow:10px 10px 0 var(--accent)}
+.contact-box h2{color:var(--yellow)}
+footer .disp{color:var(--accent);text-shadow:4px 4px 0 var(--ink)}
+[data-theme="dark"] footer .disp{text-shadow:4px 4px 0 #000}
+
+@media print{
+  .pill,.hero-band,.contact-box,.pick .card,.sheet,.btn,.nav,.pitch,.about figure img{box-shadow:none!important}
+  .pill h1,.hero-band p,footer .disp{text-shadow:none}
+  .pill h1{transform:none}
+  .pill::before,.pill::after{display:none}
+  .sheet{font-size:.93rem}
+}
+@media (prefers-reduced-motion:reduce){.btn:hover,.pick:hover .card{transform:none}}

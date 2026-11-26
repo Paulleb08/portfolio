@@ -118,7 +118,7 @@
     { x: 2.05, y: 10.15, w: .5, d: .3, h: 0, draw: photoshoot },
     { x: 3.45, y: 13.45, w: .3, d: .3, h: 0, draw: busker },
     { x: 5.6, y: 5.6, w: 2.8, d: 2.8, h: 24, doc: 'racines', draw: chateau, extra: 40, below: 1 },
-    { x: 11, y: 1, w: 2, d: 2, h: 84, k: 'dark', draw: screenTower, extra: 30 },
+    { x: 11, y: 1, w: 2, d: 2, h: 84, k: 'dark', doc: 'futur', draw: screenTower, extra: 30, below: 1 },
     { x: 1, y: 15, w: 2, d: 2, h: 30, k: 'brick', doc: 'mode', spot: 'mo-cdpc', draw: petitsChats, extra: 52, below: 1 },
     { x: 0.2, y: 17.25, w: .9, d: .5, h: 7, draw: vinylStall },
     { x: 5.05, y: 10.1, w: 2.9, d: 2.6, h: 0, doc: 'mode', spot: 'mo-defile', draw: fashionShow, extra: 44 },
@@ -454,7 +454,7 @@
     detailed(b); var L = faceL(b), Rf = faceR(b);
     screenOn(L, 4, 22, 40, 50, 'photo', 3, t); screenOn(Rf, 4, 40, 40, 34, 'sil', 2, t); screenOn(Rf, 4, 18, 40, 18, 'word', 5, t);
     [L, Rf].forEach(function (f, i) { fr(f, 0, 12, f.len, 8, '#0a0a0a'); ticker(f, 1, 13, f.len - 2, TICK, t + i * 1700, i ? '#3ef0ff' : '#ffd84a'); });
-    var c = center(b, b.h); R(c[0] - 18, c[1] - 26, 36, 18, '#0a0a0a'); R(c[0] - 17, c[1] - 25, 34, 16, WCOL[(reduce ? 0 : (t / 1500 | 0)) % WCOL.length]); T('SHIBUYA', c[0] - 13, c[1] - 20, '#ffffff'); R(c[0] - 12, c[1] - 8, 2, 8, '#333'); R(c[0] + 10, c[1] - 8, 2, 8, '#333');
+    var c = center(b, b.h); R(c[0] - 18, c[1] - 26, 36, 18, '#0a0a0a'); R(c[0] - 17, c[1] - 25, 34, 16, WCOL[(reduce ? 0 : (t / 1500 | 0)) % WCOL.length]); T('FUTUR', c[0] - 9, c[1] - 20, '#ffffff'); R(c[0] - 12, c[1] - 8, 2, 8, '#333'); R(c[0] + 10, c[1] - 8, 2, 8, '#333');
   }
   function W3(x, y, z) { var q = P(x, y); return [q[0], q[1] - z]; }
   function poly(pts, c) { g.fillStyle = c; g.beginPath(); pts.forEach(function (q, i) { var w = W3(q[0], q[1], q[2]); if (i) g.lineTo(w[0], w[1]); else g.moveTo(w[0], w[1]); }); g.closePath(); g.fill(); }

@@ -258,3 +258,11 @@
 .hanger:hover .spine,.hanger:focus .spine{opacity:0;transform:rotateY(-90deg)}
 @media (max-width:560px){.hanger .spine{width:40px;height:200px}}
 @media print{.hanger .spine{display:none}}
+/* Mon futur : le vrai vision board, photos en grille régulière */
+.future{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.future figure{margin:0;border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:0 8px 22px rgba(20,22,52,.12);display:flex;flex-direction:column}
+.future img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+.future figcaption{padding:10px 12px 12px;font-size:.88rem;line-height:1.35;color:var(--muted)}
+.future figcaption b{display:block;color:var(--accent);font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:.86rem;letter-spacing:.03em;margin-bottom:2px}
+@media (max-width:760px){.future{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.future figcaption{font-size:.78rem}}
+@media print{.future{grid-template-columns:repeat(3,1fr)}.future figure{break-inside:avoid;box-shadow:none;border:1px solid #d8d2c3}}

@@ -178,3 +178,40 @@ section.alt .chapter::after{background:var(--bg-2)}
   section.ch > .wrap > .head h2{position:static;width:auto;height:auto;clip:auto}
   .pill{place-items:center;text-align:center}.pill .btns{justify-content:center}
 }
+
+/* ===== Version plus sobre (demandée par Paul le 26/11/2026) : mêmes animations, moins d'effets =====
+   pas de fusées, de soleil ni de rayons ; pas d'ombres décalées ni de relief rouge ; titres crème, rouge en simple accent. */
+:root,[data-theme="dark"]{--hard:none;--shadow:none}
+[data-theme="dark"] body{background-image:none}
+.btn,.btn:hover,.nav,.pick .card,.pick:hover .card,.sheet,.pitch,.sticker .flag{box-shadow:none}
+.btn:hover,.pick:hover .card{transform:none}
+.pill,.hero-band,.contact-box{box-shadow:none;border-width:1.5px}
+.pill::before,.pill .fly{display:none}
+.pill::after{background:radial-gradient(1px 1px at 20% 20%,#fff3 50%,transparent 51%),radial-gradient(1px 1px at 74% 30%,#fff4 50%,transparent 51%),radial-gradient(1px 1px at 52% 12%,#fff4 50%,transparent 51%);background-size:260px 260px,300px 300px,200px 200px}
+.pill h1,.hero-band p,.contact-box h2{color:#f6e7c4;text-shadow:none}
+.pill h1{transform:none}
+.pill .kicker{color:#d9b54a}
+.about figure img{box-shadow:none;border-width:1.5px}
+.banner{background-image:none;border-block-width:1.5px}
+.sticker{transform:rotate(-3deg)}
+.pick[aria-pressed="true"] .card{box-shadow:none;outline:3px solid var(--accent);outline-offset:3px}
+footer .disp,[data-theme="dark"] footer .disp{text-shadow:none}
+.ch-rays{display:none}
+.ch-stick::before{background:linear-gradient(180deg,rgba(12,14,38,.55),rgba(12,14,38,.9))}
+.ch-title{color:#f6e7c4;text-shadow:none}
+.ch-num{-webkit-text-stroke:1px rgba(246,231,196,.55);opacity:calc(.25 + var(--p) * .45)}
+.ch-tag::first-letter{color:inherit;font-size:1em}
+.ch-words i{color:rgba(246,231,196,.32)}
+.ch-words i::before{color:rgba(246,231,196,.32)}
+.mo-intro p{color:#f6e7c4;text-shadow:none}
+.mo-intro svg{opacity:.45}
+/* Couleur principale : rouge (demandé par Paul le 26/11/2026) — les grandes surfaces passent du bleu nuit au rouge */
+:root{--navy:#b3261e;--accent:#b3261e;--brand:#b3261e}
+[data-theme="dark"]{--navy:#9e2119;--accent:#ff6a50;--brand:#c8331f;--bg:#141010;--bg-2:#1c1515;--surface:#241a19;--line:rgba(244,234,212,.35);--accent-soft:#3a1c18}
+.ch-stick::before{background:linear-gradient(180deg,rgba(120,18,12,.45),rgba(60,8,6,.88))}
+.pick .card{background:#141414}
+.pick[aria-pressed="true"] .card{background:var(--navy)}
+.mo-intro{background:#8f1d16}
+.pill .kicker{color:#f6e7c4;opacity:.8}
+.valo td:first-child{color:var(--accent)}
+.sticker .flag{background:#f6e7c4;border-width:1.5px}
